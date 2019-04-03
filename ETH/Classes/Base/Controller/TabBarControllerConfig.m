@@ -101,14 +101,14 @@
     
     NSDictionary *secondTabBarItemsAttributes =
     @{
-      CYLTabBarItemTitle : @"分类",
+      CYLTabBarItemTitle : @"棋牌娱乐",
       CYLTabBarItemImage : @"1FL",
       CYLTabBarItemSelectedImage : @"FL",
       };
     
     NSDictionary *thirdTabBarItemsAttributes =
   @{
-      CYLTabBarItemTitle : @"购物车",
+      CYLTabBarItemTitle : @"C2C",
       CYLTabBarItemImage : @"1GWC",
       CYLTabBarItemSelectedImage : @"GWC",
     };

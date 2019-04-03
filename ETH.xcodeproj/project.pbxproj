@@ -363,7 +363,7 @@
 			children = (
 				842E822E225458D500CC5188 /* Login(登录) */,
 				842E8237225458D500CC5188 /* Home(首页) */,
-				842E824F225458D500CC5188 /* ChessCard(棋牌) */,
+				842E824F225458D500CC5188 /* ChessCard(棋牌娱乐) */,
 				842E8252225458D500CC5188 /* C2C */,
 				842E8268225458D500CC5188 /* Me(我) */,
 			);
@@ -426,13 +426,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		842E824F225458D500CC5188 /* ChessCard(棋牌) */ = {
+		842E824F225458D500CC5188 /* ChessCard(棋牌娱乐) */ = {
 			isa = PBXGroup;
 			children = (
 				842E8250225458D500CC5188 /* Controller */,
 				842E8251225458D500CC5188 /* View */,
 			);
-			path = "ChessCard(棋牌)";
+			path = "ChessCard(棋牌娱乐)";
 			sourceTree = "<group>";
 		};
 		842E8250225458D500CC5188 /* Controller */ = {
