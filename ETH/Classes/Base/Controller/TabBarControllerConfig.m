@@ -55,7 +55,7 @@
         // 设置一个自定义 View,大小等于 tabBar 的大小
         UIView *bgView = [[UIView alloc] initWithFrame:tabBar.bounds];
         // 给自定义 View 设置颜色
-        bgView.backgroundColor = RGBColorHex(0x080e2c);
+        bgView.backgroundColor = RGBColorHex(0x232833);
         // 将自定义 View 添加到 tabBar 上
         [tabBar insertSubview:bgView atIndex:0];
     }

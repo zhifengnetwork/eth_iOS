@@ -1,5 +1,5 @@
 //
-//  ZFTool.h
+//  ETHTool.h
 //  ZF
 //
 //  Created by apple on 2018/12/30.
@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  通用工具类
  */
-@interface ZFTool : NSObject
+@interface ETHTool : NSObject
 
 /**
  *  是否是邮箱
