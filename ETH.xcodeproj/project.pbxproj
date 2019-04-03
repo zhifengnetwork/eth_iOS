@@ -58,6 +58,9 @@
 		842E831022545D1700CC5188 /* ETHC2C.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E830F22545D1700CC5188 /* ETHC2C.m */; };
 		842E831322545D2300CC5188 /* ETHMeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E831222545D2300CC5188 /* ETHMeVC.m */; };
 		842E831622545DEA00CC5188 /* ETHLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E831522545DEA00CC5188 /* ETHLoginVC.m */; };
+		842E8319225490AA00CC5188 /* ETHBannerHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E8317225490AA00CC5188 /* ETHBannerHeadView.m */; };
+		842E831C2254931800CC5188 /* ETHHomePageTitleHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E831B2254931800CC5188 /* ETHHomePageTitleHeadView.m */; };
+		842E831F2254988F00CC5188 /* ETHHomeCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E831D2254988F00CC5188 /* ETHHomeCollectionCell.m */; };
 		D38830E09EAB5630C6A883D1 /* libPods-ETH.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44F2DF4E3D8F7BC3C2DC6DA4 /* libPods-ETH.a */; };
 		EECDC1A49A2E618E888B3FBD /* libPods-ETHUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42CF981EC7976CAFA4C5A0E8 /* libPods-ETHUITests.a */; };
 /* End PBXBuildFile section */
@@ -185,6 +188,12 @@
 		842E831222545D2300CC5188 /* ETHMeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHMeVC.m; sourceTree = "<group>"; };
 		842E831422545DEA00CC5188 /* ETHLoginVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETHLoginVC.h; sourceTree = "<group>"; };
 		842E831522545DEA00CC5188 /* ETHLoginVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHLoginVC.m; sourceTree = "<group>"; };
+		842E8317225490AA00CC5188 /* ETHBannerHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHBannerHeadView.m; sourceTree = "<group>"; };
+		842E8318225490AA00CC5188 /* ETHBannerHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETHBannerHeadView.h; sourceTree = "<group>"; };
+		842E831A2254931800CC5188 /* ETHHomePageTitleHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETHHomePageTitleHeadView.h; sourceTree = "<group>"; };
+		842E831B2254931800CC5188 /* ETHHomePageTitleHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHHomePageTitleHeadView.m; sourceTree = "<group>"; };
+		842E831D2254988F00CC5188 /* ETHHomeCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHHomeCollectionCell.m; sourceTree = "<group>"; };
+		842E831E2254988F00CC5188 /* ETHHomeCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETHHomeCollectionCell.h; sourceTree = "<group>"; };
 		B9CA3396377FAC4781496C8A /* Pods-ETHTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ETHTests.release.xcconfig"; path = "Target Support Files/Pods-ETHTests/Pods-ETHTests.release.xcconfig"; sourceTree = "<group>"; };
 		C9D430F2F66D790E2212299F /* Pods-ETHTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ETHTests.debug.xcconfig"; path = "Target Support Files/Pods-ETHTests/Pods-ETHTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DAC1BDA2ACB94A9572322151 /* Pods-ETHUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ETHUITests.debug.xcconfig"; path = "Target Support Files/Pods-ETHUITests/Pods-ETHUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -422,6 +431,12 @@
 		842E823B225458D500CC5188 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				842E8318225490AA00CC5188 /* ETHBannerHeadView.h */,
+				842E8317225490AA00CC5188 /* ETHBannerHeadView.m */,
+				842E831A2254931800CC5188 /* ETHHomePageTitleHeadView.h */,
+				842E831B2254931800CC5188 /* ETHHomePageTitleHeadView.m */,
+				842E831E2254988F00CC5188 /* ETHHomeCollectionCell.h */,
+				842E831D2254988F00CC5188 /* ETHHomeCollectionCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -930,13 +945,16 @@
 				842E82F3225458D500CC5188 /* BaseCollectionHeadView.m in Sources */,
 				842E82F5225458D500CC5188 /* HMEmoticonTipView.m in Sources */,
 				842E831622545DEA00CC5188 /* ETHLoginVC.m in Sources */,
+				842E831C2254931800CC5188 /* ETHHomePageTitleHeadView.m in Sources */,
 				842E8300225458D500CC5188 /* HMEmoticonTextView.m in Sources */,
 				842E82C7225458D500CC5188 /* UIImage+WaterMark.m in Sources */,
 				842E82FD225458D500CC5188 /* HMEmoticon.m in Sources */,
 				842E82ED225458D500CC5188 /* BaseNaviViewController.m in Sources */,
+				842E8319225490AA00CC5188 /* ETHBannerHeadView.m in Sources */,
 				842E830D22545CBE00CC5188 /* ETHHomeVC.m in Sources */,
 				842E82CB225458D500CC5188 /* LoginPhoneView.m in Sources */,
 				842E82FB225458D500CC5188 /* NSBundle+HMEmoticon.m in Sources */,
+				842E831F2254988F00CC5188 /* ETHHomeCollectionCell.m in Sources */,
 				842E82F4225458D500CC5188 /* UIView+HJViewStyle.m in Sources */,
 				842E82CD225458D500CC5188 /* LoginTypeView.m in Sources */,
 				842E82CA225458D500CC5188 /* JKCountDownButton.m in Sources */,
