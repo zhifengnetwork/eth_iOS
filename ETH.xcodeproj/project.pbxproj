@@ -551,11 +551,11 @@
 		842E828A225458D500CC5188 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				842E828F225458D500CC5188 /* BaseNaviViewController.h */,
 				842E828B225458D500CC5188 /* BaseNaviViewController.m */,
 				842E828C225458D500CC5188 /* BaseTabBarController.h */,
-				842E828D225458D500CC5188 /* TabBarControllerConfig.h */,
 				842E828E225458D500CC5188 /* BaseTabBarController.m */,
-				842E828F225458D500CC5188 /* BaseNaviViewController.h */,
+				842E828D225458D500CC5188 /* TabBarControllerConfig.h */,
 				842E8290225458D500CC5188 /* TabBarControllerConfig.m */,
 			);
 			path = Controller;

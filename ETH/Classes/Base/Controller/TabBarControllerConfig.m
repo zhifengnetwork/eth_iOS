@@ -47,7 +47,7 @@
         // 拿到 TabBar 在拿到想应的item
         UITabBar *tabBar = _tabBarController.tabBar;
         //修改字体颜色
-        tabBar.tintColor = RGBMainColor;
+        tabBar.tintColor = [UIColor whiteColor];
         //tabBar.backgroundColor = RGBColorHex(0x5e5d63);
         
         
@@ -55,7 +55,7 @@
         // 设置一个自定义 View,大小等于 tabBar 的大小
         UIView *bgView = [[UIView alloc] initWithFrame:tabBar.bounds];
         // 给自定义 View 设置颜色
-        bgView.backgroundColor = RGBColor(225,225,225);
+        bgView.backgroundColor = RGBColorHex(0x080e2c);
         // 将自定义 View 添加到 tabBar 上
         [tabBar insertSubview:bgView atIndex:0];
     }
@@ -95,29 +95,29 @@
     NSDictionary *firstTabBarItemsAttributes =
     @{
       CYLTabBarItemTitle : @"首页",
-      CYLTabBarItemImage : @"1SY",
-      CYLTabBarItemSelectedImage : @"SY",
+      CYLTabBarItemImage : @"home page1",
+      CYLTabBarItemSelectedImage : @"home page",
       };
     
     NSDictionary *secondTabBarItemsAttributes =
     @{
       CYLTabBarItemTitle : @"棋牌娱乐",
-      CYLTabBarItemImage : @"1FL",
-      CYLTabBarItemSelectedImage : @"FL",
+      CYLTabBarItemImage : @"Chess",
+      CYLTabBarItemSelectedImage : @"Chess1",
       };
     
     NSDictionary *thirdTabBarItemsAttributes =
   @{
       CYLTabBarItemTitle : @"C2C",
-      CYLTabBarItemImage : @"1GWC",
-      CYLTabBarItemSelectedImage : @"GWC",
+      CYLTabBarItemImage : @"two",
+      CYLTabBarItemSelectedImage : @"two1",
     };
     
     NSDictionary *fourthTabBarItemsAttributes =
     @{
       CYLTabBarItemTitle : @"我的",
-      CYLTabBarItemImage : @"1WD",
-      CYLTabBarItemSelectedImage : @"WD"
+      CYLTabBarItemImage : @"My",
+      CYLTabBarItemSelectedImage : @"my1"
       };
     
     NSArray *tabBarItemsAttributes = @[
