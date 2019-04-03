@@ -12,6 +12,8 @@
 #import "ETHHomePageTitleHeadView.h"
 #import "ETHHomeCollectionCell.h"
 #import "PYSearchViewController.h"
+#import "ETHInvestmentRecordVC.h"
+#import "ETHInvestmentPurchaseVC.h"
 
 
 @interface ETHHomeVC ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
@@ -36,6 +38,8 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self setupUI];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -54,8 +58,8 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
 
 - (void)setupUI
 {
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.collectionView.backgroundColor = TableViewBGColor;
+    self.view.backgroundColor = RGBColorHex(0x080e2c);
+    self.collectionView.backgroundColor = RGBColorHex(0x080e2c);
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
@@ -74,11 +78,14 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
 //有多少分组
 - (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
+    if (section==0) {
+        return 0;
+    }
     return 6;
 }
 
@@ -86,7 +93,7 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell *gridcell = nil;
-    if (indexPath.section == 0)
+    if (indexPath.section == 1)
     {
         ETHHomeCollectionCell *oell = [collectionView dequeueReusableCellWithReuseIdentifier:ETHHomeCollectionCellID forIndexPath:indexPath];
         
@@ -169,10 +176,10 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
 #pragma mark - item宽高
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0)
+    if (indexPath.section == 1)
     {
         //9宫格组
-        return CGSizeMake(LL_ScreenWidth/2 , LL_ScreenWidth/2 - 15);
+        return CGSizeMake((LL_ScreenWidth - 4)/2, (LL_ScreenWidth - 4)/2 - 85);
     }
    
     return CGSizeZero;
@@ -205,11 +212,11 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
 {
     if (section == 0)
     {
-        return CGSizeMake(LL_ScreenWidth, 100+64); //图片滚动的宽高
+        return CGSizeMake(LL_ScreenWidth, 100+110); //图片滚动的宽高
     }
     else if (section == 1)
     {
-        return CGSizeMake(LL_ScreenWidth, 30);
+        return CGSizeMake(LL_ScreenWidth, 40);
     }
     return CGSizeZero;
 }
@@ -236,18 +243,18 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
 //点击事件
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section==0)
+    if (indexPath.section==1)
     {
-//        if (indexPath.row==0)
-//        {
-//            ZFSelectedVC* vc = [[ZFSelectedVC alloc]init];
-//            [self.navigationController pushViewController:vc animated:YES];
-//        }
-//        else if (indexPath.row==1)
-//        {
-//            ZFFillOrderVC* vc = [[ZFFillOrderVC alloc]init];
-//            [self.navigationController pushViewController:vc animated:YES];
-//        }
+        if (indexPath.row==0)
+        {
+            ETHInvestmentRecordVC* vc = [[ETHInvestmentRecordVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        else if (indexPath.row==4)
+        {
+            ETHInvestmentPurchaseVC* vc = [[ETHInvestmentPurchaseVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
 }
 
@@ -310,8 +317,6 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
         [_imageUrls addObject:@"http://gfs5.gomein.net.cn/T1obZ_BmLT1RCvBVdK.jpg"];
         [_imageUrls addObject:@"http://gfs9.gomein.net.cn/T1C3J_B5LT1RCvBVdK.jpg"];
         [_imageUrls addObject:@"http://gfs5.gomein.net.cn/T1CwYjBCCT1RCvBVdK.jpg"];
-        [_imageUrls addObject:@"http://gfs7.gomein.net.cn/T1u8V_B4ET1RCvBVdK.jpg"];
-        [_imageUrls addObject:@"http://gfs7.gomein.net.cn/T1zODgB5CT1RCvBVdK.jpg"];
     }
     return _imageUrls;
 }

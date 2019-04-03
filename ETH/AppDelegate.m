@@ -12,7 +12,7 @@
 #import "BaseNaviViewController.h"
 #import "ETHLoginVC.h"
 #import "HttpTool.h"
-#import "ZFTool.h"
+#import "ETHTool.h"
 #import "UserInfoModel.h"
 #import <SDWebImage/SDWebImageManager.h>
 
@@ -128,7 +128,7 @@
     //导航条上UIBarButtonItem颜色
     //[UINavigationBar appearance].tintColor = [UIColor whiteColor];
     //导航条的背景颜色
-    [[UINavigationBar appearance] setBackgroundImage:[ZFTool Color2Image:[UIColor whiteColor]] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setBackgroundImage:[ETHTool Color2Image:[UIColor whiteColor]] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     
     if (@available(ios 11.0,*)) {
         UIScrollView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;

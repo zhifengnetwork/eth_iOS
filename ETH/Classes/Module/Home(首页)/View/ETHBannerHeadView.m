@@ -33,7 +33,7 @@
 - (void)setupUI
 {
     self.backgroundColor = RGBMainColor;
-    _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, LL_ScreenWidth, 100+64) delegate:self placeholderImage:nil];
+    _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, LL_ScreenWidth, 100+110) delegate:self placeholderImage:nil];
     _cycleScrollView.bannerImageViewContentMode = UIViewContentModeScaleAspectFill;
     _cycleScrollView.autoScrollTimeInterval = 3.0;
     
@@ -41,10 +41,10 @@
     [self addSubview:self.shareButton];
     
     [_shareButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self->_cycleScrollView.mas_right).offset(15);
+        make.right.equalTo(self->_cycleScrollView.mas_right).offset(13);
         make.centerY.equalTo(self->_cycleScrollView);
-        make.width.mas_equalTo(55);
-        make.height.mas_equalTo(25);
+        make.width.mas_equalTo(60);
+        make.height.mas_equalTo(30);
     }];
 }
 
@@ -71,7 +71,7 @@
         _shareButton.backgroundColor = RGBColorHex(0x1693d3);
         [_shareButton setTitleColor:RGBColorHex(0xffffff) forState:UIControlStateNormal];
         _shareButton.titleLabel.font = [UIFont systemFontOfSize:12];
-        _shareButton.layer.cornerRadius = 30;
+        _shareButton.layer.cornerRadius = 15;
         _shareButton.clipsToBounds = YES;
         [_shareButton addTarget:self action:@selector(shareButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }

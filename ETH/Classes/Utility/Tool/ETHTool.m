@@ -1,17 +1,17 @@
 //
-//  ZFTool.m
+//  ETHTool.m
 //  ZF
 //
 //  Created by apple on 2018/12/30.
 //  Copyright © 2018 LS. All rights reserved.
 //
 
-#import "ZFTool.h"
+#import "ETHTool.h"
 #import "SDWebImageManager.h"
 #import <DateTools.h>
 
 
-@implementation ZFTool
+@implementation ETHTool
 
 /**
  *  是否是邮箱
@@ -90,7 +90,7 @@
         return nil;
     }
     
-    NSDate* date = [ZFTool UnixTimeToDate:datelineString.longLongValue];
+    NSDate* date = [ETHTool UnixTimeToDate:datelineString.longLongValue];
     return date.timeAgoSinceNow;
 }
 
@@ -144,7 +144,7 @@
     NSError *error;
     
     //清空tmp目录
-    NSString* path = [ZFTool GetAppTmpPath];
+    NSString* path = [ETHTool GetAppTmpPath];
     [fileMgr removeItemAtPath:path error:&error];
 }
 
