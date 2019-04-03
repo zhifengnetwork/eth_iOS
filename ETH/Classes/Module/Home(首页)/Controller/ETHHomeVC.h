@@ -10,6 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ 首页
+ */
 @interface ETHHomeVC : UIViewController
 
 @end
