@@ -22,10 +22,10 @@
     return self;
 }
 - (void)setup{
-    [self addSubview:self.iconImageView];
-    [self addSubview:self.titleLabel];
-    [self addSubview:self.jumpImageView];
-    [self addSubview:self.lineView];
+    [self.contentView addSubview:self.iconImageView];
+    [self.contentView addSubview:self.titleLabel];
+    [self.contentView addSubview:self.jumpImageView];
+    [self.contentView addSubview:self.lineView];
     [_iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_centerY);
         make.left.equalTo(self).with.offset(10);

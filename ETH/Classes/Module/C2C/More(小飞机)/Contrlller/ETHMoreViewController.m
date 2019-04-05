@@ -1,30 +1,27 @@
 //
-//  ETHC2C.m
+//  ETHMoreViewController.m
 //  ETH
 //
-//  Created by admin on 2019/4/3.
+//  Created by weiming zhang on 2019/4/5.
 //  Copyright © 2019 admin. All rights reserved.
 //
 
-#import "ETHC2C.h"
-#import "ETHBuyVC.h"
-#import "ETHTitleView.h"
-@interface ETHC2C ()
-@property (nonatomic, strong)ETHBuyVC *vc1;
-@property (nonatomic, strong)ETHBuyVC *vc2;
-
+#import "ETHMoreViewController.h"
+#import "ETHOrderVC.h"
+#import "ETHAdvertisementVC.h"
+#import "ETHComplaintVC.h"
+@interface ETHMoreViewController ()
+@property (nonatomic, strong)ETHOrderVC *vc1;
+@property (nonatomic, strong)ETHAdvertisementVC *vc2;
+@property (nonatomic, strong)ETHComplaintVC *vc3;
 @end
 
-@implementation ETHC2C
+@implementation ETHMoreViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setup];
+    
 }
-- (void)setup{
-    self.navigationController.navigationBar.hidden = YES;
-}
-
 - (void)viewWillAppear:(BOOL)animated{
     self.menuViewStyle = WMMenuViewStyleLine;
     self.titleFontName = @"PingFangSC-Semibold";
@@ -32,6 +29,7 @@
     //    [LKTool isHiddenNavigationBarSeparatorLine:NO vc:self];
     [self.vc1 addObserver:self forKeyPath:@"ccount" options:NSKeyValueObservingOptionNew context:nil];
     [self.vc2 addObserver:self forKeyPath:@"ccount" options:NSKeyValueObservingOptionNew context:nil];
+    [self.vc3 addObserver:self forKeyPath:@"ccount" options:NSKeyValueObservingOptionNew context:nil];
     
 }
 - (UIColor *)menuView:(WMMenuView *)menu titleColorForState:(WMMenuItemState)state atIndex:(NSInteger)index{
@@ -45,18 +43,22 @@
     //    [LKTool isHiddenNavigationBarSeparatorLine:YES vc:self];
     [self.vc1 removeObserver:self forKeyPath:@"ccount" context:nil];
     [self.vc2 removeObserver:self forKeyPath:@"ccount" context:nil];
+    [self.vc3 removeObserver:self forKeyPath:@"ccount" context:nil];
 }
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController{
-    return 2;
+    return 3;
 }
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index{
     if (index==0)
     {
-        return @"买入";
+        return @"我的订单";
     }
-    else
+    else if(index==1)
     {
-        return @"卖出";
+        return @"发布广告";
+    }
+    else{
+        return @"我的申诉";
     }
 }
 - (UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index{
@@ -64,14 +66,16 @@
     {
         return self.vc1;
     }
-    else
+    else if(index==1)
     {
         return self.vc2;
+    }else{
+        return self.vc3;
     }
 }
 - (CGFloat)menuView:(WMMenuView *)menu widthForItemAtIndex:(NSInteger)index
 {
-    CGFloat width = LL_ScreenWidth/2;
+    CGFloat width = LL_ScreenWidth/3;
     return width;
     
 }
@@ -89,24 +93,34 @@
     return CGRectMake(0, originY,LL_ScreenWidth, LL_ScreenHeight - originY);
 }
 
--(ETHBuyVC *)vc1
+-(ETHOrderVC *)vc1
 {
     if (_vc1==nil)
     {
-        _vc1 = [[ETHBuyVC alloc]init];
-        _vc1.type = 0;
+        _vc1 = [[ETHOrderVC alloc]init];
     }
     return _vc1;
 }
 
--(ETHBuyVC *)vc2
+-(ETHAdvertisementVC *)vc2
 {
     if (_vc2==nil)
     {
-        _vc2 = [[ETHBuyVC alloc]init];
-        _vc2.type = 1;
+        _vc2 = [[ETHAdvertisementVC alloc]init];
     }
     return _vc2;
 }
+- (ETHComplaintVC *)vc3{
+    if (_vc3==nil)
+    {
+        _vc3 = [[ETHComplaintVC alloc]init];
+    }
+    return _vc3;
+}
+    
+- (void)backClick{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 @end
