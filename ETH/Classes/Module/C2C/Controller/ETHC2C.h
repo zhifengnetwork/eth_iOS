@@ -6,12 +6,9 @@
 //  Copyright © 2019 admin. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "WMPageController.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface ETHC2C : UIViewController
+@interface ETHC2C : WMPageController
 
 @end
 
-NS_ASSUME_NONNULL_END

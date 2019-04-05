@@ -22,7 +22,6 @@
     return self;
 }
 - (void)setup{
-    self.backgroundColor = RGBColorHex(0x142241);
     [self addSubview:self.iconImageView];
     [self addSubview:self.titleLabel];
     [self addSubview:self.jumpImageView];
@@ -56,7 +55,7 @@
     if (_titleLabel == nil) {
         _titleLabel = [[UILabel alloc]init];
         _titleLabel.font = [UIFont systemFontOfSize:15];
-        _titleLabel.textColor = RGBColorHex(0xffffff);
+        _titleLabel.textColor = [UIColor blackColor];
         _titleLabel.text = @"支付管理";
     }
     return _titleLabel;
