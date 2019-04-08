@@ -31,8 +31,8 @@
 @property (nonatomic, strong) UITextField *passwordTextField;
 
 @property (nonatomic, strong) UIButton *loginButton;
-@property (nonatomic, strong) UIButton *wmButton;
 @property (nonatomic, strong) UIButton *zcButton;
+@property (nonatomic, strong) UIButton *passwordButton;
 
 @property (nonatomic, strong) UIButton *testButton;
 
@@ -75,8 +75,8 @@
     [self.view addSubview:self.passwordTextField];
     
     [self.view addSubview:self.loginButton];
-    [self.view addSubview:self.wmButton];
     [self.view addSubview:self.zcButton];
+    [self.view addSubview:self.passwordButton];
     
     [_bjIconView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
@@ -111,7 +111,7 @@
         make.top.bottom.equalTo(self->_bgView);
         make.right.mas_equalTo(-15);
     }];
-
+    
     [_icon2View mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self->_bg1View.mas_left).offset(10);
         make.centerY.equalTo(self->_bg1View);
@@ -135,7 +135,7 @@
         make.top.equalTo(self->_loginButton.mas_bottom).offset(5);
     }];
     
-    [_wmButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_passwordButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(-10);
         make.top.equalTo(self->_loginButton.mas_bottom).offset(5);
     }];
@@ -164,15 +164,16 @@
 //注册按钮被点击
 -(void)zcButtonDidClick
 {
-//    ETHRegisterVC* vc = [[ETHRegisterVC alloc]init];
-//    [self.navigationController pushViewController:vc animated:YES];
+        ETHRegisterVC* vc = [[ETHRegisterVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
 }
 
 //密码找回按钮被点击
 -(void)wmButtonDidClick
 {
-    //    ZFAccountModificationVC* vc = [[ZFAccountModificationVC alloc]init];
-    //    [self.navigationController pushViewController:vc animated:YES];
+    ETHRegisterVC* vc = [[ETHRegisterVC alloc]init];
+    vc.loginTitle = @"立即找回";
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)testButtonDidClick
@@ -227,6 +228,12 @@
         _phoneTextField.placeholder = @"请您输入您的手机号码";
         _phoneTextField.font = [UIFont systemFontOfSize:12];
         _phoneTextField.textColor = RGBColorHex(0xffffff);
+        // 重点
+        NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:@"请您输入您的手机号码" attributes:
+                                          @{NSForegroundColorAttributeName:RGBColorHex(0x92a0b3),
+                                            NSFontAttributeName:_phoneTextField.font
+                                            }];
+        _phoneTextField.attributedPlaceholder = attrString;
         _phoneTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
     }
@@ -238,9 +245,16 @@
         _passwordTextField = [[UITextField alloc] init];
         _passwordTextField.placeholder = @"请您输入您的登录密码";
         _passwordTextField.font = [UIFont systemFontOfSize:12];
-        _passwordTextField.textColor = RGBColorHex(0x92a0b3);
+        _passwordTextField.textColor = RGBColorHex(0xffffff);
+        // 重点
+        NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:@"请您输入您的登录密码" attributes:
+                                          @{NSForegroundColorAttributeName:RGBColorHex(0x92a0b3),
+                                            NSFontAttributeName:_passwordTextField.font
+                                            }];
+        _passwordTextField.attributedPlaceholder = attrString;
         _passwordTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _passwordTextField.keyboardType = UIKeyboardTypeNumberPad;
+        _passwordTextField.secureTextEntry = YES;
     }
     return _passwordTextField;
 }
@@ -320,22 +334,22 @@
     return _zcButton;
 }
 
-- (UIButton *)wmButton {
-    if (_wmButton == nil) {
-        _wmButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_wmButton setTitle:@"密码找回" forState:UIControlStateNormal];
-        _wmButton.titleLabel.font = [UIFont systemFontOfSize:10];
-        [_wmButton setTitleColor:RGBColorHex(0xdfe4eb) forState:UIControlStateNormal];
-        [_wmButton addTarget:self action:@selector(wmButtonDidClick) forControlEvents:UIControlEventTouchUpInside];
+- (UIButton *)passwordButton {
+    if (_passwordButton == nil) {
+        _passwordButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_passwordButton setTitle:@"密码找回" forState:UIControlStateNormal];
+        _passwordButton.titleLabel.font = [UIFont systemFontOfSize:10];
+        [_passwordButton setTitleColor:RGBColorHex(0xdfe4eb) forState:UIControlStateNormal];
+        [_passwordButton addTarget:self action:@selector(wmButtonDidClick) forControlEvents:UIControlEventTouchUpInside];
     }
-    return _wmButton;
+    return _passwordButton;
 }
 
 - (UIButton *)testButton {
     if (_testButton == nil) {
         _testButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_testButton setTitle:@"测试账号" forState:UIControlStateNormal];
-        [_testButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [_testButton setTitleColor:RGBColorHex(0xffffff) forState:UIControlStateNormal];
         [_testButton addTarget:self action:@selector(testButtonDidClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _testButton;
