@@ -10,6 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ 登录首页
+ */
 @interface ETHLoginVC : UIViewController
 
 @end
