@@ -82,7 +82,7 @@
 
 - (CGRect)pageController:(WMPageController *)pageController preferredFrameForMenuView:(WMMenuView *)menuView
 {
-    CGFloat originY = 64;
+    CGFloat originY = LL_StatusBarAndNavigationBarHeight;
     return CGRectMake(0, originY, LL_ScreenWidth, 44);
 }
 

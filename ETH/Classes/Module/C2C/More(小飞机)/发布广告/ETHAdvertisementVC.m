@@ -26,10 +26,10 @@
     [self.view addSubview:self.backImg];
     [_titleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
-        make.height.mas_equalTo(113);
+        make.height.mas_equalTo(LL_StatusBarAndNavigationBarHeight +55);
     }];
     [_backImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.titleView.mas_bottom).with.offset(-49);
+        make.top.equalTo(self.titleView.mas_bottom).with.offset(-60);
         make.left.right.bottom.equalTo(self.view);
     }];
     

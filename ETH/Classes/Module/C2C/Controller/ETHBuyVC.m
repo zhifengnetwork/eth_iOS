@@ -32,10 +32,10 @@ static NSString *const ETHBuyTableViewCellID = @"ETHBuyTableViewCellID";
     [self.view addSubview:self.tableView];
     [_titleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
-        make.height.mas_equalTo(113);
+        make.height.mas_equalTo(LL_StatusBarAndNavigationBarHeight +60);
     }];
     [_backImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.titleView.mas_bottom).with.offset(-49);
+        make.top.equalTo(self.titleView.mas_bottom).with.offset(-60);
         make.left.right.bottom.equalTo(self.view);
     }];
     if (0) {
@@ -59,6 +59,7 @@ static NSString *const ETHBuyTableViewCellID = @"ETHBuyTableViewCellID";
 - (UIView *)titleView{
     if (_titleView == nil) {
         _titleView = [[ETHTitleView alloc]init];
+        [_titleView hideLeftBtn:YES];
     }
     return _titleView;
 }
