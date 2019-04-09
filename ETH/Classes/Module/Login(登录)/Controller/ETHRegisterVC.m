@@ -48,6 +48,28 @@
 
     self.view.backgroundColor = [UIColor whiteColor];
     [self setupUI];
+    if (self.type.intValue==0)
+    {
+        [self.loginButton setTitle:@"立即注册" forState:UIControlStateNormal];
+    }
+    else
+    {
+        [self.loginButton setTitle:@"找回密码" forState:UIControlStateNormal];
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 
 
@@ -79,7 +101,7 @@
     
     [_headView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.view);
-        make.top.equalTo(self.view).offset(39+LL_NavigationBarHeight);
+        make.top.equalTo(self.view).offset(19+LL_StatusBarAndNavigationBarHeight);
     }];
     
     [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -181,11 +203,6 @@
 
 }
 
-- (void)setLoginTitle:(NSString *)loginTitle
-{
-    _loginTitle = loginTitle;
-    [_loginButton setTitle:_loginTitle forState:UIControlStateNormal];
-}
 
 -(void)vcodeButtonDidClick
 {

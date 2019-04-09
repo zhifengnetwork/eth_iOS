@@ -52,13 +52,19 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
+        [self.navigationController setNavigationBarHidden:YES animated:animated];
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+        //设置状态栏与到导航栏都是透明
+        self.navigationController.navigationBar.translucent = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
+        [self.navigationController setNavigationBarHidden:NO animated:animated];
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+        //设置状态栏与到导航栏都是不透明
+        self.navigationController.navigationBar.translucent = NO;
 }
 
 
@@ -84,7 +90,7 @@
     
     [_headView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.view);
-        make.top.equalTo(self.view).offset(39+LL_NavigationBarHeight);
+        make.top.equalTo(self.view).offset(19+LL_StatusBarAndNavigationBarHeight);
     }];
     
     [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -164,15 +170,16 @@
 //注册按钮被点击
 -(void)zcButtonDidClick
 {
-        ETHRegisterVC* vc = [[ETHRegisterVC alloc]init];
-        [self.navigationController pushViewController:vc animated:YES];
+    ETHRegisterVC* vc = [[ETHRegisterVC alloc]init];
+    vc.type = @"0";
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 //密码找回按钮被点击
 -(void)wmButtonDidClick
 {
     ETHRegisterVC* vc = [[ETHRegisterVC alloc]init];
-    vc.loginTitle = @"立即找回";
+    vc.type = @"1";
     [self.navigationController pushViewController:vc animated:YES];
 }
 
