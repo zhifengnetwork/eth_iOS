@@ -12,11 +12,13 @@
 #import "LoginTypeView.h"
 #import "UIImageView+WebCache.h"
 #import "UIButton+LXMImagePosition.h"
+#import "ETHLoginVC.h"
 
 
 @interface ETHRegisterVC ()<LoginTypeViewDelegate>
 
 @property (nonatomic, strong) UIImageView* bjIconView;
+@property (nonatomic, strong) UIButton *returnButton;
 @property (nonatomic, strong) UIImageView* headView;
 
 @property (nonatomic, strong) UIView *bgView;
@@ -54,7 +56,7 @@
     }
     else
     {
-        [self.loginButton setTitle:@"找回密码" forState:UIControlStateNormal];
+        [self.loginButton setTitle:@"立即找回" forState:UIControlStateNormal];
     }
 }
 
@@ -76,6 +78,7 @@
 - (void)setupUI
 {
     [self.view addSubview:self.bjIconView];
+    [self.view addSubview:self.returnButton];
     [self.view addSubview:self.headView];
     [self.view addSubview:self.bgView];
     [self.view addSubview:self.bg1View];
@@ -102,6 +105,11 @@
     [_headView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.view);
         make.top.equalTo(self.view).offset(19+LL_StatusBarAndNavigationBarHeight);
+    }];
+    
+    [_returnButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(20);
+        make.top.mas_equalTo(30);
     }];
     
     [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -216,13 +224,23 @@
 
 - (void)wmButtonDidClick
 {
-    
+    ETHRegisterVC* vc = [[ETHRegisterVC alloc]init];
+    vc.type = @"1";
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)twoLoginButtonDidClick
 {
-    
+    ETHLoginVC* vc = [[ETHLoginVC alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
+
+- (void)returnButtonDidClick
+{
+    ETHLoginVC* vc = [[ETHLoginVC alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 
 - (UIImageView *)bjIconView {
     if (_bjIconView == nil) {
@@ -447,5 +465,15 @@
     return _vcodeButton;
 }
 
+- (UIButton *)returnButton {
+    if (_returnButton == nil) {
+        _returnButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_returnButton setImage:[UIImage imageNamed:@"Left arrow"] forState:UIControlStateNormal];
+        _returnButton.titleLabel.font = [UIFont systemFontOfSize:10];
+        [_returnButton setTitleColor:RGBColorHex(0xdfe4eb) forState:UIControlStateNormal];
+        [_returnButton addTarget:self action:@selector(returnButtonDidClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _returnButton;
+}
 
 @end

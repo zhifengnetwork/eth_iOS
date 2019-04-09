@@ -1,23 +1,28 @@
 //
-//  ETHInvestmentPurchaseVC.m
+//  ETHDefinitePurchaseVC.m
 //  ETH
 //
-//  Created by admin on 2019/4/3.
+//  Created by admin on 2019/4/9.
 //  Copyright © 2019 admin. All rights reserved.
 //
 
-#import "ETHInvestmentPurchaseVC.h"
-#import "ETHInvestmentPurchaseTableCell.h"
-#import "ETHPaymentTableCell.h"
 #import "ETHDefinitePurchaseVC.h"
+#import "ETHCurrentInvestmentTableCell.h"
+#import "ETHInvestmentPurchaseTableCell.h"
+#import "ETHQRCodeTableCell.h"
+#import "ETHReceiptAddressTableCell.h"
+#import "ETHPaymentTableCell.h"
 
-@interface ETHInvestmentPurchaseVC ()
+@interface ETHDefinitePurchaseVC ()
 
 @end
 
-@implementation ETHInvestmentPurchaseVC
+@implementation ETHDefinitePurchaseVC
 
+static NSString *const ETHCurrentInvestmentTableCellID = @"ETHCurrentInvestmentTableCellID";
 static NSString *const ETHInvestmentPurchaseTableCellID = @"ETHInvestmentPurchaseTableCellID";
+static NSString *const ETHQRCodeTableCellID = @"ETHQRCodeTableCellID";
+static NSString *const ETHReceiptAddressTableCellID = @"ETHReceiptAddressTableCellID";
 static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
 
 
@@ -61,14 +66,17 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
+    [self.tableView registerClass:[ETHCurrentInvestmentTableCell class] forCellReuseIdentifier:ETHCurrentInvestmentTableCellID];
     [self.tableView registerClass:[ETHInvestmentPurchaseTableCell class] forCellReuseIdentifier:ETHInvestmentPurchaseTableCellID];
+    [self.tableView registerClass:[ETHQRCodeTableCell class] forCellReuseIdentifier:ETHQRCodeTableCellID];
+    [self.tableView registerClass:[ETHReceiptAddressTableCell class] forCellReuseIdentifier:ETHReceiptAddressTableCellID];
     [self.tableView registerClass:[ETHPaymentTableCell class] forCellReuseIdentifier:ETHPaymentTableCellID];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 5;
+    return 8;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -80,37 +88,66 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
 {
     UITableViewCell *cell = nil;
     
-    ETHInvestmentPurchaseTableCell* scell = [tableView dequeueReusableCellWithIdentifier:ETHInvestmentPurchaseTableCellID];
-    scell = [[ETHInvestmentPurchaseTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHInvestmentPurchaseTableCellID];
+    ETHCurrentInvestmentTableCell* scell = [tableView dequeueReusableCellWithIdentifier:ETHCurrentInvestmentTableCellID];
+    scell = [[ETHCurrentInvestmentTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHCurrentInvestmentTableCellID];
     
     if (indexPath.section==0)
     {
         scell.title = @"当前投资额：";
+        scell.name = @"1.000.00";
         
         cell = scell;
     }
     else if (indexPath.section==1)
     {
-        scell.title = @"激活投资：";
+         ETHInvestmentPurchaseTableCell* ocell = [tableView dequeueReusableCellWithIdentifier:ETHInvestmentPurchaseTableCellID];
+        ocell = [[ ETHInvestmentPurchaseTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: ETHInvestmentPurchaseTableCellID];
+        ocell.title = @"追加投资：";
         
-        cell = scell;
+        cell = ocell;
     }
     else if (indexPath.section==2)
     {
         scell.title = @"账户投资上限：";
+        scell.name = @"50.000000.00";
         
         cell = scell;
     }
     else if (indexPath.section==3)
     {
         scell.title = @"当前最多可投资：";
+        scell.name = @"-950";
         
         cell = scell;
     }
     else if (indexPath.section==4)
     {
+        ETHQRCodeTableCell* pcell = [tableView dequeueReusableCellWithIdentifier:ETHQRCodeTableCellID];
+        pcell = [[ETHQRCodeTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHQRCodeTableCellID];
+        pcell.title = @"二维码";
+        
+        cell = pcell;
+    }
+    else if (indexPath.section==5)
+    {
+        ETHReceiptAddressTableCell* kcell = [tableView dequeueReusableCellWithIdentifier:ETHReceiptAddressTableCellID];
+        kcell = [[ETHReceiptAddressTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHReceiptAddressTableCellID];
+        
+        cell = kcell;
+    }
+    else if (indexPath.section==6)
+    {
+        ETHQRCodeTableCell* pcell = [tableView dequeueReusableCellWithIdentifier:ETHQRCodeTableCellID];
+        pcell = [[ETHQRCodeTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHQRCodeTableCellID];
+        pcell.title = @"支付凭证";
+        
+        cell = pcell;
+    }
+    else if (indexPath.section==7)
+    {
         ETHPaymentTableCell* pcell = [tableView dequeueReusableCellWithIdentifier:ETHPaymentTableCellID];
         pcell = [[ETHPaymentTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHPaymentTableCellID];
+        pcell.title = @"确定购买";
         
         cell = pcell;
     }
@@ -122,15 +159,15 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
 //每行的高度是多少
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section==4 || indexPath.section==6)
+    {
+        return 125;
+    }
     return 40;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section==4)
-    {
-        return 30;
-    }
     return 10;
 }
 
@@ -146,10 +183,10 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
 //点击了哪个cell
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section==4)
+    if (indexPath.section==0)
     {
-        ETHDefinitePurchaseVC* vc = [[ETHDefinitePurchaseVC alloc]init];
-        [self.navigationController pushViewController:vc animated:YES];
+        //        ZFPersonalDataVC* vc = [[ZFPersonalDataVC alloc]init];
+        //        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

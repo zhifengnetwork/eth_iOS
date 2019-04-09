@@ -8,6 +8,7 @@
 
 #import "ETHWalletBalanceVC.h"
 #import "ETHWalletBalanceTableCell.h"
+#import "ETHDoubleThrowTableCell.h"
 
 @interface ETHWalletBalanceVC ()
 
@@ -16,6 +17,7 @@
 @implementation ETHWalletBalanceVC
 
 static NSString *const ETHWalletBalanceTableCellID = @"ETHWalletBalanceTableCellID";
+static NSString *const ETHDoubleThrowTableCellID = @"ETHDoubleThrowTableCellID";
 
 
 - (void)viewDidLoad {
@@ -104,12 +106,13 @@ static NSString *const ETHWalletBalanceTableCellID = @"ETHWalletBalanceTableCell
     self.tableView.alwaysBounceVertical=NO;
     
     [self.tableView registerClass:[ETHWalletBalanceTableCell class] forCellReuseIdentifier:ETHWalletBalanceTableCellID];
+    [self.tableView registerClass:[ETHDoubleThrowTableCell class] forCellReuseIdentifier:ETHDoubleThrowTableCellID];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -133,6 +136,13 @@ static NSString *const ETHWalletBalanceTableCellID = @"ETHWalletBalanceTableCell
     }
     else if (indexPath.section==1)
     {
+        ETHDoubleThrowTableCell* kcell = [tableView dequeueReusableCellWithIdentifier:ETHDoubleThrowTableCellID];
+        kcell = [[ETHDoubleThrowTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHDoubleThrowTableCellID];
+        
+        cell = kcell;
+    }
+    else if (indexPath.section==2)
+    {
         pcell.title = @"自由钱包";
         pcell.name = @"568299.00";
         
@@ -151,6 +161,9 @@ static NSString *const ETHWalletBalanceTableCellID = @"ETHWalletBalanceTableCell
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    if (section==1) {
+        return 0;
+    }
     return 10;
 }
 
