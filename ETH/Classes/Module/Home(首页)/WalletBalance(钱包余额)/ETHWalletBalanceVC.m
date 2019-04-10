@@ -9,8 +9,10 @@
 #import "ETHWalletBalanceVC.h"
 #import "ETHWalletBalanceTableCell.h"
 #import "ETHDoubleThrowTableCell.h"
+#import "ETHTwoDoubleThrowTableCell.h"
+#import "ETHDoubleThrowVC.h"
 
-@interface ETHWalletBalanceVC ()
+@interface ETHWalletBalanceVC ()<ETHDoubleThrowTableCellwDelegate>
 
 @end
 
@@ -18,6 +20,7 @@
 
 static NSString *const ETHWalletBalanceTableCellID = @"ETHWalletBalanceTableCellID";
 static NSString *const ETHDoubleThrowTableCellID = @"ETHDoubleThrowTableCellID";
+static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCellID";
 
 
 - (void)viewDidLoad {
@@ -32,10 +35,26 @@ static NSString *const ETHDoubleThrowTableCellID = @"ETHDoubleThrowTableCellID";
     [segment insertSegmentWithTitle:@"提币记录" atIndex:1 animated:YES];
     [segment insertSegmentWithTitle:@"赚币记录" atIndex:2 animated:YES];
     [segment insertSegmentWithTitle:@"C2C记录" atIndex:3 animated:YES];
-
-    //设置默认字体颜色
-    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:RGBColorHex(0xabb9d9),UITextAttributeTextColor,nil];
-    [segment  setTitleTextAttributes:dic forState:UIControlStateNormal];
+    
+    //设置Segment的字体
+    NSDictionary *dic = @{
+                          //1.设置字体样式:例如黑体,和字体大小
+                          NSFontAttributeName:[UIFont fontWithName:@"Arial" size:17],
+                          //2.字体颜色
+                          NSForegroundColorAttributeName:RGBColorHex(0x7685a6)
+                          };
+    
+    [segment setTitleTextAttributes:dic forState:UIControlStateNormal];
+    
+    //设置Segment选中的字体
+    NSDictionary *dic2 = @{
+                           //1.设置字体样式:例如黑体,和字体大小
+                           NSFontAttributeName:[UIFont fontWithName:@"Arial" size:17],
+                           //2.字体颜色
+                           NSForegroundColorAttributeName:RGBColorHex(0xffffff)
+                           };
+    
+    [segment setTitleTextAttributes:dic2 forState:UIControlStateSelected];
 
     //设置未选中时的背景色
     [segment setBackgroundImage:[UIImage imageNamed:@"backGr"]
@@ -100,19 +119,20 @@ static NSString *const ETHDoubleThrowTableCellID = @"ETHDoubleThrowTableCellID";
     self.tableView.estimatedRowHeight = 0;
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
-    self.tableView.backgroundColor = RGBColorHex(0xffffff);
+    self.tableView.backgroundColor = RGBColorHex(0x080e2c);
     self.tableView.tableFooterView = [UIView new];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.alwaysBounceVertical=NO;
     
     [self.tableView registerClass:[ETHWalletBalanceTableCell class] forCellReuseIdentifier:ETHWalletBalanceTableCellID];
     [self.tableView registerClass:[ETHDoubleThrowTableCell class] forCellReuseIdentifier:ETHDoubleThrowTableCellID];
+    [self.tableView registerClass:[ETHTwoDoubleThrowTableCell class] forCellReuseIdentifier:ETHTwoDoubleThrowTableCellID];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -138,6 +158,7 @@ static NSString *const ETHDoubleThrowTableCellID = @"ETHDoubleThrowTableCellID";
     {
         ETHDoubleThrowTableCell* kcell = [tableView dequeueReusableCellWithIdentifier:ETHDoubleThrowTableCellID];
         kcell = [[ETHDoubleThrowTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHDoubleThrowTableCellID];
+        kcell.delegate = self;
         
         cell = kcell;
     }
@@ -148,6 +169,13 @@ static NSString *const ETHDoubleThrowTableCellID = @"ETHDoubleThrowTableCellID";
         
         cell = pcell;
     }
+    else if (indexPath.section==3)
+    {
+        ETHTwoDoubleThrowTableCell* kcell = [tableView dequeueReusableCellWithIdentifier:ETHDoubleThrowTableCellID];
+        kcell = [[ETHTwoDoubleThrowTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHTwoDoubleThrowTableCellID];
+        
+        cell = kcell;
+    }
     
     return cell;
 }
@@ -156,15 +184,20 @@ static NSString *const ETHDoubleThrowTableCellID = @"ETHDoubleThrowTableCellID";
 //每行的高度是多少
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 40;
+    return 60;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section==1) {
-        return 0;
+    if (section==0)
+    {
+        return 32;
     }
-    return 10;
+    else if (section==2)
+    {
+        return 12;
+    }
+    return 0;
 }
 
 
@@ -195,5 +228,19 @@ static NSString *const ETHDoubleThrowTableCellID = @"ETHDoubleThrowTableCellID";
     //    }
 }
 
+//按钮被点击 1:一键复投 2:棋牌娱乐
+- (void)ETHDoubleThrowTableCellDidClick:(int)type
+{
+    if (type==1)
+    {
+        //跳转到复投
+        ETHDoubleThrowVC* vc = [[ETHDoubleThrowVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else if (type==2)
+    {
+        
+    }
+}
 
 @end

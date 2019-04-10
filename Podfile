@@ -6,7 +6,7 @@ platform :ios, '9.0'
 target "ETH" do
 
     pod 'Masonry'
-    pod 'SDWebImage'
+    pod 'SDWebImage', '~> 4.0'
     pod 'AFNetworking'
     pod 'MJExtension'
     pod 'MJRefresh'
@@ -30,8 +30,8 @@ target "ETH" do
     pod 'FSCalendar'
     pod 'JXPagingView/Pager'
     pod "PYSearch"
+    pod 'PPNumberButton'
  
-    
     #pod 'UMCShare/UI'
     #pod 'UMCShare/Social/ReducedWeChat'
     #pod 'UMCShare/Social/ReducedQQ'

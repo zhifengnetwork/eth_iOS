@@ -1,22 +1,22 @@
 //
-//  ETHCurrentInvestmentTableCell.m
+//  ETHAmountInvesTableCell.m
 //  ETH
 //
-//  Created by admin on 2019/4/9.
+//  Created by admin on 2019/4/10.
 //  Copyright © 2019 admin. All rights reserved.
 //
 
-#import "ETHCurrentInvestmentTableCell.h"
+#import "ETHAmountInvesTableCell.h"
 
-@interface ETHCurrentInvestmentTableCell()
+@interface ETHAmountInvesTableCell()
 
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) UILabel* titleLabel;
-@property (nonatomic, strong) UILabel* moneyLabel;
+@property (nonatomic, strong) UITextField* moneyTextField;
 
 @end
 
-@implementation ETHCurrentInvestmentTableCell
+@implementation ETHAmountInvesTableCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -34,7 +34,7 @@
     self.contentView.backgroundColor = RGBColorHex(0xffffff);
     [self.contentView addSubview:self.bgView];
     [self.contentView addSubview:self.titleLabel];
-    [self.contentView addSubview:self.moneyLabel];
+    [self.contentView addSubview:self.moneyTextField];
     
     [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(10);
@@ -48,44 +48,15 @@
         make.centerY.equalTo(self->_bgView);
     }];
     
-    [_moneyLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+    [_moneyTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self->_bgView.mas_right).offset(-22);
         make.centerY.equalTo(self->_bgView);
+        make.width.mas_equalTo(165);
+        make.height.mas_equalTo(20);
+        
     }];
     
 }
-
--(void)setTitle:(NSString *)title
-{
-    _title = title;
-    _titleLabel.text = _title;
-}
-
--(void)setName:(NSString *)name
-{
-    _name = name;
-    _moneyLabel.text = _name;
-}
-
--(void)setIsLeftName:(BOOL)isLeftName
-{
-    _isLeftName = isLeftName;
-    if (_isLeftName)
-    {
-        [_moneyLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self->_titleLabel.mas_right).offset(10);
-            make.centerY.equalTo(self->_bgView);
-        }];
-    }
-    else
-    {
-        [_moneyLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self->_bgView.mas_right).offset(-22);
-            make.centerY.equalTo(self->_bgView);
-        }];
-    }
-}
-
 
 -(UIView *)bgView
 {
@@ -106,19 +77,23 @@
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.textColor = RGBColorHex(0x232833);
         _titleLabel.font = [UIFont systemFontOfSize:12];
-        _titleLabel.text = @"当前投资额：";
+        _titleLabel.text = @"复投金额：";
     }
     return _titleLabel;
 }
 
-- (UILabel *)moneyLabel{
-    if (_moneyLabel == nil) {
-        _moneyLabel = [[UILabel alloc] init];
-        _moneyLabel.textColor = RGBColorHex(0x232833);
-        _moneyLabel.font = [UIFont systemFontOfSize:12];
-        _moneyLabel.text = @"1.000.00";
+- (UITextField *)moneyTextField {
+    if (_moneyTextField == nil) {
+        _moneyTextField = [[UITextField alloc] init];
+        _moneyTextField.placeholder = @"";
+        _moneyTextField.font = [UIFont systemFontOfSize:12];
+        _moneyTextField.textColor = RGBColorHex(0xf00606);
+        _moneyTextField.backgroundColor = RGBColorHex(0xffffff);
+        _moneyTextField.layer.borderWidth = 1.0f;
+        _moneyTextField.layer.borderColor = RGBColorHex(0x00aa00).CGColor;
+        _moneyTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     }
-    return _moneyLabel;
+    return _moneyTextField;
 }
 
 @end

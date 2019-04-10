@@ -1,35 +1,31 @@
 //
-//  ETHDefinitePurchaseVC.m
+//  ETHDoubleThrowVC.m
 //  ETH
 //
-//  Created by admin on 2019/4/9.
+//  Created by admin on 2019/4/10.
 //  Copyright © 2019 admin. All rights reserved.
 //
 
-#import "ETHDefinitePurchaseVC.h"
+#import "ETHDoubleThrowVC.h"
 #import "ETHCurrentInvestmentTableCell.h"
-#import "ETHInvestmentPurchaseTableCell.h"
-#import "ETHQRCodeTableCell.h"
-#import "ETHReceiptAddressTableCell.h"
+#import "ETHAmountInvesTableCell.h"
 #import "ETHPaymentTableCell.h"
 
-@interface ETHDefinitePurchaseVC ()
+@interface ETHDoubleThrowVC ()
 
 @end
 
-@implementation ETHDefinitePurchaseVC
+@implementation ETHDoubleThrowVC
 
 static NSString *const ETHCurrentInvestmentTableCellID = @"ETHCurrentInvestmentTableCellID";
-static NSString *const ETHInvestmentPurchaseTableCellID = @"ETHInvestmentPurchaseTableCellID";
-static NSString *const ETHQRCodeTableCellID = @"ETHQRCodeTableCellID";
-static NSString *const ETHReceiptAddressTableCellID = @"ETHReceiptAddressTableCellID";
+static NSString *const ETHAmountInvesTableCellID = @"ETHAmountInvesTableCellID";
 static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"投资购买";
+    self.title = @"复投";
     [self setupTableView];
     
 }
@@ -67,16 +63,14 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
     [self.tableView registerClass:[ETHCurrentInvestmentTableCell class] forCellReuseIdentifier:ETHCurrentInvestmentTableCellID];
-    [self.tableView registerClass:[ETHInvestmentPurchaseTableCell class] forCellReuseIdentifier:ETHInvestmentPurchaseTableCellID];
-    [self.tableView registerClass:[ETHQRCodeTableCell class] forCellReuseIdentifier:ETHQRCodeTableCellID];
-    [self.tableView registerClass:[ETHReceiptAddressTableCell class] forCellReuseIdentifier:ETHReceiptAddressTableCellID];
+    [self.tableView registerClass:[ETHAmountInvesTableCell class] forCellReuseIdentifier:ETHAmountInvesTableCellID];
     [self.tableView registerClass:[ETHPaymentTableCell class] forCellReuseIdentifier:ETHPaymentTableCellID];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 8;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -90,65 +84,33 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     
     ETHCurrentInvestmentTableCell* scell = [tableView dequeueReusableCellWithIdentifier:ETHCurrentInvestmentTableCellID];
     scell = [[ETHCurrentInvestmentTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHCurrentInvestmentTableCellID];
-    scell.isLeftName = YES;
     
     if (indexPath.section==0)
     {
         scell.title = @"当前投资额：";
-        scell.name = @"1.000.00";
+        scell.name = @"1001.00";
         
         cell = scell;
     }
     else if (indexPath.section==1)
     {
-         ETHInvestmentPurchaseTableCell* ocell = [tableView dequeueReusableCellWithIdentifier:ETHInvestmentPurchaseTableCellID];
-        ocell = [[ ETHInvestmentPurchaseTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: ETHInvestmentPurchaseTableCellID];
-        ocell.title = @"追加投资：";
+        scell.title = @"复投账户：";
+        scell.name = @"0.2000";
         
-        cell = ocell;
+        cell = scell;
     }
     else if (indexPath.section==2)
     {
-        scell.title = @"账户投资上限：";
-        scell.name = @"50.000000.00";
+        ETHAmountInvesTableCell* ocell = [tableView dequeueReusableCellWithIdentifier:ETHAmountInvesTableCellID];
+        ocell = [[ ETHAmountInvesTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: ETHAmountInvesTableCellID];
         
-        cell = scell;
+        cell = ocell;
     }
     else if (indexPath.section==3)
     {
-        scell.title = @"当前最多可投资：";
-        scell.name = @"-950";
-        
-        cell = scell;
-    }
-    else if (indexPath.section==4)
-    {
-        ETHQRCodeTableCell* pcell = [tableView dequeueReusableCellWithIdentifier:ETHQRCodeTableCellID];
-        pcell = [[ETHQRCodeTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHQRCodeTableCellID];
-        pcell.title = @"二维码";
-        
-        cell = pcell;
-    }
-    else if (indexPath.section==5)
-    {
-        ETHReceiptAddressTableCell* kcell = [tableView dequeueReusableCellWithIdentifier:ETHReceiptAddressTableCellID];
-        kcell = [[ETHReceiptAddressTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHReceiptAddressTableCellID];
-        
-        cell = kcell;
-    }
-    else if (indexPath.section==6)
-    {
-        ETHQRCodeTableCell* pcell = [tableView dequeueReusableCellWithIdentifier:ETHQRCodeTableCellID];
-        pcell = [[ETHQRCodeTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHQRCodeTableCellID];
-        pcell.title = @"支付凭证";
-        
-        cell = pcell;
-    }
-    else if (indexPath.section==7)
-    {
         ETHPaymentTableCell* pcell = [tableView dequeueReusableCellWithIdentifier:ETHPaymentTableCellID];
         pcell = [[ETHPaymentTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHPaymentTableCellID];
-        pcell.title = @"确定购买";
+        pcell.title = @"确定";
         
         cell = pcell;
     }
@@ -160,10 +122,6 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
 //每行的高度是多少
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section==4 || indexPath.section==6)
-    {
-        return 125;
-    }
     return 40;
 }
 

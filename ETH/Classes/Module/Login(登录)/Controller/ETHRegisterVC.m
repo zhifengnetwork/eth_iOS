@@ -468,7 +468,7 @@
 - (UIButton *)returnButton {
     if (_returnButton == nil) {
         _returnButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_returnButton setImage:[UIImage imageNamed:@"Left arrow"] forState:UIControlStateNormal];
+        [_returnButton setImage:[UIImage imageNamed:@"Left arrow-1"] forState:UIControlStateNormal];
         _returnButton.titleLabel.font = [UIFont systemFontOfSize:10];
         [_returnButton setTitleColor:RGBColorHex(0xdfe4eb) forState:UIControlStateNormal];
         [_returnButton addTarget:self action:@selector(returnButtonDidClick) forControlEvents:UIControlEventTouchUpInside];
