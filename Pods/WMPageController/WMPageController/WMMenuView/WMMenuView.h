@@ -106,5 +106,5 @@ typedef NS_ENUM(NSUInteger, WMMenuViewLayoutMode) {
  *  更新角标视图，如要移除，在 -menuView:badgeViewAtIndex: 中返回 nil 即可
  */
 - (void)updateBadgeViewAtIndex:(NSInteger)index;
-
+- (void)setSelectItemColor: (UIColor *)bgColor;
 @end

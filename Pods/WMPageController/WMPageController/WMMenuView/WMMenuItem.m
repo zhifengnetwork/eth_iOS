@@ -98,7 +98,6 @@
     _normalColor = normalColor;
     [normalColor getRed:&_normalRed green:&_normalGreen blue:&_normalBlue alpha:&_normalAlpha];
 }
-
 - (void)touchUpInside:(id)sender {
     if ([self.delegate respondsToSelector:@selector(didPressedMenuItem:)]) {
         [self.delegate didPressedMenuItem:self];

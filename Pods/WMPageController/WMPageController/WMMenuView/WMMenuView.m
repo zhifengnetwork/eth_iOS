@@ -125,7 +125,14 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
         [self resetFrames];
     }
 }
-
+- (void)setItemColor:(UIColor *)bgColor{
+    if(self.selItem.selected ==YES){
+        self.selItem.backgroundColor = bgColor;
+    }else{
+        self.selItem.backgroundColor = [UIColor clearColor];
+    }
+    
+}
 #pragma mark - Getter
 
 - (UIColor *)lineColor {
@@ -218,7 +225,6 @@ static NSInteger const WMBadgeViewTagOffset = 1212;
     NSInteger currentIndex = self.selItem.tag - WMMenuItemTagOffset;
     self.selectIndex = index;
     if (index == currentIndex || !self.selItem) { return; }
-    
     WMMenuItem *item = (WMMenuItem *)[self viewWithTag:tag];
     [self.selItem setSelected:NO withAnimation:NO];
     self.selItem = item;

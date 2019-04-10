@@ -7,26 +7,284 @@
 //
 
 #import "ETHDealVC.h"
-
+#import "ETHDealTF.h"
+#import "ETHCancelAlertView.h"
+#import "TYAlertController.h"
 @interface ETHDealVC ()
-
+@property (nonatomic, strong)UIView *bgView;
+@property (nonatomic, strong)UILabel *priceLabel;
+@property (nonatomic, strong)ETHDealTF *priceTF;
+@property (nonatomic, strong)UILabel *referenceLabel;
+@property (nonatomic, strong)UIView *lineView1;
+@property (nonatomic, strong)UILabel *numberLabel;
+@property (nonatomic, strong)ETHDealTF *numberTF;
+@property (nonatomic, strong)UILabel *billCountLabel;
+@property (nonatomic, strong)ETHDealTF *billCountTF;
+@property (nonatomic, strong)UILabel *serviceCharge;
+@property (nonatomic, strong)UIView *lineView2;
+@property (nonatomic, strong)UILabel *totalLabel;
+@property (nonatomic, strong)ETHDealTF *totalTF;
+@property (nonatomic, strong)UIButton *agreeButton;
 @end
 
 @implementation ETHDealVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self setup];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)setup{
+    [self.view addSubview:self.bgView];
+    [self.bgView addSubview:self.priceLabel];
+    [self.bgView addSubview:self.priceTF];
+    [self.bgView addSubview:self.referenceLabel];
+    [self.bgView addSubview:self.lineView1];
+    [self.bgView addSubview:self.numberLabel];
+    [self.bgView addSubview:self.numberTF];
+    [self.bgView addSubview:self.billCountLabel];
+    [self.bgView addSubview:self.billCountTF];
+    [self.bgView addSubview:self.serviceCharge];
+    [self.bgView addSubview:self.lineView2];
+    [self.bgView addSubview:self.totalLabel];
+    [self.bgView addSubview:self.totalTF];
+    [self.view addSubview:self.agreeButton];
+    [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self.view);
+//        make.height.mas_equalTo(355);
+    }];
+    [_priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.bgView).with.offset(15);
+        make.left.equalTo(self.bgView).with.offset(16);
+    }];
+    [_priceTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.priceLabel.mas_bottom).with.offset(8);
+        make.left.equalTo(self.bgView).with.offset(16);
+        make.right.equalTo(self.bgView).with.offset(-16);
+        make.height.mas_equalTo(35);
+    }];
+    [_referenceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.priceTF.mas_bottom).with.offset(7);
+        make.right.equalTo(self.priceTF.mas_right);
+    }];
+    [_lineView1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.referenceLabel.mas_bottom).with.offset(9);
+        make.left.equalTo(self.bgView).with.offset(16);
+        make.right.equalTo(self.bgView).with.offset(-16);
+        make.height.mas_equalTo(1);
+    }];
+    [_numberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.lineView1.mas_bottom).with.offset(9);
+        make.left.equalTo(self.bgView).with.offset(16);
+    }];
+    [_numberTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.numberLabel.mas_bottom).with.offset(8);
+        make.left.equalTo(self.bgView).with.offset(16);
+        make.right.equalTo(self.bgView).with.offset(-16);
+        make.height.mas_equalTo(35);
+    }];
+    [_billCountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.numberTF.mas_bottom).with.offset(8);
+        make.left.equalTo(self.bgView).with.offset(16);
+    }];
+    [_billCountTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.billCountLabel.mas_bottom).with.offset(8);
+        make.left.equalTo(self.bgView).with.offset(16);
+        make.right.equalTo(self.bgView).with.offset(-16);
+        make.height.mas_equalTo(35);
+    }];
+    [_serviceCharge mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.billCountTF.mas_bottom).with.offset(7);
+        make.right.equalTo(self.billCountTF.mas_right);
+    }];
+    [_lineView2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.serviceCharge.mas_bottom).with.offset(9);
+        make.left.equalTo(self.bgView).with.offset(16);
+        make.right.equalTo(self.bgView).with.offset(-16);
+        make.height.mas_equalTo(1);
+    }];
+    [_totalLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.lineView2.mas_bottom).with.offset(9);
+        make.left.equalTo(self.bgView).with.offset(16);
+    }];
+    [_totalTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.totalLabel.mas_bottom).with.offset(8);
+        make.left.equalTo(self.bgView).with.offset(16);
+        make.right.equalTo(self.bgView).with.offset(-16);
+        make.height.mas_equalTo(35);
+        make.bottom.equalTo(self.bgView).with.offset(-15);
+    }];
+    [_agreeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.bgView.mas_bottom).with.offset(20);
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.width.mas_equalTo(140);
+        make.height.mas_equalTo(37);
+    }];
 }
-*/
-
+- (UIView *)bgView{
+    if (_bgView == nil) {
+        _bgView = [[UIView alloc]init];
+        _bgView.backgroundColor = RGBColorHex(0x3c3f51);
+    }
+    return _bgView;
+}
+- (UILabel *)priceLabel{
+    if (_priceLabel == nil) {
+        _priceLabel = [[UILabel alloc]init];
+        _priceLabel.font = [UIFont boldSystemFontOfSize:15];
+        _priceLabel.textColor = [UIColor whiteColor];
+        _priceLabel.text = @"价格(CNY)";
+    }
+    return _priceLabel;
+}
+- (UITextField *)priceTF{
+    if (_priceTF ==nil) {
+        _priceTF = [[ETHDealTF alloc]init];
+        _priceTF.layer.cornerRadius = 3;
+        _priceTF.backgroundColor = RGBColorHex(0x4d5167);
+        
+        _priceTF.placeholder = @"请输入买入的价格";
+        [_priceTF setValue:RGBColorHex(0x737792) forKeyPath:@"_placeholderLabel.textColor"];
+        [_priceTF setValue:[UIFont systemFontOfSize:12] forKeyPath:@"_placeholderLabel.font"];
+    }
+    return _priceTF;
+}
+- (UILabel *)referenceLabel{
+    if (_referenceLabel ==nil) {
+        _referenceLabel = [[UILabel alloc]init];
+        _referenceLabel.font= [UIFont systemFontOfSize:9];
+        _referenceLabel.textColor = RGBColorHex(0x737792);
+        _referenceLabel.text = @"参考价格：￥3.6-4.4";
+    }
+    return _referenceLabel;
+}
+- (UIView *)lineView1{
+    if (_lineView1 ==nil) {
+        _lineView1 = [[UIView alloc]init];
+        _lineView1.backgroundColor =RGBColorHex(0x4f5367);
+    }
+    return _lineView1;
+}
+- (UILabel *)numberLabel{
+    if (_numberLabel ==nil) {
+        _numberLabel = [[UILabel alloc]init];
+        _numberLabel.font = [UIFont boldSystemFontOfSize:15];
+        _numberLabel.textColor = [UIColor whiteColor];
+        _numberLabel.text = @"买入数量(ETH)";
+        
+    }
+    return _numberLabel;
+}
+- (ETHDealTF *)numberTF{
+    if (_numberTF ==nil) {
+        _numberTF = [[ETHDealTF alloc]init];
+        _numberTF.layer.cornerRadius = 3;
+        _numberTF.backgroundColor = RGBColorHex(0x4d5167);
+        _numberTF.placeholder = @"请输入购买的数量";
+        [_numberTF setValue:RGBColorHex(0x737792) forKeyPath:@"_placeholderLabel.textColor"];
+        [_numberTF setValue:[UIFont systemFontOfSize:12] forKeyPath:@"_placeholderLabel.font"];
+    }
+    return _numberTF;
+}
+- (UILabel *)billCountLabel{
+    if (_billCountLabel ==nil) {
+        _billCountLabel = [[UILabel alloc]init];
+        _billCountLabel.font = [UIFont boldSystemFontOfSize:15];
+        _billCountLabel.textColor = [UIColor whiteColor];
+        _billCountLabel.text = @"预获币数(ETH)";
+        
+    }
+    return _billCountLabel;
+}
+- (ETHDealTF *)billCountTF{
+    if (_billCountTF ==nil) {
+        _billCountTF = [[ETHDealTF alloc]init];
+        _billCountTF.layer.cornerRadius = 3;
+        _billCountTF.backgroundColor = RGBColorHex(0x4d5167);
+        _billCountTF.placeholder = @"0";
+        [_billCountTF setValue:RGBColorHex(0x737792) forKeyPath:@"_placeholderLabel.textColor"];
+        [_billCountTF setValue:[UIFont systemFontOfSize:12] forKeyPath:@"_placeholderLabel.font"];
+    }
+    return _billCountTF;
+}
+- (UILabel *)serviceCharge{
+    if (_serviceCharge == nil) {
+        _serviceCharge = [[UILabel alloc]init];
+        _serviceCharge.font= [UIFont systemFontOfSize:9];
+        _serviceCharge.textColor = RGBColorHex(0x737792);
+        _serviceCharge.text = @"手续费：1%";
+    }
+    return _serviceCharge;
+}
+- (UIView *)lineView2{
+    if (_lineView2 ==nil) {
+        _lineView2 = [[UIView alloc]init];
+        _lineView2.backgroundColor =RGBColorHex(0x4f5367);
+    }
+    return _lineView2;
+}
+- (UILabel *)totalLabel{
+    if (_totalLabel ==nil) {
+        _totalLabel = [[UILabel alloc]init];
+        _totalLabel.font = [UIFont boldSystemFontOfSize:15];
+        _totalLabel.textColor = [UIColor whiteColor];
+        _totalLabel.text = @"预付金额(CNY)";
+        
+        
+    }
+    return _totalLabel;
+}
+- (ETHDealTF *)totalTF{
+    if (_totalTF ==nil) {
+        _totalTF = [[ETHDealTF alloc]init];
+        _totalTF.layer.cornerRadius = 3;
+        _totalTF.backgroundColor = RGBColorHex(0x4d5167);
+        _totalTF.placeholder = @"0";
+        [_totalTF setValue:RGBColorHex(0x737792) forKeyPath:@"_placeholderLabel.textColor"];
+        [_totalTF setValue:[UIFont systemFontOfSize:12] forKeyPath:@"_placeholderLabel.font"];
+    }
+    return _totalTF;
+}
+- (UIButton *)agreeButton{
+    if (_agreeButton == nil) {
+        _agreeButton = [[UIButton alloc]init];
+        _agreeButton.layer.cornerRadius = 3;
+        _agreeButton.backgroundColor = RGBColorHex(0x5ec05e);
+        _agreeButton.titleLabel.font = [UIFont systemFontOfSize:16];
+        [_agreeButton setTitle:@"确定买入" forState:UIControlStateNormal];
+        [_agreeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_agreeButton addTarget:self action:@selector(agreeClick:) forControlEvents:UIControlEventTouchUpInside];
+   
+    }
+    return _agreeButton;
+}
+- (void)agreeClick: (UIButton *)Btn{
+    ETHCancelAlertView *view1 = [[ETHCancelAlertView alloc]initWithFrame:CGRectMake(100, 100, 235, 99)];
+    if (_type == 0) {
+        [view1 setTitle:@"买入成功"];
+    }else{
+        [view1 setTitle:@"挂卖成功"];
+    }
+    TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view1 preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+- (void)setType:(NSInteger)type{
+    _type = type;
+    if (_type == 0) {
+        [_agreeButton setTitle:@"确定买入" forState:UIControlStateNormal];
+        _totalLabel.text = @"预付金额(CNY)";
+        _billCountLabel.text = @"预获币数(ETH)";
+        _numberTF.placeholder = @"请输入购买的数量";
+        _numberLabel.text = @"买入数量(ETH)";
+        _priceTF.placeholder = @"请输入买入的价格";
+    }else{
+        [_agreeButton setTitle:@"确定卖出" forState:UIControlStateNormal];
+        _totalLabel.text = @"待付金额(ETH)";
+        _billCountLabel.text = @"预获金额(CNY)";
+        _numberTF.placeholder = @"请输入卖出的数量";
+        _numberLabel.text = @"卖出数量(ETH)";
+        _priceTF.placeholder = @"请输入卖出的价格";
+    }
+    
+}
 @end

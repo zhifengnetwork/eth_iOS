@@ -32,6 +32,5 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) BOOL selected;
 
 - (void)setSelected:(BOOL)selected withAnimation:(BOOL)animation;
-
 @end
 NS_ASSUME_NONNULL_END

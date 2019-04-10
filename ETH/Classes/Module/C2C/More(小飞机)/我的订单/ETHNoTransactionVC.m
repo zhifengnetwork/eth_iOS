@@ -59,8 +59,8 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)cancelButtonClick{
-    ETHCancelAlertView *view3 = [[ETHCancelAlertView alloc]initWithFrame:CGRectMake(100, 100, 235, 99)];
-    TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view3 preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
+    ETHCancelAlertView *view = [[ETHCancelAlertView alloc]initWithFrame:CGRectMake(100, 100, 235, 99)];
+    TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
     [self presentViewController:alertController animated:YES completion:nil];
 }
 @end

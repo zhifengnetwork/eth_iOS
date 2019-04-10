@@ -83,4 +83,7 @@
 - (void)agreeClick{
     [[self viewController] dismissViewControllerAnimated:YES completion:nil];
 }
+- (void)setTitle:(NSString *)title{
+    self.titleLabel.text = title;
+}
 @end
