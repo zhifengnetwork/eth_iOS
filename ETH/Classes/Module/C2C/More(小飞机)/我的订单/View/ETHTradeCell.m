@@ -8,6 +8,7 @@
 
 #import "ETHTradeCell.h"
 #import "ETHTradeFailVC.h"
+#import "ETHNoTransactionVC.h"
 @interface ETHTradeCell()
 @property (nonatomic, strong)UILabel *transactionLabel;
 @property (nonatomic, strong)UILabel *nameLabel;
@@ -203,10 +204,13 @@
     return nil;
 }
 - (void)jumpClick{
+    [self viewController].navigationController.navigationBar.hidden = NO;
     if ([_statusLabel.text isEqualToString:@"交易失败"]) {
-        [self viewController].navigationController.navigationBar.hidden = NO;
         ETHTradeFailVC *vc = [[ETHTradeFailVC alloc]init];
         [[self viewController].navigationController pushViewController:vc animated:YES];
+    }else if ([_statusLabel.text isEqualToString:@"未交易"]){
+        ETHNoTransactionVC *vc1 = [[ETHNoTransactionVC alloc]init];
+        [[self viewController].navigationController pushViewController:vc1 animated:YES];
     }
 }
 @end
