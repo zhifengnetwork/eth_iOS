@@ -1207,11 +1207,8 @@
 				84BC88D722560980001BFC02 /* ETHTransactionVC.m in Sources */,
 				842E831022545D1700CC5188 /* ETHC2C.m in Sources */,
 				539B609B2254890D00FE7D80 /* ETHHeaderView.m in Sources */,
-<<<<<<< HEAD
 				53EDFB40225C4BCB00872752 /* ETHDetailTransactionView.m in Sources */,
-=======
 				84052D5F225C7F540092A905 /* ETHReceiptAddressTableCell.m in Sources */,
->>>>>>> d05732e481f8f9b62ea0ad239c1838f8e9a9add3
 				842E82F7225458D500CC5188 /* HMEmoticonManager.m in Sources */,
 				53143647225B22D500B0B4EB /* ETHTradeVC.m in Sources */,
 				53AB8EBD225C8D9400C68719 /* ETHCancelAlertView.m in Sources */,
