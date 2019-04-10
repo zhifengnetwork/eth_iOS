@@ -48,10 +48,9 @@
         make.centerY.equalTo(self->_bgView);
     }];
     
-    [_moneyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self->_titleLabel.mas_right).offset(10);
+    [_moneyLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self->_bgView.mas_right).offset(-22);
         make.centerY.equalTo(self->_bgView);
-        
     }];
     
 }
@@ -68,6 +67,24 @@
     _moneyLabel.text = _name;
 }
 
+-(void)setIsLeftName:(BOOL)isLeftName
+{
+    _isLeftName = isLeftName;
+    if (_isLeftName)
+    {
+        [_moneyLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self->_titleLabel.mas_right).offset(10);
+            make.centerY.equalTo(self->_bgView);
+        }];
+    }
+    else
+    {
+        [_moneyLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self->_bgView.mas_right).offset(-22);
+            make.centerY.equalTo(self->_bgView);
+        }];
+    }
+}
 
 
 -(UIView *)bgView

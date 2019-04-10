@@ -90,6 +90,7 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     
     ETHCurrentInvestmentTableCell* scell = [tableView dequeueReusableCellWithIdentifier:ETHCurrentInvestmentTableCellID];
     scell = [[ETHCurrentInvestmentTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHCurrentInvestmentTableCellID];
+    scell.isLeftName = YES;
     
     if (indexPath.section==0)
     {

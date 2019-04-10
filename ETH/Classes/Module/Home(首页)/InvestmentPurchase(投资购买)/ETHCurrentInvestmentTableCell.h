@@ -18,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *name;
 
+//是否将金额显示在左边
+@property(nonatomic, assign) BOOL isLeftName;
+
 @end
 
 NS_ASSUME_NONNULL_END

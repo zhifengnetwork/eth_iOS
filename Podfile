@@ -30,8 +30,8 @@ target "ETH" do
     pod 'FSCalendar'
     pod 'JXPagingView/Pager'
     pod "PYSearch"
+    pod 'PPNumberButton'
  
-    
     #pod 'UMCShare/UI'
     #pod 'UMCShare/Social/ReducedWeChat'
     #pod 'UMCShare/Social/ReducedQQ'
