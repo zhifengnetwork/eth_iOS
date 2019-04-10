@@ -12,11 +12,13 @@
 #import "LoginTypeView.h"
 #import "UIImageView+WebCache.h"
 #import "UIButton+LXMImagePosition.h"
+#import "ETHLoginVC.h"
 
 
 @interface ETHRegisterVC ()<LoginTypeViewDelegate>
 
 @property (nonatomic, strong) UIImageView* bjIconView;
+@property (nonatomic, strong) UIButton *returnButton;
 @property (nonatomic, strong) UIImageView* headView;
 
 @property (nonatomic, strong) UIView *bgView;
@@ -48,12 +50,35 @@
 
     self.view.backgroundColor = [UIColor whiteColor];
     [self setupUI];
+    if (self.type.intValue==0)
+    {
+        [self.loginButton setTitle:@"立即注册" forState:UIControlStateNormal];
+    }
+    else
+    {
+        [self.loginButton setTitle:@"立即找回" forState:UIControlStateNormal];
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 
 
 - (void)setupUI
 {
     [self.view addSubview:self.bjIconView];
+    [self.view addSubview:self.returnButton];
     [self.view addSubview:self.headView];
     [self.view addSubview:self.bgView];
     [self.view addSubview:self.bg1View];
@@ -79,7 +104,12 @@
     
     [_headView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.view);
-        make.top.equalTo(self.view).offset(39+LL_NavigationBarHeight);
+        make.top.equalTo(self.view).offset(19+LL_StatusBarAndNavigationBarHeight);
+    }];
+    
+    [_returnButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(20);
+        make.top.mas_equalTo(30);
     }];
     
     [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -181,11 +211,6 @@
 
 }
 
-- (void)setLoginTitle:(NSString *)loginTitle
-{
-    _loginTitle = loginTitle;
-    [_loginButton setTitle:_loginTitle forState:UIControlStateNormal];
-}
 
 -(void)vcodeButtonDidClick
 {
@@ -199,13 +224,23 @@
 
 - (void)wmButtonDidClick
 {
-    
+    ETHRegisterVC* vc = [[ETHRegisterVC alloc]init];
+    vc.type = @"1";
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)twoLoginButtonDidClick
 {
-    
+    ETHLoginVC* vc = [[ETHLoginVC alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
+
+- (void)returnButtonDidClick
+{
+    ETHLoginVC* vc = [[ETHLoginVC alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 
 - (UIImageView *)bjIconView {
     if (_bjIconView == nil) {
@@ -430,5 +465,15 @@
     return _vcodeButton;
 }
 
+- (UIButton *)returnButton {
+    if (_returnButton == nil) {
+        _returnButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_returnButton setImage:[UIImage imageNamed:@"Left arrow"] forState:UIControlStateNormal];
+        _returnButton.titleLabel.font = [UIFont systemFontOfSize:10];
+        [_returnButton setTitleColor:RGBColorHex(0xdfe4eb) forState:UIControlStateNormal];
+        [_returnButton addTarget:self action:@selector(returnButtonDidClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _returnButton;
+}
 
 @end
