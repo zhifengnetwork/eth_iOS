@@ -24,7 +24,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated{
     self.menuViewStyle = WMMenuViewStyleLine;
-    self.titleFontName = @"PingFangSC-Semibold";
+    self.titleFontName = @"Helvetica-Bold";
     self.progressWidth = 20;
     //    [LKTool isHiddenNavigationBarSeparatorLine:NO vc:self];
     [self.vc1 addObserver:self forKeyPath:@"ccount" options:NSKeyValueObservingOptionNew context:nil];
@@ -47,6 +47,9 @@
 }
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController{
     return 3;
+}
+- (CGFloat)menuView:(WMMenuView *)menu titleSizeForState:(WMMenuItemState)state atIndex:(NSInteger)index{
+    return 17;
 }
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index{
     if (index==0)
