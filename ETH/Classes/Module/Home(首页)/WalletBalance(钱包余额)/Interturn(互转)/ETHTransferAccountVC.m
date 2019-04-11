@@ -126,7 +126,7 @@ static NSString *const ETHTransferTipsTableCellID = @"ETHTransferTipsTableCellID
     }
     else if (indexPath.section==1)
     {
-        return UITableViewAutomaticDimension;
+        return 183;
     }
     return 40;
 }

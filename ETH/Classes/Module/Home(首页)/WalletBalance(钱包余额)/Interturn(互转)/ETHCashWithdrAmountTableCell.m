@@ -19,6 +19,8 @@
 @property (nonatomic, strong) UILabel* idLabel;
 @property (nonatomic, strong) UITextField* idTextField;
 @property (nonatomic, strong) UILabel* serviceLabel;
+@property (nonatomic, strong) UILabel* service2Label;
+@property (nonatomic, strong) UILabel* actualLabel;
 
 @end
 
@@ -47,12 +49,14 @@
     [self.contentView addSubview:self.idLabel];
     [self.contentView addSubview:self.idTextField];
     [self.contentView addSubview:self.serviceLabel];
+    [self.contentView addSubview:self.service2Label];
+    [self.contentView addSubview:self.actualLabel];
     
     [_bg1View mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(10);
         make.right.mas_equalTo(-10);
-        make.top.mas_equalTo(10);
-        make.bottom.mas_equalTo(-10);
+        make.top.mas_equalTo(0);
+        make.height.mas_equalTo(183);
     }];
     
     [_bg2View mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -97,9 +101,18 @@
     }];
     
     [_serviceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self->_bg3View.mas_bottom).offset(18);
+        make.top.equalTo(self->_bg3View.mas_bottom).offset(15);
         make.left.equalTo(self->_bg1View.mas_left).offset(10);
-        make.bottom.equalTo(self->_bg1View.mas_bottom).offset(-10);
+    }];
+    
+    [_service2Label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self->_serviceLabel.mas_bottom).offset(10);
+        make.left.equalTo(self->_bg1View.mas_left).offset(10);
+    }];
+    
+    [_actualLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self->_service2Label.mas_bottom).offset(7);
+        make.left.equalTo(self->_bg1View.mas_left).offset(10);
     }];
 }
 
@@ -206,6 +219,26 @@
         _serviceLabel.text = @"交易手续费为0.30%";
     }
     return _serviceLabel;
+}
+
+- (UILabel *)service2Label {
+    if (_service2Label == nil) {
+        _service2Label = [[UILabel alloc] init];
+        _service2Label.textColor = RGBColorHex(0x232833);
+        _service2Label.font = [UIFont systemFontOfSize:12];
+        _service2Label.text = @"本次转账将扣除手续费：¥0.01500";
+    }
+    return _service2Label;
+}
+
+- (UILabel *)actualLabel {
+    if (_actualLabel == nil) {
+        _actualLabel = [[UILabel alloc] init];
+        _actualLabel.textColor = RGBColorHex(0x232833);
+        _actualLabel.font = [UIFont systemFontOfSize:12];
+        _actualLabel.text = @"本次转账实际到账金额：¥5.35330";
+    }
+    return _actualLabel;
 }
 
 @end
