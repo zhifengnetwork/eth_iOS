@@ -9,7 +9,10 @@
 #import "ETHMeVC.h"
 #import "ETHHeaderView.h"
 #import "ETHMeTableViewCell.h"
+#import "ETHPayManageVC.h"
 #import "ViewController.h"
+#import "ETHMyWalletVC.h"
+#import "ETHAnnouncementVC.h"
 @interface ETHMeVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UITableView *tableView;
 @property (nonatomic, strong)ETHHeaderView *headerView;
@@ -77,13 +80,17 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
     return 10;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    self.navigationController.navigationBar.hidden = NO;
     if (indexPath.section ==0) {
         if (indexPath.row == 0) {
             //跳转到支付管理
-            
+            ETHPayManageVC *vc = [[ETHPayManageVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
         }if (indexPath.row == 1) {
             //跳转到钱包地址
-            
+            ETHMyWalletVC *vc = [[ETHMyWalletVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
         }else if (indexPath.row == 2){
             //跳转到C2C订单
             
@@ -98,7 +105,8 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
             
         }else if (indexPath.row == 1) {
             //跳转到平台公告
-            
+            ETHAnnouncementVC *vc = [[ETHAnnouncementVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
         }else if (indexPath.row == 2){
             //跳转到联系客服
             
@@ -108,6 +116,7 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
         }
     }
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ETHMeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ETHMeTableViewCellID forIndexPath:indexPath];
     if (indexPath.section ==0) {

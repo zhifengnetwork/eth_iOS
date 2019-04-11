@@ -1,0 +1,142 @@
+//
+//  ETHMyWalletVC.m
+//  ETH
+//
+//  Created by weiming zhang on 2019/4/11.
+//  Copyright © 2019 admin. All rights reserved.
+//
+
+#import "ETHMyWalletVC.h"
+
+@interface ETHMyWalletVC ()
+@property (nonatomic, strong)UIView *view1;
+@property (nonatomic, strong)UILabel *walletAddressLabel;
+@property (nonatomic, strong)UITextField *walletAddressTF;
+@property (nonatomic, strong)UIView *view2;
+@property (nonatomic, strong)UILabel *walletLabel;
+@property (nonatomic, strong)UIImageView *walletQRCode;
+@property (nonatomic, strong)UIButton *ensureButton;
+@end
+
+@implementation ETHMyWalletVC
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    //设置导航栏颜色
+    self.navigationController.navigationBar.barTintColor = RGBColorHex(0x343946);
+    self.navigationController.navigationBar.translucent = NO;
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    self.title = @"钱包地址";
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"back"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(backClick)];
+    [self setup];
+}
+- (void)setup{
+    [self.view addSubview:self.view1];
+    [self.view1 addSubview:self.walletAddressLabel];
+    [self.view1 addSubview:self.walletAddressTF];
+    [self.view addSubview:self.view2];
+    [self.view2 addSubview:self.walletLabel];
+    [self.view2 addSubview:self.walletQRCode];
+    [self.view addSubview:self.ensureButton];
+    [_view1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).with.offset(9);
+        make.right.equalTo(self.view).with.offset(-9);
+        make.top.equalTo(self.view).with.offset(10);
+        make.height.mas_equalTo(25);
+    }];
+    [_walletAddressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view1).with.offset(16);
+        make.centerY.equalTo(self.view1.mas_centerY);
+    }];
+    [_walletAddressTF mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.walletAddressLabel.mas_right).with.offset(5);
+        make.top.bottom.equalTo(self.view1);
+        make.width.mas_equalTo(300);
+    }];
+    [_view2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view1.mas_bottom).with.offset(25);
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.width.mas_equalTo(172.5);
+        make.height.mas_equalTo(175);
+    }];
+    [_walletLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view2).with.offset(10);
+        make.centerX.equalTo(self.view2.mas_centerX);
+    }];
+    [_walletQRCode mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.walletLabel.mas_bottom).with.offset(16);
+        make.centerX.equalTo(self.view2.mas_centerX);
+    }];
+    [_ensureButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view2.mas_bottom).with.offset(100);
+        make.left.equalTo(self.view).with.offset(9);
+        make.right.equalTo(self.view).with.offset(-9);
+        make.height.mas_equalTo(35);
+    }];
+}
+- (UIView *)view1{
+    if (_view1 == nil) {
+        _view1 = [[UIView alloc]init];
+        _view1.layer.cornerRadius = 3;
+        _view1.backgroundColor = RGBColorHex(0x224eaf);
+    }return _view1;
+}
+- (UILabel *)walletAddressLabel{
+    if (_walletAddressLabel == nil) {
+        _walletAddressLabel = [[UILabel alloc]init];
+        _walletAddressLabel.font = [UIFont systemFontOfSize:12];
+        _walletAddressLabel.textColor = [UIColor whiteColor];
+        _walletAddressLabel.text = @"钱包地址：";
+    }return _walletAddressLabel;
+}
+- (UITextField *)walletAddressTF{
+    if (_walletAddressTF == nil) {
+        _walletAddressTF = [[UITextField alloc]init];
+        _walletAddressTF.font = [UIFont systemFontOfSize:12];
+        _walletAddressTF.textColor = [UIColor whiteColor];
+    }return _walletAddressTF;
+}
+- (UIView *)view2{
+    if (_view2 == nil) {
+        _view2 = [[UIView alloc]init];
+        _view2.layer.cornerRadius = 5;
+        _view2.backgroundColor = RGBColorHex(0x224eaf);
+    }return _view2;
+}
+- (UILabel *)walletLabel{
+    if (_walletLabel == nil) {
+        _walletLabel = [[UILabel alloc]init];
+        _walletLabel.font = [UIFont systemFontOfSize:12];
+        _walletLabel.textColor = [UIColor whiteColor];
+        _walletLabel.text = @"钱包二维码";
+    }return _walletLabel;
+}
+- (UIImageView *)walletQRCode{
+    if (_walletQRCode == nil) {
+        _walletQRCode = [[UIImageView alloc]init];
+        _walletQRCode.image = [UIImage imageNamed:@"erweima"];
+    }return _walletQRCode;
+}
+- (UIButton *)ensureButton{
+    if (_ensureButton == nil) {
+        _ensureButton = [[UIButton alloc]init];
+        _ensureButton.layer.cornerRadius = 3;
+        _ensureButton.backgroundColor = RGBColorHex(0x224eaf);
+        _ensureButton.titleLabel.font = [UIFont systemFontOfSize:20];
+        [_ensureButton setTitle:@"确认" forState:UIControlStateNormal];
+        [_ensureButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    }return _ensureButton;
+}
+
+
+
+
+
+- (void)backClick{
+    self.navigationController.navigationBar.hidden = YES;
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+@end

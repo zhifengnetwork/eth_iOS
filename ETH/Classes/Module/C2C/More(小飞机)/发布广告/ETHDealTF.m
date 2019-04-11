@@ -9,6 +9,15 @@
 #import "ETHDealTF.h"
 
 @implementation ETHDealTF
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.font =[UIFont systemFontOfSize:12];
+        self.textColor =[UIColor whiteColor];
+    }
+    return self;
+}
 //控制placeHolder的位置，左右缩20
 -(CGRect)placeholderRectForBounds:(CGRect)bounds
 {

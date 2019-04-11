@@ -142,7 +142,6 @@
         _priceTF = [[ETHDealTF alloc]init];
         _priceTF.layer.cornerRadius = 3;
         _priceTF.backgroundColor = RGBColorHex(0x4d5167);
-        
         _priceTF.placeholder = @"请输入买入的价格";
         [_priceTF setValue:RGBColorHex(0x737792) forKeyPath:@"_placeholderLabel.textColor"];
         [_priceTF setValue:[UIFont systemFontOfSize:12] forKeyPath:@"_placeholderLabel.font"];
