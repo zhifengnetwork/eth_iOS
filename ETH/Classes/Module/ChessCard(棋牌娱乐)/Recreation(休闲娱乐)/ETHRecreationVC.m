@@ -1,48 +1,47 @@
 //
-//  ETHChessCardVC.m
+//  ETHRecreationVC.m
 //  ETH
 //
-//  Created by admin on 2019/4/3.
+//  Created by admin on 2019/4/11.
 //  Copyright © 2019 admin. All rights reserved.
 //
 
-#import "ETHChessCardVC.h"
-#import "RefreshGifHeader.h"
-#import "ETHChessCardCollectionCell.h"
 #import "ETHRecreationVC.h"
+#import "RefreshGifHeader.h"
+#import "ETHRecreationCollectionCell.h"
 
-@interface ETHChessCardVC ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface ETHRecreationVC ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 /* collectionView */
 @property (strong , nonatomic)UICollectionView *collectionView;
 
 @end
 
-@implementation ETHChessCardVC
+@implementation ETHRecreationVC
 
 
 /* cell */
-static NSString *const ETHChessCardCollectionCellID = @"ETHChessCardCollectionCellID";
+static NSString *const ETHRecreationCollectionCellID = @"ETHRecreationCollectionCellID";
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"游戏大全";
+    self.title = @"休闲娱乐";
     [self setupUI];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    //    [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-//    [self.navigationController setNavigationBarHidden:NO animated:animated];
-//    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+    //    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    //    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 
 
@@ -73,7 +72,7 @@ static NSString *const ETHChessCardCollectionCellID = @"ETHChessCardCollectionCe
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 6;
+    return 10;
 }
 
 
@@ -82,31 +81,57 @@ static NSString *const ETHChessCardCollectionCellID = @"ETHChessCardCollectionCe
     UICollectionViewCell *gridcell = nil;
     if (indexPath.section == 0)
     {
-        ETHChessCardCollectionCell *oell = [collectionView dequeueReusableCellWithReuseIdentifier:ETHChessCardCollectionCellID forIndexPath:indexPath];
+        ETHRecreationCollectionCell *oell = [collectionView dequeueReusableCellWithReuseIdentifier:ETHRecreationCollectionCellID forIndexPath:indexPath];
         
         if (indexPath.row==0)
         {
-            oell.iconName = @"Welfare";
+            oell.iconName = @"Texas";
+            oell.title = @"德州扑克";
         }
         else if (indexPath.row==1)
         {
-            oell.iconName = @"3d";
+            oell.iconName = @"2048image";
+            oell.title = @"2048";
         }
         else if (indexPath.row==2)
         {
-            oell.iconName = @"Leisure";
+            oell.iconName = @"white";
+            oell.title = @"别踩白块";
         }
         else if (indexPath.row==3)
         {
-            oell.iconName = @"Leisure1";
+            oell.iconName = @"Tetris";
+            oell.title = @"俄罗斯方块";
         }
         else if (indexPath.row==4)
         {
-            oell.iconName = @"Bullfighting";
+            oell.iconName = @"StickmanLeague";
+            oell.title = @"火柴人联盟";
         }
         else if (indexPath.row==5)
         {
-            oell.iconName = @"Bullfighting2";
+            oell.iconName = @"cut fruit";
+            oell.title = @"切水果";
+        }
+        else if (indexPath.row==6)
+        {
+            oell.iconName = @"Crazyracing";
+            oell.title = @"疯狂赛车";
+        }
+        else if (indexPath.row==7)
+        {
+            oell.iconName = @"Snake";
+            oell.title = @"贪吃蛇";
+        }
+        else if (indexPath.row==8)
+        {
+            oell.iconName = @"Birdpig";
+            oell.title = @"小鸟与猪";
+        }
+        else if (indexPath.row==9)
+        {
+            oell.iconName = @"Eliminatemusic";
+            oell.title = @"消消乐";
         }
         
         gridcell = oell;
@@ -138,7 +163,7 @@ static NSString *const ETHChessCardCollectionCellID = @"ETHChessCardCollectionCe
     if (indexPath.section == 0)
     {
         //9宫格组
-        return CGSizeMake((LL_ScreenWidth - 4)/2, (LL_ScreenWidth - 4)/2 - 40);
+        return CGSizeMake((LL_ScreenWidth - 4)/3, (LL_ScreenWidth - 4)/3 + 10);
     }
     
     return CGSizeZero;
@@ -183,28 +208,28 @@ static NSString *const ETHChessCardCollectionCellID = @"ETHChessCardCollectionCe
 //点击事件
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section==0)
+    if (indexPath.section==1)
     {
         if (indexPath.row==0)
         {
-            ETHRecreationVC* vc = [[ETHRecreationVC alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
+            //            ETHInvestmentRecordVC* vc = [[ETHInvestmentRecordVC alloc]init];
+            //            [self.navigationController pushViewController:vc animated:YES];
         }
-//        else if (indexPath.row==3)
-//        {
-//            ETHWalletBalanceVC* vc = [[ETHWalletBalanceVC alloc]init];
-//            [self.navigationController pushViewController:vc animated:YES];
-//        }
-//        else if (indexPath.row==4)
-//        {
-//            ETHInvestmentPurchaseVC* vc = [[ETHInvestmentPurchaseVC alloc]init];
-//            [self.navigationController pushViewController:vc animated:YES];
-//        }
-//        else if (indexPath.row==5)
-//        {
-//            ETHSubordinateVC* vc = [[ETHSubordinateVC alloc]init];
-//            [self.navigationController pushViewController:vc animated:YES];
-//        }
+        //        else if (indexPath.row==3)
+        //        {
+        //            ETHWalletBalanceVC* vc = [[ETHWalletBalanceVC alloc]init];
+        //            [self.navigationController pushViewController:vc animated:YES];
+        //        }
+        //        else if (indexPath.row==4)
+        //        {
+        //            ETHInvestmentPurchaseVC* vc = [[ETHInvestmentPurchaseVC alloc]init];
+        //            [self.navigationController pushViewController:vc animated:YES];
+        //        }
+        //        else if (indexPath.row==5)
+        //        {
+        //            ETHSubordinateVC* vc = [[ETHSubordinateVC alloc]init];
+        //            [self.navigationController pushViewController:vc animated:YES];
+        //        }
     }
 }
 
@@ -250,7 +275,7 @@ static NSString *const ETHChessCardCollectionCellID = @"ETHChessCardCollectionCe
         _collectionView.frame = CGRectMake(0, 0, LL_ScreenWidth, LL_ScreenHeight);
         _collectionView.showsVerticalScrollIndicator = NO;
         //首页
-        [_collectionView registerClass:[ETHChessCardCollectionCell class] forCellWithReuseIdentifier:ETHChessCardCollectionCellID];
+        [_collectionView registerClass:[ETHRecreationCollectionCell class] forCellWithReuseIdentifier:ETHRecreationCollectionCellID];
         
         [self.view addSubview:_collectionView];
     }

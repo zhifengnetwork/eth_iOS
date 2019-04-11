@@ -183,7 +183,7 @@
     if (_moneyTextField == nil) {
         _moneyTextField = [[UITextField alloc] init];
         _moneyTextField.placeholder = @"";
-        _moneyTextField.font = [UIFont systemFontOfSize:12];
+        _moneyTextField.font = [UIFont systemFontOfSize:15];
         _moneyTextField.textColor = RGBColorHex(0x232833);
         _moneyTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     }
@@ -204,7 +204,7 @@
     if (_idTextField == nil) {
         _idTextField = [[UITextField alloc] init];
         _idTextField.placeholder = @"请输入对方ID";
-        _idTextField.font = [UIFont systemFontOfSize:10];
+        _idTextField.font = [UIFont systemFontOfSize:12];
         _idTextField.textColor = RGBColorHex(0x232833);
         [_idTextField sizeToFit];
         _idTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
