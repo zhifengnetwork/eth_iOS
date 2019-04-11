@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol ETHDoubleThrowTableCellwDelegate <NSObject>
+@protocol ETHDoubleThrowTableCellDelegate <NSObject>
 
 //按钮被点击 1:一键复投 2:棋牌娱乐
 - (void)ETHDoubleThrowTableCellDidClick:(int)type;
@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface ETHDoubleThrowTableCell : UITableViewCell
 
-@property (nonatomic, weak) id<ETHDoubleThrowTableCellwDelegate> delegate;
+@property (nonatomic, weak) id<ETHDoubleThrowTableCellDelegate> delegate;
 
 @end
 

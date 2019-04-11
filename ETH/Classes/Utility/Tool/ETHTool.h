@@ -85,6 +85,20 @@ NS_ASSUME_NONNULL_BEGIN
 //隐藏线
 +(void)isHiddenNavigationBarSeparatorLine:(BOOL)hide vc:(UIViewController*)viewController;
 
+/**
+ *  创建关键字高亮字体颜色的富文本字符串
+ *
+ *  @param AttributedString 原富文本
+ *  @param strText          原富文本的内容
+ *  @param strKeyWord       关键字
+ *  @param Color            关键字颜色
+ *  @param font             关键字字体
+ *  @param BGColor          关键字背景颜色
+ *
+ *  @return 富文本
+ */
++(NSMutableAttributedString*)GetAttributedString:(NSMutableAttributedString*)AttributedString SrcText:(NSString*)strText KeyWord:(NSString*)strKeyWord KeyWordColor:(UIColor*)Color KeyWordFont:(UIFont*)font KeyWordBGolor:(UIColor*)BGColor;
+
 
 @end
 

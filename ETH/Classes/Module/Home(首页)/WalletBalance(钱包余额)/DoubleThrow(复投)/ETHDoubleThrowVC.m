@@ -127,6 +127,9 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    if (section==3) {
+        return 40;
+    }
     return 10;
 }
 

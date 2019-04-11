@@ -10,6 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ 棋牌娱乐
+ */
 @interface ETHChessCardVC : UIViewController
 
 @end

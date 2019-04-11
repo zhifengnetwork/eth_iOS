@@ -11,8 +11,11 @@
 #import "ETHDoubleThrowTableCell.h"
 #import "ETHTwoDoubleThrowTableCell.h"
 #import "ETHDoubleThrowVC.h"
+#import "ETHTransferAccountVC.h"
+#import "ETHCashWithdrawaVC.h"
+#import "ETHWalletETHVC.h"
 
-@interface ETHWalletBalanceVC ()<ETHDoubleThrowTableCellwDelegate>
+@interface ETHWalletBalanceVC ()<ETHDoubleThrowTableCellDelegate,ETHTwoDoubleThrowTableCellDelegate>
 
 @end
 
@@ -173,6 +176,7 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     {
         ETHTwoDoubleThrowTableCell* kcell = [tableView dequeueReusableCellWithIdentifier:ETHDoubleThrowTableCellID];
         kcell = [[ETHTwoDoubleThrowTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHTwoDoubleThrowTableCellID];
+        kcell.delegate = self;
         
         cell = kcell;
     }
@@ -233,7 +237,7 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
 {
     if (type==1)
     {
-        //跳转到复投
+        //跳转到一键复投
         ETHDoubleThrowVC* vc = [[ETHDoubleThrowVC alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -243,4 +247,36 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     }
 }
 
+//按钮被点击 1:一键复投 2:提现 3:C2C 4:棋牌娱乐 5:互转
+- (void)ETHTwoDoubleThrowTableCellDidClick:(int)type
+{
+    if (type==1)
+    {
+        //跳转到一键复投
+        ETHDoubleThrowVC* vc = [[ETHDoubleThrowVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else if (type==2)
+    {
+        ETHWalletETHVC* vc = [[ETHWalletETHVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else if (type==2)
+    {
+        
+    }
+    else if (type==3)
+    {
+        
+    }
+    else if (type==4)
+    {
+        
+    }
+    else if (type==5)
+    {
+        ETHTransferAccountVC* vc = [[ETHTransferAccountVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
 @end

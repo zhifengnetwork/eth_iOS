@@ -88,27 +88,42 @@
 
 - (void)doubleButtonDidClick
 {
-    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(ETHTwoDoubleThrowTableCellDidClick:)])
+    {
+        [self.delegate ETHTwoDoubleThrowTableCellDidClick:1];
+    }
 }
 
 - (void)cashButtonDidClick
 {
-    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(ETHTwoDoubleThrowTableCellDidClick:)])
+    {
+        [self.delegate ETHTwoDoubleThrowTableCellDidClick:2];
+    }
 }
 
 - (void)c2cButtonDidClick
 {
-    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(ETHTwoDoubleThrowTableCellDidClick:)])
+    {
+        [self.delegate ETHTwoDoubleThrowTableCellDidClick:3];
+    }
 }
 
 - (void)entertainButtonDidClick
 {
-    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(ETHTwoDoubleThrowTableCellDidClick:)])
+    {
+        [self.delegate ETHTwoDoubleThrowTableCellDidClick:4];
+    }
 }
 
 - (void)interturnButtonDidClick
 {
-    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(ETHTwoDoubleThrowTableCellDidClick:)])
+    {
+        [self.delegate ETHTwoDoubleThrowTableCellDidClick:5];
+    }
 }
 
 -(UIView *)bgView
