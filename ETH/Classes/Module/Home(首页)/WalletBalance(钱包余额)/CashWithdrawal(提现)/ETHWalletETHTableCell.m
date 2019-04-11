@@ -1,31 +1,30 @@
 //
-//  ETHCashWithdrAmountTableCell.m
+//  ETHWalletETHTableCell.m
 //  ETH
 //
 //  Created by admin on 2019/4/11.
 //  Copyright © 2019 admin. All rights reserved.
 //
 
-#import "ETHCashWithdrAmountTableCell.h"
+#import "ETHWalletETHTableCell.h"
 #import "ETHTool.h"
 
-@interface ETHCashWithdrAmountTableCell()
+@interface ETHWalletETHTableCell()
 
 @property (nonatomic, strong) UIView *bg1View;
 @property (nonatomic, strong) UIView *bg2View;
-@property (nonatomic, strong) UIView *bg3View;
 @property (nonatomic, strong) UILabel* titleLabel;
+@property (nonatomic, strong) UIButton *wholeButton;
 @property (nonatomic, strong) UILabel* moneyLabel;
 @property (nonatomic, strong) UITextField* moneyTextField;
-@property (nonatomic, strong) UILabel* idLabel;
-@property (nonatomic, strong) UITextField* idTextField;
+@property (nonatomic, strong) UILabel* numberLabel;
 @property (nonatomic, strong) UILabel* serviceLabel;
 @property (nonatomic, strong) UILabel* service2Label;
 @property (nonatomic, strong) UILabel* actualLabel;
 
 @end
 
-@implementation ETHCashWithdrAmountTableCell
+@implementation ETHWalletETHTableCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -43,12 +42,11 @@
     self.contentView.backgroundColor = RGBColorHex(0xffffff);
     [self.contentView addSubview:self.bg1View];
     [self.contentView addSubview:self.bg2View];
-    [self.contentView addSubview:self.bg3View];
     [self.contentView addSubview:self.titleLabel];
+    [self.contentView addSubview:self.wholeButton];
     [self.contentView addSubview:self.moneyLabel];
     [self.contentView addSubview:self.moneyTextField];
-    [self.contentView addSubview:self.idLabel];
-    [self.contentView addSubview:self.idTextField];
+    [self.contentView addSubview:self.numberLabel];
     [self.contentView addSubview:self.serviceLabel];
     [self.contentView addSubview:self.service2Label];
     [self.contentView addSubview:self.actualLabel];
@@ -57,7 +55,7 @@
         make.left.mas_equalTo(10);
         make.right.mas_equalTo(-10);
         make.top.mas_equalTo(0);
-        make.height.mas_equalTo(195);
+        make.height.mas_equalTo(180);
     }];
     
     [_bg2View mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -67,16 +65,14 @@
         make.height.mas_equalTo(25);
     }];
     
-    [_bg3View mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self->_bg1View.mas_left).offset(10);
-        make.top.equalTo(self->_bg2View.mas_bottom).offset(5);
-        make.width.mas_equalTo(225);
-        make.height.mas_equalTo(25);
-    }];
-    
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self->_bg1View.mas_left).offset(10);
         make.top.equalTo(self->_bg1View.mas_top).offset(15);
+    }];
+    
+    [_wholeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self->_titleLabel.mas_right).offset(20);
+        make.centerY.equalTo(self->_titleLabel);
     }];
     
     [_moneyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -90,24 +86,18 @@
         make.width.mas_equalTo(200);
     }];
     
-    [_idLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self->_bg3View.mas_left).offset(10);
-        make.centerY.equalTo(self->_bg3View);
-    }];
-    
-    [_idTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self->_idLabel.mas_right).offset(10);
-        make.centerY.equalTo(self->_bg3View);
-        make.width.mas_equalTo(195);
+    [_numberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self->_bg1View.mas_left).offset(10);
+        make.top.equalTo(self->_bg2View.mas_bottom).offset(5);
     }];
     
     [_serviceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self->_bg3View.mas_bottom).offset(15);
+        make.top.equalTo(self->_numberLabel.mas_bottom).offset(15);
         make.left.equalTo(self->_bg1View.mas_left).offset(10);
     }];
     
     [_service2Label mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self->_serviceLabel.mas_bottom).offset(10);
+        make.top.equalTo(self->_serviceLabel.mas_bottom).offset(7);
         make.left.equalTo(self->_bg1View.mas_left).offset(10);
     }];
     
@@ -115,6 +105,15 @@
         make.top.equalTo(self->_service2Label.mas_bottom).offset(7);
         make.left.equalTo(self->_bg1View.mas_left).offset(10);
     }];
+}
+
+- (void)wholeButtonDidClick:(UIButton *)sender
+{
+//    _txCurrency = [NSString stringWithFormat:@"%.2f",[LKTool getMaxTx:self.currency.doubleValue dp:self.dp]];
+//    _inputTextField.text = [NSString stringWithFormat:@"%.2f",_txCurrency.doubleValue];
+//    if ([self.delegate respondsToSelector:@selector(LKPutForwardTableCellInputing:)]) {
+//        [self.delegate LKPutForwardTableCellInputing:self.inputTextField.text];
+//    }
 }
 
 -(UIView *)bg1View
@@ -145,19 +144,6 @@
     return _bg2View;
 }
 
--(UIView *)bg3View
-{
-    if(_bg3View==nil)
-    {
-        _bg3View = [[UIView alloc]initWithFrame:CGRectZero];
-        _bg3View.backgroundColor = RGBColorHex(0xffffff);
-        _bg3View.clipsToBounds = YES;
-        _bg3View.layer.cornerRadius = 3.0f;
-        _bg3View.layer.borderWidth = 1.0f;
-        _bg3View.layer.borderColor = RGBColorHex(0x3d3d3d).CGColor;
-    }
-    return _bg3View;
-}
 
 - (UILabel *)titleLabel {
     if (_titleLabel == nil) {
@@ -167,6 +153,18 @@
         _titleLabel.text = @"当前可提现额度： ¥43808";
     }
     return _titleLabel;
+}
+
+- (UIButton *)wholeButton {
+    if (_wholeButton == nil) {
+        _wholeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_wholeButton setTitle:@"全部提现" forState:UIControlStateNormal];
+        [_wholeButton setTitleColor:RGBColorHex(0x44b435) forState:UIControlStateNormal];
+        _wholeButton.titleLabel.font = [UIFont systemFontOfSize:12];
+        _wholeButton.userInteractionEnabled = YES;
+        [_wholeButton addTarget:self action:@selector(wholeButtonDidClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _wholeButton;
 }
 
 - (UILabel *)moneyLabel {
@@ -183,33 +181,21 @@
     if (_moneyTextField == nil) {
         _moneyTextField = [[UITextField alloc] init];
         _moneyTextField.placeholder = @"";
-        _moneyTextField.font = [UIFont systemFontOfSize:12];
-        _moneyTextField.textColor = RGBColorHex(0x232833);
+        _moneyTextField.font = [UIFont systemFontOfSize:15];
+        _moneyTextField.textColor = RGBColorHex(0xf2041a);
         _moneyTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     }
     return _moneyTextField;
 }
 
-- (UILabel *)idLabel {
-    if (_idLabel == nil) {
-        _idLabel = [[UILabel alloc] init];
-        _idLabel.textColor = RGBColorHex(0x232833);
-        _idLabel.font = [UIFont systemFontOfSize:12];
-        _idLabel.text = @"ID";
+- (UILabel *)numberLabel{
+    if (_numberLabel == nil) {
+        _numberLabel = [[UILabel alloc] init];
+        _numberLabel.textColor = RGBColorHex(0xf2041a);
+        _numberLabel.font = [UIFont systemFontOfSize:9];
+        _numberLabel.text = @"*提现的金额只能是1的倍数";
     }
-    return _idLabel;
-}
-
-- (UITextField *)idTextField {
-    if (_idTextField == nil) {
-        _idTextField = [[UITextField alloc] init];
-        _idTextField.placeholder = @"请输入对方ID";
-        _idTextField.font = [UIFont systemFontOfSize:10];
-        _idTextField.textColor = RGBColorHex(0x232833);
-        [_idTextField sizeToFit];
-        _idTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    }
-    return _idTextField;
+    return _numberLabel;
 }
 
 - (UILabel *)serviceLabel {
@@ -217,7 +203,7 @@
         _serviceLabel = [[UILabel alloc] init];
         _serviceLabel.textColor = RGBColorHex(0x232833);
         _serviceLabel.font = [UIFont systemFontOfSize:12];
-        _serviceLabel.text = @"交易手续费为0.30%";
+        _serviceLabel.text = @"提现手续费为5%";
     }
     return _serviceLabel;
 }
@@ -228,8 +214,8 @@
         _service2Label.textColor = RGBColorHex(0x232833);
         _service2Label.font = [UIFont systemFontOfSize:12];
         //2种颜色
-        NSString* str = @"本次转账将扣除手续费：¥0.01500";
-        NSString* key = @"¥0.01500";
+        NSString* str = @"本次提现将扣除手续费：¥0.3";
+        NSString* key = @"¥0.3";
         NSMutableAttributedString* aText = [ETHTool GetAttributedString:nil SrcText:str KeyWord:key KeyWordColor:RGBColorHex(0xf2041a) KeyWordFont:[UIFont systemFontOfSize:13] KeyWordBGolor:[UIColor clearColor]];
         _service2Label.attributedText = aText;
     }
@@ -242,12 +228,11 @@
         _actualLabel.textColor = RGBColorHex(0x232833);
         _actualLabel.font = [UIFont systemFontOfSize:12];
         //2种颜色
-        NSString* str = @"本次转账实际到账金额：¥5.35330";
-        NSString* key = @"¥5.35330";
+        NSString* str = @"本次提现实际到账金额：¥5.7";
+        NSString* key = @"¥5.7";
         NSMutableAttributedString* aText = [ETHTool GetAttributedString:nil SrcText:str KeyWord:key KeyWordColor:RGBColorHex(0xf2041a) KeyWordFont:[UIFont systemFontOfSize:13] KeyWordBGolor:[UIColor clearColor]];
         _actualLabel.attributedText = aText;
     }
     return _actualLabel;
 }
-
 @end

@@ -1,43 +1,35 @@
 //
-//  ETHWalletBalanceVC.m
-//  ZF
+//  ETHWalletETHVC.m
+//  ETH
 //
-//  Created by admin on 2019/3/19.
-//  Copyright © 2019 hyy. All rights reserved.
+//  Created by admin on 2019/4/11.
+//  Copyright © 2019 admin. All rights reserved.
 //
 
-#import "ETHWalletBalanceVC.h"
-#import "ETHWalletBalanceTableCell.h"
-#import "ETHDoubleThrowTableCell.h"
-#import "ETHTwoDoubleThrowTableCell.h"
-#import "ETHDoubleThrowVC.h"
-#import "ETHTransferAccountVC.h"
-#import "ETHCashWithdrawaVC.h"
 #import "ETHWalletETHVC.h"
+#import "ETHWalletETHTableCell.h"
+#import "ETHPaymentTableCell.h"
 
-@interface ETHWalletBalanceVC ()<ETHDoubleThrowTableCellDelegate,ETHTwoDoubleThrowTableCellDelegate>
+@interface ETHWalletETHVC ()
 
 @end
 
-@implementation ETHWalletBalanceVC
+@implementation ETHWalletETHVC
 
-static NSString *const ETHWalletBalanceTableCellID = @"ETHWalletBalanceTableCellID";
-static NSString *const ETHDoubleThrowTableCellID = @"ETHDoubleThrowTableCellID";
-static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCellID";
+static NSString *const ETHWalletETHTableCellID = @"ETHWalletETHTableCellID";
+static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"钱包余额";
+    self.title = @"提现";
     [self setupTableView];
     
     UISegmentedControl* segment = [[UISegmentedControl alloc]initWithFrame:CGRectMake(10, 30, 200, 30)];
     //在索引值为0的位置上插入一个标题为red的按钮，第三个参数为是否开启动画
-    [segment insertSegmentWithTitle:@"钱包" atIndex:0 animated:YES];
-    [segment insertSegmentWithTitle:@"提币记录" atIndex:1 animated:YES];
-    [segment insertSegmentWithTitle:@"赚币记录" atIndex:2 animated:YES];
-    [segment insertSegmentWithTitle:@"C2C记录" atIndex:3 animated:YES];
+    [segment insertSegmentWithTitle:@"ETH提现" atIndex:0 animated:YES];
+    [segment insertSegmentWithTitle:@"复投账户" atIndex:1 animated:YES];
     
     //设置Segment的字体
     NSDictionary *dic = @{
@@ -58,7 +50,7 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
                            };
     
     [segment setTitleTextAttributes:dic2 forState:UIControlStateSelected];
-
+    
     //设置未选中时的背景色
     [segment setBackgroundImage:[UIImage imageNamed:@"backGr"]
                        forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
@@ -71,13 +63,13 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     segment.tintColor = RGBColorHex(0xffffff);
     //设置初始选中值，默认是没有选中
     segment.selectedSegmentIndex = 0;
-//    self.view.backgroundColor = [UIColor magentaColor];
+    //    self.view.backgroundColor = [UIColor magentaColor];
     //绑定事件
     [segment addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:segment];
     
     
-    NSArray* array = @[@"钱包",@"提币记录",@"赚币记录",@"C2C记录"];
+    NSArray* array = @[@"ETH提现",@"复投账户"];
     UISegmentedControl* segment1 = [[UISegmentedControl alloc]initWithItems:array];
     //设置位置和大小
     segment1.frame = CGRectMake(0, 0, LL_ScreenWidth, 40);
@@ -97,7 +89,7 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
 {
     //titleForSegmentAtIndex通过索引值获取被选中的分段控制器的按钮标题，selectedSegmentIndex 是获取被选中按钮的索引值
     NSLog(@"----%@",[sender titleForSegmentAtIndex:sender.selectedSegmentIndex]);
-
+    
 }
 
 
@@ -122,20 +114,19 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     self.tableView.estimatedRowHeight = 0;
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
-    self.tableView.backgroundColor = RGBColorHex(0x080e2c);
+    self.tableView.backgroundColor = RGBColorHex(0xffffff);
     self.tableView.tableFooterView = [UIView new];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.alwaysBounceVertical=NO;
     
-    [self.tableView registerClass:[ETHWalletBalanceTableCell class] forCellReuseIdentifier:ETHWalletBalanceTableCellID];
-    [self.tableView registerClass:[ETHDoubleThrowTableCell class] forCellReuseIdentifier:ETHDoubleThrowTableCellID];
-    [self.tableView registerClass:[ETHTwoDoubleThrowTableCell class] forCellReuseIdentifier:ETHTwoDoubleThrowTableCellID];
+    [self.tableView registerClass:[ETHWalletETHTableCell class] forCellReuseIdentifier:ETHWalletETHTableCellID];
+    [self.tableView registerClass:[ETHPaymentTableCell class] forCellReuseIdentifier:ETHPaymentTableCellID];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -147,38 +138,19 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
 {
     UITableViewCell *cell = nil;
     
-    ETHWalletBalanceTableCell* pcell = [tableView dequeueReusableCellWithIdentifier:ETHWalletBalanceTableCellID];
-    pcell = [[ETHWalletBalanceTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHWalletBalanceTableCellID];
-    
     if (indexPath.section==0)
     {
-        pcell.title = @"复投账户";
-        pcell.name = @"0.0001";
+        ETHWalletETHTableCell* pcell = [tableView dequeueReusableCellWithIdentifier:ETHWalletETHTableCellID];
+        pcell = [[ETHWalletETHTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHWalletETHTableCellID];
         
         cell = pcell;
     }
     else if (indexPath.section==1)
     {
-        ETHDoubleThrowTableCell* kcell = [tableView dequeueReusableCellWithIdentifier:ETHDoubleThrowTableCellID];
-        kcell = [[ETHDoubleThrowTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHDoubleThrowTableCellID];
-        kcell.delegate = self;
-        
-        cell = kcell;
-    }
-    else if (indexPath.section==2)
-    {
-        pcell.title = @"自由钱包";
-        pcell.name = @"568299.00";
-        
-        cell = pcell;
-    }
-    else if (indexPath.section==3)
-    {
-        ETHTwoDoubleThrowTableCell* kcell = [tableView dequeueReusableCellWithIdentifier:ETHDoubleThrowTableCellID];
-        kcell = [[ETHTwoDoubleThrowTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHTwoDoubleThrowTableCellID];
-        kcell.delegate = self;
-        
-        cell = kcell;
+        ETHPaymentTableCell* ocell = [tableView dequeueReusableCellWithIdentifier:ETHPaymentTableCellID];
+        ocell = [[ETHPaymentTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHPaymentTableCellID];
+        ocell.title = @"提现";
+        cell = ocell;
     }
     
     return cell;
@@ -188,20 +160,18 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
 //每行的高度是多少
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    if (indexPath.section==0) {
+        return 180;
+    }
+    return 40;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section==0)
-    {
-        return 32;
+    if (section==1) {
+        return 40;
     }
-    else if (section==2)
-    {
-        return 12;
-    }
-    return 0;
+    return 10;
 }
 
 
@@ -232,51 +202,5 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     //    }
 }
 
-//按钮被点击 1:一键复投 2:棋牌娱乐
-- (void)ETHDoubleThrowTableCellDidClick:(int)type
-{
-    if (type==1)
-    {
-        //跳转到一键复投
-        ETHDoubleThrowVC* vc = [[ETHDoubleThrowVC alloc]init];
-        [self.navigationController pushViewController:vc animated:YES];
-    }
-    else if (type==2)
-    {
-        
-    }
-}
 
-//按钮被点击 1:一键复投 2:提现 3:C2C 4:棋牌娱乐 5:互转
-- (void)ETHTwoDoubleThrowTableCellDidClick:(int)type
-{
-    if (type==1)
-    {
-        //跳转到一键复投
-        ETHDoubleThrowVC* vc = [[ETHDoubleThrowVC alloc]init];
-        [self.navigationController pushViewController:vc animated:YES];
-    }
-    else if (type==2)
-    {
-        ETHWalletETHVC* vc = [[ETHWalletETHVC alloc]init];
-        [self.navigationController pushViewController:vc animated:YES];
-    }
-    else if (type==2)
-    {
-        
-    }
-    else if (type==3)
-    {
-        
-    }
-    else if (type==4)
-    {
-        
-    }
-    else if (type==5)
-    {
-        ETHTransferAccountVC* vc = [[ETHTransferAccountVC alloc]init];
-        [self.navigationController pushViewController:vc animated:YES];
-    }
-}
 @end

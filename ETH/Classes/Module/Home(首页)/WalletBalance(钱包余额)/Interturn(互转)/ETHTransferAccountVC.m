@@ -126,7 +126,7 @@ static NSString *const ETHTransferTipsTableCellID = @"ETHTransferTipsTableCellID
     }
     else if (indexPath.section==1)
     {
-        return 183;
+        return 195;
     }
     return 40;
 }
