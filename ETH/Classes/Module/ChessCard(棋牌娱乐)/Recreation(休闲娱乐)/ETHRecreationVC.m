@@ -163,7 +163,7 @@ static NSString *const ETHRecreationCollectionCellID = @"ETHRecreationCollection
     if (indexPath.section == 0)
     {
         //9宫格组
-        return CGSizeMake((LL_ScreenWidth - 4)/3, (LL_ScreenWidth - 4)/3 + 10);
+        return CGSizeMake((LL_ScreenWidth - 80)/3, (LL_ScreenWidth - 80)/3 + 20);
     }
     
     return CGSizeZero;
@@ -233,21 +233,6 @@ static NSString *const ETHRecreationCollectionCellID = @"ETHRecreationCollection
     }
 }
 
-#pragma mark - <UIScrollViewDelegate>
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if (scrollView.contentOffset.y > 44)
-    {
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-        [[NSNotificationCenter defaultCenter] postNotificationName:UserShowTopToolViewNotification object:nil];
-    }else
-    {
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-        [[NSNotificationCenter defaultCenter] postNotificationName:UserHideTopToolViewNotification object:nil];
-    }
-}
-
-
 -(void)updateTimeInVisibleCells
 {
     //重新刷新section，防止闪烁
@@ -269,6 +254,8 @@ static NSString *const ETHRecreationCollectionCellID = @"ETHRecreationCollection
 {
     if (!_collectionView) {
         UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
+        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+        layout.sectionInset = UIEdgeInsetsMake(10, 20, 10, 20);
         _collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
