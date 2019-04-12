@@ -13,12 +13,12 @@
 #import "ViewController.h"
 #import "ETHMyWalletVC.h"
 #import "ETHAnnouncementVC.h"
+#import "ETHResetPasswordVC.h"
 @interface ETHMeVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UITableView *tableView;
 @property (nonatomic, strong)ETHHeaderView *headerView;
 @property (nonatomic, strong)UIButton *logoutButton;
 @end
-
 @implementation ETHMeVC
 static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
 
@@ -80,7 +80,7 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
     return 10;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+//    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     self.navigationController.navigationBar.hidden = NO;
     if (indexPath.section ==0) {
         if (indexPath.row == 0) {
@@ -96,7 +96,8 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
             
         }else if (indexPath.row == 3){
             //跳转到修改密码
-            
+            ETHResetPasswordVC *vc = [[ETHResetPasswordVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
         
     }else{
