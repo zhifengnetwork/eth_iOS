@@ -1,23 +1,23 @@
 //
-//  ETHRecreationVC.m
+//  ETHFightVC.m
 //  ETH
 //
-//  Created by admin on 2019/4/11.
+//  Created by admin on 2019/4/12.
 //  Copyright © 2019 admin. All rights reserved.
 //
 
-#import "ETHRecreationVC.h"
+#import "ETHFightVC.h"
 #import "RefreshGifHeader.h"
 #import "ETHRecreationCollectionCell.h"
 
-@interface ETHRecreationVC ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface ETHFightVC ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 /* collectionView */
 @property (strong , nonatomic)UICollectionView *collectionView;
 
 @end
 
-@implementation ETHRecreationVC
+@implementation ETHFightVC
 
 
 /* cell */
@@ -72,7 +72,7 @@ static NSString *const ETHRecreationCollectionCellID = @"ETHRecreationCollection
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 10;
+    return 9;
 }
 
 
@@ -90,48 +90,43 @@ static NSString *const ETHRecreationCollectionCellID = @"ETHRecreationCollection
         }
         else if (indexPath.row==1)
         {
-            oell.iconName = @"2048image";
-            oell.title = @"2048";
+            oell.iconName = @"Landlord";
+            oell.title = @"斗地主";
         }
         else if (indexPath.row==2)
         {
-            oell.iconName = @"white";
-            oell.title = @"别踩白块";
+            oell.iconName = @"Bullfighting-1";
+            oell.title = @"斗牛";
         }
         else if (indexPath.row==3)
         {
-            oell.iconName = @"Tetris";
-            oell.title = @"俄罗斯方块";
+            oell.iconName = @"TeMilitary chesstris";
+            oell.title = @"军棋";
         }
         else if (indexPath.row==4)
         {
-            oell.iconName = @"StickmanLeague";
-            oell.title = @"火柴人联盟";
+            oell.iconName = @"Mahjong";
+            oell.title = @"麻将";
         }
         else if (indexPath.row==5)
         {
-            oell.iconName = @"cut fruit";
-            oell.title = @"切水果";
+            oell.iconName = @"Gomoku";
+            oell.title = @"五子棋";
         }
         else if (indexPath.row==6)
         {
-            oell.iconName = @"Crazyracing";
-            oell.title = @"疯狂赛车";
+            oell.iconName = @"Go";
+            oell.title = @"围棋";
         }
         else if (indexPath.row==7)
         {
-            oell.iconName = @"Snake";
-            oell.title = @"贪吃蛇";
+            oell.iconName = @"ChessJiang";
+            oell.title = @"象棋";
         }
         else if (indexPath.row==8)
         {
-            oell.iconName = @"Birdpig";
-            oell.title = @"小鸟与猪";
-        }
-        else if (indexPath.row==9)
-        {
-            oell.iconName = @"Eliminatemusic";
-            oell.title = @"消消乐";
+            oell.iconName = @"flower";
+            oell.title = @"炸金花";
         }
         
         gridcell = oell;

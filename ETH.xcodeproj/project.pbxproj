@@ -46,6 +46,11 @@
 		840ADCBF225F487900203D64 /* ETHChessCardCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 840ADCBE225F487900203D64 /* ETHChessCardCollectionCell.m */; };
 		840ADCC3225F503800203D64 /* ETHRecreationCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 840ADCC2225F503800203D64 /* ETHRecreationCollectionCell.m */; };
 		840ADCC6225F51AC00203D64 /* ETHRecreationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 840ADCC5225F51AC00203D64 /* ETHRecreationVC.m */; };
+		841D8755226098D200009D78 /* ETH3DGameTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 841D8751226098D100009D78 /* ETH3DGameTableCell.m */; };
+		841D8756226098D200009D78 /* ETHListWinnersTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 841D8752226098D100009D78 /* ETHListWinnersTableCell.m */; };
+		841D8757226098D200009D78 /* ETHBetNumberCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 841D8753226098D100009D78 /* ETHBetNumberCollectionCell.m */; };
+		841D8758226098D200009D78 /* ETH3DGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 841D8754226098D100009D78 /* ETH3DGameVC.m */; };
+		841D875B226098EE00009D78 /* ETHFightVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 841D875A226098EE00009D78 /* ETHFightVC.m */; };
 		842E81EC2254562C00CC5188 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E81EB2254562C00CC5188 /* AppDelegate.m */; };
 		842E81EF2254562C00CC5188 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E81EE2254562C00CC5188 /* ViewController.m */; };
 		842E81F22254562C00CC5188 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 842E81F02254562C00CC5188 /* Main.storyboard */; };
@@ -223,6 +228,16 @@
 		840ADCC2225F503800203D64 /* ETHRecreationCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHRecreationCollectionCell.m; sourceTree = "<group>"; };
 		840ADCC4225F51AC00203D64 /* ETHRecreationVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETHRecreationVC.h; sourceTree = "<group>"; };
 		840ADCC5225F51AC00203D64 /* ETHRecreationVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHRecreationVC.m; sourceTree = "<group>"; };
+		841D874D226098D100009D78 /* ETHListWinnersTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETHListWinnersTableCell.h; sourceTree = "<group>"; };
+		841D874E226098D100009D78 /* ETH3DGameTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETH3DGameTableCell.h; sourceTree = "<group>"; };
+		841D874F226098D100009D78 /* ETH3DGameVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETH3DGameVC.h; sourceTree = "<group>"; };
+		841D8750226098D100009D78 /* ETHBetNumberCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETHBetNumberCollectionCell.h; sourceTree = "<group>"; };
+		841D8751226098D100009D78 /* ETH3DGameTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETH3DGameTableCell.m; sourceTree = "<group>"; };
+		841D8752226098D100009D78 /* ETHListWinnersTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHListWinnersTableCell.m; sourceTree = "<group>"; };
+		841D8753226098D100009D78 /* ETHBetNumberCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHBetNumberCollectionCell.m; sourceTree = "<group>"; };
+		841D8754226098D100009D78 /* ETH3DGameVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETH3DGameVC.m; sourceTree = "<group>"; };
+		841D8759226098EE00009D78 /* ETHFightVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETHFightVC.h; sourceTree = "<group>"; };
+		841D875A226098EE00009D78 /* ETHFightVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHFightVC.m; sourceTree = "<group>"; };
 		842E81E72254562C00CC5188 /* ETH.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ETH.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		842E81EA2254562C00CC5188 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		842E81EB2254562C00CC5188 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -533,12 +548,29 @@
 		840ADCC0225F500B00203D64 /* Recreation(休闲娱乐) */ = {
 			isa = PBXGroup;
 			children = (
+				841D8759226098EE00009D78 /* ETHFightVC.h */,
+				841D875A226098EE00009D78 /* ETHFightVC.m */,
 				840ADCC4225F51AC00203D64 /* ETHRecreationVC.h */,
 				840ADCC5225F51AC00203D64 /* ETHRecreationVC.m */,
 				840ADCC1225F503800203D64 /* ETHRecreationCollectionCell.h */,
 				840ADCC2225F503800203D64 /* ETHRecreationCollectionCell.m */,
 			);
 			path = "Recreation(休闲娱乐)";
+			sourceTree = "<group>";
+		};
+		841D874C226098D100009D78 /* 3DGame( 游戏) */ = {
+			isa = PBXGroup;
+			children = (
+				841D874D226098D100009D78 /* ETHListWinnersTableCell.h */,
+				841D874E226098D100009D78 /* ETH3DGameTableCell.h */,
+				841D874F226098D100009D78 /* ETH3DGameVC.h */,
+				841D8750226098D100009D78 /* ETHBetNumberCollectionCell.h */,
+				841D8751226098D100009D78 /* ETH3DGameTableCell.m */,
+				841D8752226098D100009D78 /* ETHListWinnersTableCell.m */,
+				841D8753226098D100009D78 /* ETHBetNumberCollectionCell.m */,
+				841D8754226098D100009D78 /* ETH3DGameVC.m */,
+			);
+			path = "3DGame( 游戏)";
 			sourceTree = "<group>";
 		};
 		842E81DE2254562C00CC5188 = {
@@ -751,6 +783,7 @@
 		842E824F225458D500CC5188 /* ChessCard(棋牌娱乐) */ = {
 			isa = PBXGroup;
 			children = (
+				841D874C226098D100009D78 /* 3DGame( 游戏) */,
 				840ADCC0225F500B00203D64 /* Recreation(休闲娱乐) */,
 				842E8250225458D500CC5188 /* Controller */,
 				840ADCBC225F447000203D64 /* View */,
@@ -1336,6 +1369,7 @@
 				842E831022545D1700CC5188 /* ETHC2C.m in Sources */,
 				539B609B2254890D00FE7D80 /* ETHHeaderView.m in Sources */,
 				84052D5F225C7F540092A905 /* ETHReceiptAddressTableCell.m in Sources */,
+				841D875B226098EE00009D78 /* ETHFightVC.m in Sources */,
 				842E82F7225458D500CC5188 /* HMEmoticonManager.m in Sources */,
 				53143647225B22D500B0B4EB /* ETHTradeVC.m in Sources */,
 				53BB770122602901006F1DA4 /* ETHMyWalletVC.m in Sources */,
@@ -1372,10 +1406,12 @@
 				53BB770022602901006F1DA4 /* ETHAnnouncementCell.m in Sources */,
 				53EA94EF2256F355001DDE8B /* ETHTitleView.m in Sources */,
 				842E82F5225458D500CC5188 /* HMEmoticonTipView.m in Sources */,
+				841D8756226098D200009D78 /* ETHListWinnersTableCell.m in Sources */,
 				84BC88C92255E311001BFC02 /* ETHSubordinateVC.m in Sources */,
 				842E831622545DEA00CC5188 /* ETHLoginVC.m in Sources */,
 				842E831C2254931800CC5188 /* ETHHomePageTitleHeadView.m in Sources */,
 				534B99DA225D931100DC2A97 /* ETHCancelAlertView.m in Sources */,
+				841D8757226098D200009D78 /* ETHBetNumberCollectionCell.m in Sources */,
 				84052D59225C7B9F0092A905 /* ETHCurrentInvestmentTableCell.m in Sources */,
 				84BC88D02255F05F001BFC02 /* ETHWalletBalanceTableCell.m in Sources */,
 				842E8300225458D500CC5188 /* HMEmoticonTextView.m in Sources */,
@@ -1423,7 +1459,9 @@
 				840ADCB5225F2F0500203D64 /* ETHCashWithdrawaVC.m in Sources */,
 				842E8301225458D500CC5188 /* HMEmoticonPackage.m in Sources */,
 				53BB76F9226028EF006F1DA4 /* ETHPayManageVC.m in Sources */,
+				841D8758226098D200009D78 /* ETH3DGameVC.m in Sources */,
 				53DB59F7225760FC009C05B3 /* ETHAdvertisementVC.m in Sources */,
+				841D8755226098D200009D78 /* ETH3DGameTableCell.m in Sources */,
 				842E82F6225458D500CC5188 /* NSString+HMEmoji.m in Sources */,
 				842E82EC225458D500CC5188 /* StaticTableCell.m in Sources */,
 				842E82FA225458D500CC5188 /* HMEmoticonInputView.m in Sources */,

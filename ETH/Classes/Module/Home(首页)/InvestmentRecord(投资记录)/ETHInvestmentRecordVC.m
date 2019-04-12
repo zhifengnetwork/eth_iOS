@@ -21,15 +21,8 @@ static NSString *const ETHInvestmentRecordTableCellID = @"ETHInvestmentRecordTab
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
     self.title = @"投资记录";
     [self setupTableView];
-
-}
-
-- (void)deleteButtonDidClick
-{
-    
 }
 
 - (void)didReceiveMemoryWarning {
