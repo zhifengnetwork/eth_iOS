@@ -68,22 +68,21 @@ static NSString *const ETHChessCardCollectionCellID = @"ETHChessCardCollectionCe
 //有多少分组
 - (NSInteger) numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 1;
+    return 3;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 6;
+    return 2;
 }
 
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell *gridcell = nil;
-    if (indexPath.section == 0)
+    ETHChessCardCollectionCell *oell = [collectionView dequeueReusableCellWithReuseIdentifier:ETHChessCardCollectionCellID forIndexPath:indexPath];
+    if (indexPath.section==0)
     {
-        ETHChessCardCollectionCell *oell = [collectionView dequeueReusableCellWithReuseIdentifier:ETHChessCardCollectionCellID forIndexPath:indexPath];
-        
         if (indexPath.row==0)
         {
             oell.iconName = @"Welfare";
@@ -92,25 +91,31 @@ static NSString *const ETHChessCardCollectionCellID = @"ETHChessCardCollectionCe
         {
             oell.iconName = @"3d";
         }
-        else if (indexPath.row==2)
+    }
+    else if (indexPath.section==1)
+    {
+        if (indexPath.row==0)
         {
             oell.iconName = @"Leisure";
         }
-        else if (indexPath.row==3)
+        else if (indexPath.row==1)
         {
             oell.iconName = @"Leisure1";
         }
-        else if (indexPath.row==4)
+    }
+    else if (indexPath.section==2)
+    {
+        if (indexPath.row==0)
         {
             oell.iconName = @"Bullfighting";
         }
-        else if (indexPath.row==5)
+        else if (indexPath.row==1)
         {
             oell.iconName = @"Bullfighting2";
         }
-        
-        gridcell = oell;
     }
+    
+    gridcell = oell;
     
     return gridcell;
 }
@@ -135,10 +140,38 @@ static NSString *const ETHChessCardCollectionCellID = @"ETHChessCardCollectionCe
 #pragma mark - item宽高
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0)
+    if (indexPath.section==0)
     {
-        //9宫格组
-        return CGSizeMake((LL_ScreenWidth - 4)/2, (LL_ScreenWidth - 4)/2 - 40);
+        if (indexPath.row==0)
+        {
+            return CGSizeMake(193, 105);
+        }
+        else if (indexPath.row==1)
+        {
+            return CGSizeMake(113, 105);
+        }
+    }
+    else if (indexPath.section==1)
+    {
+        if (indexPath.row==0)
+        {
+            return CGSizeMake(193, 105);
+        }
+        else if (indexPath.row==1)
+        {
+            return CGSizeMake(113, 105);
+        }
+    }
+    else if (indexPath.section==2)
+    {
+        if (indexPath.row==0)
+        {
+            return CGSizeMake(193, 105);
+        }
+        else if (indexPath.row==1)
+        {
+            return CGSizeMake(113, 105);
+        }
     }
     
     return CGSizeZero;
@@ -171,13 +204,13 @@ static NSString *const ETHChessCardCollectionCellID = @"ETHChessCardCollectionCe
 #pragma mark - X间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return (section == 5) ? 4 : 0;
+    return 20;
 }
 
 #pragma mark - Y间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return (section == 5) ? 4 : 0;
+    return 20;
 }
 
 //点击事件
@@ -208,20 +241,6 @@ static NSString *const ETHChessCardCollectionCellID = @"ETHChessCardCollectionCe
     }
 }
 
-#pragma mark - <UIScrollViewDelegate>
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if (scrollView.contentOffset.y > 44)
-    {
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-        [[NSNotificationCenter defaultCenter] postNotificationName:UserShowTopToolViewNotification object:nil];
-    }else
-    {
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-        [[NSNotificationCenter defaultCenter] postNotificationName:UserHideTopToolViewNotification object:nil];
-    }
-}
-
 
 -(void)updateTimeInVisibleCells
 {
@@ -244,6 +263,8 @@ static NSString *const ETHChessCardCollectionCellID = @"ETHChessCardCollectionCe
 {
     if (!_collectionView) {
         UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
+        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+        layout.sectionInset = UIEdgeInsetsMake(10, 25, 10, 20);
         _collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;

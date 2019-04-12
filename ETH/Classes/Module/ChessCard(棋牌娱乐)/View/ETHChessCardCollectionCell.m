@@ -33,8 +33,7 @@
     [self.contentView addSubview:self.iconView];
     
     [_iconView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(25);
-        make.top.mas_equalTo(40);
+        make.center.equalTo(self.contentView);
     }];
     
 }
@@ -48,7 +47,7 @@
 - (UIImageView *)iconView {
     if (_iconView == nil) {
         _iconView = [[UIImageView alloc] init];
-        _iconView.contentMode = UIViewContentModeRight;
+        _iconView.contentMode = UIViewContentModeScaleAspectFit;
         _iconView.image = [UIImage imageNamed:@"Welfare"];
     }
     return _iconView;
