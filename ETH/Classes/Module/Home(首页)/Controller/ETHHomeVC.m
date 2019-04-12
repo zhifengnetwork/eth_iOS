@@ -15,7 +15,7 @@
 #import "ETHInvestmentRecordVC.h"
 #import "ETHInvestmentPurchaseVC.h"
 #import "ETHSubordinateVC.h"
-#import "ETHWalletBalanceVC.h"
+#import "ETHWalletBalanceWMVC.h"
 
 
 @interface ETHHomeVC ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
@@ -254,7 +254,7 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
         }
         else if (indexPath.row==3)
         {
-            ETHWalletBalanceVC* vc = [[ETHWalletBalanceVC alloc]init];
+            ETHWalletBalanceWMVC* vc = [[ETHWalletBalanceWMVC alloc]init];
             [self.navigationController pushViewController:vc animated:YES];
         }
         else if (indexPath.row==4)

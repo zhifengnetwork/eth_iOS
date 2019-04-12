@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		180B476022608DAA008077D0 /* ETHWalletBalanceWMVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 180B475F22608DAA008077D0 /* ETHWalletBalanceWMVC.m */; };
 		53029D362255F26800A5A49B /* ETHBuyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53029D342255F26700A5A49B /* ETHBuyVC.m */; };
 		53143647225B22D500B0B4EB /* ETHTradeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53143646225B22D500B0B4EB /* ETHTradeVC.m */; };
 		534B99CB225D8F9C00DC2A97 /* ETHDetailTransactionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 534B99C1225D8F9B00DC2A97 /* ETHDetailTransactionView.m */; };
@@ -139,6 +140,8 @@
 		180B475322603764008077D0 /* ETHMyWalletVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHMyWalletVC.m; sourceTree = "<group>"; };
 		180B475522603764008077D0 /* ETHAnnouncementCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHAnnouncementCell.m; sourceTree = "<group>"; };
 		180B475722603764008077D0 /* ETHAnnouncementVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHAnnouncementVC.m; sourceTree = "<group>"; };
+		180B475E22608DAA008077D0 /* ETHWalletBalanceWMVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETHWalletBalanceWMVC.h; sourceTree = "<group>"; };
+		180B475F22608DAA008077D0 /* ETHWalletBalanceWMVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHWalletBalanceWMVC.m; sourceTree = "<group>"; };
 		2EDE2D58FDAFBCF381BE5349 /* Pods-ETH.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ETH.release.xcconfig"; path = "Target Support Files/Pods-ETH/Pods-ETH.release.xcconfig"; sourceTree = "<group>"; };
 		41123C8E38CE8E3D52F82771 /* Pods-ETHUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ETHUITests.release.xcconfig"; path = "Target Support Files/Pods-ETHUITests/Pods-ETHUITests.release.xcconfig"; sourceTree = "<group>"; };
 		42CF981EC7976CAFA4C5A0E8 /* libPods-ETHUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ETHUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1078,6 +1081,8 @@
 				84052D64225CA1AD0092A905 /* ETHDoubleThrowTableCell.m */,
 				849DE431225D8B4400351A48 /* ETHTwoDoubleThrowTableCell.h */,
 				849DE432225D8B4400351A48 /* ETHTwoDoubleThrowTableCell.m */,
+				180B475E22608DAA008077D0 /* ETHWalletBalanceWMVC.h */,
+				180B475F22608DAA008077D0 /* ETHWalletBalanceWMVC.m */,
 			);
 			path = "WalletBalance(钱包余额)";
 			sourceTree = "<group>";
@@ -1339,6 +1344,7 @@
 				84BC88C62255B8AE001BFC02 /* ETHSubordinateTableCell.m in Sources */,
 				53DB59FA22576122009C05B3 /* ETHComplaintVC.m in Sources */,
 				840ADCA8225EE7BD00203D64 /* ETHCashWithdrAmountTableCell.m in Sources */,
+				180B476022608DAA008077D0 /* ETHWalletBalanceWMVC.m in Sources */,
 				842E82F9225458D500CC5188 /* HMEmoticonCell.m in Sources */,
 				840ADCAE225EF5EE00203D64 /* ETHTransferAccountVC.m in Sources */,
 				840ADCBB225F373A00203D64 /* ETHWalletETHVC.m in Sources */,
