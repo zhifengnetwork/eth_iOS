@@ -9,12 +9,14 @@
 #import "ETHWalletBalanceWMVC.h"
 #import "ETHWalletBalanceVC.h"
 #import "ETHInvestmentRecordVC.h"
+#import "ETHTransactionVC.h"
 
 
 @interface ETHWalletBalanceWMVC ()
 
 @property (nonatomic, strong) ETHWalletBalanceVC *walletBalanceVC;
 @property (nonatomic, strong) ETHInvestmentRecordVC *recordVC;
+@property (nonatomic, strong) ETHTransactionVC *c2cVC;
 
 @end
 
@@ -72,14 +74,13 @@
     [self.view addSubview:segment];
     
     self.walletBalanceVC.view.hidden = NO;
-    self.recordVC.view.hidden = NO;
-    
 }
 
 -(void)segmentAction:(UISegmentedControl*)sender
 {
     self.walletBalanceVC.view.hidden = YES;
     self.recordVC.view.hidden = YES;
+    self.c2cVC.view.hidden = YES;
     
     if (sender.selectedSegmentIndex==0)
     {
@@ -99,7 +100,7 @@
     else if (sender.selectedSegmentIndex==3)
     {
         //C2C记录
-        self.recordVC.view.hidden = NO;
+        self.c2cVC.view.hidden = NO;
     }
     //titleForSegmentAtIndex通过索引值获取被选中的分段控制器的按钮标题，selectedSegmentIndex 是获取被选中按钮的索引值
     NSLog(@"----%@",[sender titleForSegmentAtIndex:sender.selectedSegmentIndex]);
@@ -152,6 +153,21 @@
     }
     
     return _recordVC;
+}
+
+-(ETHTransactionVC *)c2cVC
+{
+    if (_c2cVC==nil) {
+        _c2cVC = [[ETHTransactionVC alloc]init];
+        [self addChildViewController:_c2cVC];
+        [self.view addSubview:_c2cVC.view];
+        [_c2cVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.mas_equalTo(0);
+            make.top.mas_equalTo(40);
+        }];
+    }
+    
+    return _c2cVC;
 }
 
 @end
