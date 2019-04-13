@@ -17,7 +17,7 @@
 @interface ETH3DGameVC()
 
 @property (nonatomic, strong) UITableView *tableView;
-
+@property (nonatomic, strong)UIButton *agreeButton;
 @end
 
 
@@ -59,6 +59,8 @@ static NSString *const ETH3DGameTableCellID = @"ETH3DGameTableCellID";
     
     [self.tableView registerClass:[ETHListWinnersTableCell class] forCellReuseIdentifier:ETHListWinnersTableCellID];
     [self.tableView registerClass:[ETH3DGameTableCell class] forCellReuseIdentifier:ETH3DGameTableCellID];
+    [self.view addSubview:self.agreeButton];
+    
 }
 
 //加载数据
