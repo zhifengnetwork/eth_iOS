@@ -14,9 +14,10 @@
 #define RESCODE @"status"
 #define RESMSG  @"msg"
 #define RESDATA @"data"
+#define RESDATA2 @"result"
 
 //http响应成功代码
-static int success_code = 0;
+static int success_code = 1;
 static int success_code_xm = 200;
 
 //用户未登录token无效
@@ -170,7 +171,7 @@ static int invalidtoken_code = 1005;
     }
     else if(nRet==invalidtoken_code)
     {
-        id msg = [dic objectForKey:RESDATA];
+        id msg = [dic objectForKey:RESMSG];
         NSString* str = nil;
         if ( [msg isKindOfClass:[NSString class]] )
         {
@@ -349,6 +350,10 @@ static int invalidtoken_code = 1005;
              }
              
              NSDictionary *dic = [dcattributes objectForKey:RESDATA];
+             if (kObjectIsEmpty(dic))
+             {
+                 dic = [dcattributes objectForKey:RESDATA2];
+             }
              if ( ReqSuccess )
              {
                  //成功回调
@@ -449,14 +454,20 @@ static int invalidtoken_code = 1005;
 {
     //加常用类型
     //[parameters setObject:@"iOS" forKey:@"os"];
+    [parameters setObject:@"12" forKey:@"i"];
+    [parameters setObject:@"entry" forKey:@"c"];
+    [parameters setObject:@"ewei_shopv2" forKey:@"m"];
+    [parameters setObject:@"mobile" forKey:@"do"];
+    [parameters setObject:@"1" forKey:@"q"];
     
     //设置请求头
     UserInfoModel* userInfo = [UserInfoModel readUserInfo];
-    if (kStringIsEmpty(userInfo.token)==NO)
+    if (kStringIsEmpty(userInfo.user_id)==NO)
     {
-        NSMutableDictionary* dic = [[NSMutableDictionary alloc]init];
-        [dic setObject:userInfo.token forKey:@"Token"];
-        [self setRequestHeader:dic];
+        [parameters setObject:userInfo.user_id forKey:@"userid"];
+//        NSMutableDictionary* dic = [[NSMutableDictionary alloc]init];
+//        [dic setObject:userInfo.user_id forKey:@"userid"];
+//        [self setRequestHeader:dic];
     }
     
     return parameters;

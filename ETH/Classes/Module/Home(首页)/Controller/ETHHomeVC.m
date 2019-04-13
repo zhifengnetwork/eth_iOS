@@ -16,7 +16,11 @@
 #import "ETHInvestmentPurchaseVC.h"
 #import "ETHSubordinateVC.h"
 #import "ETHWalletBalanceWMVC.h"
-#import "ETHTodayEarningMVVC.h"
+#import "http_index.h"
+#import "SVProgressHUD.h"
+#import "MJExtension.h"
+#import "ETHIndexModel.h"
+
 
 @interface ETHHomeVC ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -24,6 +28,8 @@
 @property (strong , nonatomic)UICollectionView *collectionView;
 
 @property (strong , nonatomic)NSMutableArray *imageUrls;
+
+@property (strong , nonatomic)ETHIndexDataModel *indexDataModel;
 
 @end
 
@@ -66,12 +72,41 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
     self.collectionView.mj_header = [RefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadData)];
+    [self.collectionView.mj_header beginRefreshing];
     
 }
 
 -(void)loadData
 {
+    ZWeakSelf
+    [http_index index_api:^(id responseObject)
+     {
+         [self.collectionView.mj_header endRefreshing];
+         [weakSelf showData:responseObject];
+     } failure:^(NSError *error) {
+         [SVProgressHUD showErrorWithStatus:error.domain];
+         [self.collectionView.mj_header endRefreshing];
+     }];
+}
+
+-(void)showData:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
     
+    self.indexDataModel = [ETHIndexDataModel mj_objectWithKeyValues:responseObject];
+    
+    [self.imageUrls removeAllObjects];
+    for (int i=0; i<self.indexDataModel.slide.count; i++)
+    {
+        ETHADModel* ad = [self.indexDataModel.slide objectAtIndex:i];
+        NSString* str = [NSString stringWithFormat:@"%@%@",MainUrl,ad.thumb];
+        [self.imageUrls addObject:str];
+    }
+    
+    [self.collectionView reloadData];
 }
 
 
@@ -104,28 +139,28 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
             oell.backgroundName = @"Rectangle5";
             oell.iconName = @"Assets";
             oell.title = @"投资总额";
-            oell.number = @"26004.00";
+            oell.number = self.indexDataModel.data.touzimoney;
         }
         else if (indexPath.row==1)
         {
             oell.backgroundName = @"Rectangle6";
             oell.iconName = @"Profit";
             oell.title = @"总收益";
-            oell.number = @"266.00";
+            oell.number = self.indexDataModel.data.shouyimoneysum;
         }
         else if (indexPath.row==2)
         {
             oell.backgroundName = @"Rectangle7";
             oell.iconName = @"Today's earnings";
             oell.title = @"今日收益";
-            oell.number = @"35.00";
+            oell.number = self.indexDataModel.data.shouyimoney;
         }
         else if (indexPath.row==3)
         {
             oell.backgroundName = @"Rectangle8";
             oell.iconName = @"Wallet";
             oell.title = @"钱包余额";
-            oell.number = @"135.00";
+            oell.number = self.indexDataModel.data.money;
         }
         else if (indexPath.row==4)
         {
@@ -138,7 +173,7 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
             oell.backgroundName = @"Rectangle10";
             oell.iconName = @"Team";
             oell.title = @"团队";
-            oell.number = @"35";
+            oell.number = self.indexDataModel.data.xiaji;
         }
         
         gridcell = oell;
@@ -250,18 +285,6 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
         if (indexPath.row==0)
         {
             ETHInvestmentRecordVC* vc = [[ETHInvestmentRecordVC alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-        else if (indexPath.row==1)
-        {
-            ETHTodayEarningMVVC* vc = [[ETHTodayEarningMVVC alloc]init];
-            vc.index = 0;
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-        else if (indexPath.row==2)
-        {
-            ETHTodayEarningMVVC* vc = [[ETHTodayEarningMVVC alloc]init];
-            vc.index = 1;
             [self.navigationController pushViewController:vc animated:YES];
         }
         else if (indexPath.row==3)

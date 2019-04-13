@@ -52,13 +52,16 @@
     
     if ( !kStringIsEmpty(password) )
     {
-        [parameters setObject:password forKey:@"password"];
+        [parameters setObject:password forKey:@"pwd"];
     }
+    
+    [parameters setObject:@"account.login" forKey:@"r"];
+    [parameters setObject:@"1" forKey:@"l"];
     
     NSDictionary* dic = [http hanldeSign:parameters];
     
     NSString* strUrl = [http getMainUrl];
-    strUrl = [strUrl stringByAppendingPathComponent:@"api/user/login"];
+    strUrl = [strUrl stringByAppendingPathComponent:@"app/index.php"];
     [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
 }
 
@@ -98,58 +101,5 @@
     [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
 }
 
-/**
- 订单列表
- 
- @param type 0全部订单 1:待支付 2:待收货 3:待评价 4:待发货
- */
-+(void)order_list:(NSInteger)type success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure
-{
-    HttpTool *http = [HttpTool sharedManager];
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc]initWithCapacity:2];
-    
-    NSDictionary* dic = [http hanldeSign:parameters];
-    
-    NSString* strUrl = [http getMainUrl];
-    if (type==0)
-    {
-        strUrl = [strUrl stringByAppendingPathComponent:@"api/order/order_list"];
-    }
-    else if (type==1)
-    {
-        strUrl = [strUrl stringByAppendingPathComponent:@"api/order/order_list/type/WAITPAY"];
-    }
-    else if (type==2)
-    {
-        strUrl = [strUrl stringByAppendingPathComponent:@"api/order/order_list/type/WAITRECEIVE"];
-    }
-    else if (type==3)
-    {
-        strUrl = [strUrl stringByAppendingPathComponent:@"api/order/order_list/type/WAITCCOMMENT"];
-    }
-    else if (type==4)
-    {
-        strUrl = [strUrl stringByAppendingPathComponent:@"api/order/order_list/type/WAITSEND"];
-    }
-    
-    [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
-}
-
-/**
- 订单详情
- */
-+(void)order_detail:(NSString *)ID success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure
-{
-    HttpTool *http = [HttpTool sharedManager];
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc]initWithCapacity:1];
-    
-    [parameters setObject:ID forKey:@"id"];
-    
-    NSDictionary* dic = [http hanldeSign:parameters];
-    
-    NSString* strUrl = [http getMainUrl];
-    strUrl = [strUrl stringByAppendingPathComponent:@"api/order/order_detail"];
-    [http GetRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
-}
 
 @end

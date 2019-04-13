@@ -59,6 +59,10 @@ static NSString *const ETHKeyPackageTableCellID = @"ETHKeyPackageTableCellID";
     
     [self.tableView registerClass:[ETHListWinnersTableCell class] forCellReuseIdentifier:ETHListWinnersTableCellID];
     [self.tableView registerClass:[ETH3DGameTableCell class] forCellReuseIdentifier:ETH3DGameTableCellID];
+<<<<<<< HEAD
+=======
+    [self.view addSubview:self.agreeButton];
+>>>>>>> cbc121a0b396c2b250ad4d20432a0ac691259dfb
     [self.tableView registerClass:[ETHKeyPackageTableCell class] forCellReuseIdentifier:ETHKeyPackageTableCellID];
 }
 

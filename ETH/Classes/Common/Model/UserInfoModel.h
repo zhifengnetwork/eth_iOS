@@ -27,6 +27,8 @@
 @property (nonatomic, copy) NSString *user_id;
 //
 @property (nonatomic, copy) NSString *token;
+@property (nonatomic, copy) NSString *openid;
+@property (nonatomic, copy) NSString *url;
 //手机号
 @property (nonatomic, copy) NSString *mobile;
 //用户头像

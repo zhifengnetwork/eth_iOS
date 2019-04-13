@@ -26,21 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 //获取用户基本信息
 +(void)userinfo:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
 
-
-
-/**
- 订单列表
- 
- @param type 0全部订单 1:待支付 2:待收货 3:待评价 4:待发货
- */
-+(void)order_list:(NSInteger)type success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
-
-
-/**
- 订单详情
- */
-+(void)order_detail:(NSString *)ID success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
-
 @end
 
 NS_ASSUME_NONNULL_END
