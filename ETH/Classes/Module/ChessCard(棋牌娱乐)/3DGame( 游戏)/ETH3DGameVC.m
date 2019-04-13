@@ -12,6 +12,7 @@
 #import "ETH3DGameTableCell.h"
 #import "SVProgressHUD.h"
 #import "MJExtension.h"
+#import "ETHKeyPackageTableCell.h"
 
 
 @interface ETH3DGameVC()
@@ -25,6 +26,7 @@
 
 static NSString *const ETHListWinnersTableCellID = @"ETHListWinnersTableCellID";
 static NSString *const ETH3DGameTableCellID = @"ETH3DGameTableCellID";
+static NSString *const ETHKeyPackageTableCellID = @"ETHKeyPackageTableCellID";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -59,8 +61,12 @@ static NSString *const ETH3DGameTableCellID = @"ETH3DGameTableCellID";
     
     [self.tableView registerClass:[ETHListWinnersTableCell class] forCellReuseIdentifier:ETHListWinnersTableCellID];
     [self.tableView registerClass:[ETH3DGameTableCell class] forCellReuseIdentifier:ETH3DGameTableCellID];
+<<<<<<< HEAD
     [self.view addSubview:self.agreeButton];
     
+=======
+    [self.tableView registerClass:[ETHKeyPackageTableCell class] forCellReuseIdentifier:ETHKeyPackageTableCellID];
+>>>>>>> 3a90329527e31d948ba39f96b32945b7176edf19
 }
 
 //加载数据
@@ -99,7 +105,7 @@ static NSString *const ETH3DGameTableCellID = @"ETH3DGameTableCellID";
 //有多少组
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 4;
+    return 5;
 }
 
 //每个组有多少行
@@ -145,6 +151,16 @@ static NSString *const ETH3DGameTableCellID = @"ETH3DGameTableCellID";
         //        cell.delegate = self;
         return cell;
     }
+    else if (indexPath.section==4)
+    {
+        ETHKeyPackageTableCell* cell = [tableView dequeueReusableCellWithIdentifier:ETHKeyPackageTableCellID];
+        if (cell == nil)
+        {
+            cell = [[ETHKeyPackageTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHKeyPackageTableCellID];
+        }
+        //        cell.delegate = self;
+        return cell;
+    }
     
     return nil;
 }
@@ -155,6 +171,10 @@ static NSString *const ETH3DGameTableCellID = @"ETH3DGameTableCellID";
     if (indexPath.section==0)
     {
         return 30;
+    }
+    else if (indexPath.section==4)
+    {
+        return 45;
     }
     
     return 98.0f;
