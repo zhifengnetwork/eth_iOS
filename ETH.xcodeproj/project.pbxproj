@@ -564,14 +564,14 @@
 		841D874C226098D100009D78 /* 3DGame( 游戏) */ = {
 			isa = PBXGroup;
 			children = (
-				841D874D226098D100009D78 /* ETHListWinnersTableCell.h */,
-				841D874E226098D100009D78 /* ETH3DGameTableCell.h */,
 				841D874F226098D100009D78 /* ETH3DGameVC.h */,
-				841D8750226098D100009D78 /* ETHBetNumberCollectionCell.h */,
-				841D8751226098D100009D78 /* ETH3DGameTableCell.m */,
-				841D8752226098D100009D78 /* ETHListWinnersTableCell.m */,
-				841D8753226098D100009D78 /* ETHBetNumberCollectionCell.m */,
 				841D8754226098D100009D78 /* ETH3DGameVC.m */,
+				841D874D226098D100009D78 /* ETHListWinnersTableCell.h */,
+				841D8752226098D100009D78 /* ETHListWinnersTableCell.m */,
+				841D874E226098D100009D78 /* ETH3DGameTableCell.h */,
+				841D8751226098D100009D78 /* ETH3DGameTableCell.m */,
+				841D8750226098D100009D78 /* ETHBetNumberCollectionCell.h */,
+				841D8753226098D100009D78 /* ETHBetNumberCollectionCell.m */,
 			);
 			path = "3DGame( 游戏)";
 			sourceTree = "<group>";

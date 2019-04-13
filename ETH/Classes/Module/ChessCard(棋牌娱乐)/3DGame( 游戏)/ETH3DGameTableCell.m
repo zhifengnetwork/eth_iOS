@@ -39,6 +39,7 @@ static NSString *const ETHBetNumberCollectionCellID = @"ETHBetNumberCollectionCe
 
 - (void)setup
 {
+    self.contentView.backgroundColor = RGBColorHex(0xf4f4f4);
     [self.contentView addSubview:self.collectionView];
     [self.contentView addSubview:self.digitButton];
     
@@ -54,6 +55,12 @@ static NSString *const ETHBetNumberCollectionCellID = @"ETHBetNumberCollectionCe
         make.right.mas_equalTo(-10);
         make.height.mas_equalTo(98);
     }];
+}
+
+-(void)setTitle:(NSString *)title
+{
+    _title = title;
+    [_digitButton setTitle:_title forState:UIControlStateNormal];
 }
 
 

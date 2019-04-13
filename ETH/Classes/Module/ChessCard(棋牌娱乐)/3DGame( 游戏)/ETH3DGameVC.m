@@ -97,7 +97,7 @@ static NSString *const ETH3DGameTableCellID = @"ETH3DGameTableCellID";
 //有多少组
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 4;
 }
 
 //每个组有多少行
@@ -109,6 +109,12 @@ static NSString *const ETH3DGameTableCellID = @"ETH3DGameTableCellID";
 //每行使用的Cell是什么
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    ETH3DGameTableCell* cell = [tableView dequeueReusableCellWithIdentifier:ETH3DGameTableCellID];
+    if (cell == nil)
+    {
+        cell = [[ETH3DGameTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETH3DGameTableCellID];
+    }
+    
     if (indexPath.section==0)
     {
         ETHListWinnersTableCell* cell = [tableView dequeueReusableCellWithIdentifier:ETHListWinnersTableCellID];
@@ -121,12 +127,20 @@ static NSString *const ETH3DGameTableCellID = @"ETH3DGameTableCellID";
     }
     else if (indexPath.section==1)
     {
-        ETH3DGameTableCell* cell = [tableView dequeueReusableCellWithIdentifier:ETH3DGameTableCellID];
-        if (cell == nil)
-        {
-            cell = [[ETH3DGameTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETH3DGameTableCellID];
-        }
+        cell.title = @"百位";
 //        cell.delegate = self;
+        return cell;
+    }
+    else if (indexPath.section==2)
+    {
+        cell.title = @"十位";
+        //        cell.delegate = self;
+        return cell;
+    }
+    else if (indexPath.section==3)
+    {
+        cell.title = @"个位";
+        //        cell.delegate = self;
         return cell;
     }
     
