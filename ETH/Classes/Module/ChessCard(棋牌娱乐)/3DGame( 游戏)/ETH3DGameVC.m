@@ -15,7 +15,6 @@
 #import "ETHKeyPackageTableCell.h"
 #import "ETH3DGameFooterView.h"
 
-
 @interface ETH3DGameVC()<ETH3DGameFooterViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -23,6 +22,9 @@
 
 @property (nonatomic, strong) ETH3DGameFooterView *footerView;
 
+@interface ETH3DGameVC()
+
+@property (nonatomic, strong) UITableView *tableView;
 @end
 
 
@@ -76,7 +78,6 @@ static NSString *const ETHKeyPackageTableCellID = @"ETHKeyPackageTableCellID";
     
     [self.tableView registerClass:[ETHListWinnersTableCell class] forCellReuseIdentifier:ETHListWinnersTableCellID];
     [self.tableView registerClass:[ETH3DGameTableCell class] forCellReuseIdentifier:ETH3DGameTableCellID];
-    [self.view addSubview:self.agreeButton];
     [self.tableView registerClass:[ETHKeyPackageTableCell class] forCellReuseIdentifier:ETHKeyPackageTableCellID];
 }
 
