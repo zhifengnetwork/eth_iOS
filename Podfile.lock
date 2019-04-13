@@ -14,7 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
-  - CYLTabBarController (1.20.0)
+  - CYLTabBarController (1.22.1)
   - DateTools (2.0.0)
   - DZNEmptyDataSet (1.8.1)
   - FMDB (2.7.5):
@@ -22,7 +22,7 @@ PODS:
   - FMDB/standard (2.7.5)
   - FSCalendar (2.8.0)
   - FSTextView (1.8)
-  - JXPagingView/Pager (1.1.1)
+  - JXPagingView/Pager (1.1.2)
   - LBXDataHandler (1.0.4)
   - Masonry (1.1.0)
   - MJExtension (3.0.16)
@@ -112,13 +112,13 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
-  CYLTabBarController: 2d1d2bef7eb9fb9f4fe90ed77281ed8d9e9270c8
+  CYLTabBarController: eb324438e4b9bada7b30649bf28b537fcad2f031
   DateTools: 933ac9c490f21f92127cf690ccd8c397e0126caf
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   FSCalendar: 3a5ed3636e2ba1b83ebebfcf0c2603105a6f5efe
   FSTextView: 9e2ca07bb6bb0fb7e77b49b2717adf81f3c620b5
-  JXPagingView: e657a105531e5959847197002484bc58c58b38d0
+  JXPagingView: 68c8d7f52a721fe1d6827c28bbf5ff7ca411f0b1
   LBXDataHandler: af7312bb59beee50d05882c98b1df370bf4fb7e2
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJExtension: 54dbbf6ee728f1a88e9aad904353d007831c7847
