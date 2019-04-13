@@ -22,9 +22,6 @@
 
 @property (nonatomic, strong) ETH3DGameFooterView *footerView;
 
-@interface ETH3DGameVC()
-
-@property (nonatomic, strong) UITableView *tableView;
 @end
 
 
