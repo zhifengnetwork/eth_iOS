@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		180B476022608DAA008077D0 /* ETHWalletBalanceWMVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 180B475F22608DAA008077D0 /* ETHWalletBalanceWMVC.m */; };
 		180B4763226099C3008077D0 /* ETHTransactionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 180B4762226099C3008077D0 /* ETHTransactionVC.m */; };
+		181249062261CC3F004DB1B3 /* http_index.m in Sources */ = {isa = PBXBuildFile; fileRef = 181249022261CC3E004DB1B3 /* http_index.m */; };
+		181249072261CC3F004DB1B3 /* http_chesscard.m in Sources */ = {isa = PBXBuildFile; fileRef = 181249042261CC3F004DB1B3 /* http_chesscard.m */; };
+		1812490F2261CC4C004DB1B3 /* ETHNoticeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1812490B2261CC4B004DB1B3 /* ETHNoticeModel.m */; };
+		181249102261CC4C004DB1B3 /* ETHIndexModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1812490C2261CC4B004DB1B3 /* ETHIndexModel.m */; };
+		181249112261CC4C004DB1B3 /* ETHADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1812490E2261CC4B004DB1B3 /* ETHADModel.m */; };
 		53029D362255F26800A5A49B /* ETHBuyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53029D342255F26700A5A49B /* ETHBuyVC.m */; };
 		53143647225B22D500B0B4EB /* ETHTradeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53143646225B22D500B0B4EB /* ETHTradeVC.m */; };
 		531532152261C81E004AA7BC /* ETHpayBounceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 531532142261C81E004AA7BC /* ETHpayBounceVC.m */; };
@@ -159,6 +164,16 @@
 		180B475F22608DAA008077D0 /* ETHWalletBalanceWMVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHWalletBalanceWMVC.m; sourceTree = "<group>"; };
 		180B4761226099C3008077D0 /* ETHTransactionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETHTransactionVC.h; sourceTree = "<group>"; };
 		180B4762226099C3008077D0 /* ETHTransactionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHTransactionVC.m; sourceTree = "<group>"; };
+		181249012261CC3E004DB1B3 /* http_index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = http_index.h; sourceTree = "<group>"; };
+		181249022261CC3E004DB1B3 /* http_index.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = http_index.m; sourceTree = "<group>"; };
+		181249042261CC3F004DB1B3 /* http_chesscard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = http_chesscard.m; sourceTree = "<group>"; };
+		181249052261CC3F004DB1B3 /* http_chesscard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = http_chesscard.h; sourceTree = "<group>"; };
+		181249092261CC4B004DB1B3 /* ETHIndexModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETHIndexModel.h; sourceTree = "<group>"; };
+		1812490A2261CC4B004DB1B3 /* ETHADModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETHADModel.h; sourceTree = "<group>"; };
+		1812490B2261CC4B004DB1B3 /* ETHNoticeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHNoticeModel.m; sourceTree = "<group>"; };
+		1812490C2261CC4B004DB1B3 /* ETHIndexModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHIndexModel.m; sourceTree = "<group>"; };
+		1812490D2261CC4B004DB1B3 /* ETHNoticeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETHNoticeModel.h; sourceTree = "<group>"; };
+		1812490E2261CC4B004DB1B3 /* ETHADModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHADModel.m; sourceTree = "<group>"; };
 		2EDE2D58FDAFBCF381BE5349 /* Pods-ETH.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ETH.release.xcconfig"; path = "Target Support Files/Pods-ETH/Pods-ETH.release.xcconfig"; sourceTree = "<group>"; };
 		41123C8E38CE8E3D52F82771 /* Pods-ETHUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ETHUITests.release.xcconfig"; path = "Target Support Files/Pods-ETHUITests/Pods-ETHUITests.release.xcconfig"; sourceTree = "<group>"; };
 		42CF981EC7976CAFA4C5A0E8 /* libPods-ETHUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ETHUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -446,6 +461,37 @@
 				180B475022603730008077D0 /* ETHPayManageVC.m */,
 			);
 			path = "支付管理";
+			sourceTree = "<group>";
+		};
+		181249002261CC3E004DB1B3 /* index */ = {
+			isa = PBXGroup;
+			children = (
+				181249012261CC3E004DB1B3 /* http_index.h */,
+				181249022261CC3E004DB1B3 /* http_index.m */,
+			);
+			path = index;
+			sourceTree = "<group>";
+		};
+		181249032261CC3E004DB1B3 /* chesscard */ = {
+			isa = PBXGroup;
+			children = (
+				181249042261CC3F004DB1B3 /* http_chesscard.m */,
+				181249052261CC3F004DB1B3 /* http_chesscard.h */,
+			);
+			path = chesscard;
+			sourceTree = "<group>";
+		};
+		181249082261CC4B004DB1B3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				181249092261CC4B004DB1B3 /* ETHIndexModel.h */,
+				1812490A2261CC4B004DB1B3 /* ETHADModel.h */,
+				1812490B2261CC4B004DB1B3 /* ETHNoticeModel.m */,
+				1812490C2261CC4B004DB1B3 /* ETHIndexModel.m */,
+				1812490D2261CC4B004DB1B3 /* ETHNoticeModel.h */,
+				1812490E2261CC4B004DB1B3 /* ETHADModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		384734DC6D98A2D2B7743FF0 /* Pods */ = {
@@ -826,6 +872,7 @@
 		842E8237225458D500CC5188 /* Home(首页) */ = {
 			isa = PBXGroup;
 			children = (
+				181249082261CC4B004DB1B3 /* Model */,
 				53B858562261821D008F1665 /* TodayEarnings(今日收益明细） */,
 				84BC88CA2255E8C3001BFC02 /* WalletBalance(钱包余额) */,
 				84BC88C02255B4F4001BFC02 /* SubordinateDetails(下级明细) */,
@@ -1081,9 +1128,11 @@
 		842E82BE225458D500CC5188 /* HttpTool */ = {
 			isa = PBXGroup;
 			children = (
+				181249032261CC3E004DB1B3 /* chesscard */,
+				181249002261CC3E004DB1B3 /* index */,
 				842E82BF225458D500CC5188 /* HttpTool.h */,
-				842E82C0225458D500CC5188 /* user */,
 				842E82C3225458D500CC5188 /* HttpTool.m */,
+				842E82C0225458D500CC5188 /* user */,
 			);
 			path = HttpTool;
 			sourceTree = "<group>";
@@ -1451,6 +1500,8 @@
 				841D875B226098EE00009D78 /* ETHFightVC.m in Sources */,
 				842E82F7225458D500CC5188 /* HMEmoticonManager.m in Sources */,
 				53143647225B22D500B0B4EB /* ETHTradeVC.m in Sources */,
+				1812490F2261CC4C004DB1B3 /* ETHNoticeModel.m in Sources */,
+				181249102261CC4C004DB1B3 /* ETHIndexModel.m in Sources */,
 				53BB770122602901006F1DA4 /* ETHMyWalletVC.m in Sources */,
 				842E830A22545C4700CC5188 /* ETHChessCardVC.m in Sources */,
 				842E82FC225458D500CC5188 /* HMEmoticonAttachment.m in Sources */,
@@ -1462,8 +1513,10 @@
 				840ADCAE225EF5EE00203D64 /* ETHTransferAccountVC.m in Sources */,
 				840ADCBB225F373A00203D64 /* ETHWalletETHVC.m in Sources */,
 				53AA0AEF225E165400509242 /* ETHTradeCell.m in Sources */,
+				181249072261CC3F004DB1B3 /* http_chesscard.m in Sources */,
 				53BB770222602901006F1DA4 /* ETHAnnouncementVC.m in Sources */,
 				53DB59F4225760D6009C05B3 /* ETHOrderVC.m in Sources */,
+				181249112261CC4C004DB1B3 /* ETHADModel.m in Sources */,
 				531532152261C81E004AA7BC /* ETHpayBounceVC.m in Sources */,
 				84BC88CD2255EF5C001BFC02 /* ETHWalletBalanceVC.m in Sources */,
 				842E8304225458D500CC5188 /* http_user.m in Sources */,
@@ -1537,6 +1590,7 @@
 				843CE5362261C99500DE176F /* ETH3DGameWMVC.m in Sources */,
 				842E82EB225458D500CC5188 /* StaticTableViewCell.m in Sources */,
 				842E8306225458D500CC5188 /* ETHTool.m in Sources */,
+				181249062261CC3F004DB1B3 /* http_index.m in Sources */,
 				538EA193225CA96E00667810 /* ETHDealVC.m in Sources */,
 				842E82CC225458D500CC5188 /* ZFTipsView.m in Sources */,
 				842E82E9225458D500CC5188 /* UserInfoModel.m in Sources */,
