@@ -35,6 +35,9 @@ NS_ASSUME_NONNULL_BEGIN
 //标题
 @property (nonatomic, strong) NSString *title;
 
+
+@property (nonatomic, assign) BOOL isSelect;
+
 @end
 
 NS_ASSUME_NONNULL_END

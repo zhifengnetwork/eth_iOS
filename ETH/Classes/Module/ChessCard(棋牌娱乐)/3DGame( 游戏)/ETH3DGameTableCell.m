@@ -16,6 +16,8 @@
 
 @property (nonatomic, strong) UICollectionView* collectionView;
 
+@property (nonatomic, strong) NSIndexPath* lastIndexPath;
+
 @end
 
 
@@ -37,8 +39,6 @@ static NSString *const ETHBetNumberCollectionCellID = @"ETHBetNumberCollectionCe
 
 - (void)setup
 {
-    _collectionView.backgroundColor = RGBColorHex(0xf4f4f4);
-   
     [self.contentView addSubview:self.collectionView];
     [self.contentView addSubview:self.digitButton];
     
@@ -130,8 +130,8 @@ static NSString *const ETHBetNumberCollectionCellID = @"ETHBetNumberCollectionCe
     if (_collectionView == nil)
     {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        float fw = (kScreenWidth-30)*0.25;
-        layout.itemSize = CGSizeMake(fw, 60);
+        float fw = (kScreenWidth-105)*0.2;
+        layout.itemSize = CGSizeMake(fw, 45);
         layout.minimumLineSpacing = 0;
         layout.minimumInteritemSpacing = 0;
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
@@ -139,6 +139,7 @@ static NSString *const ETHBetNumberCollectionCellID = @"ETHBetNumberCollectionCe
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
+        _collectionView.backgroundColor = RGBColorHex(0xf4f4f4);
         
         [_collectionView registerClass:[ETHBetNumberCollectionCell class] forCellWithReuseIdentifier:ETHBetNumberCollectionCellID];
     }
