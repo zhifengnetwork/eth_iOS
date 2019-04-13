@@ -118,17 +118,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserLoginRegisterNotification:) name:UserLoginRegisterNotification object:nil];
     
     //状态栏的文字颜色(Info.plist 文件中添加 View controller-based status bar appearance 设置为 NO)
-    //[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
-    //    // 导航条上标题的颜色字体
-    //    [UINavigationBar appearance].titleTextAttributes = @{
-    //                                                         NSForegroundColorAttributeName : [UIColor whiteColor],
-    //                                                         NSFontAttributeName : [UIFont systemFontOfSize:18]
-    //                                                         };
+    // 导航条上标题的颜色字体
+    [UINavigationBar appearance].titleTextAttributes = @{
+                                                         NSForegroundColorAttributeName : [UIColor whiteColor],
+                                                         NSFontAttributeName : [UIFont systemFontOfSize:18]
+                                                         };
     //导航条上UIBarButtonItem颜色
-    //[UINavigationBar appearance].tintColor = [UIColor whiteColor];
+    [UINavigationBar appearance].tintColor = [UIColor whiteColor];
     //导航条的背景颜色
-    [[UINavigationBar appearance] setBackgroundImage:[ETHTool Color2Image:[UIColor whiteColor]] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"NavigationBar"] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     
     if (@available(ios 11.0,*)) {
         UIScrollView.appearance.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;

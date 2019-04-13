@@ -51,6 +51,11 @@
     [_numberButton setTitle:_title forState:UIControlStateNormal];
 }
 
+-(void)setIsSelect:(BOOL)isSelect
+{
+    _isSelect = isSelect;
+}
+
 - (UIButton *)numberButton {
     if (_numberButton == nil) {
         _numberButton = [UIButton buttonWithType:UIButtonTypeCustom];

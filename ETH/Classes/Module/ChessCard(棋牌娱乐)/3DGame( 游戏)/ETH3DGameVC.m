@@ -29,6 +29,7 @@ static NSString *const ETH3DGameTableCellID = @"ETH3DGameTableCellID";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"3D游戏";
     [self setupUI];
 }
 

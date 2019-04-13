@@ -72,7 +72,7 @@
 - (void)setNaviagtionItem:(UIViewController<UIGestureRecognizerDelegate> *)viewController
 {
     //添加左边按钮
-    UIImage *img = [UIImage imageNamed:@"icon-left-arrows2"];
+    UIImage *img = [UIImage imageNamed:@"Left arrow"];
     viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:img style:UIBarButtonItemStylePlain target:self action:@selector(LeftButtonDidClick:)];
 }
 
