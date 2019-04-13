@@ -20,11 +20,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.title = @"钱包余额";
+    if (_index == 0) {
+        self.title = @"收益明细";
+    }else{
+        self.title = @"今日收益明细";
+    }
     self.view.backgroundColor = RGBColorHex(0x080e2c);
     
-    UISegmentedControl* segment = [[UISegmentedControl alloc]initWithFrame:CGRectMake(0, 0, LL_ScreenWidth, 30)];
+    UISegmentedControl* segment = [[UISegmentedControl alloc]initWithFrame:CGRectMake(0,10, LL_ScreenWidth, 30)];
     //在索引值为0的位置上插入一个标题为red的按钮，第三个参数为是否开启动画
     [segment insertSegmentWithTitle:@"投资收益" atIndex:0 animated:YES];
     [segment insertSegmentWithTitle:@"直推奖" atIndex:1 animated:YES];
@@ -36,7 +39,7 @@
                           //1.设置字体样式:例如黑体,和字体大小
                           NSFontAttributeName:[UIFont fontWithName:@"Arial" size:17],
                           //2.字体颜色
-                          NSForegroundColorAttributeName:RGBColorHex(0x7685a6)
+                          NSForegroundColorAttributeName:RGBColorHex(0xabb9d9)
                           };
     
     [segment setTitleTextAttributes:dic forState:UIControlStateNormal];
@@ -68,34 +71,33 @@
     [segment addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:segment];
     
-    self.walletBalanceVC.view.hidden = NO;
+    self.incomeVC.view.hidden = NO;
 }
 
 -(void)segmentAction:(UISegmentedControl*)sender
 {
-    self.walletBalanceVC.view.hidden = YES;
-    self.recordVC.view.hidden = YES;
-    self.c2cVC.view.hidden = YES;
+    self.promotionAwardVC.view.hidden = YES;
+    self.incomeVC.view.hidden = YES;
     
     if (sender.selectedSegmentIndex==0)
     {
-        //钱包
-        self.walletBalanceVC.view.hidden = NO;
+        //投资收益
+        self.incomeVC.view.hidden = NO;
     }
     else if (sender.selectedSegmentIndex==1)
     {
-        //提币记录
-        self.recordVC.view.hidden = NO;
+        //直推奖
+        self.promotionAwardVC.view.hidden = NO;
     }
     else if (sender.selectedSegmentIndex==2)
     {
-        //赚币记录
-        self.recordVC.view.hidden = NO;
+//        //管理奖
+//        self.recordVC.view.hidden = NO;
     }
     else if (sender.selectedSegmentIndex==3)
     {
-        //C2C记录
-        self.c2cVC.view.hidden = NO;
+//        //领导奖
+//        self.c2cVC.view.hidden = NO;
     }
     //titleForSegmentAtIndex通过索引值获取被选中的分段控制器的按钮标题，selectedSegmentIndex 是获取被选中按钮的索引值
     NSLog(@"----%@",[sender titleForSegmentAtIndex:sender.selectedSegmentIndex]);
@@ -120,49 +122,34 @@
 }
 
 
--(ETHWalletBalanceVC*)walletBalanceVC
+-(ETHPromotionAwardVC*)promotionAwardVC
 {
-    if (_walletBalanceVC==nil) {
-        _walletBalanceVC = [[ETHWalletBalanceVC alloc]init];
-        [self addChildViewController:_walletBalanceVC];
-        [self.view addSubview:_walletBalanceVC.view];
-        [_walletBalanceVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+    if (_promotionAwardVC ==nil) {
+        _promotionAwardVC = [[ETHPromotionAwardVC alloc]init];
+        [self addChildViewController:_promotionAwardVC];
+        [self.view addSubview:_promotionAwardVC.view];
+        [_promotionAwardVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.mas_equalTo(0);
             make.top.mas_equalTo(40);
         }];
     }
     
-    return _walletBalanceVC;
+    return _promotionAwardVC;
 }
 
--(ETHInvestmentRecordVC *)recordVC
+-(ETHInvestmentIncomeVC *)incomeVC
 {
-    if (_recordVC==nil) {
-        _recordVC = [[ETHInvestmentRecordVC alloc]init];
-        [self addChildViewController:_recordVC];
-        [self.view addSubview:_recordVC.view];
-        [_recordVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+    if (_incomeVC==nil) {
+        _incomeVC = [[ETHInvestmentIncomeVC alloc]init];
+        [self addChildViewController:_incomeVC];
+        [self.view addSubview:_incomeVC.view];
+        [_incomeVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.mas_equalTo(0);
             make.top.mas_equalTo(40);
         }];
     }
     
-    return _recordVC;
-}
-
--(ETHTransactionVC *)c2cVC
-{
-    if (_c2cVC==nil) {
-        _c2cVC = [[ETHTransactionVC alloc]init];
-        [self addChildViewController:_c2cVC];
-        [self.view addSubview:_c2cVC.view];
-        [_c2cVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.bottom.mas_equalTo(0);
-            make.top.mas_equalTo(40);
-        }];
-    }
-    
-    return _c2cVC;
+    return _incomeVC;
 }
 
 @end

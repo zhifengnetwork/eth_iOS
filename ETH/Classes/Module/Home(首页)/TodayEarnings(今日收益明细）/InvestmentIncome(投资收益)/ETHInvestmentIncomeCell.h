@@ -1,5 +1,5 @@
 //
-//  ETHTodayEarningMVVC.h
+//  ETHInvestmentIncomeCell.h
 //  ETH
 //
 //  Created by weiming zhang on 2019/4/13.
@@ -10,8 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ETHTodayEarningMVVC : UIViewController
-@property (nonatomic, assign)NSInteger index;
+@interface ETHInvestmentIncomeCell : UITableViewCell
+
 @end
 
 NS_ASSUME_NONNULL_END
