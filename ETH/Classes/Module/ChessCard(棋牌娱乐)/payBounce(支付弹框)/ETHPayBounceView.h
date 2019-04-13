@@ -1,5 +1,5 @@
 //
-//  ETHpayBounceVC.h
+//  ETHPayBounceView.h
 //  ETH
 //
 //  Created by weiming zhang on 2019/4/13.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ETHPayBounceVC : UIViewController
+@interface ETHPayBounceView : UIView
 
 @end
 

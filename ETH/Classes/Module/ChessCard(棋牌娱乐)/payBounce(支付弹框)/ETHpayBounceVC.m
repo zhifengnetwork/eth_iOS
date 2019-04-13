@@ -6,13 +6,13 @@
 //  Copyright © 2019 admin. All rights reserved.
 //
 
-#import "ETHpayBounceVC.h"
+#import "ETHPayBounceVC.h"
 
-@interface ETHpayBounceVC ()
+@interface ETHPayBounceVC ()
 
 @end
 
-@implementation ETHpayBounceVC
+@implementation ETHPayBounceVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
