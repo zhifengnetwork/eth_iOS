@@ -7,6 +7,8 @@
 //
 
 #import "ETHKeyPackageTableCell.h"
+#import "ETHPayBounceView.h"
+#import "TYAlertController.h"
 
 @interface ETHKeyPackageTableCell ()
 
@@ -98,15 +100,27 @@
     
     
 }
-
+- (UIViewController*)viewController {
+    for (UIView* next = [self superview]; next; next = next.superview) {
+        UIResponder* nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController
+                                          class]]) {
+            return (UIViewController*)nextResponder;
+        }
+    }
+    return nil;
+}
 - (void)confirmButtonDidClick
 {
-    
+    ETHPayBounceView *view = [[ETHPayBounceView alloc]initWithFrame:CGRectMake(0, 0, 300, 200)];
+    TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
+    alertController.backgoundTapDismissEnable = YES;
+    [[self viewController] presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)cancelButtonDidClick
 {
-    
+
 }
 
 - (UILabel *)keyLabel {
