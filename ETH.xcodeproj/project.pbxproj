@@ -21,6 +21,9 @@
 		539B609B2254890D00FE7D80 /* ETHHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 539B609A2254890D00FE7D80 /* ETHHeaderView.m */; };
 		539B609E2254AB8B00FE7D80 /* ETHMeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 539B609D2254AB8B00FE7D80 /* ETHMeTableViewCell.m */; };
 		53AA0AEF225E165400509242 /* ETHTradeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0AEE225E165400509242 /* ETHTradeCell.m */; };
+		53B8585922618310008F1665 /* ETHTodayEarningMVVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53B8585822618310008F1665 /* ETHTodayEarningMVVC.m */; };
+		53B8585F2261861B008F1665 /* ETHInvestmentIncomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53B8585E2261861B008F1665 /* ETHInvestmentIncomeVC.m */; };
+		53B8586222618638008F1665 /* ETHPromotionAwardVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53B8586122618638008F1665 /* ETHPromotionAwardVC.m */; };
 		53BB76F9226028EF006F1DA4 /* ETHPayManageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BB76F8226028EE006F1DA4 /* ETHPayManageVC.m */; };
 		53BB770022602901006F1DA4 /* ETHAnnouncementCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BB76FB22602900006F1DA4 /* ETHAnnouncementCell.m */; };
 		53BB770122602901006F1DA4 /* ETHMyWalletVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BB76FC22602900006F1DA4 /* ETHMyWalletVC.m */; };
@@ -178,6 +181,12 @@
 		539B609D2254AB8B00FE7D80 /* ETHMeTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHMeTableViewCell.m; sourceTree = "<group>"; };
 		53AA0AEE225E165400509242 /* ETHTradeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHTradeCell.m; sourceTree = "<group>"; };
 		53AB8EBC225C8D9400C68719 /* ETHCancelAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHCancelAlertView.m; sourceTree = "<group>"; };
+		53B8585722618310008F1665 /* ETHTodayEarningMVVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETHTodayEarningMVVC.h; sourceTree = "<group>"; };
+		53B8585822618310008F1665 /* ETHTodayEarningMVVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHTodayEarningMVVC.m; sourceTree = "<group>"; };
+		53B8585D2261861B008F1665 /* ETHInvestmentIncomeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETHInvestmentIncomeVC.h; sourceTree = "<group>"; };
+		53B8585E2261861B008F1665 /* ETHInvestmentIncomeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHInvestmentIncomeVC.m; sourceTree = "<group>"; };
+		53B8586022618638008F1665 /* ETHPromotionAwardVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETHPromotionAwardVC.h; sourceTree = "<group>"; };
+		53B8586122618638008F1665 /* ETHPromotionAwardVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHPromotionAwardVC.m; sourceTree = "<group>"; };
 		53BB76F7226028EE006F1DA4 /* ETHPayManageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETHPayManageVC.h; sourceTree = "<group>"; };
 		53BB76F8226028EE006F1DA4 /* ETHPayManageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHPayManageVC.m; sourceTree = "<group>"; };
 		53BB76FB22602900006F1DA4 /* ETHAnnouncementCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ETHAnnouncementCell.m; path = ../ETHAnnouncementCell.m; sourceTree = "<group>"; };
@@ -496,6 +505,35 @@
 			path = Controller/View;
 			sourceTree = "<group>";
 		};
+		53B858562261821D008F1665 /* TodayEarnings(今日收益明细） */ = {
+			isa = PBXGroup;
+			children = (
+				53B8585C22618531008F1665 /* DirectPromotionAward（直推奖） */,
+				53B8585A226184E7008F1665 /* InvestmentIncome(投资收益) */,
+				53B8585722618310008F1665 /* ETHTodayEarningMVVC.h */,
+				53B8585822618310008F1665 /* ETHTodayEarningMVVC.m */,
+			);
+			path = "TodayEarnings(今日收益明细）";
+			sourceTree = "<group>";
+		};
+		53B8585A226184E7008F1665 /* InvestmentIncome(投资收益) */ = {
+			isa = PBXGroup;
+			children = (
+				53B8585D2261861B008F1665 /* ETHInvestmentIncomeVC.h */,
+				53B8585E2261861B008F1665 /* ETHInvestmentIncomeVC.m */,
+			);
+			path = "InvestmentIncome(投资收益)";
+			sourceTree = "<group>";
+		};
+		53B8585C22618531008F1665 /* DirectPromotionAward（直推奖） */ = {
+			isa = PBXGroup;
+			children = (
+				53B8586022618638008F1665 /* ETHPromotionAwardVC.h */,
+				53B8586122618638008F1665 /* ETHPromotionAwardVC.m */,
+			);
+			path = "DirectPromotionAward（直推奖）";
+			sourceTree = "<group>";
+		};
 		53E75F50225AEBEB00CD13DA /* 我的订单 */ = {
 			isa = PBXGroup;
 			children = (
@@ -751,6 +789,7 @@
 		842E8237225458D500CC5188 /* Home(首页) */ = {
 			isa = PBXGroup;
 			children = (
+				53B858562261821D008F1665 /* TodayEarnings(今日收益明细） */,
 				84BC88CA2255E8C3001BFC02 /* WalletBalance(钱包余额) */,
 				84BC88C02255B4F4001BFC02 /* SubordinateDetails(下级明细) */,
 				842E83272254C3F900CC5188 /* InvestmentPurchase(投资购买) */,
@@ -1405,6 +1444,7 @@
 				539B609E2254AB8B00FE7D80 /* ETHMeTableViewCell.m in Sources */,
 				842E82F3225458D500CC5188 /* BaseCollectionHeadView.m in Sources */,
 				53BB770022602901006F1DA4 /* ETHAnnouncementCell.m in Sources */,
+				53B8585922618310008F1665 /* ETHTodayEarningMVVC.m in Sources */,
 				53EA94EF2256F355001DDE8B /* ETHTitleView.m in Sources */,
 				842E82F5225458D500CC5188 /* HMEmoticonTipView.m in Sources */,
 				841D8756226098D200009D78 /* ETHListWinnersTableCell.m in Sources */,
@@ -1414,6 +1454,7 @@
 				534B99DA225D931100DC2A97 /* ETHCancelAlertView.m in Sources */,
 				841D8757226098D200009D78 /* ETHBetNumberCollectionCell.m in Sources */,
 				84052D59225C7B9F0092A905 /* ETHCurrentInvestmentTableCell.m in Sources */,
+				53B8586222618638008F1665 /* ETHPromotionAwardVC.m in Sources */,
 				84BC88D02255F05F001BFC02 /* ETHWalletBalanceTableCell.m in Sources */,
 				842E8300225458D500CC5188 /* HMEmoticonTextView.m in Sources */,
 				84052D65225CA1AD0092A905 /* ETHDoubleThrowTableCell.m in Sources */,
@@ -1450,6 +1491,7 @@
 				842E8305225458D500CC5188 /* HttpTool.m in Sources */,
 				842E832A2254C43200CC5188 /* ETHInvestmentPurchaseTableCell.m in Sources */,
 				842E83302254C7CA00CC5188 /* ETHPaymentTableCell.m in Sources */,
+				53B8585F2261861B008F1665 /* ETHInvestmentIncomeVC.m in Sources */,
 				842E82EB225458D500CC5188 /* StaticTableViewCell.m in Sources */,
 				842E8306225458D500CC5188 /* ETHTool.m in Sources */,
 				538EA193225CA96E00667810 /* ETHDealVC.m in Sources */,

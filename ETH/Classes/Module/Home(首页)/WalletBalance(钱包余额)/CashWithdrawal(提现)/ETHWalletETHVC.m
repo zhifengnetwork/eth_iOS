@@ -74,12 +74,12 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     //设置位置和大小
     segment1.frame = CGRectMake(0, 0, LL_ScreenWidth, 40);
     [self.view addSubview:segment1];
-    
+
     self.tableView.tableHeaderView = segment;
-    
+
     //删除索引为0的按钮
     [segment1 removeSegmentAtIndex:0 animated:YES];
-    
+
     //删除所有按钮
     [segment1 removeAllSegments];
     
