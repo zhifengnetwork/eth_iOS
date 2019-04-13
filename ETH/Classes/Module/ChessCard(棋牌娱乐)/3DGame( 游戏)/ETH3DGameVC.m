@@ -13,10 +13,15 @@
 #import "SVProgressHUD.h"
 #import "MJExtension.h"
 #import "ETHKeyPackageTableCell.h"
+#import "ETH3DGameFooterView.h"
 
-@interface ETH3DGameVC()
+@interface ETH3DGameVC()<ETH3DGameFooterViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong)UIButton *agreeButton;
+
+@property (nonatomic, strong) ETH3DGameFooterView *footerView;
+
 @end
 
 
@@ -50,6 +55,17 @@ static NSString *const ETHKeyPackageTableCellID = @"ETHKeyPackageTableCellID";
 
 - (void)setupUI
 {
+    [self.view addSubview:self.footerView];
+    [_footerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view);
+        make.height.mas_equalTo(30);
+    }];
+    
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.equalTo(self.view);
+        make.bottom.equalTo(self->_footerView.mas_top);
+    }];
+    
     self.tableView.backgroundColor = RGBColorHex(0xffffff);
     self.tableView.tableFooterView = [UIView new];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -199,6 +215,32 @@ static NSString *const ETHKeyPackageTableCellID = @"ETHKeyPackageTableCellID";
     return _tableView;
 }
 
+- (void)handleSingleTap:(UITouch *)touch
+{
+    
+}
 
+-(ETH3DGameFooterView *)footerView
+{
+    if (_footerView==nil)
+    {
+        _footerView = [[ETH3DGameFooterView alloc]init];
+        _footerView.backgroundColor = RGBColorHex(0xf4f4f4);
+        
+        //UIView增加点击事件
+        _footerView.userInteractionEnabled = YES;
+        UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+        [_footerView addGestureRecognizer:singleTap];
+    }
+    
+    return _footerView;
+}
+
+
+//3D游戏底部
+- (void)ETH3DGameFooterViewDidClick
+{
+    
+}
 
 @end

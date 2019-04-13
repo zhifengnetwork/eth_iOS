@@ -159,6 +159,96 @@
     return nil;
 }
 
+- (void)cyl_replaceTabImageViewWithNewView:(UIView *)newView
+                             show:(BOOL)show {
+    [self cyl_replaceTabImageViewWithNewView:newView offset:UIOffsetZero show:show completion:^(BOOL isReplaced, UIControl *tabBarButton, UIView *newView) {
+    }];
+}
+
+- (void)cyl_replaceTabImageViewWithNewView:(UIView *)newView
+                                           offset:(UIOffset)offset
+                                    show:(BOOL)theShow
+                                       completion:(void(^)(BOOL isReplaced, UIControl *tabBarButton, UIView *newView))completion {
+    [self cyl_replaceTabImageViewOrTabButton:NO newView:newView offset:offset show:theShow completion:completion];
+}
+
+- (void)cyl_replaceTabButtonWithNewView:(UIView *)newView
+                                    offset:(UIOffset)offset
+                                      show:(BOOL)theShow
+                                completion:(void(^)(BOOL isReplaced, UIControl *tabBarButton, UIView *newView))completion {
+    [self cyl_replaceTabImageViewOrTabButton:YES newView:newView offset:offset show:theShow completion:completion];
+}
+
+- (void)cyl_replaceTabButtonWithNewView:(UIView *)newView
+                                      show:(BOOL)show {
+    [self cyl_replaceTabButtonWithNewView:newView offset:UIOffsetZero show:show completion:^(BOOL isReplaced, UIControl *tabBarButton, UIView *newView) {
+    }];
+}
+
+- (void)cyl_replaceTabImageViewOrTabButton:(BOOL)isTabButton
+                               newView:(UIView *)newView
+                                    offset:(UIOffset)offset
+                                      show:(BOOL)theShow
+                                completion:(void(^)(BOOL isReplaced, UIControl *tabBarButton, UIView *newView))completion {
+    UIControl *tabBarButton = self;
+    UIImageView *swappableImageView = tabBarButton.cyl_tabImageView;
+    UIView *replacedView = swappableImageView;
+    if (isTabButton) {
+        replacedView = tabBarButton;
+    }
+    BOOL newViewCreated = (newView.superview);
+    BOOL newViewAddedToTabButton = [self.subviews containsObject:newView];
+    BOOL isNewViewAddedToTabButton = newViewCreated && newViewAddedToTabButton;
+    if (newView.superview && !newViewAddedToTabButton) {
+        [newView removeFromSuperview];
+    }
+    if (isNewViewAddedToTabButton && theShow) {
+        !completion?:completion(YES, self, newView);
+        return;
+    }
+    BOOL show = (newView && theShow);
+    swappableImageView.hidden = (show);
+    if (isTabButton) {
+        tabBarButton.cyl_tabLabel.hidden = show;
+    }
+    BOOL shouldShowNewView = show && !newView.superview;
+    BOOL shouldRemoveNewView = newView.superview;
+    if (shouldShowNewView) {
+        [tabBarButton addSubview:newView];
+        [tabBarButton bringSubviewToFront:newView];
+        if (CYL_SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0"))  {
+            [NSLayoutConstraint activateConstraints:@[
+                                                      [newView.centerXAnchor constraintEqualToAnchor:swappableImageView.centerXAnchor constant:offset.horizontal],
+                                                      [newView.centerYAnchor constraintEqualToAnchor:replacedView.centerYAnchor constant:offset.vertical],
+                                                      ]
+             ];
+        } else {
+            [NSLayoutConstraint constraintWithItem:newView
+                                         attribute:NSLayoutAttributeCenterX
+                                         relatedBy:NSLayoutRelationEqual
+                                            toItem:swappableImageView
+                                         attribute:NSLayoutAttributeCenterX
+                                        multiplier:1.0
+                                          constant:offset.horizontal];
+            [NSLayoutConstraint constraintWithItem:newView
+                                         attribute:NSLayoutAttributeCenterY
+                                         relatedBy:NSLayoutRelationEqual
+                                            toItem:replacedView
+                                         attribute:NSLayoutAttributeCenterY
+                                        multiplier:1.0
+                                          constant:offset.vertical];
+        }
+        !completion?:completion(YES, self, newView);
+        return;
+    }
+    if (shouldRemoveNewView) {
+        [newView removeFromSuperview];
+        newView = nil;
+        !completion?:completion(NO, self, nil);
+        return;
+    }
+}
+
 #pragma mark - private method
 
 - (UIView *)cyl_defaultTabBadgePointView {
