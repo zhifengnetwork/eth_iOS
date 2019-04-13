@@ -10,10 +10,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol ETH3DGameFooterViewDelegate <NSObject>
+
+//3D游戏底部
+- (void)ETH3DGameFooterViewDidClick;
+
+@end
+
 /**
  3D游戏底部view
  */
 @interface ETH3DGameFooterView : UIView
+
+@property (nonatomic, weak) id<ETH3DGameFooterViewDelegate> delegate;
 
 @end
 
