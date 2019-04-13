@@ -38,7 +38,7 @@
     self.title = @"支付管理";
     [self.navigationController.navigationBar setTitleTextAttributes:
   @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"back"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(backClick)];
+    [self.navigationItem.leftBarButtonItem setImage:[[UIImage imageNamed:@"back"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     [self setup];
 }
 - (void)setup{
@@ -261,8 +261,7 @@
 }
 
 
-- (void)backClick{
+- (void)viewWillDisappear:(BOOL)animated{
     self.navigationController.navigationBar.hidden = YES;
-    [self.navigationController popViewControllerAnimated:YES];
 }
 @end

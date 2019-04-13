@@ -35,7 +35,7 @@
     self.title = @"修改密码";
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"back"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(backClick)];
+    [self.navigationItem.leftBarButtonItem setImage:[[UIImage imageNamed:@"back"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     [self setup];
 }
 - (void)setup{
@@ -231,9 +231,8 @@
         [_changeButton addTarget:self action:@selector(changeButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }return _changeButton;
 }
-- (void)backClick{
+- (void)viewWillDisappear:(BOOL)animated{
     self.navigationController.navigationBar.hidden = YES;
-    [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)changeButtonClick{
     //点击立即修改

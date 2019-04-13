@@ -43,6 +43,9 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
         make.centerX.equalTo(footerView.mas_centerX);
     }];
 }
+- (void)viewWillDisappear:(BOOL)animated{
+    self.navigationController.navigationBar.hidden = NO;
+}
 - (UITableView *)tableView{
     if (_tableView == nil) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, LL_ScreenWidth, LL_ScreenHeight) style:UITableViewStyleGrouped];
@@ -80,8 +83,6 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
     return 10;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    self.navigationController.navigationBar.hidden = NO;
     if (indexPath.section ==0) {
         if (indexPath.row == 0) {
             //跳转到支付管理

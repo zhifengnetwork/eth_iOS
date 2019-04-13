@@ -25,7 +25,7 @@ static NSString * const ETHAnnouncementCellID = @"ETHAnnouncementCellID";
     self.title = @"系统公告";
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[[UIImage imageNamed:@"back"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(backClick)];
+    [self.navigationItem.leftBarButtonItem setImage:[[UIImage imageNamed:@"back"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     [self setup];
 }
 - (void)setup{
@@ -99,9 +99,8 @@ static NSString * const ETHAnnouncementCellID = @"ETHAnnouncementCellID";
         _lineView2.hidden = NO;
     }
 }
-- (void)backClick{
+- (void)viewWillDisappear:(BOOL)animated{
     self.navigationController.navigationBar.hidden = YES;
-    [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mrak -- 协议
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
