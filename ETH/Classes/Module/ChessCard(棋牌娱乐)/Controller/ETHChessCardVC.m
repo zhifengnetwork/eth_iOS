@@ -10,6 +10,8 @@
 #import "RefreshGifHeader.h"
 #import "ETHChessCardCollectionCell.h"
 #import "ETHRecreationVC.h"
+#import "ETHFightVC.h"
+#import "ETH3DGameVC.h"
 
 @interface ETHChessCardVC ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -35,14 +37,14 @@ static NSString *const ETHChessCardCollectionCellID = @"ETHChessCardCollectionCe
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    //    [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-//    [self.navigationController setNavigationBarHidden:NO animated:animated];
-//    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+    //    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    //    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 
 
@@ -200,6 +202,16 @@ static NSString *const ETHChessCardCollectionCellID = @"ETHChessCardCollectionCe
     return CGSizeZero;
 }
 
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    if (section==0)
+    {
+        return UIEdgeInsetsMake(40, 25, 10, 20);
+    }
+    
+    return UIEdgeInsetsMake(10, 25, 10, 20);
+}
+
 #pragma mark - <UICollectionViewDelegateFlowLayout>
 #pragma mark - X间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
@@ -218,26 +230,18 @@ static NSString *const ETHChessCardCollectionCellID = @"ETHChessCardCollectionCe
 {
     if (indexPath.section==0)
     {
-        if (indexPath.row==0)
-        {
-            ETHRecreationVC* vc = [[ETHRecreationVC alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-//        else if (indexPath.row==3)
-//        {
-//            ETHWalletBalanceVC* vc = [[ETHWalletBalanceVC alloc]init];
-//            [self.navigationController pushViewController:vc animated:YES];
-//        }
-//        else if (indexPath.row==4)
-//        {
-//            ETHInvestmentPurchaseVC* vc = [[ETHInvestmentPurchaseVC alloc]init];
-//            [self.navigationController pushViewController:vc animated:YES];
-//        }
-//        else if (indexPath.row==5)
-//        {
-//            ETHSubordinateVC* vc = [[ETHSubordinateVC alloc]init];
-//            [self.navigationController pushViewController:vc animated:YES];
-//        }
+        ETH3DGameVC* vc = [[ETH3DGameVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else if (indexPath.section==1)
+    {
+        ETHRecreationVC* vc = [[ETHRecreationVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else if (indexPath.section==2)
+    {
+        ETHFightVC* vc = [[ETHFightVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

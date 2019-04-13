@@ -34,7 +34,7 @@
     [self.contentView addSubview:self.nameLabel];
     
     [_iconView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.contentView);
+        make.centerX.equalTo(self.contentView);
         make.top.mas_equalTo(20);
     }];
     
