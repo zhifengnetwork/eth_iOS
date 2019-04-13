@@ -11,7 +11,7 @@
 #import "ETHChessCardCollectionCell.h"
 #import "ETHRecreationVC.h"
 #import "ETHFightVC.h"
-#import "ETH3DGameVC.h"
+#import "ETH3DGameWMVC.h"
 
 @interface ETHChessCardVC ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -230,7 +230,7 @@ static NSString *const ETHChessCardCollectionCellID = @"ETHChessCardCollectionCe
 {
     if (indexPath.section==0)
     {
-        ETH3DGameVC* vc = [[ETH3DGameVC alloc]init];
+        ETH3DGameWMVC* vc = [[ETH3DGameWMVC alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
     }
     else if (indexPath.section==1)
