@@ -54,7 +54,7 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
 {
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+//    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
 
 

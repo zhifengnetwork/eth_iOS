@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface ETH3DGameTableCell : UITableViewCell
 
+@property (nonatomic, strong) NSString *title;
+
 @end
 
 NS_ASSUME_NONNULL_END
