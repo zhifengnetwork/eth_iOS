@@ -28,7 +28,6 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
 }
 
 - (void)setup{
-    self.navigationController.navigationBar.hidden = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
     _headerView = [[ETHHeaderView alloc]initWithFrame:CGRectMake(0, 0, LL_ScreenWidth, 165)];
@@ -45,6 +44,9 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
 }
 - (void)viewWillDisappear:(BOOL)animated{
     self.navigationController.navigationBar.hidden = NO;
+}
+- (void)viewWillAppear:(BOOL)animated{
+    self.navigationController.navigationBar.hidden = YES;
 }
 - (UITableView *)tableView{
     if (_tableView == nil) {
