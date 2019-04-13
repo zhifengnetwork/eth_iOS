@@ -7,12 +7,14 @@
 //
 
 #import "ETHListWinnersTableCell.h"
+#import "UIButton+LXMImagePosition.h"
 
 @interface ETHListWinnersTableCell()
 
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) UIButton* rankingButton;
 @property (nonatomic, strong) UILabel* numberLabel;
+@property (nonatomic, strong) UIButton* numberButton;
 @property (nonatomic, strong) UIButton* ruleButton;
 
 @end
@@ -36,11 +38,12 @@
     [self.contentView addSubview:self.bgView];
     [self.contentView addSubview:self.rankingButton];
     [self.contentView addSubview:self.numberLabel];
+    [self.contentView addSubview:self.numberButton];
     [self.contentView addSubview:self.ruleButton];
     
     [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.mas_equalTo(0);
-        make.height.mas_equalTo(30);
+        make.height.mas_equalTo(40);
     }];
     
     [_rankingButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -53,10 +56,16 @@
         make.centerX.equalTo(self->_bgView);
     }];
     
+    [_numberButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self->_numberLabel.mas_bottom).offset(3);
+        make.centerX.equalTo(self->_bgView);
+        make.width.mas_equalTo(100);
+        make.height.mas_equalTo(15);
+    }];
+    
     [_ruleButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self->_bgView.mas_right).offset(-36);
         make.centerY.equalTo(self->_bgView);
-        
     }];
     
 }
@@ -75,6 +84,11 @@
     {
         [self.delegate ETHListWinnersTableCellDidClick:2];
     }
+}
+
+- (void)numberButtonDidClick
+{
+    
 }
 
 -(UIView *)bgView
@@ -108,6 +122,22 @@
         _numberLabel.text = @"期号   开奖号";
     }
     return _numberLabel;
+}
+
+- (UIButton *)numberButton {
+    if (_numberButton == nil) {
+        _numberButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_numberButton setTitle:@"2019/03/22  567" forState:UIControlStateNormal];
+        [_numberButton setImage:[UIImage imageNamed:@"drop down"] forState:UIControlStateNormal];
+        [_numberButton setTitleColor:RGBColorHex(0x5e636d) forState:UIControlStateNormal];
+        _numberButton.titleLabel.font = [UIFont systemFontOfSize:10];
+        [_numberButton setImagePosition:LXMImagePositionRight spacing:5];
+        _numberButton.layer.borderWidth = 1.0f;
+        _numberButton.layer.borderColor = RGBColorHex(0xdadada).CGColor;
+        [_numberButton addTarget:self action:@selector(numberButtonDidClick) forControlEvents:UIControlEventTouchUpInside];
+        _numberButton.userInteractionEnabled = NO;
+    }
+    return _numberButton;
 }
 
 - (UIButton *)ruleButton {
