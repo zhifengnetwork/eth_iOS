@@ -46,6 +46,12 @@
         make.top.equalTo(self.priceLabel.mas_bottom).with.offset(8);
         make.centerX.equalTo(self.mas_centerX);
     }];
+    [_menuView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.countLabel.mas_bottom).with.offset(10);
+        make.left.equalTo(self).with.offset(50);
+        make.right.equalTo(self).with.offset(-50);
+        make.width.mas_equalTo(250);
+    }];
 }
 - (UILabel *)freeAccountLabel{
     if (_freeAccountLabel == nil) {
@@ -79,4 +85,5 @@
         _countLabel.text = @"下注总数：1注";
     }return _countLabel;
 }
+
 @end

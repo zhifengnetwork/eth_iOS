@@ -37,6 +37,7 @@
 		53BB770122602901006F1DA4 /* ETHMyWalletVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BB76FC22602900006F1DA4 /* ETHMyWalletVC.m */; };
 		53BB770222602901006F1DA4 /* ETHAnnouncementVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BB76FF22602901006F1DA4 /* ETHAnnouncementVC.m */; };
 		53BB770522602FCD006F1DA4 /* ETHResetPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BB770422602FCD006F1DA4 /* ETHResetPasswordVC.m */; };
+		53C3437A2261E953008E42FB /* ETHDropDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 53C343792261E953008E42FB /* ETHDropDownButton.m */; };
 		53DA5B0D225DEED1006D5066 /* ETHDealTF.m in Sources */ = {isa = PBXBuildFile; fileRef = 53DA5B0C225DEED1006D5066 /* ETHDealTF.m */; };
 		53DB59F4225760D6009C05B3 /* ETHOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53DB59F3225760D6009C05B3 /* ETHOrderVC.m */; };
 		53DB59F7225760FC009C05B3 /* ETHAdvertisementVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53DB59F6225760FC009C05B3 /* ETHAdvertisementVC.m */; };
@@ -222,6 +223,8 @@
 		53BB76FF22602901006F1DA4 /* ETHAnnouncementVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHAnnouncementVC.m; sourceTree = "<group>"; };
 		53BB770322602FCD006F1DA4 /* ETHResetPasswordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETHResetPasswordVC.h; sourceTree = "<group>"; };
 		53BB770422602FCD006F1DA4 /* ETHResetPasswordVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHResetPasswordVC.m; sourceTree = "<group>"; };
+		53C343782261E953008E42FB /* ETHDropDownButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETHDropDownButton.h; sourceTree = "<group>"; };
+		53C343792261E953008E42FB /* ETHDropDownButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHDropDownButton.m; sourceTree = "<group>"; };
 		53DA2208226067BF0079AE86 /* ETHMyWalletVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETHMyWalletVC.h; sourceTree = "<group>"; };
 		53DA2209226067BF0079AE86 /* ETHAnnouncementVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETHAnnouncementVC.h; sourceTree = "<group>"; };
 		53DA5B0B225DEED1006D5066 /* ETHDealTF.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETHDealTF.h; sourceTree = "<group>"; };
@@ -574,6 +577,8 @@
 			children = (
 				531532162261CE2D004AA7BC /* ETHPayBounceView.h */,
 				531532172261CE2D004AA7BC /* ETHPayBounceView.m */,
+				53C343782261E953008E42FB /* ETHDropDownButton.h */,
+				53C343792261E953008E42FB /* ETHDropDownButton.m */,
 			);
 			path = "payBounce(支付弹框)";
 			sourceTree = "<group>";
@@ -1517,7 +1522,6 @@
 				53BB770222602901006F1DA4 /* ETHAnnouncementVC.m in Sources */,
 				53DB59F4225760D6009C05B3 /* ETHOrderVC.m in Sources */,
 				181249112261CC4C004DB1B3 /* ETHADModel.m in Sources */,
-				531532152261C81E004AA7BC /* ETHpayBounceVC.m in Sources */,
 				84BC88CD2255EF5C001BFC02 /* ETHWalletBalanceVC.m in Sources */,
 				842E8304225458D500CC5188 /* http_user.m in Sources */,
 				53BB770522602FCD006F1DA4 /* ETHResetPasswordVC.m in Sources */,
@@ -1590,6 +1594,7 @@
 				53B8585F2261861B008F1665 /* ETHInvestmentIncomeVC.m in Sources */,
 				843CE5362261C99500DE176F /* ETH3DGameWMVC.m in Sources */,
 				842E82EB225458D500CC5188 /* StaticTableViewCell.m in Sources */,
+				53C3437A2261E953008E42FB /* ETHDropDownButton.m in Sources */,
 				842E8306225458D500CC5188 /* ETHTool.m in Sources */,
 				181249062261CC3F004DB1B3 /* http_index.m in Sources */,
 				538EA193225CA96E00667810 /* ETHDealVC.m in Sources */,
