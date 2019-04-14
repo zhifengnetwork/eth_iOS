@@ -38,10 +38,16 @@
  */
 @interface BaseListModel : NSObject
 
+@property (nonatomic , assign)NSInteger total;
+@property (nonatomic , assign)NSInteger sum;
+@property (nonatomic , assign)NSInteger pagesize;
+
+@property (nonatomic , assign)NSInteger currentPage;
+
 //页数
 @property (nonatomic, strong) BasePageModel* page;
 //结果集存放List
-@property (nonatomic, strong) NSMutableArray *result;
+@property (nonatomic, strong) NSMutableArray *list;
 
 //追加一页数据
 -(void)addModel:(BaseListModel*)model;

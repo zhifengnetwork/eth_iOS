@@ -94,10 +94,12 @@
     HttpTool *http = [HttpTool sharedManager];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc]initWithCapacity:1];
     
+    [parameters setObject:@"member.androidapi.my_info" forKey:@"r"];
+    
     NSDictionary* dic = [http hanldeSign:parameters];
     
     NSString* strUrl = [http getMainUrl];
-    strUrl = [strUrl stringByAppendingPathComponent:@"api/user/userinfo"];
+    strUrl = [strUrl stringByAppendingPathComponent:@"app/index.php"];
     [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
 }
 

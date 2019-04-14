@@ -68,14 +68,14 @@
     //当前页码
     self.page.currentPage = model.page.currentPage;
     
-    [self.result addObjectsFromArray:model.result];
+    [self.list addObjectsFromArray:model.list];
 }
 
 
 //清空数据
 -(void)emptyList
 {
-    [self.result removeAllObjects];
+    [self.list removeAllObjects];
     [self.page setStartPage];
 }
 
@@ -91,14 +91,14 @@
     return _page;
 }
 
--(NSMutableArray*)result
+-(NSMutableArray*)list
 {
-    if (_result==nil)
+    if (_list==nil)
     {
-        _result = [[NSMutableArray alloc]init];
+        _list = [[NSMutableArray alloc]init];
     }
     
-    return _result;
+    return _list;
 }
 
 @end

@@ -97,6 +97,13 @@
 }
 
 
+-(void)setTeamModel:(ETHTeamModel *)teamModel
+{
+    _teamModel = teamModel;
+    _telephoneLabel.text = _teamModel.mobile;
+}
+
+
 
 -(UIView *)bgView
 {

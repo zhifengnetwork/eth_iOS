@@ -9,8 +9,16 @@
 #import "ETHSubordinateVC.h"
 #import "ETHSubordinateHeadTableCell.h"
 #import "ETHSubordinateTableCell.h"
+#import "http_index.h"
+#import "SVProgressHUD.h"
+#import "MJExtension.h"
+#import "RefreshGifHeader.h"
+#import "ETHTeamModel.h"
+
 
 @interface ETHSubordinateVC ()
+
+@property (nonatomic , strong)ETHTeamListModel *listModel;
 
 @end
 
@@ -62,12 +70,57 @@ static NSString *const ETHSubordinateTableCellID = @"ETHSubordinateTableCellID";
     
     [self.tableView registerClass:[ETHSubordinateHeadTableCell class] forCellReuseIdentifier:ETHSubordinateHeadTableCellID];
     [self.tableView registerClass:[ETHSubordinateTableCell class] forCellReuseIdentifier:ETHSubordinateTableCellID];
+    
+    //自定义刷新动画
+    ZWeakSelf
+    self.tableView.mj_header = [RefreshGifHeader headerWithRefreshingBlock:^{
+        
+        [weakSelf loadData];
+    }];
+    [self.tableView.mj_header beginRefreshing];
 }
+
+
+-(void)loadData
+{
+    ZWeakSelf
+    [http_index xiaji_get_list:1 success:^(id responseObject)
+     {
+         [self.tableView.mj_header endRefreshing];
+         [weakSelf showData:responseObject];
+     } failure:^(NSError *error) {
+         [self.tableView.mj_header endRefreshing];
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
+    
+//    ZWeakSelf
+//    [http_index investment_record:1 type:self.type success:^(id responseObject)
+//     {
+//         [self.tableView.mj_header endRefreshing];
+//         [weakSelf showData:responseObject];
+//     } failure:^(NSError *error) {
+//         [self.tableView.mj_header endRefreshing];
+//         [SVProgressHUD showErrorWithStatus:error.domain];
+//     }];
+}
+
+-(void)showData:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
+    
+    self.listModel = [ETHTeamListModel mj_objectWithKeyValues:responseObject];
+    
+    [self.tableView reloadData];
+}
+
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 1+self.listModel.list.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -86,11 +139,12 @@ static NSString *const ETHSubordinateTableCellID = @"ETHSubordinateTableCellID";
         
         cell = scell;
     }
-    else if (indexPath.section==1)
+    else
     {
         ETHSubordinateTableCell* pcell = [tableView dequeueReusableCellWithIdentifier:ETHSubordinateTableCellID];
         pcell = [[ETHSubordinateTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHSubordinateTableCellID];
-        
+        ETHTeamModel *teamModel = [self.listModel.list objectAtIndex:indexPath.section-1];
+        pcell.teamModel = teamModel;
         cell = pcell;
     }
     
