@@ -9,7 +9,7 @@
 #import "ETHDropDownButton.h"
 @interface ETHDropDownButton()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UITableView *listView;
-
+@property (nonatomic, strong)MASConstraint *height;
 @end
 @implementation ETHDropDownButton
 static NSString *CellIdentifier = @"DropDownCell";
@@ -25,55 +25,60 @@ static NSString *CellIdentifier = @"DropDownCell";
     }
     return self;
 }
-- (void)didMoveToSuperview {
-    [self.superview addSubview:_listView];
-}
 
 - (void)setup {
+    self.layer.borderWidth = 1;
+    self.layer.borderColor = RGBColorHex(0x232833).CGColor;
     self.titleLabel.font = [UIFont systemFontOfSize:12];
     [self setTitleColor:RGBColorHex(0x262626) forState:UIControlStateNormal];
     [self setImage:[UIImage imageNamed:@"drop down"] forState:UIControlStateNormal];
     [self setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, -10)];
-//    [self setImageEdgeInsets:UIEdgeInsetsMake(0, self.bounds.size.width-20, 0, -self.bounds.size.width-20 )];
-    [self setupDefaultTable];
+    [self setImageEdgeInsets:UIEdgeInsetsMake(0, 240, 0, -240)];
     [self setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [self addTarget:self action:@selector(clickedToDropDown) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)setupDefaultTable {
     //将listView放在当前按钮下方位置，保持宽度相同，初始高度设置为0
-    _listView = [[UITableView alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y+self.frame.size.height, self.frame.size.width, 0) style:UITableViewStylePlain];
+    _listView = [[UITableView alloc]init];
+    [self.superview addSubview:self.listView];
+    _listView.layer.borderWidth = 1;
+    _listView.layer.borderColor = RGBColorHex(0x232833).CGColor;
+    [_listView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.mas_bottom);
+        make.left.equalTo(self.mas_left);
+        make.right.equalTo(self.mas_right);
+        self.height = make.height.mas_equalTo(0);
+    }];
     _listView.rowHeight = 20;
     _listView.dataSource = self;
     _listView.delegate = self;
 }
 //添加listView的下拉动画、收起动画方法
 - (void)startDropDownAnimation {
-    CGRect frame = _listView.frame;
+//    CGRect frame = _listView.frame;
     //使listView高度在0.3秒内从0过渡到最大高度以显示全部列表项
-    frame.size.height = self.frame.size.height*self.list.count;
-    [UIView animateWithDuration:0.3 animations:^{
-        self->_listView.frame = frame;
-    } completion:^(BOOL finished) {
-        
+    [self.height uninstall];//先销毁约束
+    [_listView mas_makeConstraints:^(MASConstraintMaker *make) {
+        self.height = make.height.mas_equalTo(self.listView.rowHeight*self.list.count);
     }];
+    
+    
 }
 - (void)startPackUpAnimation {
-    CGRect frame = _listView.frame;
-    //使listView高度在0.3秒内从最大高度过渡到0以隐藏全部列表项
-    frame.size.height = 0;
-    [UIView animateWithDuration:0.3 animations:^{
-        self->_listView.frame = frame;
-    } completion:^(BOOL finished) {
-        
+//    CGRect frame = _listView.frame;
+    [self.height uninstall];//先销毁约束
+    [_listView mas_updateConstraints:^(MASConstraintMaker *make) {
+        self.height = self.height = make.height.mas_equalTo(0);
     }];
+    //使listView高度在0.3秒内从最大高度过渡到0以隐藏全部列表项
 }
 //点击事件
 - (void)clickedToDropDown {
     self.tag++;
     self.tag%2 ? [self startDropDownAnimation] : [self startPackUpAnimation];
-
     [_listView reloadData];
+    
 }
 //实现listView的数据源和代理
 #pragma mark - table view data source
@@ -103,8 +108,13 @@ static NSString *CellIdentifier = @"DropDownCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //选择某项后，使按钮标题内容变为当前选项
     [self setTitle:self.list[indexPath.row] forState:UIControlStateNormal];
+    UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.selectedBackgroundView = [UIView new];
+    cell.selectedBackgroundView.backgroundColor = RGBColorHex(0x263454);
+    cell.textLabel.highlightedTextColor = [UIColor whiteColor];
+    [cell.textLabel setTextColor:[UIColor blackColor]];
     //执行列表收起动画
-    [self clickedToDropDown];
+//    [self clickedToDropDown];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

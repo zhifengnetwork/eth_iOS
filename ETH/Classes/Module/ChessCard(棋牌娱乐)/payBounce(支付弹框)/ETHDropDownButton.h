@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ETHDropDownButton : UIButton
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSArray *list;
+- (void)setupDefaultTable;
 - (void)setTitle:(NSString*)title List:(NSArray *)list;
 @end
 

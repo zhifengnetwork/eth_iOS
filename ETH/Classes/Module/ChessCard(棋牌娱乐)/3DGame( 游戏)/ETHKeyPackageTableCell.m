@@ -112,7 +112,7 @@
 }
 - (void)confirmButtonDidClick
 {
-    ETHPayBounceView *view = [[ETHPayBounceView alloc]initWithFrame:CGRectMake(0, 0, 300, 200)];
+    ETHPayBounceView *view = [[ETHPayBounceView alloc]initWithFrame:CGRectMake(0, 0, 300, 220)];
     TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
     alertController.backgoundTapDismissEnable = YES;
     [[self viewController] presentViewController:alertController animated:YES completion:nil];

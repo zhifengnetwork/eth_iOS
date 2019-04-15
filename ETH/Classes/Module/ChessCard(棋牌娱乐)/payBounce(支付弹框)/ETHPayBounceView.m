@@ -13,6 +13,8 @@
 @property (nonatomic, strong)UILabel *reinstateAccountLabel;
 @property (nonatomic, strong)UILabel *priceLabel;
 @property (nonatomic, strong)UILabel *countLabel;
+@property (nonatomic, strong)UIButton *agreeButton;
+@property (nonatomic, strong)UIButton *cancelButton;
 @end
 @implementation ETHPayBounceView
 
@@ -31,9 +33,13 @@
     [self addSubview:self.reinstateAccountLabel];
     [self addSubview:self.priceLabel];
     [self addSubview:self.countLabel];
+    [self addSubview:self.agreeButton];
+    [self addSubview:self.cancelButton];
+    
     ETHDropDownButton *button = [[ETHDropDownButton alloc] init];
     [self addSubview:button];
-    [button setTitle:@"请选择性别" List:@[@"男", @"女"]];
+    [button setupDefaultTable];
+    [button setTitle:@"选择支付方式" List:@[@"自由账户", @"复投账户"]];
     
     [_freeAccountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).with.offset(10);
@@ -53,11 +59,22 @@
     }];
     [button mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.countLabel.mas_bottom).with.offset(10);
-        make.left.equalTo(self).with.offset(50);
-        make.right.equalTo(self).with.offset(-50);
-        make.width.mas_equalTo(250);
+        make.left.equalTo(self).with.offset(25);
+        make.right.equalTo(self).with.offset(-25);
+        make.height.mas_equalTo(27);
     }];
-    
+    [_agreeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(button.mas_bottom).with.offset(55);
+        make.left.equalTo(self).with.offset(25);
+        make.width.mas_equalTo(125);
+        make.height.mas_equalTo(27);
+    }];
+    [_cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(button.mas_bottom).with.offset(55);
+        make.right.equalTo(self).with.offset(-25);
+        make.width.mas_equalTo(125);
+        make.height.mas_equalTo(27);
+    }];
 }
 - (UILabel *)freeAccountLabel{
     if (_freeAccountLabel == nil) {
@@ -91,5 +108,24 @@
         _countLabel.text = @"下注总数：1注";
     }return _countLabel;
 }
-
+- (UIButton *)agreeButton{
+    if (_agreeButton == nil) {
+        _agreeButton = [[UIButton alloc]init];
+        _agreeButton.layer.cornerRadius = 1;
+        _agreeButton.backgroundColor = RGBColorHex(0xfc0124);
+        [_agreeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_agreeButton setTitle:@"确定" forState:UIControlStateNormal];
+        _agreeButton.titleLabel.font = [UIFont systemFontOfSize:12];
+    }return _agreeButton;
+}
+- (UIButton *)cancelButton{
+    if (_cancelButton == nil) {
+        _cancelButton = [[UIButton alloc]init];
+        _cancelButton.layer.cornerRadius = 1;
+        _cancelButton.backgroundColor = RGBColorHex(0x039702);
+        [_cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_cancelButton setTitle:@"取消" forState:UIControlStateNormal];
+        _cancelButton.titleLabel.font = [UIFont systemFontOfSize:12];
+    }return _cancelButton;
+}
 @end
