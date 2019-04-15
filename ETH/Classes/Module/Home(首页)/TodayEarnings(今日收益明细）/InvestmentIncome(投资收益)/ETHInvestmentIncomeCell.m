@@ -52,6 +52,15 @@
         make.left.equalTo(self).with.offset(10);
     }];
 }
+
+-(void)setIncomeModel:(ETHIncomeModel *)incomeModel
+{
+    _incomeModel = incomeModel;
+    _releaseTimeLabel.text = [NSString stringWithFormat:@"释放时间：%@",_incomeModel.createtime];
+    _freeAccountLabel.text = [NSString stringWithFormat:@"释放至自由账户：%@",_incomeModel.money];
+    _reinstatementAccountLabel.text = [NSString stringWithFormat:@"释放至复投账户：%@",_incomeModel.money2];
+}
+
 - (UILabel *)releaseTimeLabel{
     if (_releaseTimeLabel == nil) {
         _releaseTimeLabel = [[UILabel alloc]init];
