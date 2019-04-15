@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ETHTeamModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
  投资记录cell
  */
 @interface ETHInvestmentRecordTableCell : UITableViewCell
+
+@property (nonatomic,strong)ETHTeamModel *teamModel;
 
 @end
 

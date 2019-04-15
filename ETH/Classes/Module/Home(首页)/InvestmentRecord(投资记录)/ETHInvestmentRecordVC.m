@@ -8,8 +8,15 @@
 
 #import "ETHInvestmentRecordVC.h"
 #import "ETHInvestmentRecordTableCell.h"
+#import "http_index.h"
+#import "SVProgressHUD.h"
+#import "MJExtension.h"
+#import "RefreshGifHeader.h"
+#import "ETHTeamModel.h"
 
 @interface ETHInvestmentRecordVC ()
+
+@property (nonatomic , strong)ETHTeamListModel *listModel;
 
 @end
 
@@ -52,6 +59,40 @@ static NSString *const ETHInvestmentRecordTableCellID = @"ETHInvestmentRecordTab
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
     [self.tableView registerClass:[ETHInvestmentRecordTableCell class] forCellReuseIdentifier:ETHInvestmentRecordTableCellID];
+    
+    //自定义刷新动画
+    ZWeakSelf
+    self.tableView.mj_header = [RefreshGifHeader headerWithRefreshingBlock:^{
+        
+        [weakSelf loadData];
+    }];
+    [self.tableView.mj_header beginRefreshing];
+    
+}
+
+-(void)loadData
+{
+        ZWeakSelf
+        [http_index investment_record:1 type:self.type success:^(id responseObject)
+         {
+             [self.tableView.mj_header endRefreshing];
+             [weakSelf showData:responseObject];
+         } failure:^(NSError *error) {
+             [self.tableView.mj_header endRefreshing];
+             [SVProgressHUD showErrorWithStatus:error.domain];
+         }];
+}
+
+-(void)showData:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
+    
+    self.listModel = [ETHTeamListModel mj_objectWithKeyValues:responseObject];
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -62,7 +103,7 @@ static NSString *const ETHInvestmentRecordTableCellID = @"ETHInvestmentRecordTab
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return self.listModel.list.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -73,6 +114,8 @@ static NSString *const ETHInvestmentRecordTableCellID = @"ETHInvestmentRecordTab
     {
         ETHInvestmentRecordTableCell* scell = [tableView dequeueReusableCellWithIdentifier:ETHInvestmentRecordTableCellID];
         scell = [[ETHInvestmentRecordTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHInvestmentRecordTableCellID];
+        ETHTeamModel *teamModel = [self.listModel.list objectAtIndex:indexPath.row];
+        scell.teamModel = teamModel;
     
         cell = scell;
     }

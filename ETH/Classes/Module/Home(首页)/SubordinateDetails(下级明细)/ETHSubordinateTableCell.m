@@ -15,7 +15,6 @@
 @property (nonatomic, strong) UIImageView* starsView;
 @property (nonatomic, strong) UILabel* iphoneLabel;
 @property (nonatomic, strong) UILabel* timeLabel;
-@property (nonatomic, strong) UILabel* telephoneLabel;
 @property (nonatomic, strong) UILabel* titleLabel;
 
 @end
@@ -41,14 +40,13 @@
     [self.contentView addSubview:self.starsView];
     [self.contentView addSubview:self.iphoneLabel];
     [self.contentView addSubview:self.timeLabel];
-    [self.contentView addSubview:self.telephoneLabel];
     [self.contentView addSubview:self.titleLabel];
     
     [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(10);
         make.right.mas_equalTo(-10);
         make.top.mas_equalTo(0);
-        make.height.mas_equalTo(65);
+        make.height.mas_equalTo(50);
     }];
     
     [_iconView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -69,11 +67,6 @@
     [_timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self->_iconView.mas_right).offset(20);
         make.top.equalTo(self->_iphoneLabel.mas_bottom).offset(7);
-    }];
-    
-    [_telephoneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self->_iconView.mas_right).offset(20);
-        make.top.equalTo(self->_timeLabel.mas_bottom).offset(7);
     }];
     
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -100,7 +93,8 @@
 -(void)setTeamModel:(ETHTeamModel *)teamModel
 {
     _teamModel = teamModel;
-    _telephoneLabel.text = _teamModel.mobile;
+    _iphoneLabel.text = _teamModel.mobile;
+    _timeLabel.text = _teamModel.createtime;
 }
 
 
@@ -151,16 +145,6 @@
         _timeLabel.text = @"成为下级时间：2019-02-35 17:45";
     }
     return _timeLabel;
-}
-
-- (UILabel *)telephoneLabel {
-    if (_telephoneLabel == nil) {
-        _telephoneLabel = [[UILabel alloc] init];
-        _telephoneLabel.textColor = RGBColorHex(0x5c5f66);
-        _telephoneLabel.font = [UIFont systemFontOfSize:12];
-        _telephoneLabel.text = @"电话:18458493210";
-    }
-    return _telephoneLabel;
 }
 
 - (UILabel *)titleLabel {

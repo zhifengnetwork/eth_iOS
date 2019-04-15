@@ -14,6 +14,9 @@
 #import "ETHMyWalletVC.h"
 #import "ETHAnnouncementVC.h"
 #import "ETHResetPasswordVC.h"
+#import "UserInfoModel.h"
+#import "AppDelegate.h"
+
 @interface ETHMeVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UITableView *tableView;
 @property (nonatomic, strong)ETHHeaderView *headerView;
@@ -71,9 +74,49 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
         _logoutButton.titleLabel.font =[UIFont systemFontOfSize:15];
         _logoutButton.titleLabel.textColor = RGBColorHex(0xffffff);
         [_logoutButton setTitle:@"退出登录" forState:UIControlStateNormal];
+        [_logoutButton addTarget:self action:@selector(logoutButtonDidClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _logoutButton;
 }
+
+- (void)logoutButtonDidClick
+{
+    ZWeakSelf;
+    NSString* message = [NSString stringWithFormat:@"确定退出软件？"];
+    UIAlertController *alert =
+    [UIAlertController alertControllerWithTitle:nil
+                                        message:message
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *action1 =
+    [UIAlertAction actionWithTitle:@"取消"
+                             style:UIAlertActionStyleDefault
+                           handler:nil];
+    
+    [alert addAction:action1];
+    
+    UIAlertAction *action =
+    [UIAlertAction actionWithTitle:@"确定"
+                             style:UIAlertActionStyleDefault
+                           handler:^(UIAlertAction * _Nonnull action) {
+                               
+                               [weakSelf toExit];
+                           }];
+    
+    [alert addAction:action];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+-(void)toExit
+{
+    //归档清空
+    [UserInfoModel removeUserInfo];
+    AppDelegate* app = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+    [app to_LoginVC];
+}
+
+
 #pragma mark --协议
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;

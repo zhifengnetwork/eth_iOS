@@ -286,6 +286,7 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
         {
             ETHInvestmentRecordVC* vc = [[ETHInvestmentRecordVC alloc]init];
             [self.navigationController pushViewController:vc animated:YES];
+            vc.type = @"1";
         }
         else if (indexPath.row==3)
         {

@@ -55,8 +55,7 @@
         [parameters setObject:password forKey:@"pwd"];
     }
     
-    [parameters setObject:@"account.login" forKey:@"r"];
-    [parameters setObject:@"1" forKey:@"l"];
+    [parameters setObject:@"member.androidapi.login" forKey:@"r"];
     
     NSDictionary* dic = [http hanldeSign:parameters];
     

@@ -15,9 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface ETHSubordinateVC : UITableViewController
 
-//1投资总额,3查询转币记录,4投资记录,5:C2C交易记录
-@property (nonatomic , strong)NSString *type;
-
 @end
 
 NS_ASSUME_NONNULL_END
