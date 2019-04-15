@@ -110,4 +110,29 @@
     [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
 }
 
+
+/**
+ 今日收益-收益明细
+ 
+ @param type 类型 : 1直推奖,2管理奖,3领导奖,4总收益
+ */
++(void)today_record:(NSString*)type success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure
+{
+    HttpTool *http = [HttpTool sharedManager];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc]initWithCapacity:3];
+    
+    if (!kStringIsEmpty(type)) {
+        [parameters setObject:type forKey:@"type"];
+    }
+    
+    [parameters setObject:@"member.androidapi.today_record" forKey:@"r"];
+    
+    NSDictionary* dic = [http hanldeSign:parameters];
+    
+    NSString* strUrl = [http getMainUrl];
+    strUrl = [strUrl stringByAppendingPathComponent:@"app/index.php"];
+    [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
+}
+
+
 @end
