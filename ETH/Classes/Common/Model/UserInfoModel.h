@@ -24,7 +24,7 @@
 @interface UserInfoModel : NSObject<NSCoding>
 
 //用户ID
-@property (nonatomic, copy) NSString *user_id;
+@property (nonatomic, copy) NSString *userid;
 //
 @property (nonatomic, copy) NSString *token;
 @property (nonatomic, copy) NSString *openid;

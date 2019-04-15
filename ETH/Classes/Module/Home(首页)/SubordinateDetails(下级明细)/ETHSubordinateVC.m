@@ -159,7 +159,7 @@ static NSString *const ETHSubordinateTableCellID = @"ETHSubordinateTableCellID";
     {
         return 40;
     }
-    return 65;
+    return 50;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

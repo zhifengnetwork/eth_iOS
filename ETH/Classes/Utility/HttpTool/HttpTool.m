@@ -462,9 +462,9 @@ static int invalidtoken_code = 1005;
     
     //设置请求头
     UserInfoModel* userInfo = [UserInfoModel readUserInfo];
-    if (kStringIsEmpty(userInfo.user_id)==NO)
+    if (kStringIsEmpty(userInfo.userid)==NO)
     {
-        [parameters setObject:userInfo.user_id forKey:@"userid"];
+        [parameters setObject:userInfo.userid forKey:@"userid"];
 //        NSMutableDictionary* dic = [[NSMutableDictionary alloc]init];
 //        [dic setObject:userInfo.user_id forKey:@"userid"];
 //        [self setRequestHeader:dic];
