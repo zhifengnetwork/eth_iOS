@@ -26,6 +26,10 @@ NS_ASSUME_NONNULL_BEGIN
 //获取用户基本信息
 +(void)userinfo:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
 
+//激活账户-投资购买
+//追加投资接口
+//确定购买接口
++(void)payment:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
 @end
 
 NS_ASSUME_NONNULL_END
