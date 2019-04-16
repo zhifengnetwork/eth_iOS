@@ -261,6 +261,7 @@
         _agreeButton.titleLabel.font = [UIFont systemFontOfSize:20];
         [_agreeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_agreeButton setTitle:@"确认" forState:UIControlStateNormal];
+        [_agreeButton addTarget:self action:@selector(agreeButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _agreeButton;
 }
@@ -270,10 +271,29 @@
     self.navigationController.navigationBar.hidden = YES;
 }
 
--(void)loadData
+- (void)agreeButtonClick
 {
+    NSString* number = _cardNumberTF.text;
+    NSString* username = _userNameTF.text;
+    NSString* bankname = _bankNameTF.text;
+    
+    if (kStringIsEmpty(number))
+    {
+        [SVProgressHUD showInfoWithStatus:@"请输入银行卡号"];
+    }
+    
+    if (kStringIsEmpty(username))
+    {
+        [SVProgressHUD showInfoWithStatus:@"请输入开户人禾姓名"];
+    }
+    
+    if (kStringIsEmpty(bankname))
+    {
+        [SVProgressHUD showInfoWithStatus:@"请输入开户行名称"];
+    }
+    
     ZWeakSelf
-    [http_mine pay_submit:self.userInfo success:^(id responseObject)
+    [http_mine pay_submit:nil url:nil zfbfile:nil wxfile:nil bankid:number bankname:username bank:bankname success:^(id responseObject)
      {
          [weakSelf showData:responseObject];
      } failure:^(NSError *error) {
@@ -283,13 +303,7 @@
 
 -(void)showData:(id)responseObject
 {
-    if (kObjectIsEmpty(responseObject))
-    {
-        return;
-    }
-    
-    self.userInfo = [UserInfoModel mj_objectWithKeyValues:responseObject];
-    
+    [SVProgressHUD showSuccessWithStatus:@"提交成功"];
 }
 
 @end
