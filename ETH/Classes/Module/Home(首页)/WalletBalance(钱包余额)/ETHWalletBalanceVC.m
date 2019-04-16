@@ -37,7 +37,6 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     [self setupTableView];
     
 
-    
 }
 
 

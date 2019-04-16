@@ -17,14 +17,22 @@
 }
 
 @end
+@implementation ETHTeamDetailListModel
 
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"list" : @"ETHTeamModel"
+             };
+}
+@end
 
 @implementation ETHTeamListModel
 
 + (NSDictionary *)mj_objectClassInArray
 {
     return @{
-             @"list" : @"ETHTeamModel"
+             @"list" : @"ETHTeamDetailListModel"
              };
 }
 

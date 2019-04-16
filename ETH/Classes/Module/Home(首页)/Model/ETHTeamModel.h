@@ -29,7 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy)NSString *credit4;
 @property (nonatomic , copy)NSString *credit2;
 @end
+@interface ETHTeamDetailListModel : BaseListModel
 
+@end
 
 @interface ETHTeamListModel : BaseListModel
 
