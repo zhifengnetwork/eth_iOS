@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //我的-支付管理提交|钱包地址
 //支付管理提交
-+(void)pay_submit:(UserInfoModel*)userInfo success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
++ (void)pay_submit:(NSString *)adress url:(NSString *)url zfbfile:(NSString *)zfbfile wxfile:(NSString *)wxfile bankid:(NSString *)bankid bankname:(NSString *)bankname bank:(NSString *)bank success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
 
 //我的-平台公告列表
 //系统公告

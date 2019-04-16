@@ -18,9 +18,11 @@
 #import "SVProgressHUD.h"
 #import "MJExtension.h"
 #import "RefreshGifHeader.h"
-#import "ETHTeamModel.h"
+#import "UserInfoModel.h"
+
 @interface ETHWalletBalanceVC ()<ETHDoubleThrowTableCellDelegate,ETHTwoDoubleThrowTableCellDelegate>
-@property (nonatomic , strong)ETHTeamListModel *listModel;
+
+@property (nonatomic , strong)UserInfoModel *userInfo;
 @end
 
 @implementation ETHWalletBalanceVC
@@ -97,7 +99,7 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
         return;
     }
 
-    self.listModel = [ETHTeamListModel mj_objectWithKeyValues:responseObject];
+    self.userInfo = [UserInfoModel mj_objectWithKeyValues:responseObject];
 
     [self.tableView reloadData];
 }
@@ -123,7 +125,7 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     {
 //        pcell.title = @"复投账户";
 //        pcell.name = @"0.0001";
-        ETHTeamModel *teamModel = [self.listModel.list objectAtIndex:0];
+        ETHTeamModel *teamModel = nil;
         pcell.type = 2;
         pcell.teamModel = teamModel;
         cell = pcell;
@@ -140,7 +142,7 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     {
 //        pcell.title = @"自由钱包";
 //        pcell.name = @"568299.00";
-        ETHTeamModel *teamModel = [self.listModel.list objectAtIndex:0];
+        ETHTeamModel *teamModel = nil;
         pcell.type = 1;
         pcell.teamModel = teamModel;
         cell = pcell;
