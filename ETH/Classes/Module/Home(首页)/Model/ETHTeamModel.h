@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy)NSString *money2;
 @property (nonatomic , copy)NSString *uniacid;
 
+@property (nonatomic , copy)NSString *credit4;
+@property (nonatomic , copy)NSString *credit2;
 @end
 
 

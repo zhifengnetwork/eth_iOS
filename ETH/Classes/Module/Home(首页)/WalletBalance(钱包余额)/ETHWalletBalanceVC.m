@@ -14,9 +14,13 @@
 #import "ETHTransferAccountVC.h"
 #import "ETHCashWithdrawaVC.h"
 #import "ETHWalletETHVC.h"
-
+#import "http_wallet.h"
+#import "SVProgressHUD.h"
+#import "MJExtension.h"
+#import "RefreshGifHeader.h"
+#import "ETHTeamModel.h"
 @interface ETHWalletBalanceVC ()<ETHDoubleThrowTableCellDelegate,ETHTwoDoubleThrowTableCellDelegate>
-
+@property (nonatomic , strong)ETHTeamListModel *listModel;
 @end
 
 @implementation ETHWalletBalanceVC
@@ -32,64 +36,7 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     self.title = @"钱包余额";
     [self setupTableView];
     
-//    UISegmentedControl* segment = [[UISegmentedControl alloc]initWithFrame:CGRectMake(10, 30, 200, 30)];
-//    //在索引值为0的位置上插入一个标题为red的按钮，第三个参数为是否开启动画
-//    [segment insertSegmentWithTitle:@"钱包" atIndex:0 animated:YES];
-//    [segment insertSegmentWithTitle:@"提币记录" atIndex:1 animated:YES];
-//    [segment insertSegmentWithTitle:@"赚币记录" atIndex:2 animated:YES];
-//    [segment insertSegmentWithTitle:@"C2C记录" atIndex:3 animated:YES];
-//
-//    //设置Segment的字体
-//    NSDictionary *dic = @{
-//                          //1.设置字体样式:例如黑体,和字体大小
-//                          NSFontAttributeName:[UIFont fontWithName:@"Arial" size:17],
-//                          //2.字体颜色
-//                          NSForegroundColorAttributeName:RGBColorHex(0x7685a6)
-//                          };
-//
-//    [segment setTitleTextAttributes:dic forState:UIControlStateNormal];
-//
-//    //设置Segment选中的字体
-//    NSDictionary *dic2 = @{
-//                           //1.设置字体样式:例如黑体,和字体大小
-//                           NSFontAttributeName:[UIFont fontWithName:@"Arial" size:17],
-//                           //2.字体颜色
-//                           NSForegroundColorAttributeName:RGBColorHex(0xffffff)
-//                           };
-//
-//    [segment setTitleTextAttributes:dic2 forState:UIControlStateSelected];
-//
-//    //设置未选中时的背景色
-//    [segment setBackgroundImage:[UIImage imageNamed:@"backGr"]
-//                       forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-//
-//    //设置选中时的背景色
-//    [segment setBackgroundImage:[UIImage imageNamed:@"backGround"]
-//                       forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
-//
-//    //设置标题和边框的颜色
-//    segment.tintColor = RGBColorHex(0xffffff);
-//    //设置初始选中值，默认是没有选中
-//    segment.selectedSegmentIndex = 0;
-////    self.view.backgroundColor = [UIColor magentaColor];
-//    //绑定事件
-//    [segment addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
-//    [self.view addSubview:segment];
-//
-//
-//    NSArray* array = @[@"钱包",@"提币记录",@"赚币记录",@"C2C记录"];
-//    UISegmentedControl* segment1 = [[UISegmentedControl alloc]initWithItems:array];
-//    //设置位置和大小
-//    segment1.frame = CGRectMake(0, 0, LL_ScreenWidth, 40);
-//    [self.view addSubview:segment1];
-//
-//    self.tableView.tableHeaderView = segment;
-//
-//    //删除索引为0的按钮
-//    [segment1 removeSegmentAtIndex:0 animated:YES];
-//
-//    //删除所有按钮
-//    [segment1 removeAllSegments];
+
     
 }
 
@@ -123,8 +70,38 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     [self.tableView registerClass:[ETHWalletBalanceTableCell class] forCellReuseIdentifier:ETHWalletBalanceTableCellID];
     [self.tableView registerClass:[ETHDoubleThrowTableCell class] forCellReuseIdentifier:ETHDoubleThrowTableCellID];
     [self.tableView registerClass:[ETHTwoDoubleThrowTableCell class] forCellReuseIdentifier:ETHTwoDoubleThrowTableCellID];
+    //自定义刷新动画
+    ZWeakSelf
+    self.tableView.mj_header = [RefreshGifHeader headerWithRefreshingBlock:^{
+        
+        [weakSelf loadData];
+    }];
+    [self.tableView.mj_header beginRefreshing];
 }
+-(void)loadData
+{
+        ZWeakSelf
+        //总收益
+        [http_wallet my_wallet:^(id responseObject)
+         {
+             [self.tableView.mj_header endRefreshing];
+             [weakSelf showData:responseObject];
+         } failure:^(NSError *error) {
+             [self.tableView.mj_header endRefreshing];
+             [SVProgressHUD showErrorWithStatus:error.domain];
+         }];
+}
+-(void)showData:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
 
+    self.listModel = [ETHTeamListModel mj_objectWithKeyValues:responseObject];
+
+    [self.tableView reloadData];
+}
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -145,9 +122,11 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     
     if (indexPath.section==0)
     {
-        pcell.title = @"复投账户";
-        pcell.name = @"0.0001";
-        
+//        pcell.title = @"复投账户";
+//        pcell.name = @"0.0001";
+        ETHTeamModel *teamModel = [self.listModel.list objectAtIndex:0];
+        pcell.type = 2;
+        pcell.teamModel = teamModel;
         cell = pcell;
     }
     else if (indexPath.section==1)
@@ -160,9 +139,11 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     }
     else if (indexPath.section==2)
     {
-        pcell.title = @"自由钱包";
-        pcell.name = @"568299.00";
-        
+//        pcell.title = @"自由钱包";
+//        pcell.name = @"568299.00";
+        ETHTeamModel *teamModel = [self.listModel.list objectAtIndex:0];
+        pcell.type = 1;
+        pcell.teamModel = teamModel;
         cell = pcell;
     }
     else if (indexPath.section==3)

@@ -168,8 +168,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		180B474F22603730008077D0 /* ETHPayManageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETHPayManageVC.h; sourceTree = "<group>"; };
-		180B475022603730008077D0 /* ETHPayManageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHPayManageVC.m; sourceTree = "<group>"; };
 		180B475322603764008077D0 /* ETHMyWalletVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHMyWalletVC.m; sourceTree = "<group>"; };
 		180B475522603764008077D0 /* ETHAnnouncementCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHAnnouncementCell.m; sourceTree = "<group>"; };
 		180B475722603764008077D0 /* ETHAnnouncementVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHAnnouncementVC.m; sourceTree = "<group>"; };
@@ -492,15 +490,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		180B474E22603730008077D0 /* 支付管理 */ = {
-			isa = PBXGroup;
-			children = (
-				180B474F22603730008077D0 /* ETHPayManageVC.h */,
-				180B475022603730008077D0 /* ETHPayManageVC.m */,
-			);
-			path = "支付管理";
-			sourceTree = "<group>";
-		};
 		181249002261CC3E004DB1B3 /* index */ = {
 			isa = PBXGroup;
 			children = (
@@ -1067,7 +1056,6 @@
 		842E8268225458D500CC5188 /* Me(我) */ = {
 			isa = PBXGroup;
 			children = (
-				180B474E22603730008077D0 /* 支付管理 */,
 				539B6098225488F100FE7D80 /* View */,
 				842E8269225458D500CC5188 /* Controller */,
 			);
