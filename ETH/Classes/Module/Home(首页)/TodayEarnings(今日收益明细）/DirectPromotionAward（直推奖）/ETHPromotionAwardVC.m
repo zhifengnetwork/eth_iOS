@@ -8,10 +8,20 @@
 
 #import "ETHPromotionAwardVC.h"
 #import "ETHPromotionAwardCell.h"
+#import "http_index.h"
+#import "SVProgressHUD.h"
+#import "MJExtension.h"
+#import "RefreshGifHeader.h"
+#import "ETHIncomeModel.h"
+
+
 @interface ETHPromotionAwardVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UITableView *tableView;
 @property (nonatomic, strong)UIView *titleView;
 @property (nonatomic, strong)UILabel *titleLabel;
+
+@property (nonatomic , strong)ETHIncomeListModel *listModel;
+
 @end
 
 @implementation ETHPromotionAwardVC
@@ -40,7 +50,62 @@ static NSString *const ETHPromotionAwardCellID = @"ETHPromotionAwardCellID";
         make.centerX.equalTo(self.titleView.mas_centerX);
         make.centerY.equalTo(self.titleView.mas_centerY);
     }];
+    
+    //自定义刷新动画
+    ZWeakSelf
+    self.tableView.mj_header = [RefreshGifHeader headerWithRefreshingBlock:^{
+        
+        [weakSelf loadData];
+    }];
+    [self.tableView.mj_header beginRefreshing];
 }
+
+-(void)loadData
+{
+    if (self.incomeType.intValue==1)
+    {
+        ZWeakSelf
+        //总收益
+        [http_index income_record:@"1" success:^(id responseObject)
+         {
+             [self.tableView.mj_header endRefreshing];
+             [weakSelf showData:responseObject];
+         } failure:^(NSError *error) {
+             [self.tableView.mj_header endRefreshing];
+             [SVProgressHUD showErrorWithStatus:error.domain];
+         }];
+    }
+    else if (self.incomeType.intValue==2)
+    {
+        ZWeakSelf
+        //今日收益
+        [http_index today_record:@"1" success:^(id responseObject)
+         {
+             [self.tableView.mj_header endRefreshing];
+             [weakSelf showData:responseObject];
+         } failure:^(NSError *error) {
+             [self.tableView.mj_header endRefreshing];
+             [SVProgressHUD showErrorWithStatus:error.domain];
+         }];
+    }
+    
+}
+
+-(void)showData:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
+    
+    self.listModel = [ETHIncomeListModel mj_objectWithKeyValues:responseObject];
+    
+    self.titleLabel.text = [NSString stringWithFormat:@"直推奖总额：%@",self.listModel.money];
+    
+    [self.tableView reloadData];
+}
+
+
 - (UITableView *)tableView{
     if (_tableView == nil) {
         _tableView = [[UITableView alloc]init];
@@ -69,10 +134,13 @@ static NSString *const ETHPromotionAwardCellID = @"ETHPromotionAwardCellID";
 }
 #pragma mark -- 协议
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    return self.listModel.list.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ETHPromotionAwardCell *cell = [tableView dequeueReusableCellWithIdentifier:ETHPromotionAwardCellID forIndexPath:indexPath];
+    ETHIncomeModel *incomeModel = [self.listModel.list objectAtIndex:indexPath.section];
+    cell.incomeModel = incomeModel;
+    
     return cell;
 }
 @end

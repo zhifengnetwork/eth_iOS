@@ -73,9 +73,8 @@
 -(void)setTeamModel:(ETHTeamModel *)teamModel
 {
     _teamModel = teamModel;
-    _timeLabel.text = _teamModel.createtime;
+    _timeLabel.text = [NSString stringWithFormat:@"充币时间：%@",_teamModel.createtime];
     _typeLabel.text = [NSString stringWithFormat:@"充币类型：%@",_teamModel.title];
-    _timeLabel.text = _teamModel.createtime;
     _moneyLabel.text = [NSString stringWithFormat:@"充币金额：%@",_teamModel.money];
 }
 

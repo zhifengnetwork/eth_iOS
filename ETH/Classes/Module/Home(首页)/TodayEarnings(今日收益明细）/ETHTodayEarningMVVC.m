@@ -126,6 +126,7 @@
 {
     if (_promotionAwardVC ==nil) {
         _promotionAwardVC = [[ETHPromotionAwardVC alloc]init];
+        _promotionAwardVC.incomeType = self.incomeType;
         [self addChildViewController:_promotionAwardVC];
         [self.view addSubview:_promotionAwardVC.view];
         [_promotionAwardVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -141,6 +142,7 @@
 {
     if (_incomeVC==nil) {
         _incomeVC = [[ETHInvestmentIncomeVC alloc]init];
+        _incomeVC.incomeType = self.incomeType;
         [self addChildViewController:_incomeVC];
         [self.view addSubview:_incomeVC.view];
         [_incomeVC.view mas_makeConstraints:^(MASConstraintMaker *make) {

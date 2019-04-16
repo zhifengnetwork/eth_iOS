@@ -20,6 +20,7 @@
 #import "SVProgressHUD.h"
 #import "MJExtension.h"
 #import "ETHIndexModel.h"
+#import "ETHTodayEarningMVVC.h"
 
 
 @interface ETHHomeVC ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
@@ -287,6 +288,18 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
             ETHInvestmentRecordVC* vc = [[ETHInvestmentRecordVC alloc]init];
             [self.navigationController pushViewController:vc animated:YES];
             vc.type = @"1";
+        }
+        else if (indexPath.row==1)
+        {
+            ETHTodayEarningMVVC* vc = [[ETHTodayEarningMVVC alloc]init];
+            vc.incomeType = @"1";
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+        else if (indexPath.row==2)
+        {
+            ETHTodayEarningMVVC* vc = [[ETHTodayEarningMVVC alloc]init];
+            vc.incomeType = @"2";
+            [self.navigationController pushViewController:vc animated:YES];
         }
         else if (indexPath.row==3)
         {

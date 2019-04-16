@@ -98,27 +98,24 @@ static NSString *const ETHInvestmentRecordTableCellID = @"ETHInvestmentRecordTab
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return self.listModel.list.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.listModel.list.count;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = nil;
     
-    if (indexPath.section==0)
-    {
-        ETHInvestmentRecordTableCell* scell = [tableView dequeueReusableCellWithIdentifier:ETHInvestmentRecordTableCellID];
-        scell = [[ETHInvestmentRecordTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHInvestmentRecordTableCellID];
-        ETHTeamModel *teamModel = [self.listModel.list objectAtIndex:indexPath.row];
-        scell.teamModel = teamModel;
+    ETHInvestmentRecordTableCell* scell = [tableView dequeueReusableCellWithIdentifier:ETHInvestmentRecordTableCellID];
+    scell = [[ETHInvestmentRecordTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHInvestmentRecordTableCellID];
+    ETHTeamModel *teamModel = [self.listModel.list objectAtIndex:indexPath.section];
+    scell.teamModel = teamModel;
     
-        cell = scell;
-    }
+    cell = scell;
     
     return cell;
 }

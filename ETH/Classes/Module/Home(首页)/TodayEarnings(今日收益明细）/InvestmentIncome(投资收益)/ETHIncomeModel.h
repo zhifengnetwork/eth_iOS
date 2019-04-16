@@ -1,8 +1,8 @@
 //
-//  ETHTeamModel.h
+//  ETHIncomeModel.h
 //  ETH
 //
-//  Created by apple on 2019/4/14.
+//  Created by admin on 2019/4/15.
 //  Copyright © 2019 admin. All rights reserved.
 //
 
@@ -12,25 +12,22 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-//我的团队model
-@interface ETHTeamModel : NSObject
+@interface ETHIncomeModel : NSObject
 
-@property (nonatomic , copy)NSString *ID;
-@property (nonatomic , copy)NSString *mobile;
+@property (nonatomic , copy)NSString *money;
 @property (nonatomic , copy)NSString *nickname;
-@property (nonatomic , copy)NSString *openid;
 @property (nonatomic , copy)NSString *createtime;
 
 @property (nonatomic , copy)NSString *title;
-@property (nonatomic , copy)NSString *money;
 @property (nonatomic , copy)NSString *money2;
 @property (nonatomic , copy)NSString *uniacid;
 
 @end
 
 
-@interface ETHTeamListModel : BaseListModel
+@interface ETHIncomeListModel : BaseListModel
 
+@property (nonatomic , copy)NSString *money;
 
 @end
 

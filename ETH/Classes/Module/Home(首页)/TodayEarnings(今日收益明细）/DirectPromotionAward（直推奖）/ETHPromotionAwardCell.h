@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ETHIncomeModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ETHPromotionAwardCell : UITableViewCell
+
+@property (nonatomic,strong)ETHIncomeModel *incomeModel;
 
 @end
 
