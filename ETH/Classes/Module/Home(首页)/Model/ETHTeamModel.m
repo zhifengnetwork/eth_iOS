@@ -17,15 +17,7 @@
 }
 
 @end
-@implementation ETHTeamDetailListModel
 
-+ (NSDictionary *)mj_objectClassInArray
-{
-    return @{
-             @"list" : @"ETHTeamModel"
-             };
-}
-@end
 
 @implementation ETHTeamListModel
 
