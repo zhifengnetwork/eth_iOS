@@ -30,6 +30,15 @@ NS_ASSUME_NONNULL_BEGIN
 //追加投资接口
 //确定购买接口
 +(void)payment:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
+//上传支付凭证
+//file    图片base64
++(void)uploader:(NSString*)file success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
+/**
+ 确定购买
+ @param money 追加金额
+ @param url 支付凭证
+ */
++(void)wechat_complete1:(NSInteger)money url:(NSString*)url success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
 @end
 
 NS_ASSUME_NONNULL_END

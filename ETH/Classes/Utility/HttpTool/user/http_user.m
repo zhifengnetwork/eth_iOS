@@ -101,13 +101,56 @@
     strUrl = [strUrl stringByAppendingPathComponent:@"app/index.php"];
     [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
 }
-
+//激活账户-投资购买
+//追加投资接口
+//确定购买接口
 + (void)payment:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure
 {
     HttpTool *http = [HttpTool sharedManager];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc]initWithCapacity:1];
     
     [parameters setObject:@"member.androidapi.payment" forKey:@"r"];
+    
+    NSDictionary* dic = [http hanldeSign:parameters];
+    
+    NSString* strUrl = [http getMainUrl];
+    strUrl = [strUrl stringByAppendingPathComponent:@"app/index.php"];
+    [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
+}
+//上传支付凭证
+//file    图片base64
++(void)uploader:(NSString*)file success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure
+{
+    HttpTool *http = [HttpTool sharedManager];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc]initWithCapacity:1];
+    if ( !kStringIsEmpty(file) )
+    {
+        [parameters setObject:file forKey:@"file"];
+    }
+    [parameters setObject:@"util.uploader" forKey:@"r"];
+    
+    NSDictionary* dic = [http hanldeSign:parameters];
+    
+    NSString* strUrl = [http getMainUrl];
+    strUrl = [strUrl stringByAppendingPathComponent:@"app/index.php"];
+    [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
+}
+/**
+ 确定购买
+ @param money 追加金额
+ @param url 支付凭证
+ */
++(void)wechat_complete1:(NSInteger)money url:(NSString*)url success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure
+{
+    HttpTool *http = [HttpTool sharedManager];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc]initWithCapacity:1];
+    NSString *str = [NSString stringWithFormat:@"%ld",money];
+    [parameters setObject:str forKey:@"money"];
+    if ( !kStringIsEmpty(url) )
+    {
+        [parameters setObject:url forKey:@"url"];
+    }
+    [parameters setObject:@"member.androidapi.wechat_complete1" forKey:@"r"];
     
     NSDictionary* dic = [http hanldeSign:parameters];
     

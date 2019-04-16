@@ -10,10 +10,14 @@
 #import "ETHTodayEarningMVVC.h"
 #import "ETHPromotionAwardVC.h"
 #import "ETHInvestmentIncomeVC.h"
+#import "ETHManagementAwardVC.h"
+#import "ETHleadershipAwardVC.h"
 
 @interface ETHTodayEarningMVVC ()
 @property (nonatomic, strong) ETHPromotionAwardVC *promotionAwardVC;
 @property (nonatomic, strong) ETHInvestmentIncomeVC *incomeVC;
+@property (nonatomic, strong) ETHManagementAwardVC *managerVC;
+@property (nonatomic, strong) ETHleadershipAwardVC *leaderVC;
 @end
 
 @implementation ETHTodayEarningMVVC
@@ -78,7 +82,8 @@
 {
     self.promotionAwardVC.view.hidden = YES;
     self.incomeVC.view.hidden = YES;
-    
+    self.managerVC.view.hidden = YES;
+    self.leaderVC.view.hidden = YES;
     if (sender.selectedSegmentIndex==0)
     {
         //投资收益
@@ -91,13 +96,13 @@
     }
     else if (sender.selectedSegmentIndex==2)
     {
-//        //管理奖
-//        self.recordVC.view.hidden = NO;
+        //管理奖
+        self.managerVC.view.hidden = NO;
     }
     else if (sender.selectedSegmentIndex==3)
     {
-//        //领导奖
-//        self.c2cVC.view.hidden = NO;
+        //领导奖
+        self.leaderVC.view.hidden = NO;
     }
     //titleForSegmentAtIndex通过索引值获取被选中的分段控制器的按钮标题，selectedSegmentIndex 是获取被选中按钮的索引值
     NSLog(@"----%@",[sender titleForSegmentAtIndex:sender.selectedSegmentIndex]);
@@ -121,7 +126,6 @@
     
 }
 
-
 -(ETHPromotionAwardVC*)promotionAwardVC
 {
     if (_promotionAwardVC ==nil) {
@@ -134,7 +138,6 @@
             make.top.mas_equalTo(40);
         }];
     }
-    
     return _promotionAwardVC;
 }
 
@@ -149,9 +152,37 @@
             make.left.right.bottom.mas_equalTo(0);
             make.top.mas_equalTo(40);
         }];
+        
     }
     
     return _incomeVC;
 }
-
+- (ETHManagementAwardVC *)managerVC{
+    if (_managerVC==nil) {
+        _managerVC = [[ETHManagementAwardVC alloc]init];
+        _managerVC.incomeType = self.incomeType;
+        [self addChildViewController:_managerVC];
+        [self.view addSubview:_managerVC.view];
+        [_managerVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.mas_equalTo(0);
+            make.top.mas_equalTo(40);
+        }];
+        
+    }
+    
+    return _managerVC;
+}
+- (ETHleadershipAwardVC *)leaderVC{
+    if (_leaderVC==nil) {
+        _leaderVC = [[ETHleadershipAwardVC alloc]init];
+        _leaderVC.incomeType = self.incomeType;
+        [self addChildViewController:_leaderVC];
+        [self.view addSubview:_leaderVC.view];
+        [_leaderVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.mas_equalTo(0);
+            make.top.mas_equalTo(40);
+        }];
+    }
+    return _leaderVC;
+}
 @end
