@@ -20,6 +20,26 @@
 
 @end
 
+@implementation MemberModel
+
++ (NSDictionary *)mj_replacedKeyFromPropertyName
+{
+    return @{
+             @"ID":@"id"
+             };
+}
+
+@end
+
+
+@implementation LevelModel
+
+
+@end
+
+@implementation Arr2Model
+
+@end
 
 @implementation UserInfoModel
 

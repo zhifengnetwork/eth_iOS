@@ -16,11 +16,18 @@
 #import "ETHResetPasswordVC.h"
 #import "UserInfoModel.h"
 #import "AppDelegate.h"
+#import "http_user.h"
+#import "SVProgressHUD.h"
+#import "MJExtension.h"
+#import "UserInfoModel.h"
 
 @interface ETHMeVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UITableView *tableView;
 @property (nonatomic, strong)ETHHeaderView *headerView;
 @property (nonatomic, strong)UIButton *logoutButton;
+
+@property (nonatomic, strong) UserInfoModel *userInfo;
+
 @end
 @implementation ETHMeVC
 static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
@@ -33,10 +40,13 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
 - (void)setup{
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
+    
     _headerView = [[ETHHeaderView alloc]initWithFrame:CGRectMake(0, 0, LL_ScreenWidth, 165)];
     [_tableView setTableHeaderView:_headerView];
+    
     UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, LL_ScreenWidth, 100)];
     [_tableView setTableFooterView:footerView];
+    
     [footerView addSubview:self.logoutButton];
     [_logoutButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(footerView).with.offset(31);
@@ -50,7 +60,41 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
 }
 - (void)viewWillAppear:(BOOL)animated{
     self.navigationController.navigationBar.hidden = YES;
+    
+    //用户信息
+    [self loadData];
 }
+
+//加载数据
+-(void)loadData
+{
+    ZWeakSelf
+    [http_user userinfo:^(id responseObject)
+     {
+         [weakSelf loadData_ok:responseObject];
+         
+     } failure:^(NSError *error) {
+         
+         [SVProgressHUD showInfoWithStatus:error.domain];
+     }];
+}
+
+//加载数据完成
+-(void)loadData_ok:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
+    
+    //jsonToModel
+    self.userInfo = [UserInfoModel mj_objectWithKeyValues:responseObject];
+    //刷新数据
+    self.headerView.userInfo = self.userInfo;
+    [self.tableView reloadData];
+}
+
+
 - (UITableView *)tableView{
     if (_tableView == nil) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, LL_ScreenWidth, LL_ScreenHeight) style:UITableViewStyleGrouped];
