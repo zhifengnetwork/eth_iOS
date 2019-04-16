@@ -17,6 +17,40 @@
 
 @end
 
+@interface LevelModel : NSObject<NSCoding>
+
+@property (nonatomic, copy) NSString *levelname1;
+@property (nonatomic, copy) NSString *levelname3;
+
+@end
+
+@interface MemberModel : NSObject<NSCoding>
+
+//用户ID
+@property (nonatomic, copy) NSString *userid;
+//
+@property (nonatomic, copy) NSString *token;
+@property (nonatomic, copy) NSString *openid;
+@property (nonatomic, copy) NSString *url;
+//手机号
+@property (nonatomic, copy) NSString *mobile;
+
+//用户头像
+@property (nonatomic, copy) NSString *avatar;
+@property (nonatomic, copy) NSString *nickname;
+@property (nonatomic, copy) NSString *ID;
+@property (nonatomic, copy) NSString *levelname1;
+@property (nonatomic, copy) NSString *levelname3;
+@property (nonatomic, copy) NSString *type;
+@property (nonatomic, copy) NSString *credit1;
+
+@end
+
+@interface Arr2Model : NSObject<NSCoding>
+
+@property (nonatomic, copy) NSString *money;
+
+@end
 
 /**
  用户信息model
@@ -28,18 +62,15 @@
 //
 @property (nonatomic, copy) NSString *token;
 @property (nonatomic, copy) NSString *openid;
-@property (nonatomic, copy) NSString *url;
-//手机号
-@property (nonatomic, copy) NSString *mobile;
-//用户头像
-@property (nonatomic, copy) NSString *head_pic;
-@property (nonatomic, copy) NSString *nickname;
-@property (nonatomic, copy) NSString *user_money;
-@property (nonatomic, copy) NSString *agent_user;
-@property (nonatomic, copy) NSString *first_leader;
-@property (nonatomic, copy) NSString *realname;
-@property (nonatomic, copy) NSString *is_distribut;
-@property (nonatomic, copy) NSString *is_agent;
+
+@property (nonatomic, strong) MemberModel *member;
+@property (nonatomic, strong) LevelModel *huiyuanlevel;
+@property (nonatomic, strong) Arr2Model *money;
+
+@property (nonatomic, copy) NSString *money2;
+@property (nonatomic, copy) NSString *money4;
+@property (nonatomic, copy) NSString *arr;
+
 //省
 @property (nonatomic, copy) NSString *province;
 //市

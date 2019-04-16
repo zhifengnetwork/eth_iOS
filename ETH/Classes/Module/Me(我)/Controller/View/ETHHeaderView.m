@@ -8,6 +8,8 @@
 
 #import "ETHHeaderView.h"
 #import "UIView+HJViewStyle.h"
+#import "UIImageView+WebCache.h"
+
 @interface ETHHeaderView()
 @property (nonatomic, strong)UIImageView *backImageView;
 @property (nonatomic, strong)UIImageView *iconImageView;
@@ -77,6 +79,27 @@
     }];
     
 }
+
+-(void)setUserInfo:(UserInfoModel *)userInfo
+{
+    _userInfo = userInfo;
+    
+//    显示头像
+    [_iconImageView sd_setImageWithURL:[NSURL URLWithString:_userInfo.member.avatar]];
+    _phoneLabel.text = _userInfo.member.mobile;
+    _memberID.text = [NSString stringWithFormat:@"会员ID：%@",_userInfo.member.ID];
+    _memberLevel.text = [NSString stringWithFormat:@"会员等级：%@",_userInfo.huiyuanlevel.levelname1];
+    if (kStringIsEmpty(_userInfo.huiyuanlevel.levelname3))
+    {
+        _marketLevel.hidden = YES;
+    }
+    else
+    {
+        _marketLevel.hidden = NO;
+        _marketLevel.text = [NSString stringWithFormat:@"市场等级：%@",_userInfo.huiyuanlevel.levelname3];
+    }
+}
+
 - (UIImageView *)backImageView{
     if (_backImageView == nil) {
         _backImageView = [[UIImageView alloc]init];

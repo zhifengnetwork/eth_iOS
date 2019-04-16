@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserInfoModel.h"
 
 @interface ETHHeaderView : UIView
+
+@property (nonatomic, strong) UserInfoModel *userInfo;
 
 @end
