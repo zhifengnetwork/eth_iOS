@@ -7,6 +7,10 @@
 //
 
 #import "ETHPayManageVC.h"
+#import "http_mine.h"
+#import "SVProgressHUD.h"
+#import "MJExtension.h"
+#import "RefreshGifHeader.h"
 
 @interface ETHPayManageVC ()
 @property (nonatomic, strong)UIView *view1;
@@ -25,6 +29,7 @@
 @property (nonatomic, strong)UILabel *weChatLabel;
 @property (nonatomic, strong)UIImageView *weChatQRCode;
 @property (nonatomic, strong)UIButton *agreeButton;
+
 @end
 
 @implementation ETHPayManageVC
@@ -264,4 +269,27 @@
 - (void)viewWillDisappear:(BOOL)animated{
     self.navigationController.navigationBar.hidden = YES;
 }
+
+-(void)loadData
+{
+    ZWeakSelf
+    [http_mine pay_submit:self.userInfo success:^(id responseObject)
+     {
+         [weakSelf showData:responseObject];
+     } failure:^(NSError *error) {
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
+}
+
+-(void)showData:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
+    
+    self.userInfo = [UserInfoModel mj_objectWithKeyValues:responseObject];
+    
+}
+
 @end
