@@ -103,7 +103,7 @@
     
     if ( !kStringIsEmpty(ID) )
     {
-        [parameters setObject:ID forKey:@"ID"];
+        [parameters setObject:ID forKey:@"id"];
     }
     NSString *str = [NSString stringWithFormat:@"%ld",page];
     [parameters setObject:str forKey:@"page"];
@@ -129,7 +129,7 @@
     
     if ( !kStringIsEmpty(ID) )
     {
-        [parameters setObject:ID forKey:@"ID"];
+        [parameters setObject:ID forKey:@"id"];
     }
     if ( !kStringIsEmpty(files) )
     {
@@ -162,7 +162,7 @@
     
     if ( !kStringIsEmpty(ID) )
     {
-        [parameters setObject:ID forKey:@"ID"];
+        [parameters setObject:ID forKey:@"id"];
     }
     
     [parameters setObject:@"member.androidapi.guamai_appeal_list" forKey:@"r"];
@@ -204,7 +204,7 @@
     
     if ( !kStringIsEmpty(ID) )
     {
-        [parameters setObject:ID forKey:@"ID"];
+        [parameters setObject:ID forKey:@"id"];
     }
     if ( !kStringIsEmpty(mobile) )
     {
@@ -247,7 +247,7 @@
     
     if ( !kStringIsEmpty(ID) )
     {
-        [parameters setObject:ID forKey:@"ID"];
+        [parameters setObject:ID forKey:@"id"];
     }
     if ( !kStringIsEmpty(type) )
     {
@@ -274,7 +274,7 @@
     
     if ( !kStringIsEmpty(ID) )
     {
-        [parameters setObject:ID forKey:@"ID"];
+        [parameters setObject:ID forKey:@"id"];
     }
     
     [parameters setObject:@"member.androidapi.sellout_tab_con" forKey:@"r"];

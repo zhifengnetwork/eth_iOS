@@ -62,7 +62,7 @@
         [parameters setObject:moneysxf forKey:@"moneysxf"];
     }
     NSString *str = [NSString stringWithFormat:@"%ld",ID];
-    [parameters setObject:str forKey:@"ID"];
+    [parameters setObject:str forKey:@"id"];
     
     [parameters setObject:@"member.androidapi.zhuangzhangis" forKey:@"r"];
     
