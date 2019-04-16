@@ -103,7 +103,7 @@
     
     if ( !kStringIsEmpty(ID) )
     {
-        [parameters setObject:ID forKey:@"ID"];
+        [parameters setObject:ID forKey:@"id"];
     }
     NSString *str = [NSString stringWithFormat:@"%ld",page];
     [parameters setObject:str forKey:@"page"];
