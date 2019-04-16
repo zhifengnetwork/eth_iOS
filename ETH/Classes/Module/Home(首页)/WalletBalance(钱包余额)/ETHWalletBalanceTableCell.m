@@ -95,14 +95,6 @@
     _moneyLabel.text = _name;
 }
 
-- (void)setTeamModel:(ETHTeamModel *)teamModel{
-    _teamModel = teamModel;
-    if(_type == 1){
-    _moneyLabel.text = [NSString stringWithFormat:@"%@",_teamModel.credit2];//自由账户
-    }else{
-       _moneyLabel.text = [NSString stringWithFormat:@"%@",_teamModel.credit4];//复投账户
-    }
-}
 
 -(UIView *)bgView
 {

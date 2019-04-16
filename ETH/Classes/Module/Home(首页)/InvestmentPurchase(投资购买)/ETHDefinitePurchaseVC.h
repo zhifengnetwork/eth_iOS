@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ETHTZModel.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
  确定投资购买
  */
 @interface ETHDefinitePurchaseVC : UITableViewController
+
+@property (nonatomic, strong) ETHTZDataModel *tz;
 
 @end
 

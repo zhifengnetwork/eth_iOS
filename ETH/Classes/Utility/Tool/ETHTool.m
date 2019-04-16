@@ -103,7 +103,7 @@
         return nil;
     }
     
-    NSString* str = [NSString stringWithFormat:@"%@%@",MainUrl,iconString];
+    NSString* str = [NSString stringWithFormat:@"%@%@",ImageUrl,iconString];
     return [NSURL URLWithString:str];
 }
 

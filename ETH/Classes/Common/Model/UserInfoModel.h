@@ -44,6 +44,10 @@
 @property (nonatomic, copy) NSString *type;
 @property (nonatomic, copy) NSString *credit1;
 
+@property (nonatomic, copy) NSString *credit2;
+@property (nonatomic, copy) NSString *credit3;
+@property (nonatomic, copy) NSString *credit4;
+
 @end
 
 @interface Arr2Model : NSObject<NSCoding>

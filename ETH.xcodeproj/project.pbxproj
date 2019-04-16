@@ -15,6 +15,7 @@
 		181249102261CC4C004DB1B3 /* ETHIndexModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1812490C2261CC4B004DB1B3 /* ETHIndexModel.m */; };
 		181249112261CC4C004DB1B3 /* ETHADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1812490E2261CC4B004DB1B3 /* ETHADModel.m */; };
 		18426B88226389A200F9358D /* ETHTeamModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18426B87226389A200F9358D /* ETHTeamModel.m */; };
+		18C0BB67226632AF004AF302 /* ETHTZModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C0BB66226632AF004AF302 /* ETHTZModel.m */; };
 		53029D362255F26800A5A49B /* ETHBuyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53029D342255F26700A5A49B /* ETHBuyVC.m */; };
 		53143647225B22D500B0B4EB /* ETHTradeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53143646225B22D500B0B4EB /* ETHTradeVC.m */; };
 		534B99CB225D8F9C00DC2A97 /* ETHDetailTransactionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 534B99C1225D8F9B00DC2A97 /* ETHDetailTransactionView.m */; };
@@ -187,6 +188,8 @@
 		1812490E2261CC4B004DB1B3 /* ETHADModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHADModel.m; sourceTree = "<group>"; };
 		18426B86226389A200F9358D /* ETHTeamModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETHTeamModel.h; sourceTree = "<group>"; };
 		18426B87226389A200F9358D /* ETHTeamModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHTeamModel.m; sourceTree = "<group>"; };
+		18C0BB65226632AF004AF302 /* ETHTZModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETHTZModel.h; sourceTree = "<group>"; };
+		18C0BB66226632AF004AF302 /* ETHTZModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHTZModel.m; sourceTree = "<group>"; };
 		2EDE2D58FDAFBCF381BE5349 /* Pods-ETH.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ETH.release.xcconfig"; path = "Target Support Files/Pods-ETH/Pods-ETH.release.xcconfig"; sourceTree = "<group>"; };
 		41123C8E38CE8E3D52F82771 /* Pods-ETHUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ETHUITests.release.xcconfig"; path = "Target Support Files/Pods-ETHUITests/Pods-ETHUITests.release.xcconfig"; sourceTree = "<group>"; };
 		42CF981EC7976CAFA4C5A0E8 /* libPods-ETHUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ETHUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -519,6 +522,15 @@
 				1812490E2261CC4B004DB1B3 /* ETHADModel.m */,
 				18426B86226389A200F9358D /* ETHTeamModel.h */,
 				18426B87226389A200F9358D /* ETHTeamModel.m */,
+				18C0BB65226632AF004AF302 /* ETHTZModel.h */,
+				18C0BB66226632AF004AF302 /* ETHTZModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		18C0BB6422662751004AF302 /* Model */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1056,6 +1068,7 @@
 		842E8268225458D500CC5188 /* Me(我) */ = {
 			isa = PBXGroup;
 			children = (
+				18C0BB6422662751004AF302 /* Model */,
 				539B6098225488F100FE7D80 /* View */,
 				842E8269225458D500CC5188 /* Controller */,
 			);
@@ -1715,6 +1728,7 @@
 				842E82F6225458D500CC5188 /* NSString+HMEmoji.m in Sources */,
 				842E82EC225458D500CC5188 /* StaticTableCell.m in Sources */,
 				842E82FA225458D500CC5188 /* HMEmoticonInputView.m in Sources */,
+				18C0BB67226632AF004AF302 /* ETHTZModel.m in Sources */,
 				842E82F8225458D500CC5188 /* HMEmoticonButton.m in Sources */,
 				842E83232254BCF100CC5188 /* ETHInvestmentRecordTableCell.m in Sources */,
 				842E81EC2254562C00CC5188 /* AppDelegate.m in Sources */,

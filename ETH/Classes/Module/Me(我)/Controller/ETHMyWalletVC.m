@@ -22,14 +22,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //设置导航栏颜色
-    self.navigationController.navigationBar.barTintColor = RGBColorHex(0x343946);
-    self.navigationController.navigationBar.translucent = NO;
-    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"钱包地址";
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    [self.navigationItem.leftBarButtonItem setImage:[[UIImage imageNamed:@"back"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     [self setup];
 }
 - (void)setup{
@@ -128,10 +122,6 @@
         [_ensureButton setTitle:@"确认" forState:UIControlStateNormal];
         [_ensureButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }return _ensureButton;
-}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    self.navigationController.navigationBar.hidden = YES;
 }
 
 
