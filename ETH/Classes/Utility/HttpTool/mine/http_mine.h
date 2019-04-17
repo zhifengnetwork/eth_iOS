@@ -47,6 +47,16 @@ NS_ASSUME_NONNULL_BEGIN
 +(void)reg_updpwd:(NSString*)type mobile:(NSString*)mobile code:(NSInteger)code pwd:(NSString*)pwd success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
 //获取手续费
 +(void)get_sxf:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
+
+
+/**
+ 我的-修改密码
+ @param mobile 手机号
+ @param code 验证码
+ @param pwd 密码
+ */
++(void)changepwd:(NSString*)mobile code:(NSString*)code pwd:(NSString*)pwd success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
+
 @end
 
 NS_ASSUME_NONNULL_END

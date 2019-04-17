@@ -299,8 +299,8 @@
 -(void)sdData:(id)responseObject
 {
     [SVProgressHUD showSuccessWithStatus:@"提交成功"];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
-
 
 -(void)loadData
 {

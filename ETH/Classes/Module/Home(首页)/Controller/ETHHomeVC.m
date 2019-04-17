@@ -103,7 +103,7 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
     for (int i=0; i<self.indexDataModel.slide.count; i++)
     {
         ETHADModel* ad = [self.indexDataModel.slide objectAtIndex:i];
-        NSString* str = [NSString stringWithFormat:@"%@%@",MainUrl,ad.thumb];
+        NSString* str = [NSString stringWithFormat:@"%@%@",ImageUrl,ad.thumb];
         [self.imageUrls addObject:str];
     }
     

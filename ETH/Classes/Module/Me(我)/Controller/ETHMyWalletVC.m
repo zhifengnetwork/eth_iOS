@@ -7,6 +7,10 @@
 //
 
 #import "ETHMyWalletVC.h"
+#import "http_mine.h"
+#import "SVProgressHUD.h"
+#import "MJExtension.h"
+#import "RefreshGifHeader.h"
 
 @interface ETHMyWalletVC ()
 @property (nonatomic, strong)UIView *view1;
@@ -25,6 +29,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"钱包地址";
     [self setup];
+    [self loadData];
 }
 - (void)setup{
     [self.view addSubview:self.view1];
@@ -121,8 +126,56 @@
         _ensureButton.titleLabel.font = [UIFont systemFontOfSize:20];
         [_ensureButton setTitle:@"确认" forState:UIControlStateNormal];
         [_ensureButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_ensureButton addTarget:self action:@selector(ensureButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }return _ensureButton;
 }
 
+- (void)ensureButtonClick
+{
+    NSString* address = _walletAddressTF.text;
+    
+    if (kStringIsEmpty(address))
+    {
+        [SVProgressHUD showInfoWithStatus:@"请输入钱包地址"];
+        return;
+    }
+    
+    ZWeakSelf
+     [http_mine pay_submit:nil url:nil zfbfile:nil wxfile:nil bankid:address bankname:nil bank:nil success:^(id responseObject)
+     {
+         [weakSelf sdData:responseObject];
+     } failure:^(NSError *error) {
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
+}
+
+-(void)sdData:(id)responseObject
+{
+    [SVProgressHUD showSuccessWithStatus:@"提交成功"];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+-(void)loadData
+{
+    ZWeakSelf
+    [http_mine pay_management:^(id responseObject)
+     {
+         [weakSelf showData:responseObject];
+     } failure:^(NSError *error) {
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
+}
+
+-(void)showData:(id)responseObject
+{
+    if (responseObject==nil)
+    {
+        return;
+    }
+    
+    self.userInfo = [UserInfoModel mj_objectWithKeyValues:responseObject];
+    
+    _walletAddressTF.text = self.userInfo.bankid;
+}
 
 @end

@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UserInfoModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ETHResetPasswordVC : UIViewController
+
+@property (nonatomic , strong)UserInfoModel *userInfo;
 
 @end
 

@@ -56,6 +56,11 @@
     _iconView.image = [UIImage imageNamed:_iconName];
 }
 
+- (void)setIsClick:(BOOL)isClick
+{
+    _isClick = isClick;
+    _iconView.userInteractionEnabled = _isClick;
+}
 
 - (UILabel *)nameLabel {
     if (_nameLabel == nil) {
@@ -71,8 +76,20 @@
     if (_iconView == nil) {
         _iconView = [[UIImageView alloc] init];
         _iconView.image = [UIImage imageNamed:@"QR code"];
+        //图片点击事件
+        _iconView.userInteractionEnabled = YES;
+        UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+        [_iconView addGestureRecognizer:singleTap];
     }
     return _iconView;
+}
+
+- (void)handleSingleTap:(UITouch *)touch
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(ETHQRCodeTableCellDidClick)])
+    {
+        [self.delegate ETHQRCodeTableCellDidClick];
+    }
 }
 
 

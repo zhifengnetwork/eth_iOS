@@ -214,4 +214,37 @@
     strUrl = [strUrl stringByAppendingPathComponent:@"app/index.php"];
     [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
 }
+
+/**
+ 我的-修改密码
+ @param mobile 手机号
+ @param code 验证码
+ @param pwd 密码
+ */
++(void)changepwd:(NSString*)mobile code:(NSString*)code pwd:(NSString*)pwd success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure
+{
+    HttpTool *http = [HttpTool sharedManager];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc]initWithCapacity:5];
+    
+    if ( !kStringIsEmpty(mobile) )
+    {
+        [parameters setObject:mobile forKey:@"mobile"];
+    }
+    if ( !kStringIsEmpty(code) )
+    {
+        [parameters setObject:code forKey:@"code"];
+    }
+    if ( !kStringIsEmpty(pwd) )
+    {
+        [parameters setObject:pwd forKey:@"pwd"];
+    }
+    [parameters setObject:@"member.androidapi.changepwd" forKey:@"r"];
+    
+    NSDictionary* dic = [http hanldeSign:parameters];
+    
+    NSString* strUrl = [http getMainUrl];
+    strUrl = [strUrl stringByAppendingPathComponent:@"app/index.php"];
+    [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
+}
+
 @end
