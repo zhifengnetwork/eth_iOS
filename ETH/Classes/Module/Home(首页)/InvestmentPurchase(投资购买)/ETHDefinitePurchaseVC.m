@@ -16,6 +16,8 @@
 #import "SVProgressHUD.h"
 #import "MJExtension.h"
 #import "ETHTZModel.h"
+#import "TZImagePickerController.h"
+
 
 @interface ETHDefinitePurchaseVC ()<ETHInvestmentPurchaseTableCellDelegate,ETHQRCodeTableCellDelegate>
 
@@ -35,13 +37,25 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     
     self.title = @"投资购买";
     [self setupTableView];
-    [self loadData];
 }
 
 -(void)loadData
 {
+    if (kStringIsEmpty(self.tz.list.creditmy))
+    {
+        [SVProgressHUD showInfoWithStatus:@"请输入追加投资金额"];
+        return;
+    }
+    
+    if (kStringIsEmpty(self.tz.list.zfurl))
+    {
+        [SVProgressHUD showInfoWithStatus:@"请上传支付凭证"];
+        return;
+    }
+    
     ZWeakSelf
-    [http_user wechat_complete1:1 url:nil success:^(id responseObject)
+    [SVProgressHUD showWithStatus:@"正在加载"];
+    [http_user wechat_complete1:self.tz.list.creditmy.integerValue url:self.tz.list.zfurl success:^(id responseObject)
      {
          [weakSelf showData:responseObject];
      } failure:^(NSError *error)
@@ -52,14 +66,8 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
 
 -(void)showData:(id)responseObject
 {
-    if (kObjectIsEmpty(responseObject))
-    {
-        return;
-    }
-    
-    self.tz = [ETHTZDataModel mj_objectWithKeyValues:responseObject];
-    
-    [self.tableView reloadData];
+    [SVProgressHUD showSuccessWithStatus:@"购买成功"];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 
@@ -172,7 +180,7 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
         ETHQRCodeTableCell* pcell = [tableView dequeueReusableCellWithIdentifier:ETHQRCodeTableCellID];
         pcell = [[ETHQRCodeTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHQRCodeTableCellID];
         pcell.title = @"支付凭证";
-        
+        pcell.delegate = self;
         cell = pcell;
     }
     else if (indexPath.section==7)
@@ -217,7 +225,7 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
 {
     if (indexPath.section==7)
     {
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self loadData];
     }
 }
 
@@ -230,7 +238,44 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
 
 - (void)ETHQRCodeTableCellDidClick
 {
+    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:1 delegate:self];
     
+    // You can get the photos by block, the same as by delegate.
+    // 你可以通过block或者代理，来得到用户选择的照片.
+    ZWeakSelf
+    [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto)
+    {
+        [weakSelf uploadImage:[photos firstObject]];
+    }];
+    [self presentViewController:imagePickerVc animated:YES completion:nil];
 }
+
+-(void)uploadImage:(UIImage*)image
+{
+    NSData *imageData = UIImageJPEGRepresentation(image, 1.0f);
+    //NSDataBase64EncodingEndLineWithLineFeed这个枚举值是base64串不换行
+    NSString *imageBase64Str = [imageData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+    
+    ZWeakSelf
+    [http_user uploader:imageBase64Str success:^(id responseObject)
+     {
+         [weakSelf uploadImage_ok:responseObject];
+     } failure:^(NSError *error)
+     {
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
+}
+
+-(void)uploadImage_ok:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
+    
+    self.tz.list.zfurl = [responseObject objectForKey:@"img"];
+    [SVProgressHUD showSuccessWithStatus:@"上传成功"];
+}
+
 
 @end

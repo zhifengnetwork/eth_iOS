@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * creditmy;
 @property (nonatomic , copy) NSString              * money;
 
+@property (nonatomic , copy) NSString              * zfurl;
+
 @end
 
 

@@ -119,7 +119,7 @@
 }
 //上传支付凭证
 //file    图片base64
-+(void)uploader:(NSString*)file success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure
++(void) uploader:(NSString*)file success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure
 {
     HttpTool *http = [HttpTool sharedManager];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc]initWithCapacity:1];
@@ -127,7 +127,7 @@
     {
         [parameters setObject:file forKey:@"file"];
     }
-    [parameters setObject:@"util.uploader" forKey:@"r"];
+    [parameters setObject:@"member.androidapi.new_file_upload" forKey:@"r"];
     
     NSDictionary* dic = [http hanldeSign:parameters];
     
