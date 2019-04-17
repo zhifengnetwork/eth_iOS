@@ -15,7 +15,7 @@
 #import "ETHKeyPackageTableCell.h"
 #import "ETH3DGameFooterView.h"
 
-@interface ETH3DGameVC()<ETH3DGameFooterViewDelegate>
+@interface ETH3DGameVC()<ETH3DGameFooterViewDelegate,ETHListWinnersTableCellDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong)UIButton *agreeButton;
@@ -139,7 +139,7 @@ static NSString *const ETHKeyPackageTableCellID = @"ETHKeyPackageTableCellID";
         {
             cell = [[ETHListWinnersTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHListWinnersTableCellID];
         }
-//        cell.delegate = self;
+        cell.delegate = self;
         return cell;
     }
     else if (indexPath.section==1)
@@ -236,7 +236,11 @@ static NSString *const ETHKeyPackageTableCellID = @"ETHKeyPackageTableCellID";
     return _footerView;
 }
 
-
+- (void)ETHListWinnersTableCellDidClick:(int)type{
+    if (type == 1) {
+        self.navigationController pushViewController:<#(nonnull UIViewController *)#> animated:<#(BOOL)#>
+    }
+}
 //3D游戏底部
 - (void)ETH3DGameFooterViewDidClick
 {

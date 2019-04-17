@@ -585,6 +585,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		5361D4882265F5020094FA15 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		5392330C22646DC300BB27C0 /* mine */ = {
 			isa = PBXGroup;
 			children = (
@@ -1003,6 +1010,7 @@
 		842E824F225458D500CC5188 /* ChessCard(棋牌娱乐) */ = {
 			isa = PBXGroup;
 			children = (
+				5361D4882265F5020094FA15 /* New Group */,
 				539B7C6F2261C65E0091A373 /* payBounce(支付弹框) */,
 				841D874C226098D100009D78 /* 3DGame( 游戏) */,
 				840ADCC0225F500B00203D64 /* Recreation(休闲娱乐) */,
