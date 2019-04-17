@@ -12,8 +12,12 @@
 #import "ETHQRCodeTableCell.h"
 #import "ETHReceiptAddressTableCell.h"
 #import "ETHPaymentTableCell.h"
+#import "http_user.h"
+#import "SVProgressHUD.h"
+#import "MJExtension.h"
+#import "ETHTZModel.h"
 
-@interface ETHDefinitePurchaseVC ()
+@interface ETHDefinitePurchaseVC ()<ETHInvestmentPurchaseTableCellDelegate,ETHQRCodeTableCellDelegate>
 
 @end
 
@@ -31,8 +35,33 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     
     self.title = @"投资购买";
     [self setupTableView];
-    
+    [self loadData];
 }
+
+-(void)loadData
+{
+    ZWeakSelf
+    [http_user wechat_complete1:1 url:nil success:^(id responseObject)
+     {
+         [weakSelf showData:responseObject];
+     } failure:^(NSError *error)
+     {
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
+}
+
+-(void)showData:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
+    
+    self.tz = [ETHTZDataModel mj_objectWithKeyValues:responseObject];
+    
+    [self.tableView reloadData];
+}
+
 
 - (void)deleteButtonDidClick
 {
@@ -95,7 +124,7 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     if (indexPath.section==0)
     {
         scell.title = @"当前投资额：";
-        scell.name = @"1.000.00";
+        scell.name = self.tz.list.credit1;
         
         cell = scell;
     }
@@ -103,6 +132,8 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     {
          ETHInvestmentPurchaseTableCell* ocell = [tableView dequeueReusableCellWithIdentifier:ETHInvestmentPurchaseTableCellID];
         ocell = [[ ETHInvestmentPurchaseTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: ETHInvestmentPurchaseTableCellID];
+        ocell.indexPath = indexPath;
+        ocell.delegate = self;
         ocell.title = @"追加投资：";
         
         cell = ocell;
@@ -110,14 +141,14 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     else if (indexPath.section==2)
     {
         scell.title = @"账户投资上限：";
-        scell.name = @"50.000000.00";
+        scell.name = self.tz.list.bibi;
         
         cell = scell;
     }
     else if (indexPath.section==3)
     {
         scell.title = @"当前最多可投资：";
-        scell.name = @"-950";
+        scell.name = [NSString stringWithFormat:@"%f",self.tz.list.bibi.floatValue - self.tz.list.credit1.floatValue];
         
         cell = scell;
     }
@@ -126,7 +157,7 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
         ETHQRCodeTableCell* pcell = [tableView dequeueReusableCellWithIdentifier:ETHQRCodeTableCellID];
         pcell = [[ETHQRCodeTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHQRCodeTableCellID];
         pcell.title = @"二维码";
-        
+        pcell.isClick = NO;
         cell = pcell;
     }
     else if (indexPath.section==5)
@@ -184,12 +215,22 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
 //点击了哪个cell
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section==0)
+    if (indexPath.section==7)
     {
-        //        ZFPersonalDataVC* vc = [[ZFPersonalDataVC alloc]init];
-        //        [self.navigationController pushViewController:vc animated:YES];
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 
+//正在输入中
+-(void)ETHInvestmentPurchaseTableCellInputing:(NSString*)text indexPath:(NSIndexPath*)indexPath
+{
+    self.tz.list.creditmy = text;
+    NSLog(@"%@",text);
+}
+
+- (void)ETHQRCodeTableCellDidClick
+{
+    
+}
 
 @end

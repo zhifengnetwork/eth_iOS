@@ -138,6 +138,7 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     else if (indexPath.section==3)
     {
         scell.title = @"当前最多可投资：";
+        scell.name = [NSString stringWithFormat:@"%f",self.tz.list.bibi.floatValue - self.tz.list.credit1.floatValue];
         scell.isInput = NO;
         cell = scell;
     }
