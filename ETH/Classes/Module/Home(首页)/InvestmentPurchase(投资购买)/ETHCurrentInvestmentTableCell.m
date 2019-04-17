@@ -7,12 +7,16 @@
 //
 
 #import "ETHCurrentInvestmentTableCell.h"
+#import "PPNumberButton.h"
+
 
 @interface ETHCurrentInvestmentTableCell()
 
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) UILabel* titleLabel;
 @property (nonatomic, strong) UILabel* moneyLabel;
+
+@property (nonatomic, strong) PPNumberButton* numberButton;
 
 @end
 
@@ -119,6 +123,27 @@
         _moneyLabel.text = @"1.000.00";
     }
     return _moneyLabel;
+}
+
+-(PPNumberButton* )numberButton
+{
+    if (_numberButton==nil)
+    {
+        _numberButton = [PPNumberButton numberButtonWithFrame:CGRectMake(0, 0, 110, 30)];
+        // 开启抖动动画
+        _numberButton.shakeAnimation = YES;
+        // 设置最小值
+        _numberButton.minValue = 1;
+        // 设置最大值
+        _numberButton.maxValue = 10;
+        // 设置输入框中的字体大小
+        _numberButton.inputFieldFont = 23;
+        _numberButton.increaseTitle = @"＋";
+        _numberButton.decreaseTitle = @"－";
+        
+    }
+    
+    return _numberButton;
 }
 
 @end

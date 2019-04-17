@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		180B476022608DAA008077D0 /* ETHWalletBalanceWMVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 180B475F22608DAA008077D0 /* ETHWalletBalanceWMVC.m */; };
 		180B4763226099C3008077D0 /* ETHTransactionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 180B4762226099C3008077D0 /* ETHTransactionVC.m */; };
+		1811ABA82267819D00245CAD /* CQCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811ABA52267819D00245CAD /* CQCountDownButton.m */; };
+		1811ABA92267819D00245CAD /* NSTimer+CQBlockSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811ABA62267819D00245CAD /* NSTimer+CQBlockSupport.m */; };
 		181249062261CC3F004DB1B3 /* http_index.m in Sources */ = {isa = PBXBuildFile; fileRef = 181249022261CC3E004DB1B3 /* http_index.m */; };
 		181249072261CC3F004DB1B3 /* http_chesscard.m in Sources */ = {isa = PBXBuildFile; fileRef = 181249042261CC3F004DB1B3 /* http_chesscard.m */; };
 		1812490F2261CC4C004DB1B3 /* ETHNoticeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1812490B2261CC4B004DB1B3 /* ETHNoticeModel.m */; };
@@ -186,6 +188,10 @@
 		180B475F22608DAA008077D0 /* ETHWalletBalanceWMVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHWalletBalanceWMVC.m; sourceTree = "<group>"; };
 		180B4761226099C3008077D0 /* ETHTransactionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETHTransactionVC.h; sourceTree = "<group>"; };
 		180B4762226099C3008077D0 /* ETHTransactionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHTransactionVC.m; sourceTree = "<group>"; };
+		1811ABA42267819D00245CAD /* NSTimer+CQBlockSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+CQBlockSupport.h"; sourceTree = "<group>"; };
+		1811ABA52267819D00245CAD /* CQCountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CQCountDownButton.m; sourceTree = "<group>"; };
+		1811ABA62267819D00245CAD /* NSTimer+CQBlockSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+CQBlockSupport.m"; sourceTree = "<group>"; };
+		1811ABA72267819D00245CAD /* CQCountDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CQCountDownButton.h; sourceTree = "<group>"; };
 		181249012261CC3E004DB1B3 /* http_index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = http_index.h; sourceTree = "<group>"; };
 		181249022261CC3E004DB1B3 /* http_index.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = http_index.m; sourceTree = "<group>"; };
 		181249042261CC3F004DB1B3 /* http_chesscard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = http_chesscard.m; sourceTree = "<group>"; };
@@ -523,6 +529,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1811ABA32267819D00245CAD /* CQCountDownButton */ = {
+			isa = PBXGroup;
+			children = (
+				1811ABA42267819D00245CAD /* NSTimer+CQBlockSupport.h */,
+				1811ABA52267819D00245CAD /* CQCountDownButton.m */,
+				1811ABA62267819D00245CAD /* NSTimer+CQBlockSupport.m */,
+				1811ABA72267819D00245CAD /* CQCountDownButton.h */,
+			);
+			path = CQCountDownButton;
+			sourceTree = "<group>";
+		};
 		181249002261CC3E004DB1B3 /* index */ = {
 			isa = PBXGroup;
 			children = (
@@ -1245,6 +1262,7 @@
 		842E829B225458D500CC5188 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				1811ABA32267819D00245CAD /* CQCountDownButton */,
 				842E829C225458D500CC5188 /* HJViewStyle */,
 				842E829F225458D500CC5188 /* Emoticon */,
 			);
@@ -1682,12 +1700,14 @@
 				84052D5F225C7F540092A905 /* ETHReceiptAddressTableCell.m in Sources */,
 				843CE5382261C99500DE176F /* ETH3DGameFooterView.m in Sources */,
 				841D875B226098EE00009D78 /* ETHFightVC.m in Sources */,
+				1811ABA92267819D00245CAD /* NSTimer+CQBlockSupport.m in Sources */,
 				842E82F7225458D500CC5188 /* HMEmoticonManager.m in Sources */,
 				53143647225B22D500B0B4EB /* ETHTradeVC.m in Sources */,
 				1812490F2261CC4C004DB1B3 /* ETHNoticeModel.m in Sources */,
 				181249102261CC4C004DB1B3 /* ETHIndexModel.m in Sources */,
 				53BB770122602901006F1DA4 /* ETHMyWalletVC.m in Sources */,
 				842E830A22545C4700CC5188 /* ETHChessCardVC.m in Sources */,
+				1811ABA82267819D00245CAD /* CQCountDownButton.m in Sources */,
 				539F1D74226466A300493B0E /* http_wallet.m in Sources */,
 				842E82FC225458D500CC5188 /* HMEmoticonAttachment.m in Sources */,
 				84BC88C62255B8AE001BFC02 /* ETHSubordinateTableCell.m in Sources */,

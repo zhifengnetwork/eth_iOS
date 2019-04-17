@@ -10,6 +10,8 @@
 #import "http_mine.h"
 #import "SVProgressHUD.h"
 #import "MJExtension.h"
+#import "CQCountDownButton.h"
+
 
 @interface ETHResetPasswordVC ()
 @property (nonatomic, strong)UIView *bgView;
@@ -25,6 +27,8 @@
 @property (nonatomic, strong)UILabel *confirmPassWordLabel;
 @property (nonatomic, strong)UITextField *confirmPassWordTF;
 @property (nonatomic, strong)UIButton *changeButton;
+
+@property (nonatomic, strong) CQCountDownButton* vcodeButton;
 @end
 
 @implementation ETHResetPasswordVC
@@ -32,13 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = RGBColorHex(0xf5f5f5);
-    self.navigationController.navigationBar.barTintColor = RGBColorHex(0x343946);
-    self.navigationController.navigationBar.translucent = NO;
-    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     self.title = @"修改密码";
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    [self.navigationItem.leftBarButtonItem setImage:[[UIImage imageNamed:@"back"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     [self setup];
 }
 - (void)setup{
@@ -55,6 +53,7 @@
     [self.bgView addSubview:self.confirmPassWordLabel];
     [self.bgView addSubview:self.confirmPassWordTF];
     [self.view addSubview:self.changeButton];
+    [self.view addSubview:self.vcodeButton];
     [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).with.offset(10);
         make.left.equalTo(self.view).with.offset(9);
@@ -87,6 +86,14 @@
         make.width.mas_equalTo(200);
         make.height.mas_equalTo(30);
     }];
+    
+    [_vcodeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.identifyingCodeTF);
+        make.right.equalTo(self.bgView).with.offset(-18);
+        make.width.mas_equalTo(70);
+        make.height.mas_equalTo(20);
+    }];
+    
     [_lineView2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lineView1).with.offset(30);
         make.left.equalTo(self.bgView).with.offset(15);
@@ -234,9 +241,6 @@
         [_changeButton addTarget:self action:@selector(changeButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }return _changeButton;
 }
-- (void)viewWillDisappear:(BOOL)animated{
-    self.navigationController.navigationBar.hidden = YES;
-}
 
 - (void)changeButtonClick
 {
@@ -290,5 +294,63 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
+
+- (void)vcodeButtonDidClick
+{
+    NSString* phone = _phoneNumberTF.text;
+    
+    ZWeakSelf
+    [http_mine verifycode:phone temp:@"sms_changepwd" imgcode:@"0" success:^(id responseObject)
+    {
+        [weakSelf verifycode_ok:responseObject];
+        
+    } failure:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:error.domain];
+    }];
+}
+
+-(void)verifycode_ok:(id)responseObject
+{
+    [SVProgressHUD showSuccessWithStatus:@"发送成功"];
+    
+}
+
+
+- (CQCountDownButton *)vcodeButton
+{
+    if (_vcodeButton == nil) {
+        _vcodeButton = [CQCountDownButton buttonWithType:UIButtonTypeCustom];
+        [_vcodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [_vcodeButton setTitleColor:RGBColorHex(0xFFFFFF) forState:UIControlStateNormal];
+        _vcodeButton.titleLabel.font = [UIFont systemFontOfSize:12];
+        _vcodeButton.layer.cornerRadius = 5.0f;
+        _vcodeButton.layer.borderWidth = 1.0f;
+        _vcodeButton.layer.borderColor = [UIColor whiteColor].CGColor;
+        //        [_vcodeButton addTarget:self action:@selector(vcodeButtonDidClick) forControlEvents:UIControlEventTouchUpInside];
+        __weak typeof(self) weakSelf = self;
+        [_vcodeButton configDuration:60 buttonClicked:^{
+            //========== 按钮点击 ==========//
+            if ( kStringIsEmpty(weakSelf.phoneNumberTF.text) )
+            {
+                [SVProgressHUD showInfoWithStatus:@"请输入手机号码"];
+                return;
+            }
+            [weakSelf.vcodeButton startCountDown];
+            [weakSelf vcodeButtonDidClick];
+        } countDownStart:^{
+            //========== 倒计时开始 ==========//
+            NSLog(@"倒计时开始");
+        } countDownUnderway:^(NSInteger restCountDownNum) {
+            //========== 倒计时进行中 ==========//
+            NSString *title = [NSString stringWithFormat:@"%ldS", restCountDownNum];
+            [weakSelf.vcodeButton setTitle:title forState:UIControlStateNormal];
+        } countDownCompletion:^{
+            //========== 倒计时结束 ==========//
+            [weakSelf.vcodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+            NSLog(@"倒计时结束");
+        }];
+    }
+    return _vcodeButton;
+}
 
 @end
