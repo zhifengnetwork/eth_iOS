@@ -14,6 +14,7 @@
 #import "MJExtension.h"
 #import "ETHKeyPackageTableCell.h"
 #import "ETH3DGameFooterView.h"
+#import "ETHInvestmentRankingMVVC.h"
 
 @interface ETH3DGameVC()<ETH3DGameFooterViewDelegate,ETHListWinnersTableCellDelegate>
 
@@ -238,7 +239,8 @@ static NSString *const ETHKeyPackageTableCellID = @"ETHKeyPackageTableCellID";
 
 - (void)ETHListWinnersTableCellDidClick:(int)type{
     if (type == 1) {
-        self.navigationController pushViewController:<#(nonnull UIViewController *)#> animated:<#(BOOL)#>
+        ETHInvestmentRankingMVVC *vc = [[ETHInvestmentRankingMVVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 //3D游戏底部

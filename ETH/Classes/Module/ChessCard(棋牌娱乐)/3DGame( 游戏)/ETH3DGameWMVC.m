@@ -8,12 +8,14 @@
 
 #import "ETH3DGameWMVC.h"
 #import "ETH3DGameVC.h"
-
+#import "ETHWinRecordVC.h"
+#import "ETHBetRecordVC.h"
 
 @interface ETH3DGameWMVC ()
 
 @property (nonatomic, strong) ETH3DGameVC *gameVC;
-
+@property (nonatomic, strong) ETHWinRecordVC *winVC;
+@property (nonatomic, strong) ETHBetRecordVC *betVC;
 @end
 
 @implementation ETH3DGameWMVC
@@ -74,22 +76,23 @@
 -(void)segmentAction:(UISegmentedControl*)sender
 {
     self.gameVC.view.hidden = YES;
-    
+    self.winVC.view.hidden = YES;
+    self.betVC.view.hidden = YES;
     if (sender.selectedSegmentIndex==0)
     {
         //3D下注
         self.gameVC.view.hidden = NO;
     }
-//    else if (sender.selectedSegmentIndex==1)
-//    {
-//        //押注记录
-//        self.recordVC.view.hidden = NO;
-//    }
-//    else if (sender.selectedSegmentIndex==2)
-//    {
-//        //中奖记录
-//        self.recordVC.view.hidden = NO;
-//    }
+    else if (sender.selectedSegmentIndex==1)
+    {
+        //押注记录
+        self.betVC.view.hidden = NO;
+    }
+    else if (sender.selectedSegmentIndex==2)
+    {
+        //中奖记录
+        self.winVC.view.hidden = NO;
+    }
     //titleForSegmentAtIndex通过索引值获取被选中的分段控制器的按钮标题，selectedSegmentIndex 是获取被选中按钮的索引值
     NSLog(@"----%@",[sender titleForSegmentAtIndex:sender.selectedSegmentIndex]);
     
@@ -128,5 +131,31 @@
     return _gameVC;
 }
 
+- (ETHWinRecordVC *)winVC{
+    if (_winVC == nil) {
+        _winVC = [[ETHWinRecordVC alloc]init];
+        [self addChildViewController:_winVC];
+        [self.view addSubview:_winVC.view];
+        [_winVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.mas_equalTo(0);
+            make.top.mas_equalTo(30);
+        }];
+    }
+    
+    return _winVC;
+}
 
+- (ETHBetRecordVC *)betVC{
+    if (_betVC == nil) {
+        _betVC = [[ETHBetRecordVC alloc]init];
+        [self addChildViewController:_betVC];
+        [self.view addSubview:_betVC.view];
+        [_betVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.mas_equalTo(0);
+            make.top.mas_equalTo(30);
+        }];
+    }
+    
+    return _betVC;
+}
 @end
