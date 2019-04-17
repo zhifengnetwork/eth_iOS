@@ -7,6 +7,9 @@
 //
 
 #import "ETHResetPasswordVC.h"
+#import "http_mine.h"
+#import "SVProgressHUD.h"
+#import "MJExtension.h"
 
 @interface ETHResetPasswordVC ()
 @property (nonatomic, strong)UIView *bgView;
@@ -234,7 +237,58 @@
 - (void)viewWillDisappear:(BOOL)animated{
     self.navigationController.navigationBar.hidden = YES;
 }
-- (void)changeButtonClick{
-    //点击立即修改
+
+- (void)changeButtonClick
+{
+    NSString* phone = _phoneNumberTF.text;
+    NSString* identifying = _identifyingCodeTF.text;
+    NSString* freshPass = _freshPassWordTF.text;
+    NSString* confirmPass = _confirmPassWordTF.text;
+    
+    if (kStringIsEmpty(phone))
+    {
+        [SVProgressHUD showInfoWithStatus:@"请输入手机号"];
+        return;
+    }
+    
+    if (kStringIsEmpty(identifying))
+    {
+        [SVProgressHUD showInfoWithStatus:@"请输入5位验证码"];
+        return;
+    }
+    
+    if (kStringIsEmpty(freshPass))
+    {
+        [SVProgressHUD showInfoWithStatus:@"请输入您的登录密码"];
+        return;
+    }
+    
+    if (kStringIsEmpty(confirmPass))
+    {
+        [SVProgressHUD showInfoWithStatus:@"请输入确认登录密码"];
+        return;
+    }
+    
+    if ([freshPass isEqualToString:confirmPass]==NO)
+    {
+        [SVProgressHUD showInfoWithStatus:@"两次密码不一致"];
+        return;
+    }
+    
+    ZWeakSelf
+    [http_mine changepwd:phone code:identifying pwd:confirmPass success:^(id responseObject)
+    {
+        [weakSelf sdData:responseObject];
+    } failure:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:error.domain];
+    }];
 }
+
+-(void)sdData:(id)responseObject
+{
+    [SVProgressHUD showSuccessWithStatus:@"修改密码成功"];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+
 @end
