@@ -123,11 +123,8 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     
     if (indexPath.section==0)
     {
-//        pcell.title = @"复投账户";
-//        pcell.name = @"0.0001";
-        ETHTeamModel *teamModel = nil;
-        pcell.type = 2;
-        pcell.teamModel = teamModel;
+        pcell.title = @"复投账户";
+        pcell.name = self.userInfo.member.credit4;
         cell = pcell;
     }
     else if (indexPath.section==1)
@@ -140,11 +137,8 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     }
     else if (indexPath.section==2)
     {
-//        pcell.title = @"自由钱包";
-//        pcell.name = @"568299.00";
-        ETHTeamModel *teamModel = nil;
-        pcell.type = 1;
-        pcell.teamModel = teamModel;
+        pcell.title = @"自由钱包";
+        pcell.name = self.userInfo.member.credit2;
         cell = pcell;
     }
     else if (indexPath.section==3)

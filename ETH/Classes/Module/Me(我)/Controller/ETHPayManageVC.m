@@ -12,7 +12,9 @@
 #import "MJExtension.h"
 #import "RefreshGifHeader.h"
 
+
 @interface ETHPayManageVC ()
+
 @property (nonatomic, strong)UIView *view1;
 @property (nonatomic, strong)UILabel *cardNumberLabel;
 @property (nonatomic, strong)UITextField *cardNumberTF;
@@ -36,15 +38,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //设置导航栏颜色
-    self.navigationController.navigationBar.barTintColor = RGBColorHex(0x343946);
-    self.navigationController.navigationBar.translucent = NO;
-    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     self.title = @"支付管理";
-    [self.navigationController.navigationBar setTitleTextAttributes:
-  @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    [self.navigationItem.leftBarButtonItem setImage:[[UIImage imageNamed:@"back"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    self.view.backgroundColor = [UIColor whiteColor];
     [self setup];
+    [self loadData];
 }
 - (void)setup{
     [self.view addSubview:self.view1];
@@ -266,11 +263,6 @@
     return _agreeButton;
 }
 
-
-- (void)viewWillDisappear:(BOOL)animated{
-    self.navigationController.navigationBar.hidden = YES;
-}
-
 - (void)agreeButtonClick
 {
     NSString* number = _cardNumberTF.text;
@@ -280,20 +272,40 @@
     if (kStringIsEmpty(number))
     {
         [SVProgressHUD showInfoWithStatus:@"请输入银行卡号"];
+        return;
     }
     
     if (kStringIsEmpty(username))
     {
-        [SVProgressHUD showInfoWithStatus:@"请输入开户人禾姓名"];
+        [SVProgressHUD showInfoWithStatus:@"请输入开户人姓名"];
+        return;
     }
     
     if (kStringIsEmpty(bankname))
     {
         [SVProgressHUD showInfoWithStatus:@"请输入开户行名称"];
+        return;
     }
     
     ZWeakSelf
     [http_mine pay_submit:nil url:nil zfbfile:nil wxfile:nil bankid:number bankname:username bank:bankname success:^(id responseObject)
+     {
+         [weakSelf sdData:responseObject];
+     } failure:^(NSError *error) {
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
+}
+
+-(void)sdData:(id)responseObject
+{
+    [SVProgressHUD showSuccessWithStatus:@"提交成功"];
+}
+
+
+-(void)loadData
+{
+    ZWeakSelf
+    [http_mine pay_management:^(id responseObject)
      {
          [weakSelf showData:responseObject];
      } failure:^(NSError *error) {
@@ -303,7 +315,16 @@
 
 -(void)showData:(id)responseObject
 {
-    [SVProgressHUD showSuccessWithStatus:@"提交成功"];
+    if (responseObject==nil)
+    {
+        return;
+    }
+    
+    self.userInfo = [UserInfoModel mj_objectWithKeyValues:responseObject];
+    
+    _cardNumberTF.text = self.userInfo.bankid;
+    _userNameTF.text = self.userInfo.bankname;
+    _bankNameTF.text = self.userInfo.bank;
 }
 
 @end

@@ -10,8 +10,15 @@
 #import "ETHInvestmentPurchaseTableCell.h"
 #import "ETHPaymentTableCell.h"
 #import "ETHDefinitePurchaseVC.h"
+#import "http_user.h"
+#import "SVProgressHUD.h"
+#import "MJExtension.h"
+#import "ETHTZModel.h"
 
-@interface ETHInvestmentPurchaseVC ()
+
+@interface ETHInvestmentPurchaseVC ()<ETHInvestmentPurchaseTableCellDelegate>
+
+@property (nonatomic, strong) ETHTZDataModel *tz;
 
 @end
 
@@ -26,7 +33,31 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     
     self.title = @"投资购买";
     [self setupTableView];
+    [self loadData];
+}
+
+-(void)loadData
+{
+    ZWeakSelf
+    [http_user payment:^(id responseObject)
+     {
+         [weakSelf showData:responseObject];
+     } failure:^(NSError *error)
+    {
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
+}
+
+-(void)showData:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
     
+    self.tz = [ETHTZDataModel mj_objectWithKeyValues:responseObject];
+    
+    [self.tableView reloadData];
 }
 
 - (void)deleteButtonDidClick
@@ -82,29 +113,32 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     
     ETHInvestmentPurchaseTableCell* scell = [tableView dequeueReusableCellWithIdentifier:ETHInvestmentPurchaseTableCellID];
     scell = [[ETHInvestmentPurchaseTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHInvestmentPurchaseTableCellID];
-    
+    scell.indexPath = indexPath;
+    scell.delegate = self;
     if (indexPath.section==0)
     {
         scell.title = @"当前投资额：";
-        
+        scell.name = self.tz.list.credit1;
+        scell.isInput = NO;
         cell = scell;
     }
     else if (indexPath.section==1)
     {
         scell.title = @"激活投资：";
-        
+        scell.isInput = YES;
         cell = scell;
     }
     else if (indexPath.section==2)
     {
         scell.title = @"账户投资上限：";
-        
+        scell.name = self.tz.list.bibi;
+        scell.isInput = NO;
         cell = scell;
     }
     else if (indexPath.section==3)
     {
         scell.title = @"当前最多可投资：";
-        
+        scell.isInput = NO;
         cell = scell;
     }
     else if (indexPath.section==4)
@@ -149,8 +183,17 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     if (indexPath.section==4)
     {
         ETHDefinitePurchaseVC* vc = [[ETHDefinitePurchaseVC alloc]init];
+        vc.tz = self.tz;
         [self.navigationController pushViewController:vc animated:YES];
     }
+}
+
+
+//正在输入中
+-(void)ETHInvestmentPurchaseTableCellInputing:(NSString*)text indexPath:(NSIndexPath*)indexPath
+{
+    self.tz.list.creditmy = text;
+    NSLog(@"%@",text);
 }
 
 

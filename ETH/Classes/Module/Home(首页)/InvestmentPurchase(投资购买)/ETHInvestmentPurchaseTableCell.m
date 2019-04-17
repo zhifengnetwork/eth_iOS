@@ -8,7 +8,7 @@
 
 #import "ETHInvestmentPurchaseTableCell.h"
 
-@interface ETHInvestmentPurchaseTableCell()
+@interface ETHInvestmentPurchaseTableCell()<UITextFieldDelegate>
 
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) UILabel* titleLabel;
@@ -55,6 +55,24 @@
         
     }];
     
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFieldEditChanged:) name:@"UITextFieldTextDidChangeNotification" object:self.nameTextField];
+    
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UITextFieldTextDidChangeNotification" object:self.nameTextField];
+}
+
+#pragma mark - Notification Method
+-(void)textFieldEditChanged:(NSNotification *)obj
+{
+    UITextField *textField = (UITextField *)obj.object;
+    NSString *toBeString = textField.text;
+        if ([self.delegate respondsToSelector:@selector(ETHInvestmentPurchaseTableCellInputing: indexPath:)])
+        {
+            [self.delegate ETHInvestmentPurchaseTableCellInputing:self.nameTextField.text indexPath:self.indexPath];
+        }
 }
 
 -(void)setTitle:(NSString *)title
@@ -67,6 +85,12 @@
 {
     _name = name;
     _nameTextField.text = _name;
+}
+
+-(void)setIsInput:(BOOL)isInput
+{
+    _isInput = isInput;
+    _nameTextField.userInteractionEnabled = _isInput;
 }
 
 
@@ -102,6 +126,7 @@
         _nameTextField.font = [UIFont systemFontOfSize:12];
         _nameTextField.textColor = RGBColorHex(0x232833);
         _nameTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        _nameTextField.delegate = self;
     }
     return _nameTextField;
 }

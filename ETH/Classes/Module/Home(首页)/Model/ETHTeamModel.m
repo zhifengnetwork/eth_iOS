@@ -24,7 +24,7 @@
 + (NSDictionary *)mj_objectClassInArray
 {
     return @{
-             @"list" : @"ETHTeamDetailListModel"
+             @"list" : @"ETHTeamModel"
              };
 }
 

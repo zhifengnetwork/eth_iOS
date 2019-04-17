@@ -84,7 +84,7 @@ static NSString *const ETHInvestmentRecordTableCellID = @"ETHInvestmentRecordTab
 }
 
 -(void)showData:(id)responseObject
-{
+{ 
     if (kObjectIsEmpty(responseObject))
     {
         return;
