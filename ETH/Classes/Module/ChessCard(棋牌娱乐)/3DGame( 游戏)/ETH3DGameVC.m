@@ -15,6 +15,7 @@
 #import "ETHKeyPackageTableCell.h"
 #import "ETH3DGameFooterView.h"
 #import "ETHInvestmentRankingMVVC.h"
+#import "ETHMultipleTableCell.h"
 
 @interface ETH3DGameVC()<ETH3DGameFooterViewDelegate,ETHListWinnersTableCellDelegate>
 
@@ -31,6 +32,7 @@
 static NSString *const ETHListWinnersTableCellID = @"ETHListWinnersTableCellID";
 static NSString *const ETH3DGameTableCellID = @"ETH3DGameTableCellID";
 static NSString *const ETHKeyPackageTableCellID = @"ETHKeyPackageTableCellID";
+static NSString *const ETHMultipleTableCellID = @"ETHMultipleTableCellID";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -77,6 +79,8 @@ static NSString *const ETHKeyPackageTableCellID = @"ETHKeyPackageTableCellID";
     [self.tableView registerClass:[ETHListWinnersTableCell class] forCellReuseIdentifier:ETHListWinnersTableCellID];
     [self.tableView registerClass:[ETH3DGameTableCell class] forCellReuseIdentifier:ETH3DGameTableCellID];
     [self.tableView registerClass:[ETHKeyPackageTableCell class] forCellReuseIdentifier:ETHKeyPackageTableCellID];
+    [self.tableView registerClass:[ETHMultipleTableCell class] forCellReuseIdentifier:ETHMultipleTableCellID];
+    
 }
 
 //加载数据
@@ -115,7 +119,7 @@ static NSString *const ETHKeyPackageTableCellID = @"ETHKeyPackageTableCellID";
 //有多少组
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 5;
+    return 6;
 }
 
 //每个组有多少行
@@ -171,7 +175,16 @@ static NSString *const ETHKeyPackageTableCellID = @"ETHKeyPackageTableCellID";
         //        cell.delegate = self;
         return cell;
     }
-    
+    else if (indexPath.section==5)
+    {
+        ETHMultipleTableCell* cell = [tableView dequeueReusableCellWithIdentifier:ETHMultipleTableCellID];
+        if (cell == nil)
+        {
+            cell = [[ETHMultipleTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHMultipleTableCellID];
+        }
+        //        cell.delegate = self;
+        return cell;
+    }
     return nil;
 }
 
@@ -185,6 +198,10 @@ static NSString *const ETHKeyPackageTableCellID = @"ETHKeyPackageTableCellID";
     else if (indexPath.section==4)
     {
         return 45;
+    }
+    else if (indexPath.section==5)
+    {
+        return 55;
     }
     
     return 98.0f;

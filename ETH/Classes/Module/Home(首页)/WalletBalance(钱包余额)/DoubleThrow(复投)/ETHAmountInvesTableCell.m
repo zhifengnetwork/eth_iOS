@@ -7,12 +7,13 @@
 //
 
 #import "ETHAmountInvesTableCell.h"
+#import "PPNumberButton.h"
 
 @interface ETHAmountInvesTableCell()
 
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) UILabel* titleLabel;
-@property (nonatomic, strong) UITextField* moneyTextField;
+@property (nonatomic, strong) PPNumberButton* numberButton;
 
 @end
 
@@ -34,7 +35,7 @@
     self.contentView.backgroundColor = RGBColorHex(0xffffff);
     [self.contentView addSubview:self.bgView];
     [self.contentView addSubview:self.titleLabel];
-    [self.contentView addSubview:self.moneyTextField];
+    [self.contentView addSubview:self.numberButton];
     
     [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(10);
@@ -48,12 +49,11 @@
         make.centerY.equalTo(self->_bgView);
     }];
     
-    [_moneyTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_numberButton mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self->_bgView.mas_right).offset(-22);
         make.centerY.equalTo(self->_bgView);
-        make.width.mas_equalTo(165);
+        make.width.mas_equalTo(120);
         make.height.mas_equalTo(20);
-        
     }];
     
 }
@@ -82,18 +82,25 @@
     return _titleLabel;
 }
 
-- (UITextField *)moneyTextField {
-    if (_moneyTextField == nil) {
-        _moneyTextField = [[UITextField alloc] init];
-        _moneyTextField.placeholder = @"";
-        _moneyTextField.font = [UIFont systemFontOfSize:12];
-        _moneyTextField.textColor = RGBColorHex(0xf00606);
-        _moneyTextField.backgroundColor = RGBColorHex(0xffffff);
-        _moneyTextField.layer.borderWidth = 1.0f;
-        _moneyTextField.layer.borderColor = RGBColorHex(0x00aa00).CGColor;
-        _moneyTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+-(PPNumberButton* )numberButton
+{
+    if (_numberButton==nil)
+    {
+        _numberButton = [PPNumberButton numberButtonWithFrame:CGRectMake(0, 0, 110, 30)];
+        // 开启抖动动画
+        _numberButton.shakeAnimation = YES;
+        // 设置最小值
+        _numberButton.minValue = 1;
+        // 设置最大值
+        _numberButton.maxValue = 1000;
+        // 设置输入框中的字体大小
+        _numberButton.inputFieldFont = 12;
+        _numberButton.increaseTitle = @"＋";
+        _numberButton.decreaseTitle = @"－";
+        
     }
-    return _moneyTextField;
+    
+    return _numberButton;
 }
 
 @end

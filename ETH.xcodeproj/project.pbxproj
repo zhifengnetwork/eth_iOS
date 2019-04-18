@@ -150,6 +150,7 @@
 		843CE5362261C99500DE176F /* ETH3DGameWMVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 843CE5302261C99500DE176F /* ETH3DGameWMVC.m */; };
 		843CE5372261C99500DE176F /* ETHKeyPackageTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 843CE5312261C99500DE176F /* ETHKeyPackageTableCell.m */; };
 		843CE5382261C99500DE176F /* ETH3DGameFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 843CE5322261C99500DE176F /* ETH3DGameFooterView.m */; };
+		845B2BAD2268509800584B9C /* ETHMultipleTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 845B2BAC2268509800584B9C /* ETHMultipleTableCell.m */; };
 		8468E1C82266C2F600D81DD2 /* ETHAnnounModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8468E1C62266C2F600D81DD2 /* ETHAnnounModel.m */; };
 		8497727E225B32A800A274D1 /* ETHRegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497727C225B32A800A274D1 /* ETHRegisterVC.m */; };
 		849DE433225D8B4400351A48 /* ETHTwoDoubleThrowTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 849DE432225D8B4400351A48 /* ETHTwoDoubleThrowTableCell.m */; };
@@ -477,6 +478,8 @@
 		843CE5342261C99500DE176F /* ETH3DGameWMVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETH3DGameWMVC.h; sourceTree = "<group>"; };
 		843CE5352261C99500DE176F /* ETH3DGameFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETH3DGameFooterView.h; sourceTree = "<group>"; };
 		843CE5392261E58900DE176F /* ETHPayBounceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHPayBounceView.m; sourceTree = "<group>"; };
+		845B2BAB2268509800584B9C /* ETHMultipleTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETHMultipleTableCell.h; sourceTree = "<group>"; };
+		845B2BAC2268509800584B9C /* ETHMultipleTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHMultipleTableCell.m; sourceTree = "<group>"; };
 		8468E1C62266C2F600D81DD2 /* ETHAnnounModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHAnnounModel.m; sourceTree = "<group>"; };
 		8468E1C72266C2F600D81DD2 /* ETHAnnounModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETHAnnounModel.h; sourceTree = "<group>"; };
 		8497727C225B32A800A274D1 /* ETHRegisterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHRegisterVC.m; sourceTree = "<group>"; };
@@ -902,6 +905,8 @@
 				841D8753226098D100009D78 /* ETHBetNumberCollectionCell.m */,
 				843CE5352261C99500DE176F /* ETH3DGameFooterView.h */,
 				843CE5322261C99500DE176F /* ETH3DGameFooterView.m */,
+				845B2BAB2268509800584B9C /* ETHMultipleTableCell.h */,
+				845B2BAC2268509800584B9C /* ETHMultipleTableCell.m */,
 			);
 			path = "3DGame( 游戏)";
 			sourceTree = "<group>";
@@ -1825,6 +1830,7 @@
 				842E82F2225458D500CC5188 /* BaseCollectionCell.m in Sources */,
 				842E82C8225458D500CC5188 /* UIButton+LXMImagePosition.m in Sources */,
 				530531A822670CC00002A967 /* ETHWinRecordVC.m in Sources */,
+				845B2BAD2268509800584B9C /* ETHMultipleTableCell.m in Sources */,
 				842E8305225458D500CC5188 /* HttpTool.m in Sources */,
 				842E832A2254C43200CC5188 /* ETHInvestmentPurchaseTableCell.m in Sources */,
 				842E83302254C7CA00CC5188 /* ETHPaymentTableCell.m in Sources */,

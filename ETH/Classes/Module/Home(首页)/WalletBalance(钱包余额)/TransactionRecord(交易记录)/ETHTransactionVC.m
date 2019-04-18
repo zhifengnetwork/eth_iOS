@@ -8,8 +8,15 @@
 
 #import "ETHTransactionVC.h"
 #import "ETHTransactionTableCell.h"
+#import "http_index.h"
+#import "SVProgressHUD.h"
+#import "MJExtension.h"
+#import "RefreshGifHeader.h"
+#import "ETHTeamModel.h"
 
 @interface ETHTransactionVC ()
+
+@property (nonatomic , strong)ETHTeamListModel *listModel;
 
 @end
 
@@ -59,12 +66,46 @@ static NSString *const ETHTransactionTableCellID = @"ETHTransactionTableCellID";
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
     [self.tableView registerClass:[ETHTransactionTableCell class] forCellReuseIdentifier:ETHTransactionTableCellID];
+    
+    //自定义刷新动画
+    ZWeakSelf
+    self.tableView.mj_header = [RefreshGifHeader headerWithRefreshingBlock:^{
+        
+        [weakSelf loadData];
+    }];
+    [self.tableView.mj_header beginRefreshing];
+    
+}
+
+-(void)loadData
+{
+    ZWeakSelf
+    [http_index investment_record:1 type:self.type success:^(id responseObject)
+     {
+         [self.tableView.mj_header endRefreshing];
+         [weakSelf showData:responseObject];
+     } failure:^(NSError *error) {
+         [self.tableView.mj_header endRefreshing];
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
+}
+
+-(void)showData:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
+    
+    self.listModel = [ETHTeamListModel mj_objectWithKeyValues:responseObject];
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return self.listModel.list.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -80,6 +121,8 @@ static NSString *const ETHTransactionTableCellID = @"ETHTransactionTableCellID";
     {
         ETHTransactionTableCell* scell = [tableView dequeueReusableCellWithIdentifier:ETHTransactionTableCellID];
         scell = [[ETHTransactionTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHTransactionTableCellID];
+        ETHTeamModel *teamModel = [self.listModel.list objectAtIndex:indexPath.section];
+        scell.teamModel = teamModel;
         
         cell = scell;
     }
