@@ -12,10 +12,11 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface ETHRankingModel : NSObject
 @property (nonatomic , copy) NSString              * ID;
-@property (nonatomic , copy) NSString              * ranking;
+@property (nonatomic , copy) NSString              * type;
 @property (nonatomic , copy) NSString              * nickname;
-@property (nonatomic , copy) NSString              * yujis;
+@property (nonatomic , copy) NSString              * yuji;
 @property (nonatomic , copy) NSString              * moneys;
+@property (nonatomic , copy)NSString               *bfb;
 @end
 @interface ETHBetRecordModel : NSObject
 

@@ -135,6 +135,33 @@
     strUrl = [strUrl stringByAppendingPathComponent:@"app/index.php"];
     [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
 }
+
+/**
+ @param nickname 昵称
+ @param avatar 头像
+ */
++(void)face:(NSString*)nickname avatar:(NSString*)avatar success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure{
+    
+    HttpTool *http = [HttpTool sharedManager];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc]initWithCapacity:1];
+    
+    if ( !kStringIsEmpty(nickname) )
+    {
+        [parameters setObject:nickname forKey:@"nickname"];
+    }
+    if ( !kStringIsEmpty(avatar) )
+    {
+        [parameters setObject:avatar forKey:@"avatar"];
+    }
+    [parameters setObject:@"member.androidapi.face" forKey:@"r"];
+    
+    NSDictionary* dic = [http hanldeSign:parameters];
+    
+    NSString* strUrl = [http getMainUrl];
+    strUrl = [strUrl stringByAppendingPathComponent:@"app/index.php"];
+    [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
+}
+
 /**
  确定购买
  @param money 追加金额

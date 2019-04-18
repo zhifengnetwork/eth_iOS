@@ -78,6 +78,7 @@ static NSString *const ETHBetRecordCellID = @"ETHBetRecordCellID";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ETHBetRecordCell *cell = [tableView dequeueReusableCellWithIdentifier:ETHBetRecordCellID forIndexPath:indexPath];
     ETHBetRecordModel *recordModel = [self.listModel.list objectAtIndex:indexPath.row];
+    
     cell.recordModel = recordModel;
 
     return cell;

@@ -48,12 +48,12 @@
     }];
     
     [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.idLabel.mas_right).with.offset(9);
+        make.left.equalTo(self.idLabel.mas_right).with.offset(35);
         make.centerY.equalTo(self.rankLabel.mas_centerY);
     }];
     
     [_winProbabilitylLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.nameLabel.mas_right).with.offset(8);
+        make.left.equalTo(self.nameLabel.mas_right).with.offset(40);
         make.centerY.equalTo(self.rankLabel.mas_centerY);
     }];
     
@@ -93,7 +93,7 @@
         _nameLabel = [[UILabel alloc]init];
         _nameLabel.font = [UIFont systemFontOfSize:10];
         _nameLabel.textColor = [UIColor whiteColor];
-        _nameLabel.text = @"189XXXX3924";
+        _nameLabel.text = @"189";
     }return _nameLabel;
 }
 
@@ -124,10 +124,10 @@
 
 - (void)setTodayRankModel:(ETHRankingModel *)todayRankModel{
     _todayRankModel = todayRankModel;
-    _rankLabel.text = [NSString stringWithFormat:@"第%@名",_todayRankModel.ranking];
+    _rankLabel.text = [NSString stringWithFormat:@"第%@名",_todayRankModel.type];
     _idLabel.text = [NSString stringWithFormat:@"%@",_todayRankModel.ID];
     _nameLabel.text = [NSString stringWithFormat:@"%@",_todayRankModel.nickname];
-    _winProbabilitylLabel.text = [NSString stringWithFormat:@"%@",_todayRankModel.yujis];
+    _winProbabilitylLabel.text = [NSString stringWithFormat:@"%@(%@%%)",_todayRankModel.yuji,_todayRankModel.bfb];
     _investmentAmountLabel.text = [NSString stringWithFormat:@"%@",_todayRankModel.moneys];
 }
 @end

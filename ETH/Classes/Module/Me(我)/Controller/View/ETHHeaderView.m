@@ -9,6 +9,8 @@
 #import "ETHHeaderView.h"
 #import "UIView+HJViewStyle.h"
 #import "UIImageView+WebCache.h"
+#import "ETHChangeIconVC.h"
+
 
 @interface ETHHeaderView()
 @property (nonatomic, strong)UIImageView *backImageView;
@@ -168,8 +170,21 @@
     }
     return _iconButton;
 }
-#pragma mark --点击我的头像
-- (void)iconClick{
-    
+- (UIViewController*)viewController {
+    for (UIView* next = [self superview]; next; next = next.superview) {
+        UIResponder* nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[UIViewController
+                                          class]]) {
+            return (UIViewController*)nextResponder;
+        }
+    }
+    return nil;
 }
+#pragma mark --点击我的头像
+
+- (void)iconClick{
+    ETHChangeIconVC *vc = [[ETHChangeIconVC alloc]init];
+    [[self viewController].navigationController pushViewController:vc animated:YES];
+}
+
 @end

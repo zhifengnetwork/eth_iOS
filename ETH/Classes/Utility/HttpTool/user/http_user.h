@@ -33,6 +33,13 @@ NS_ASSUME_NONNULL_BEGIN
 //上传支付凭证
 //file    图片base64
 +(void)uploader:(NSString*)file success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
+
+
+/**
+ @param nickname 昵称
+ @param avatar 头像
+ */
++(void)face:(NSString*)nickname avatar:(NSString*)avatar success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
 /**
  确定购买
  @param money 追加金额
