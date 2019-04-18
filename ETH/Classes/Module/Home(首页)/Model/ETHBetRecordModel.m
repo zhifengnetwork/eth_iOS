@@ -7,8 +7,22 @@
 //
 
 #import "ETHBetRecordModel.h"
+@implementation ETHRankingModel
+
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{
+             @"ID":@"id"
+             };
+}
+@end
 
 @implementation ETHBetRecordModel
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"today" : @"ETHRankingModel"
+             };
+}
 
 + (NSDictionary *)mj_replacedKeyFromPropertyName {
     return @{

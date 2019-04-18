@@ -10,7 +10,13 @@
 #import "BaseListModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
-//下注记录
+@interface ETHRankingModel : NSObject
+@property (nonatomic , copy) NSString              * ID;
+@property (nonatomic , copy) NSString              * ranking;
+@property (nonatomic , copy) NSString              * nickname;
+@property (nonatomic , copy) NSString              * yujis;
+@property (nonatomic , copy) NSString              * moneys;
+@end
 @interface ETHBetRecordModel : NSObject
 
 @property (nonatomic , copy) NSString              * ID;
@@ -26,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * multiple;
 @property (nonatomic , copy) NSString              * thigh;
 @property (nonatomic , copy) NSString              *type;
+@property (nonatomic , strong)NSArray              *today;
 @end
 
 @interface ETHBetRecordListModel : BaseListModel

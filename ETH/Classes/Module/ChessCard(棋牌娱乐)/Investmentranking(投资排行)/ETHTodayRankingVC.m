@@ -8,6 +8,11 @@
 
 #import "ETHTodayRankingVC.h"
 #import "ETHTodayRankingCell.h"
+#import "http_ indexedit.h"
+#import "SVProgressHUD.h"
+#import "MJExtension.h"
+#import "RefreshGifHeader.h"
+#import "ETHBetRecordModel.h"
 
 @interface ETHTodayRankingVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UILabel *rankLabel;
@@ -17,6 +22,8 @@
 @property (nonatomic, strong)UILabel *todayInvestmentAmount;
 @property (nonatomic, strong)UIView *lineView;
 @property (nonatomic, strong)UITableView *tableView;
+
+@property (nonatomic , strong)ETHBetRecordModel *recordModel;
 @end
 
 @implementation ETHTodayRankingVC
@@ -72,8 +79,41 @@ static NSString *const ETHTodayRankingCellID = @"ETHTodayRankingCellID";
         make.top.equalTo(self.lineView.mas_bottom);
         make.left.right.bottom.equalTo(self.view);
     }];
+    
+    //自定义刷新动画
+    ZWeakSelf
+    self.tableView.mj_header = [RefreshGifHeader headerWithRefreshingBlock:^{
+        
+        [weakSelf loadData];
+    }];
+    [self.tableView.mj_header beginRefreshing];
 }
 
+-(void)loadData
+{
+    ZWeakSelf
+    //今日排行
+    [http__indexedit fucairanking:^(id responseObject)
+     {
+         [self.tableView.mj_header endRefreshing];
+         [weakSelf showData:responseObject];
+     } failure:^(NSError *error) {
+         [self.tableView.mj_header endRefreshing];
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
+}
+
+-(void)showData:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
+    
+    self.recordModel = [ETHBetRecordModel mj_objectWithKeyValues:responseObject];
+
+    [self.tableView reloadData];
+}
 - (UILabel *)rankLabel{
     if (_rankLabel == nil) {
         _rankLabel = [[UILabel alloc]init];
@@ -135,16 +175,25 @@ static NSString *const ETHTodayRankingCellID = @"ETHTodayRankingCellID";
         _tableView.rowHeight = 30;
         [_tableView registerClass:[ETHTodayRankingCell class] forCellReuseIdentifier:ETHTodayRankingCellID];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
     }return _tableView;
 }
 
 #pragma mark --协议
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    
+    return self.recordModel.today.count;
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ETHTodayRankingCell *cell = [tableView dequeueReusableCellWithIdentifier:ETHTodayRankingCellID forIndexPath:indexPath];
+    
+//    NSArray *array = self.recordModel.todayArray;
+    ETHRankingModel *todayRankModel = self.recordModel.today[indexPath.row];
+    
+    cell.todayRankModel = todayRankModel;
+    
     return cell;
 }
 

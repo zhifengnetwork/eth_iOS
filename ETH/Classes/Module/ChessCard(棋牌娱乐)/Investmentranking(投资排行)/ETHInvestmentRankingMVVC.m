@@ -8,10 +8,18 @@
 
 #import "ETHInvestmentRankingMVVC.h"
 #import "ETHTodayRankingVC.h"
+#import "http_ indexedit.h"
+#import "SVProgressHUD.h"
+#import "MJExtension.h"
+#import "RefreshGifHeader.h"
+#import "ETHBetRecordModel.h"
+
 @interface ETHInvestmentRankingMVVC ()
 @property (nonatomic, strong)UIImageView *iconImageView;
 @property (nonatomic, strong)UILabel *bgLabel;
 @property (nonatomic, strong)ETHTodayRankingVC *todayVC;
+
+@property (nonatomic , strong)ETHBetRecordListModel *listModel;
 @end
 
 @implementation ETHInvestmentRankingMVVC
@@ -76,6 +84,30 @@
     [self.view addSubview:segment];
     
     self.todayVC.view.hidden = NO;
+    
+    
+    
+    ZWeakSelf
+    //投资排行
+    [http__indexedit fucairanking:^(id responseObject)
+     {
+         
+         [weakSelf showData:responseObject];
+     } failure:^(NSError *error) {
+
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
+}
+
+-(void)showData:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
+    
+    self.listModel = [ETHBetRecordListModel mj_objectWithKeyValues:responseObject];
+    _bgLabel.text = [NSString stringWithFormat:@"今日投资总额：%lf",(float)self.listModel.total];
 }
 
 -(void)segmentAction:(UISegmentedControl*)sender

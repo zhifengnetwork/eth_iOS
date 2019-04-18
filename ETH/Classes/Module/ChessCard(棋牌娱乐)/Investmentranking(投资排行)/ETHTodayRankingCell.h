@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ETHBetRecordModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ETHTodayRankingCell : UITableViewCell
-
+@property (nonatomic,strong)ETHRankingModel *todayRankModel;
 @end
 
 NS_ASSUME_NONNULL_END

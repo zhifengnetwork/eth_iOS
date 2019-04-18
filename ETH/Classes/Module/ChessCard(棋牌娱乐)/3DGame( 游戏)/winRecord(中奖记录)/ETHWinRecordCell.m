@@ -133,9 +133,17 @@
     if (recordModel.type.intValue == 1) {
         _amountLabel.text = [NSString stringWithFormat:@"中奖号：%@",recordModel.number];
         _awardNameLabel.text = [NSString stringWithFormat:@"中奖注数：%@股",recordModel.stakesum];
+        _awardNameLabel.textColor = [UIColor whiteColor];
         _issuesNumberLabel.text = [NSString stringWithFormat:@"中奖期号：%@",recordModel.numberid];
         _multipleLabel.text = [NSString stringWithFormat:@"中奖金额：%@",recordModel.money];
         _lotteryLabel.hidden = NO;
+    }else{
+        _amountLabel.text = [NSString stringWithFormat:@"中奖金额：%@",recordModel.money];
+        _awardNameLabel.text = @"投资排名奖";
+        _awardNameLabel.textColor = RGBColorHex(0xf70426);
+        _issuesNumberLabel.text = [NSString stringWithFormat:@"编号：%@",recordModel.ID];
+        _multipleLabel.text = [NSString stringWithFormat:@"排名数：%@",recordModel.ranking];
+        _lotteryLabel.hidden = YES;
     }
     _timeLabel.text = [NSString stringWithFormat:@"时间：%@",recordModel.createtime];
     

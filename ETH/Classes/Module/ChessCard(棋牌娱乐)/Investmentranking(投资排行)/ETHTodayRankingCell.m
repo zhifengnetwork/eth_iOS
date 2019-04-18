@@ -121,4 +121,13 @@
         _lineView.backgroundColor = RGBColorHex(0xa7a7a7);
     }return _lineView;
 }
+
+- (void)setTodayRankModel:(ETHRankingModel *)todayRankModel{
+    _todayRankModel = todayRankModel;
+    _rankLabel.text = [NSString stringWithFormat:@"第%@名",_todayRankModel.ranking];
+    _idLabel.text = [NSString stringWithFormat:@"%@",_todayRankModel.ID];
+    _nameLabel.text = [NSString stringWithFormat:@"%@",_todayRankModel.nickname];
+    _winProbabilitylLabel.text = [NSString stringWithFormat:@"%@",_todayRankModel.yujis];
+    _investmentAmountLabel.text = [NSString stringWithFormat:@"%@",_todayRankModel.moneys];
+}
 @end
