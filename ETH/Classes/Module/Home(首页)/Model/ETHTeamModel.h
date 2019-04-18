@@ -25,6 +25,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy)NSString *money;
 @property (nonatomic , copy)NSString *money2;
 @property (nonatomic , copy)NSString *uniacid;
+@property (nonatomic , copy)NSString *RMB;
+@property (nonatomic , copy)NSString *realmoney;
+@property (nonatomic , copy)NSString *charge;
 
 @end
 

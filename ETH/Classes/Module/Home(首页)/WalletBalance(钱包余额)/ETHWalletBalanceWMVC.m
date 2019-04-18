@@ -8,14 +8,16 @@
 
 #import "ETHWalletBalanceWMVC.h"
 #import "ETHWalletBalanceVC.h"
-#import "ETHInvestmentRecordVC.h"
+#import "ETHRecordWithaVC.h"
 #import "ETHTransactionVC.h"
+#import "ETHMoneyTransferVC.h"
 
 
 @interface ETHWalletBalanceWMVC ()
 
 @property (nonatomic, strong) ETHWalletBalanceVC *walletBalanceVC;
-@property (nonatomic, strong) ETHInvestmentRecordVC *recordVC;
+@property (nonatomic, strong) ETHRecordWithaVC *recordVC;
+@property (nonatomic, strong) ETHMoneyTransferVC *moneyVC;
 @property (nonatomic, strong) ETHTransactionVC *c2cVC;
 
 @end
@@ -33,7 +35,7 @@
     //在索引值为0的位置上插入一个标题为red的按钮，第三个参数为是否开启动画
     [segment insertSegmentWithTitle:@"钱包" atIndex:0 animated:YES];
     [segment insertSegmentWithTitle:@"提币记录" atIndex:1 animated:YES];
-    [segment insertSegmentWithTitle:@"赚币记录" atIndex:2 animated:YES];
+    [segment insertSegmentWithTitle:@"转币记录" atIndex:2 animated:YES];
     [segment insertSegmentWithTitle:@"C2C记录" atIndex:3 animated:YES];
     
     //设置Segment的字体
@@ -80,6 +82,7 @@
 {
     self.walletBalanceVC.view.hidden = YES;
     self.recordVC.view.hidden = YES;
+    self.moneyVC.view.hidden = YES;
     self.c2cVC.view.hidden = YES;
     
     if (sender.selectedSegmentIndex==0)
@@ -94,8 +97,8 @@
     }
     else if (sender.selectedSegmentIndex==2)
     {
-        //赚币记录
-        self.recordVC.view.hidden = NO;
+        //转币记录
+        self.moneyVC.view.hidden = NO;
     }
     else if (sender.selectedSegmentIndex==3)
     {
@@ -140,10 +143,11 @@
     return _walletBalanceVC;
 }
 
--(ETHInvestmentRecordVC *)recordVC
+-(ETHRecordWithaVC *)recordVC
 {
     if (_recordVC==nil) {
-        _recordVC = [[ETHInvestmentRecordVC alloc]init];
+        _recordVC = [[ETHRecordWithaVC alloc]init];
+        _recordVC.type = @"4";
         [self addChildViewController:_recordVC];
         [self.view addSubview:_recordVC.view];
         [_recordVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -155,10 +159,27 @@
     return _recordVC;
 }
 
+-(ETHMoneyTransferVC *)moneyVC
+{
+    if (_moneyVC==nil) {
+        _moneyVC = [[ETHMoneyTransferVC alloc]init];
+        _moneyVC.type = @"3";
+        [self addChildViewController:_moneyVC];
+        [self.view addSubview:_moneyVC.view];
+        [_moneyVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.mas_equalTo(0);
+            make.top.mas_equalTo(40);
+        }];
+    }
+    
+    return _moneyVC;
+}
+
 -(ETHTransactionVC *)c2cVC
 {
     if (_c2cVC==nil) {
         _c2cVC = [[ETHTransactionVC alloc]init];
+        _c2cVC.type = @"5";
         [self addChildViewController:_c2cVC];
         [self.view addSubview:_c2cVC.view];
         [_c2cVC.view mas_makeConstraints:^(MASConstraintMaker *make) {

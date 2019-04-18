@@ -66,8 +66,8 @@
 {
     _teamModel = teamModel;
     _timeLabel.text = [NSString stringWithFormat:@"C2C交易时间：%@",_teamModel.createtime];
-//    _numberLabel.text = [NSString stringWithFormat:@"ETH数量：C2C交易增加%@",_teamModel.title];
-    _moneyLabel.text = [NSString stringWithFormat:@"充币金额：%@",_teamModel.money];
+    _numberLabel.text = [NSString stringWithFormat:@"ETH数量：C2C交易增加%@",_teamModel.title];
+    _moneyLabel.text = [NSString stringWithFormat:@"充币金额：%@",_teamModel.RMB];
 }
 
 -(UIView *)bgView
