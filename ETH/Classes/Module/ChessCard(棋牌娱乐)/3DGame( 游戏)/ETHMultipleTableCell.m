@@ -59,13 +59,15 @@
     }];
     
     [_titleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self->_number3Button);
+        make.top.equalTo(self->_number3Button.mas_top).offset(-5);
         make.centerX.equalTo(self->_numberButton);
     }];
     
     [_numberButton mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self->_number3Button.mas_right).offset(45);
         make.bottom.equalTo(self->_number3Button.mas_bottom);
+        make.width.mas_equalTo(60);
+        make.height.mas_equalTo(15);
     }];
     
     [_deleteButton mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -173,9 +175,9 @@
         // 设置最小值
         _numberButton.minValue = 1;
         // 设置最大值
-        _numberButton.maxValue = 10;
+        _numberButton.maxValue = 1000;
         // 设置输入框中的字体大小
-        _numberButton.inputFieldFont = 23;
+        _numberButton.inputFieldFont = 12;
         _numberButton.increaseTitle = @"＋";
         _numberButton.decreaseTitle = @"－";
         
