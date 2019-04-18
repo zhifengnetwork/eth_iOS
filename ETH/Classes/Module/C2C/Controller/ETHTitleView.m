@@ -43,7 +43,7 @@
     [_leftButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).with.offset(16);
         make.centerY.equalTo(self.titleLabel.mas_centerY);
-        make.width.height.mas_equalTo(40);
+        
     }];
 }
 - (UIImageView *)backImg{
