@@ -11,13 +11,18 @@
 @implementation http_c2c
 //c2c挂卖中心
 //page 页数
-+(void)guamairecordjilu:(NSInteger)page success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure
++(void)guamairecordjilu:(NSInteger)page type:(NSString*)type success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure
 {
     HttpTool *http = [HttpTool sharedManager];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc]initWithCapacity:1];
  
     NSString *str = [NSString stringWithFormat:@"%ld",page];
     [parameters setObject:str forKey:@"page"];
+    
+    if ( !kStringIsEmpty(type) )
+    {
+        [parameters setObject:type forKey:@"type"];
+    }
     
     [parameters setObject:@"member.androidapi.guamairecordjilu" forKey:@"r"];
     
@@ -173,12 +178,20 @@
     strUrl = [strUrl stringByAppendingPathComponent:@"app/index.php"];
     [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
 }
-//c2c订单中心全部订单
-//申诉列表
-+(void)number_order:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure
+/**
+ c2c订单中心全部订单
+ 
+ @param stataus 0未交易 1交易中 2交易完成 3交易失败
+ */
++(void)number_order:(NSString*)stataus success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure
 {
     HttpTool *http = [HttpTool sharedManager];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc]initWithCapacity:1];
+    
+    if ( !kStringIsEmpty(stataus) )
+    {
+        [parameters setObject:stataus forKey:@"stataus"];
+    }
     
     [parameters setObject:@"member.androidapi.number_order" forKey:@"r"];
     
@@ -235,6 +248,32 @@
     strUrl = [strUrl stringByAppendingPathComponent:@"app/index.php"];
     [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
 }
+
+//c2c首页点击卖出或者买入按钮
+//ID     挂卖编号 订单ID
+//type      0买入 1卖出
++(void)sellout:(NSString*)ID type:(NSString*)type success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure{
+    HttpTool *http = [HttpTool sharedManager];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc]initWithCapacity:1];
+    
+    if ( !kStringIsEmpty(ID) )
+    {
+        [parameters setObject:ID forKey:@"id"];
+    }
+    if ( !kStringIsEmpty(type) )
+    {
+        [parameters setObject:type forKey:@"type"];
+    }
+    
+    [parameters setObject:@"member.androidapi.sellout" forKey:@"r"];
+    
+    NSDictionary* dic = [http hanldeSign:parameters];
+    
+    NSString* strUrl = [http getMainUrl];
+    strUrl = [strUrl stringByAppendingPathComponent:@"app/index.php"];
+    [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
+}
+
 /**
  c2c点击订单详情的各种操作
  @param ID 挂卖编号 订单ID

@@ -42,6 +42,12 @@
     
     [self setup];
 }
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        [self setup];
+    }
+    return self;
+}
 - (void)setup{
     self.view.backgroundColor = RGBColorHex(0x36384b);
     [self.view addSubview:self.titleView];
@@ -137,7 +143,7 @@
     }];
     
     [_complainantLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.complainant.mas_right).with.offset(17);
+        make.left.equalTo(self.orderLabel.mas_left);
         make.centerY.equalTo(self.complainant.mas_centerY);
     }];
     
@@ -406,6 +412,27 @@
         }
     }return _imageView;
 }
+
+- (void)setDetailModel:(ETHC2CModel *)detailModel{
+    _detailModel = detailModel;
+    _problemLabel.text = [NSString stringWithFormat:@"%@",detailModel.ID];
+    _reasonLabel.text = [NSString stringWithFormat:@"%@",detailModel.text];
+    _orderLabel.text = [NSString stringWithFormat:@"%@",detailModel.textarea];
+    _complainantLabel.text = [NSString stringWithFormat:@"%@",detailModel.openid];
+    _respondentLabel.text = [NSString stringWithFormat:@"%@",detailModel.openid2];
+    _ethAcountLabel.text = [NSString stringWithFormat:@"%@",detailModel.trx];
+    _cnyAcountLabel.text = [NSString stringWithFormat:@"%@",detailModel.money];
+    if (detailModel.stuas.intValue == 0) {//申诉状态 0申诉中1申诉成功2申诉失败3申诉无效
+        _statusLabel.text = @"申诉中";
+    }else if (detailModel.stuas.intValue == 1){
+        _statusLabel.text = @"申诉成功";
+    }else if (detailModel.stuas.intValue == 2){
+        _statusLabel.text = @"申诉失败";
+    }else{
+        _statusLabel.text = @"申诉无效";
+    }
+}
+
 #pragma mark --方法
 - (void)leftButtonClick{
     [self.navigationController popViewControllerAnimated:YES];

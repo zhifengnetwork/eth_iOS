@@ -77,4 +77,9 @@
         _jumpImageView.image = [UIImage imageNamed:@"bank-b"];
     }return _jumpImageView;
 }
+- (void)setC2cModel:(ETHC2CModel *)c2cModel{
+    _c2cModel = c2cModel;
+    _titleLabel.text = [NSString stringWithFormat:@"%@",c2cModel.text];
+    _timeLabel.text = [NSString stringWithFormat:@"%@",c2cModel.createtime];
+}
 @end

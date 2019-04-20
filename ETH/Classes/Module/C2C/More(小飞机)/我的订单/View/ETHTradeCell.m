@@ -9,6 +9,9 @@
 #import "ETHTradeCell.h"
 #import "ETHTradeFailVC.h"
 #import "ETHNoTransactionVC.h"
+#import "ETHTradingVC.h"
+#import "ETHTradeSuccessVC.h"
+
 @interface ETHTradeCell()
 @property (nonatomic, strong)UILabel *transactionLabel;
 @property (nonatomic, strong)UILabel *nameLabel;
@@ -211,6 +214,12 @@
     }else if ([_statusLabel.text isEqualToString:@"未交易"]){
         ETHNoTransactionVC *vc1 = [[ETHNoTransactionVC alloc]init];
         [[self viewController].navigationController pushViewController:vc1 animated:YES];
+    }else if ([_statusLabel.text isEqualToString:@"交易中"]){
+        ETHTradingVC *vc2 = [[ETHTradingVC alloc]init];
+        [[self viewController].navigationController pushViewController:vc2 animated:YES];
+    }else{
+        ETHTradeSuccessVC *vc3 = [[ETHTradeSuccessVC alloc]init];
+        [[self viewController].navigationController pushViewController:vc3 animated:YES];
     }
 }
 @end

@@ -72,15 +72,15 @@ static NSString *const ETHInvestmentRecordTableCellID = @"ETHInvestmentRecordTab
 
 -(void)loadData
 {
-        ZWeakSelf
-        [http_index investment_record:1 type:self.type success:^(id responseObject)
-         {
-             [self.tableView.mj_header endRefreshing];
-             [weakSelf showData:responseObject];
-         } failure:^(NSError *error) {
-             [self.tableView.mj_header endRefreshing];
-             [SVProgressHUD showErrorWithStatus:error.domain];
-         }];
+    ZWeakSelf
+    [http_index investment_record:1 type:self.type success:^(id responseObject)
+    {
+        [self.tableView.mj_header endRefreshing];
+        [weakSelf showData:responseObject];
+    } failure:^(NSError *error) {
+        [self.tableView.mj_header endRefreshing];
+        [SVProgressHUD showErrorWithStatus:error.domain];
+    }];
 }
 
 -(void)showData:(id)responseObject

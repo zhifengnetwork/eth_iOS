@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface http_c2c : NSObject
 //c2c挂卖中心
 //page 页数
-+(void)guamairecordjilu:(NSInteger)page success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
++(void)guamairecordjilu:(NSInteger)page type:(NSString*)type success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
 /**
  c2c订单中心确认买入或者卖出接口
  @param type     1卖出 0买入
@@ -47,9 +47,14 @@ NS_ASSUME_NONNULL_BEGIN
 //申诉列表
 //ID  申诉ID
 +(void)guamai_appeal_list:(NSString*)ID success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
-//c2c订单中心全部订单
-//申诉列表
-+(void)number_order:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
+
+
+/**
+ c2c订单中心全部订单
+
+ @param stataus 0未交易 1交易中 2交易完成 3交易失败
+ */
++(void)number_order:(NSString*)stataus success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
 //c2c订单详情确定各种情况
 /**
  c2c点击订单详情的各种操作
@@ -61,6 +66,10 @@ NS_ASSUME_NONNULL_BEGIN
  @param status -1 上传收款信息 其他一样
  */
 +(void)sellout:(NSString*)ID mobile:(NSString*)mobile file:(NSString*)file type:(NSString*)type status:(NSString*)status op:(NSString*)op success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
+//c2c首页点击卖出或者买入按钮
+//ID     挂卖编号 订单ID
+//type      0买入 1卖出
++(void)sellout:(NSString*)ID type:(NSString*)type success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
 /**
  c2c点击订单详情的各种操作
  @param ID 挂卖编号 订单ID
