@@ -7,6 +7,11 @@
 //
 
 #import "ETHChangeIconVC.h"
+#import "TZImagePickerController.h"
+#import "http_user.h"
+#import "SVProgressHUD.h"
+#import "MJExtension.h"
+#import "UIImageView+WebCache.h"
 @interface ETHChangeIconVC()
 @property (nonatomic, strong)UIView *iconView;
 @property (nonatomic, strong)UILabel *IconLabel;
@@ -17,6 +22,7 @@
 @property (nonatomic, strong)UILabel *nameLabel2;
 @property (nonatomic, strong)UITextField *nameTF;
 @property (nonatomic, strong)UIButton *saveButton;
+@property (nonatomic, strong)NSString *txurl;
 @end
 @implementation ETHChangeIconVC
 - (void)viewDidLoad {
@@ -89,6 +95,9 @@
         make.width.mas_equalTo(150);
         make.height.mas_equalTo(35);
     }];
+    
+    [_iconImageView sd_setImageWithURL:[NSURL URLWithString:self.userInfo.member.avatar]];
+    _nameTF.text = self.userInfo.member.nickname;
 }
 - (UIView *)iconView{
     if (_iconView == nil) {
@@ -169,10 +178,65 @@
 }
 #pragma mark -- 方法
 - (void)changeIcon{
+    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:1 delegate:self];
     
+    // You can get the photos by block, the same as by delegate.
+    // 你可以通过block或者代理，来得到用户选择的照片.
+    ZWeakSelf
+    [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto)
+     {
+         [weakSelf uploadImage:[photos firstObject]];
+     }];
+    [self presentViewController:imagePickerVc animated:YES completion:nil];
 }
 
 - (void)saveClick{
     
+    ZWeakSelf
+    [http_user face:self.nameTF.text avatar:self.userInfo.member.avatar success:^(id responseObject)
+     {
+         [weakSelf face_ok:responseObject];
+     } failure:^(NSError *error)
+     {
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
 }
+
+
+-(void)uploadImage:(UIImage*)image
+{
+    NSData *imageData = UIImageJPEGRepresentation(image, 1.0f);
+    //NSDataBase64EncodingEndLineWithLineFeed这个枚举值是base64串不换行
+    NSString *imageBase64Str = [imageData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+    //    //不转base64
+    //    NSString * str =[[NSString alloc] initWithData:imageData encoding:NSUTF8StringEncoding];
+    
+    ZWeakSelf
+    [http_user uploader:imageBase64Str success:^(id responseObject)
+     {
+         [weakSelf uploadImage_ok:responseObject];
+     } failure:^(NSError *error)
+     {
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
+}
+
+-(void)uploadImage_ok:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
+    
+    self.txurl = [responseObject objectForKey:@"img"];
+    self.userInfo.member.avatar = self.txurl;
+    [SVProgressHUD showSuccessWithStatus:@"上传成功"];
+    [_iconImageView sd_setImageWithURL:[NSURL URLWithString:self.txurl]];
+}
+
+-(void)face_ok:(id)responseObject
+{
+    [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+}
+
 @end

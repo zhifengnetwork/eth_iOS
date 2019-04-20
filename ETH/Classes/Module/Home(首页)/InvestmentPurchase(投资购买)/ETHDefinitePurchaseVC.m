@@ -255,6 +255,8 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     NSData *imageData = UIImageJPEGRepresentation(image, 1.0f);
     //NSDataBase64EncodingEndLineWithLineFeed这个枚举值是base64串不换行
     NSString *imageBase64Str = [imageData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+//    //不转base64
+//    NSString * str =[[NSString alloc] initWithData:imageData encoding:NSUTF8StringEncoding];
     
     ZWeakSelf
     [http_user uploader:imageBase64Str success:^(id responseObject)

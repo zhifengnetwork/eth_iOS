@@ -8,9 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "UserInfoModel.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ETHChangeIconVC : UIViewController
+
+@property (nonatomic, strong) UserInfoModel *userInfo;
 
 @end
 

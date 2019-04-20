@@ -190,7 +190,7 @@
     
     if ( !kStringIsEmpty(stataus) )
     {
-        [parameters setObject:stataus forKey:@"stataus"];
+        [parameters setObject:stataus forKey:@"status"];
     }
     
     [parameters setObject:@"member.androidapi.number_order" forKey:@"r"];

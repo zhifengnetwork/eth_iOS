@@ -107,7 +107,7 @@ static NSString *const ETHTradeCellID = @"ETHTradeCellID";
     return _tableView;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return self.listModel.list.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ETHTradeCell *cell = [tableView dequeueReusableCellWithIdentifier:ETHTradeCellID forIndexPath:indexPath];

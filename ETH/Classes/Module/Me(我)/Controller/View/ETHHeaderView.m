@@ -88,7 +88,7 @@
     
 //    显示头像
     [_iconImageView sd_setImageWithURL:[NSURL URLWithString:_userInfo.member.avatar]];
-    _phoneLabel.text = _userInfo.member.mobile;
+    _phoneLabel.text = _userInfo.member.nickname;
     _memberID.text = [NSString stringWithFormat:@"会员ID：%@",_userInfo.member.ID];
     _memberLevel.text = [NSString stringWithFormat:@"会员等级：%@",_userInfo.huiyuanlevel.levelname1];
     if (kStringIsEmpty(_userInfo.huiyuanlevel.levelname3))
@@ -184,6 +184,7 @@
 
 - (void)iconClick{
     ETHChangeIconVC *vc = [[ETHChangeIconVC alloc]init];
+    vc.userInfo = self.userInfo;
     [[self viewController].navigationController pushViewController:vc animated:YES];
 }
 
