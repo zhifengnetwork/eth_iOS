@@ -287,6 +287,14 @@
         return;
     }
     
+    if ([number isEqualToString:self.userInfo.bankid]
+        && [username isEqualToString:self.userInfo.bankname]
+        && [bankname isEqualToString:self.userInfo.bank])
+    {
+        [SVProgressHUD showSuccessWithStatus:@"成功"];
+        return;
+    }
+    
     ZWeakSelf
     [http_mine pay_submit:nil url:nil zfbfile:nil wxfile:nil bankid:number bankname:username bank:bankname success:^(id responseObject)
      {

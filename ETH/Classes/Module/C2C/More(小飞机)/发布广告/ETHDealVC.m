@@ -258,6 +258,10 @@
     return _agreeButton;
 }
 - (void)agreeClick: (UIButton *)Btn{
+    
+    //拿数据
+    
+    
     ETHCancelAlertView *view1 = [[ETHCancelAlertView alloc]initWithFrame:CGRectMake(100, 100, 235, 99)];
     if (_type == 0) {
         [view1 setTitle:@"买入成功"];
