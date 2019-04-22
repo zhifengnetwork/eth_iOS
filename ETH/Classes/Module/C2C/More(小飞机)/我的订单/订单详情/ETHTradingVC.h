@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
+//交易中页面
 @interface ETHTradingVC : UIViewController
-
+@property (nonatomic, strong)NSString *vcID;
 @end
 
 NS_ASSUME_NONNULL_END

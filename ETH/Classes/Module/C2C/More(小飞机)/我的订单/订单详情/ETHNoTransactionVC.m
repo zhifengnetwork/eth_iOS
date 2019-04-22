@@ -8,11 +8,18 @@
 
 #import "ETHNoTransactionVC.h"
 #import "ETHDetailTransactionView.h"
-#import "TYShowAlertView.h"
 #import "ETHCancelAlertView.h"
 #import "TYAlertController.h"
+#import "http_c2c.h"
+#import "SVProgressHUD.h"
+#import "MJExtension.h"
+#import "RefreshGifHeader.h"
+#import "ETHC2CModel.h"
+
 @interface ETHNoTransactionVC ()
 @property (nonatomic, strong)UIButton *cancelButton;
+@property (nonatomic, strong)ETHDetailTransactionView *transactionView;
+@property (nonatomic, strong)ETHDetailModel *detailModel;
 @end
 
 @implementation ETHNoTransactionVC
@@ -28,20 +35,47 @@
 
 - (void)setup{
     self.view.backgroundColor = RGBColorHex(0x36394a);
-    ETHDetailTransactionView *view = [[ETHDetailTransactionView alloc]init];
-    [self.view addSubview:view];
+    _transactionView = [[ETHDetailTransactionView alloc]init];
+    [self.view addSubview:_transactionView];
     [self.view addSubview:self.cancelButton];
-    [view mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_transactionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
         make.height.mas_equalTo(193);
     }];
     [_cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(view.mas_bottom).with.offset(37);
+        make.top.equalTo(self.transactionView.mas_bottom).with.offset(37);
         make.centerX.equalTo(self.view.mas_centerX);
         make.width.mas_equalTo(180);
         make.height.mas_equalTo(37);
     }];
+    
+    ZWeakSelf
+    [http_c2c guamaiedit:_vcID success:^(id responseObject)
+     {
+         [weakSelf showData:responseObject];
+     } failure:^(NSError *error) {
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
+    
 }
+
+-(void)showData:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
+    
+    self.detailModel = [ETHDetailModel mj_objectWithKeyValues:responseObject];
+    _transactionView.model = self.detailModel.list;
+    if (self.detailModel.list.type.intValue == 0) {
+        self.title = @"买入ETH";
+    }else{
+        self.title = @"卖出ETH";
+    }
+    
+}
+
 - (UIButton *)cancelButton{
     if (_cancelButton == nil) {
         _cancelButton = [[UIButton alloc]init];
@@ -60,6 +94,7 @@
 }
 - (void)cancelButtonClick{
     ETHCancelAlertView *view = [[ETHCancelAlertView alloc]initWithFrame:CGRectMake(100, 100, 235, 99)];
+    view.viewID = self.detailModel.list.ID;
     TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
     [self presentViewController:alertController animated:YES completion:nil];
 }

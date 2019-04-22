@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ETHC2CModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
+//交易详情一部分view
 @interface ETHDetailTransactionView : UIView
-
+@property (nonatomic, strong)ETHC2CModel *model;
 @end
 
 NS_ASSUME_NONNULL_END

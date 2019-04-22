@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
+//买入卖出页面
 @interface ETHDealVC : UIViewController
 @property (nonatomic, assign)NSInteger type;
 @end

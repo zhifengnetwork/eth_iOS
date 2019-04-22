@@ -36,6 +36,11 @@ NS_ASSUME_NONNULL_BEGIN
 +(void)guamaiedit:(NSString*)ID page:(NSInteger)page success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
 
 /**
+ c2c订单中心详情接口
+ @param ID 订单编号
+ */
++(void)guamaiedit:(NSString*)ID success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
+/**
  C2C添加申诉接口
  @param ID 挂卖编号 订单ID
  @param files 文件
@@ -52,9 +57,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  c2c订单中心全部订单
 
- @param stataus 0未交易 1交易中 2交易完成 3交易失败
+ @param status 0未交易 1交易中 2交易完成 3交易失败
  */
-+(void)number_order:(NSString*)stataus success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
++(void)number_order:(NSString*)status success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
 //c2c订单详情确定各种情况
 /**
  c2c点击订单详情的各种操作

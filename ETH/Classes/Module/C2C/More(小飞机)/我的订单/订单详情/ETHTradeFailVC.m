@@ -9,12 +9,24 @@
 
 #import "ETHTradeFailVC.h"
 #import "ETHDetailTransactionView.h"
+#import "UIImageView+WebCache.h"
+#import "http_c2c.h"
+#import "SVProgressHUD.h"
+#import "MJExtension.h"
+#import "RefreshGifHeader.h"
+#import "ETHC2CModel.h"
+#import "ETHComplaintDetailVC.h"
+
 @interface ETHTradeFailVC ()
+@property (nonatomic, strong)ETHDetailTransactionView *transactionView;
+@property (nonatomic, strong)ETHDetailModel *detailModel;
 @property (nonatomic, strong)UILabel *name;
 @property (nonatomic, strong)UILabel *nameLabel;
 @property (nonatomic, strong)UILabel *paymentLabel;
 @property (nonatomic, strong)UIImageView *paymentImageView;
 @property (nonatomic, strong)UILabel *emptyLabel;
+
+@property (nonatomic, strong)UIButton *complaintButton;
 @end
 
 @implementation ETHTradeFailVC
@@ -29,19 +41,22 @@
 }
 - (void)setup{
     self.view.backgroundColor = RGBColorHex(0x36394a);
-    ETHDetailTransactionView *view = [[ETHDetailTransactionView alloc]init];
-    [self.view addSubview:view];
+    _transactionView = [[ETHDetailTransactionView alloc]init];
+    [self.view addSubview:self.transactionView];
     [self.view addSubview:self.name];
     [self.view addSubview:self.nameLabel];
     [self.view addSubview:self.paymentLabel];
     [self.view addSubview:self.paymentImageView];
+    
     [self.paymentImageView addSubview:self.emptyLabel];
-    [view mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.view addSubview:self.complaintButton];
+    
+    [_transactionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
         make.height.mas_equalTo(193);
     }];
     [_name mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(view.mas_bottom).with.offset(15);
+        make.top.equalTo(self.transactionView.mas_bottom).with.offset(15);
         make.left.equalTo(self.view).with.offset(31);
     }];
     [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -62,7 +77,49 @@
         make.centerX.equalTo(self.paymentImageView.mas_centerX);
         make.centerY.equalTo(self.paymentImageView.mas_centerY);
     }];
+    
+    [_complaintButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.paymentImageView.mas_bottom).with.offset(20);
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.width.mas_equalTo(110);
+        make.height.mas_equalTo(25);
+    }];
+    
+    ZWeakSelf
+    [http_c2c guamaiedit:_vcID success:^(id responseObject)
+     {
+         [weakSelf showData:responseObject];
+     } failure:^(NSError *error) {
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
 }
+
+-(void)showData:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
+    
+    self.detailModel = [ETHDetailModel mj_objectWithKeyValues:responseObject];
+    _transactionView.model = self.detailModel.list;
+    if (self.detailModel.list.type.intValue == 0) {
+        self.title = @"买入ETH";
+    }else{
+        self.title = @"卖出ETH";
+    }
+    _nameLabel.text = [NSString stringWithFormat:@"%@",self.detailModel.list.mobile];
+    if ([_transactionView.model.file isEqualToString:@""]) {
+        _emptyLabel.hidden = NO;
+        _complaintButton.hidden = YES;
+    }else{
+        _emptyLabel.hidden = YES;
+        [_paymentImageView sd_setImageWithURL:[NSURL URLWithString:_transactionView.model.file]];
+        _complaintButton.hidden = NO;
+    }
+    
+}
+
 - (UILabel *)name{
     if (_name == nil) {
         _name = [[UILabel alloc]init];
@@ -105,11 +162,31 @@
         _emptyLabel.font = [UIFont systemFontOfSize:15];
         _emptyLabel.textColor = RGBColorHex(0x737893);
         _emptyLabel.text = @"未上传支付方式";
+        _emptyLabel.hidden = YES;
     }
     return _emptyLabel;
 }
+
+- (UIButton *)complaintButton{
+    if (_complaintButton == nil) {
+        _complaintButton = [[UIButton alloc]init];
+        _complaintButton.layer.cornerRadius = 3;
+        _complaintButton.backgroundColor = RGBColorHex(0xf25858);
+        _complaintButton.titleLabel.font = [UIFont systemFontOfSize:13];
+        [_complaintButton setTitle:@"申诉" forState:UIControlStateNormal];
+        [_complaintButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_complaintButton addTarget:self action:@selector(complaintClick) forControlEvents:UIControlEventTouchUpInside];
+        _complaintButton.hidden = YES;
+    }return _complaintButton;
+}
+
 - (void)backClick{
     self.navigationController.navigationBar.hidden = YES;
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)complaintClick{
+    ETHComplaintDetailVC *vc = [[ETHComplaintDetailVC alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 @end

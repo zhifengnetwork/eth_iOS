@@ -19,10 +19,15 @@
 @property (nonatomic, strong)UIImageView *jumpImageView;
 @property (nonatomic, strong)UIButton *jumpButton;
 @property (nonatomic, strong)UILabel *numberLabel;
+@property (nonatomic, strong)UILabel *numberLabel2;
 @property (nonatomic, strong)UILabel *unitpriceLabel;
+@property (nonatomic, strong)UILabel *unitpriceLabel2;
 @property (nonatomic, strong)UILabel *totalLabel;
+@property (nonatomic, strong)UILabel *totalLabel2;
 @property (nonatomic, strong)UILabel *timeLabel;
+@property (nonatomic, strong)UILabel *countdownLabel;
 @end
+
 @implementation ETHTradeCell
 
 - (void)awakeFromNib {
@@ -46,9 +51,13 @@
     [self.contentView addSubview:self.jumpImageView];
     [self.contentView addSubview:self.jumpButton];
     [self.contentView addSubview:self.numberLabel];
+    [self.contentView addSubview:self.numberLabel2];
     [self.contentView addSubview:self.unitpriceLabel];
+    [self.contentView addSubview:self.unitpriceLabel2];
     [self.contentView addSubview:self.totalLabel];
+    [self.contentView addSubview:self.totalLabel2];
     [self.contentView addSubview:self.timeLabel];
+    [self.contentView addSubview:self.countdownLabel];
     [_transactionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self).with.offset(15);
     }];
@@ -73,17 +82,33 @@
         make.top.equalTo(self.transactionLabel.mas_bottom).with.offset(15);
         make.left.equalTo(self).with.offset(15);
     }];
+    [_numberLabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.transactionLabel.mas_bottom).with.offset(15);
+        make.left.equalTo(self.numberLabel.mas_right);
+    }];
     [_unitpriceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.numberLabel.mas_right).with.offset(40);
+        make.left.equalTo(self.numberLabel2.mas_right).with.offset(15);
+        make.centerY.equalTo(self.numberLabel.mas_centerY);
+    }];
+    [_unitpriceLabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.unitpriceLabel.mas_right);
         make.centerY.equalTo(self.numberLabel.mas_centerY);
     }];
     [_totalLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.unitpriceLabel.mas_right).with.offset(40);
+        make.left.equalTo(self.unitpriceLabel2.mas_right).with.offset(15);
         make.centerY.equalTo(self.numberLabel.mas_centerY);
+    }];
+    [_totalLabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.numberLabel.mas_centerY);
+        make.left.equalTo(self.totalLabel.mas_right);
     }];
     [_timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.numberLabel.mas_bottom).with.offset(15);
         make.left.equalTo(self).with.offset(15);
+    }];
+    [_countdownLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.timeLabel.mas_centerY);
+        make.left.equalTo(self.timeLabel.mas_right).with.offset(15);
     }];
 }
 - (void)setFrame:(CGRect)frame{
@@ -139,41 +164,60 @@
     if (_numberLabel == nil) {
         _numberLabel = [[UILabel alloc]init];
         _numberLabel.font = [UIFont systemFontOfSize:13];
-        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:@"8.00/个"];
-        NSRange range1 = [[str string] rangeOfString:@"8.00"];
-        [str addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:range1];
-        NSRange range2 = [[str string] rangeOfString:@"/个"];
-        [str addAttribute:NSForegroundColorAttributeName value:RGBColorHex(0xa4aff1) range:range2];
-        _numberLabel.attributedText = str;
+        _numberLabel.text = @"8.00";
+        _numberLabel.textColor = [UIColor whiteColor];
     }
     return _numberLabel;
+}
+- (UILabel *)numberLabel2{
+    if (_numberLabel2 == nil) {
+        _numberLabel2 = [[UILabel alloc]init];
+        _numberLabel2.font = [UIFont systemFontOfSize:13];
+        _numberLabel2.text = @"/个";
+        _numberLabel2.textColor = RGBColorHex(0xa4aff1);
+    }
+    return _numberLabel2;
 }
 - (UILabel *)unitpriceLabel{
     if (_unitpriceLabel == nil) {
         _unitpriceLabel = [[UILabel alloc]init];
         _unitpriceLabel.font = [UIFont systemFontOfSize:13];
-        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:@"$ 4.00"];
-        NSRange range1 = [[str string] rangeOfString:@"4.00"];
-        [str addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:range1];
-        NSRange range2 = [[str string] rangeOfString:@"$"];
-        [str addAttribute:NSForegroundColorAttributeName value:RGBColorHex(0xa4aff1) range:range2];
-        _unitpriceLabel.attributedText = str;
+        _unitpriceLabel.text = @"$ ";
+        _unitpriceLabel.textColor = RGBColorHex(0xa4aff1);
     }
     return _unitpriceLabel;
 }
+
+- (UILabel *)unitpriceLabel2{
+    if (_unitpriceLabel2 == nil) {
+        _unitpriceLabel2 = [[UILabel alloc]init];
+        _unitpriceLabel2.font = [UIFont systemFontOfSize:13];
+        _unitpriceLabel2.text = @"4.000000";
+        _unitpriceLabel2.textColor = [UIColor whiteColor];
+    }
+    return _unitpriceLabel2;
+}
+
 - (UILabel *)totalLabel{
     if (_totalLabel == nil) {
         _totalLabel = [[UILabel alloc]init];
         _totalLabel.font = [UIFont systemFontOfSize:13];
-        NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:@"总金额(CNY):32.00"];
-        NSRange range1 = [[str string] rangeOfString:@"32.00"];
-        [str addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:range1];
-        NSRange range2 = [[str string] rangeOfString:@"总金额(CNY):"];
-        [str addAttribute:NSForegroundColorAttributeName value:RGBColorHex(0xa4aff1) range:range2];
-        _totalLabel.attributedText = str;
+        _totalLabel.text = @"总金额(CNY): ";
+        _totalLabel.textColor = RGBColorHex(0xa4aff1);
     }
     return _totalLabel;
 }
+
+- (UILabel *)totalLabel2{
+    if (_totalLabel2 == nil) {
+        _totalLabel2 = [[UILabel alloc]init];
+        _totalLabel2.font = [UIFont systemFontOfSize:13];
+        _totalLabel2.text = @"16.000000";
+        _totalLabel2.textColor = [UIColor whiteColor];
+    }
+    return _totalLabel2;
+}
+
 - (UILabel *)timeLabel{
     if (_timeLabel == nil) {
         _timeLabel = [[UILabel alloc]init];
@@ -183,18 +227,48 @@
     }
     return _timeLabel;
 }
-#pragma mark --方法
-- (void)settransaction:(BOOL)isSell{
-    if (isSell == YES) {
-        _transactionLabel.textColor = RGBColorHex(0xce2f50);
-        _transactionLabel.text = @"卖出";
-    }else{
-        _transactionLabel.textColor = RGBColorHex(0x70c376);
-        _transactionLabel.text = @"买入";
+- (UILabel *)countdownLabel{
+    if (_countdownLabel == nil) {
+        _countdownLabel = [[UILabel alloc]init];
+        _countdownLabel.font = [UIFont systemFontOfSize:11];
+        _countdownLabel.textColor = RGBColorHex(0x9496a3);
+        _countdownLabel.text = @"30:00";
+        _countdownLabel.hidden = NO;
     }
+    return _countdownLabel;
 }
+#pragma mark --方法
+//- (void)settransaction:(BOOL)isSell{
+//    if (isSell == YES) {
+//        _transactionLabel.textColor = RGBColorHex(0xce2f50);
+//        _transactionLabel.text = @"卖出";
+//    }else{
+//        _transactionLabel.textColor = RGBColorHex(0x70c376);
+//        _transactionLabel.text = @"买入";
+//    }
+//}
 - (void)setStatus:(NSString *)status{
     self.statusLabel.text = status;
+}
+- (void)setModel:(ETHC2CModel *)model{
+    _model = model;
+    if (model.type.intValue == 1) {//1买入 0卖出
+        _transactionLabel.text = @"买入";
+        _transactionLabel.textColor = RGBColorHex(0x70c376);
+    }else{
+        _transactionLabel.text = @"卖出";
+        _transactionLabel.textColor = RGBColorHex(0xce2f50);
+    }
+    _numberLabel.text = [NSString stringWithFormat:@"%@",model.trx];
+    _unitpriceLabel2.text = [NSString stringWithFormat:@"%@",model.price];
+     _totalLabel2.text = [NSString stringWithFormat:@"%@",model.money];
+    _timeLabel.text = [NSString stringWithFormat:@"%@",model.datatime];
+    if (model.status.intValue == 1) {
+        _countdownLabel.text = [NSString stringWithFormat:@"%@",model.apple_time];
+        _countdownLabel.hidden = NO;
+    }else{
+        _countdownLabel.hidden = YES;
+    }
 }
 - (UIViewController*)viewController {
     for (UIView* next = [self superview]; next; next = next.superview) {
@@ -210,15 +284,19 @@
     [self viewController].navigationController.navigationBar.hidden = NO;
     if ([_statusLabel.text isEqualToString:@"交易失败"]) {
         ETHTradeFailVC *vc = [[ETHTradeFailVC alloc]init];
+        vc.vcID = _model.ID;
         [[self viewController].navigationController pushViewController:vc animated:YES];
     }else if ([_statusLabel.text isEqualToString:@"未交易"]){
         ETHNoTransactionVC *vc1 = [[ETHNoTransactionVC alloc]init];
+        vc1.vcID = _model.ID;
         [[self viewController].navigationController pushViewController:vc1 animated:YES];
     }else if ([_statusLabel.text isEqualToString:@"交易中"]){
         ETHTradingVC *vc2 = [[ETHTradingVC alloc]init];
+        vc2.vcID = _model.ID;
         [[self viewController].navigationController pushViewController:vc2 animated:YES];
     }else{
         ETHTradeSuccessVC *vc3 = [[ETHTradeSuccessVC alloc]init];
+        vc3.vcID = _model.ID;
         [[self viewController].navigationController pushViewController:vc3 animated:YES];
     }
 }

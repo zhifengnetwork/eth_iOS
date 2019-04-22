@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ETHC2CModel.h"
 NS_ASSUME_NONNULL_BEGIN
-
+//交易订单cell
 @interface ETHTradeCell : UITableViewCell
-- (void)settransaction: (BOOL)isSell;
+//- (void)settransaction: (BOOL)isSell;
 - (void)setStatus: (NSString *)status;
+@property (nonatomic, strong)ETHC2CModel *model;
 @end
 
 NS_ASSUME_NONNULL_END

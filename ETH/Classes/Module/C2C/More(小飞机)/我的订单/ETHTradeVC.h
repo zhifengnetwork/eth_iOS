@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
+//全部订单页面
 @interface ETHTradeVC : UIViewController
 @property (nonatomic, assign)NSInteger type;
 @end

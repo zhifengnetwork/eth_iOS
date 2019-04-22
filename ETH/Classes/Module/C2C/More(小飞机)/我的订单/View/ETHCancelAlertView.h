@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
+//取消交易提示弹窗
 @interface ETHCancelAlertView : UIView
 - (void)setTitle: (NSString *)title;
+@property (nonatomic, strong)NSString *viewID;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -121,6 +121,29 @@
     strUrl = [strUrl stringByAppendingPathComponent:@"app/index.php"];
     [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
 }
+
+/**
+ c2c订单中心详情接口
+ @param ID 订单编号
+ */
++(void)guamaiedit:(NSString*)ID success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure{
+    HttpTool *http = [HttpTool sharedManager];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc]initWithCapacity:1];
+    
+    if ( !kStringIsEmpty(ID) )
+    {
+        [parameters setObject:ID forKey:@"id"];
+    }
+    
+    [parameters setObject:@"member.androidapi.guamaiedit" forKey:@"r"];
+    
+    NSDictionary* dic = [http hanldeSign:parameters];
+    
+    NSString* strUrl = [http getMainUrl];
+    strUrl = [strUrl stringByAppendingPathComponent:@"app/index.php"];
+    [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
+}
+
 /**
  C2C添加申诉接口
  @param ID 挂卖编号 订单ID
@@ -181,16 +204,16 @@
 /**
  c2c订单中心全部订单
  
- @param stataus 0未交易 1交易中 2交易完成 3交易失败
+ @param status 0未交易 1交易中 2交易完成 3交易失败
  */
-+(void)number_order:(NSString*)stataus success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure
++(void)number_order:(NSString*)status success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure
 {
     HttpTool *http = [HttpTool sharedManager];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc]initWithCapacity:1];
     
-    if ( !kStringIsEmpty(stataus) )
+    if ( !kStringIsEmpty(status) )
     {
-        [parameters setObject:stataus forKey:@"status"];
+        [parameters setObject:status forKey:@"status"];
     }
     
     [parameters setObject:@"member.androidapi.number_order" forKey:@"r"];

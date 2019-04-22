@@ -188,7 +188,7 @@
         _total = [[UILabel alloc]init];
         _total.font = [UIFont boldSystemFontOfSize:15];
         _total.textColor = [UIColor whiteColor];
-        _total.text = @"待 付 款  ： ";
+        _total.text = @"待 付 款  ：";
     }
     return _total;
 }
@@ -201,4 +201,14 @@
     }
     return _totalLabel;
 }
+
+- (void)setModel:(ETHC2CModel *)model{
+    _model = model;
+    _orderIDLabel.text = [NSString stringWithFormat:@"%@",model.ID];
+    _buyerIDLabel.text = [NSString stringWithFormat:@"%@",model.openid];
+    _unitPriceLabel.text = [NSString stringWithFormat:@"%@",model.price];
+    _numberLabel.text = [NSString stringWithFormat:@"%@",model.trx];
+    _totalLabel.text = [NSString stringWithFormat:@"%@",model.money];
+}
+
 @end

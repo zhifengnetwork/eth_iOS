@@ -8,6 +8,9 @@
 //
 
 #import "ETHCancelAlertView.h"
+#import "http_c2c.h"
+#import "SVProgressHUD.h"
+#import "ETHNoTransactionVC.h"
 @interface ETHCancelAlertView()
 @property (nonatomic, strong)UILabel *titleLabel;
 @property (nonatomic, strong)UIView *lineView;
@@ -82,6 +85,13 @@
 }
 - (void)agreeClick{
     [[self viewController] dismissViewControllerAnimated:YES completion:nil];
+    
+//    [http_c2c sellout_tab_con:_viewID success:^(id responseObject){
+//        [[self viewController] dismissViewControllerAnimated:YES completion:nil];
+//    }failure:^(NSError *error) {
+//        [SVProgressHUD showErrorWithStatus:error.domain];
+//    }];
+    
 }
 - (void)setTitle:(NSString *)title{
     self.titleLabel.text = title;

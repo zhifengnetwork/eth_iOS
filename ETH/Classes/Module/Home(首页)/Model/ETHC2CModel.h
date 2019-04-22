@@ -44,6 +44,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              *endtime;
 @property (nonatomic , copy) NSString              *apple_time;
 
+@property (nonatomic , copy) NSString              *mobile;
+@property (nonatomic , copy) NSString              *banknanme;
+@property (nonatomic , copy) NSString              *mobile2;
+@property (nonatomic , copy) NSString              *type_own;
+@property (nonatomic , copy) NSString              *name;
 @end
 @interface ETHDetailModel : NSObject
 

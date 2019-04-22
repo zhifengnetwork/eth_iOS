@@ -1,17 +1,19 @@
 //
-//  ETHDropDownButton.m
+//  ETHSelectPayButton.m
 //  ETH
 //
-//  Created by weiming zhang on 2019/4/13.
+//  Created by weiming zhang on 2019/4/22.
 //  Copyright © 2019 admin. All rights reserved.
 //
 
-#import "ETHDropDownButton.h"
-@interface ETHDropDownButton()<UITableViewDelegate,UITableViewDataSource>
+#import "ETHSelectPayButton.h"
+@interface ETHSelectPayButton()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UITableView *listView;
 @property (nonatomic, strong)MASConstraint *height;
+
 @end
-@implementation ETHDropDownButton
+@implementation ETHSelectPayButton
+
 static NSString *CellIdentifier = @"DropDownCell";
 - (void)setTitle:(NSString *)title List:(NSArray *)list{
     [self setTitle:[NSString stringWithString:title] forState:UIControlStateNormal];
@@ -27,13 +29,11 @@ static NSString *CellIdentifier = @"DropDownCell";
 }
 
 - (void)setup {
-    self.layer.borderWidth = 1;
-    self.layer.borderColor = RGBColorHex(0x232833).CGColor;
     self.titleLabel.font = [UIFont systemFontOfSize:12];
-    [self setTitleColor:RGBColorHex(0x262626) forState:UIControlStateNormal];
-    [self setImage:[UIImage imageNamed:@"drop down"] forState:UIControlStateNormal];
+    [self setTitleColor:RGBColorHex(0xcccccc) forState:UIControlStateNormal];
+    [self setImage:[UIImage imageNamed:@"down"] forState:UIControlStateNormal];
     [self setTitleEdgeInsets:UIEdgeInsetsMake(0, 10, 0, -10)];
-    [self setImageEdgeInsets:UIEdgeInsetsMake(0, 240, 0, -240)];
+    [self setImageEdgeInsets:UIEdgeInsetsMake(0, 160, 0, -160)];
     [self setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [self addTarget:self action:@selector(clickedToDropDown) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -56,7 +56,7 @@ static NSString *CellIdentifier = @"DropDownCell";
 }
 //添加listView的下拉动画、收起动画方法
 - (void)startDropDownAnimation {
-//    CGRect frame = _listView.frame;
+    //    CGRect frame = _listView.frame;
     //使listView高度在0.3秒内从0过渡到最大高度以显示全部列表项
     [self.height uninstall];//先销毁约束
     [_listView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -66,7 +66,7 @@ static NSString *CellIdentifier = @"DropDownCell";
     
 }
 - (void)startPackUpAnimation {
-//    CGRect frame = _listView.frame;
+    //    CGRect frame = _listView.frame;
     [self.height uninstall];//先销毁约束
     [_listView mas_updateConstraints:^(MASConstraintMaker *make) {
         self.height = self.height = make.height.mas_equalTo(0);
@@ -92,6 +92,7 @@ static NSString *CellIdentifier = @"DropDownCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    tableView.backgroundColor = RGBColorHex(0x4b4f66);
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (nil == cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
@@ -109,11 +110,10 @@ static NSString *CellIdentifier = @"DropDownCell";
     [self setTitle:self.list[indexPath.row] forState:UIControlStateNormal];
     UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.selectedBackgroundView = [UIView new];
-    cell.selectedBackgroundView.backgroundColor = RGBColorHex(0x263454);
-    cell.textLabel.highlightedTextColor = [UIColor whiteColor];
-    [cell.textLabel setTextColor:[UIColor blackColor]];
+    cell.selectedBackgroundView.backgroundColor = RGBColorHex(0x4b4f66);
+    [cell.textLabel setTextColor:RGBColorHex(0xcccccc)];
     //执行列表收起动画
-//    [self clickedToDropDown];
+        [self clickedToDropDown];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
