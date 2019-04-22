@@ -21,6 +21,7 @@
 @end
 
 @implementation MemberModel
+MJCodingImplementation
 
 + (NSDictionary *)mj_replacedKeyFromPropertyName
 {
@@ -33,11 +34,12 @@
 
 
 @implementation LevelModel
-
+MJCodingImplementation
 
 @end
 
 @implementation Arr2Model
+MJCodingImplementation
 
 @end
 

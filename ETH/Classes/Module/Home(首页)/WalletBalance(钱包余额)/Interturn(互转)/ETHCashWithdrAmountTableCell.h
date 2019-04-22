@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 //正在输入中
 -(void)ETHCashWithdrAmountTableCellInputing:(NSString*)text indexPath:(NSIndexPath*)indexPath;
 
+-(void)ETHCashWithdrAmountTableCellInputing2:(NSString*)text indexPath:(NSIndexPath*)indexPath;
+
 @end
 
 /**

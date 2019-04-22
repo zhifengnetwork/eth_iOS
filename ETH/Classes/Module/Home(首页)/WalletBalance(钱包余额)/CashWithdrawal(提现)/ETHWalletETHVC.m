@@ -13,11 +13,13 @@
 #import "SVProgressHUD.h"
 #import "MJExtension.h"
 #import "ETHTZModel.h"
+#import "ETHMyWalletVC.h"
 
 
-@interface ETHWalletETHVC ()
+@interface ETHWalletETHVC ()<ETHWalletETHTableCellDelegate>
 
 @property (nonatomic, strong) ETHTZDataModel *tz;
+@property (nonatomic, strong) NSString *tx;
 
 @end
 
@@ -32,7 +34,6 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     
     self.title = @"提现";
     [self setupTableView];
-    [self loadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -84,7 +85,7 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     {
         ETHWalletETHTableCell* pcell = [tableView dequeueReusableCellWithIdentifier:ETHWalletETHTableCellID];
         pcell = [[ETHWalletETHTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHWalletETHTableCellID];
-        
+        pcell.delegate = self;
         cell = pcell;
     }
     else if (indexPath.section==1)
@@ -142,31 +143,34 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
 -(void)loadData
 {
     ZWeakSelf
-    [http_wallet my_wallet:self.tz.list.money success:^(id responseObject) {
+    [http_wallet my_wallet:self.tx success:^(id responseObject) {
         [weakSelf showData:responseObject];
     } failure:^(NSError *error)
      {
-         [SVProgressHUD showErrorWithStatus:error.domain];
+         if ([error.domain isEqualToString:@"请完善钱包信息!"])
+         {
+             ETHMyWalletVC* vc = [[ETHMyWalletVC alloc]init];
+             [weakSelf.navigationController pushViewController:vc animated:YES];
+         }
+         else
+         {
+            [SVProgressHUD showErrorWithStatus:error.domain];
+         }
+         
      }];
 }
 
 -(void)showData:(id)responseObject
 {
-    if (kObjectIsEmpty(responseObject))
-    {
-        return;
-    }
-    
-    self.tz = [ETHTZDataModel mj_objectWithKeyValues:responseObject];
-    
-    [self.tableView reloadData];
+    [SVProgressHUD showSuccessWithStatus:@"提现成功"];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
 //正在输入中
--(void)ETHInvestmentPurchaseTableCellInputing:(NSString*)text indexPath:(NSIndexPath*)indexPath
+-(void)ETHWalletETHTableCellInputing:(NSString*)text indexPath:(NSIndexPath*)indexPath
 {
-    self.tz.list.money = text;
+    self.tx = text;
     NSLog(@"%@",text);
 }
 

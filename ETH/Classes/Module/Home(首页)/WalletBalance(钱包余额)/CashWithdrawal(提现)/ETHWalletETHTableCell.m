@@ -8,6 +8,7 @@
 
 #import "ETHWalletETHTableCell.h"
 #import "ETHTool.h"
+#import "UserInfoModel.h"
 
 @interface ETHWalletETHTableCell()<UITextFieldDelegate>
 
@@ -109,6 +110,8 @@
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFieldEditChanged:) name:@"UITextFieldTextDidChangeNotification" object:self.moneyTextField];
     
+    UserInfoModel* u = [UserInfoModel readUserInfo];
+    _titleLabel.text = [NSString stringWithFormat:@"当前可提现额度： ¥%@",u.member.credit2];
 }
 
 -(void)dealloc
@@ -121,7 +124,7 @@
 {
     UITextField *textField = (UITextField *)obj.object;
     NSString *toBeString = textField.text;
-    if ([self.delegate respondsToSelector:@selector(ETHInvestmentPurchaseTableCellInputing: indexPath:)])
+    if ([self.delegate respondsToSelector:@selector(ETHWalletETHTableCellInputing: indexPath:)])
     {
         [self.delegate ETHWalletETHTableCellInputing:self.moneyTextField.text indexPath:self.indexPath];
     }
@@ -129,11 +132,12 @@
 
 - (void)wholeButtonDidClick:(UIButton *)sender
 {
-//    _txCurrency = [NSString stringWithFormat:@"%.2f",[LKTool getMaxTx:self.currency.doubleValue dp:self.dp]];
-//    _inputTextField.text = [NSString stringWithFormat:@"%.2f",_txCurrency.doubleValue];
-//    if ([self.delegate respondsToSelector:@selector(LKPutForwardTableCellInputing:)]) {
-//        [self.delegate LKPutForwardTableCellInputing:self.inputTextField.text];
-//    }
+    UserInfoModel* u = [UserInfoModel readUserInfo];
+    self.moneyTextField.text = u.member.credit2;
+    if ([self.delegate respondsToSelector:@selector(ETHWalletETHTableCellInputing: indexPath:)])
+    {
+        [self.delegate ETHWalletETHTableCellInputing:self.moneyTextField.text indexPath:self.indexPath];
+    }
 }
 
 -(UIView *)bg1View

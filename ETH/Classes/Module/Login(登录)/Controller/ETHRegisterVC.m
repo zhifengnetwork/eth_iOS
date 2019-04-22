@@ -497,33 +497,34 @@
     
     ZWeakSelf
     [SVProgressHUD showWithStatus:@"正在注册"];
-    [http_mine reg_updpwd:@"sms_reg" mobile:phone code:vcode pwd:twoPassword success:^(id responseObject)
+    NSString* str = nil;
+    if (self.type.intValue==0)
     {
-        [SVProgressHUD showSuccessWithStatus:@"注册成功"];
+        str = @"sms_reg";
+    }
+    else
+    {
+        str = @"sms_changepwd";
+    }
+    [http_mine reg_updpwd:str mobile:phone code:vcode.integerValue pwd:twoPassword success:^(id responseObject)
+    {
         [weakSelf sdData:responseObject];
     } failure:^(NSError *error) {
         [SVProgressHUD showErrorWithStatus:error.domain];
     }];
 }
 
-//-(void)toLogin_ok:(id)responseObject
-//{
-//    if(kObjectIsEmpty(responseObject))
-//    {
-//        return;
-//    }
-//
-//    UserInfoModel* user = [UserInfoModel mj_objectWithKeyValues:responseObject];
-//    [user saveUserInfo];
-//
-//    //注册成功通知
-//    [[NSNotificationCenter defaultCenter] postNotificationName:UserLoginRegisterNotification object:self];
-//
-//}
-
 -(void)sdData:(id)responseObject
 {
-    [SVProgressHUD showSuccessWithStatus:@"修改密码成功"];
+    if (self.type.intValue==0)
+    {
+        [SVProgressHUD showSuccessWithStatus:@"注册成功"];
+    }
+    else
+    {
+        [SVProgressHUD showSuccessWithStatus:@"修改密码成功"];
+    }
+    
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -533,7 +534,16 @@
     NSString* phone = _phoneTextField.text;
     
     ZWeakSelf
-    [http_mine verifycode:phone temp:@"sms_changepwd" imgcode:@"0" success:^(id responseObject)
+    NSString* str = nil;
+    if (self.type.intValue==0)
+    {
+        str = @"sms_reg";
+    }
+    else
+    {
+        str = @"sms_changepwd";
+    }
+    [http_mine verifycode:phone temp:str imgcode:@"0" success:^(id responseObject)
      {
          [weakSelf verifycode_ok:responseObject];
          

@@ -11,6 +11,10 @@
 #import "SVProgressHUD.h"
 #import "MJExtension.h"
 #import "RefreshGifHeader.h"
+#import "TZImagePickerController.h"
+#import "http_user.h"
+#import "UIImageView+WebCache.h"
+
 
 @interface ETHMyWalletVC ()
 @property (nonatomic, strong)UIView *view1;
@@ -20,6 +24,8 @@
 @property (nonatomic, strong)UILabel *walletLabel;
 @property (nonatomic, strong)UIImageView *walletQRCode;
 @property (nonatomic, strong)UIButton *ensureButton;
+
+@property (nonatomic, strong)NSString *url;
 @end
 
 @implementation ETHMyWalletVC
@@ -67,6 +73,7 @@
     [_walletQRCode mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.walletLabel.mas_bottom).with.offset(16);
         make.centerX.equalTo(self.view2.mas_centerX);
+        make.width.height.mas_equalTo(130);
     }];
     [_ensureButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view2.mas_bottom).with.offset(100);
@@ -116,6 +123,9 @@
     if (_walletQRCode == nil) {
         _walletQRCode = [[UIImageView alloc]init];
         _walletQRCode.image = [UIImage imageNamed:@"erweima"];
+        _walletQRCode.userInteractionEnabled = YES;
+        UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+        [_walletQRCode addGestureRecognizer:singleTap];
     }return _walletQRCode;
 }
 - (UIButton *)ensureButton{
@@ -130,6 +140,50 @@
     }return _ensureButton;
 }
 
+- (void)handleSingleTap:(UITouch *)touch
+{
+    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:1 delegate:self];
+    
+    // You can get the photos by block, the same as by delegate.
+    // 你可以通过block或者代理，来得到用户选择的照片.
+    ZWeakSelf
+    [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto)
+     {
+         [weakSelf uploadImage:[photos firstObject]];
+     }];
+    [self presentViewController:imagePickerVc animated:YES completion:nil];
+}
+
+-(void)uploadImage:(UIImage*)image
+{
+    NSData *imageData = UIImageJPEGRepresentation(image, 1.0f);
+    //NSDataBase64EncodingEndLineWithLineFeed这个枚举值是base64串不换行
+    NSString *imageBase64Str = [imageData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+    //    //不转base64
+    //    NSString * str =[[NSString alloc] initWithData:imageData encoding:NSUTF8StringEncoding];
+    
+    ZWeakSelf
+    [http_user uploader:imageBase64Str success:^(id responseObject)
+     {
+         [weakSelf uploadImage_ok:responseObject];
+     } failure:^(NSError *error)
+     {
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
+}
+
+-(void)uploadImage_ok:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
+    
+    self.url = [responseObject objectForKey:@"img"];
+    [SVProgressHUD showSuccessWithStatus:@"上传成功"];
+    [_walletQRCode sd_setImageWithURL:[NSURL URLWithString:self.url]];
+}
+
 - (void)ensureButtonClick
 {
     NSString* address = _walletAddressTF.text;
@@ -141,7 +195,7 @@
     }
     
     ZWeakSelf
-     [http_mine pay_submit:nil url:nil zfbfile:nil wxfile:nil bankid:address bankname:nil bank:nil success:^(id responseObject)
+     [http_mine pay_submit:address url:self.url zfbfile:nil wxfile:nil bankid:nil bankname:nil bank:nil success:^(id responseObject)
      {
          [weakSelf sdData:responseObject];
      } failure:^(NSError *error) {
@@ -176,6 +230,12 @@
     self.userInfo = [UserInfoModel mj_objectWithKeyValues:responseObject];
     
     _walletAddressTF.text = self.userInfo.bankid;
+    if (self.userInfo.walletcode)
+    {
+        [_walletQRCode sd_setImageWithURL:[NSURL URLWithString:self.userInfo.walletcode]];
+    }
 }
+
+
 
 @end

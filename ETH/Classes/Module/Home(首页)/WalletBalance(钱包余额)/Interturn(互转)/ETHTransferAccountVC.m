@@ -16,9 +16,13 @@
 #import "MJExtension.h"
 #import "ETHTZModel.h"
 
-@interface ETHTransferAccountVC ()
+@interface ETHTransferAccountVC ()<ETHCashWithdrAmountTableCellDelegate>
 
 @property (nonatomic, strong) ETHTZDataModel *tz;
+
+@property (nonatomic, strong) NSString *tx;
+@property (nonatomic, strong) NSString *sxf;
+@property (nonatomic, strong) NSString *zh;
 
 @end
 
@@ -34,7 +38,6 @@ static NSString *const ETHTransferTipsTableCellID = @"ETHTransferTipsTableCellID
     
     self.title = @"转账";
     [self setupTableView];
-    [self loadData];
     
 }
 
@@ -101,7 +104,7 @@ static NSString *const ETHTransferTipsTableCellID = @"ETHTransferTipsTableCellID
     {
         ETHCashWithdrAmountTableCell* ocell = [tableView dequeueReusableCellWithIdentifier:ETHCashWithdrAmountTableCellID];
         ocell = [[ ETHCashWithdrAmountTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: ETHCashWithdrAmountTableCellID];
-        
+        ocell.delegate = self;
         cell = ocell;
     }
     else if (indexPath.section==2)
@@ -177,7 +180,7 @@ static NSString *const ETHTransferTipsTableCellID = @"ETHTransferTipsTableCellID
 -(void)loadData
 {
     ZWeakSelf
-     [http_index zhuangzhangis:nil moneysxf:nil ID:nil success:^(id responseObject) {
+     [http_index zhuangzhangis:self.tx moneysxf:nil ID:self.zh success:^(id responseObject) {
          [weakSelf showData:responseObject];
      } failure:^(NSError *error)
      {
@@ -187,21 +190,20 @@ static NSString *const ETHTransferTipsTableCellID = @"ETHTransferTipsTableCellID
 
 -(void)showData:(id)responseObject
 {
-    if (kObjectIsEmpty(responseObject))
-    {
-        return;
-    }
-    
-    self.tz = [ETHTZDataModel mj_objectWithKeyValues:responseObject];
-    
-    [self.tableView reloadData];
+    [SVProgressHUD showSuccessWithStatus:@"转账成功"];
 }
 
 
 //正在输入中
--(void)ETHInvestmentPurchaseTableCellInputing:(NSString*)text indexPath:(NSIndexPath*)indexPath
+-(void)ETHCashWithdrAmountTableCellInputing:(NSString*)text indexPath:(NSIndexPath*)indexPath
 {
-    self.tz.list.money = text;
+    self.tx = text;
+    NSLog(@"%@",text);
+}
+
+-(void)ETHCashWithdrAmountTableCellInputing2:(NSString*)text indexPath:(NSIndexPath*)indexPath
+{
+    self.zh = text;
     NSLog(@"%@",text);
 }
 

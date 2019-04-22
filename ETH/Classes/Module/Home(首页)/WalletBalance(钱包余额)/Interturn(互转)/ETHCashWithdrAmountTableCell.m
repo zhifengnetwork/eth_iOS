@@ -8,6 +8,7 @@
 
 #import "ETHCashWithdrAmountTableCell.h"
 #import "ETHTool.h"
+#import "UserInfoModel.h"
 
 @interface ETHCashWithdrAmountTableCell()<UITextFieldDelegate>
 
@@ -117,11 +118,18 @@
     }];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFieldEditChanged:) name:@"UITextFieldTextDidChangeNotification" object:self.moneyTextField];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFieldEditChanged2:) name:@"UITextFieldTextDidChangeNotification" object:self.idTextField];
+    
+    UserInfoModel* u = [UserInfoModel readUserInfo];
+    _titleLabel.text = [NSString stringWithFormat:@"当前可转账额度： ¥%@",u.member.credit2];
 }
 
 -(void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UITextFieldTextDidChangeNotification" object:self.moneyTextField];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UITextFieldTextDidChangeNotification" object:self.idTextField];
 }
 
 #pragma mark - Notification Method
@@ -129,9 +137,40 @@
 {
     UITextField *textField = (UITextField *)obj.object;
     NSString *toBeString = textField.text;
-    if ([self.delegate respondsToSelector:@selector(ETHInvestmentPurchaseTableCellInputing: indexPath:)])
+    if ([self.delegate respondsToSelector:@selector(ETHCashWithdrAmountTableCellInputing: indexPath:)])
     {
         [self.delegate ETHCashWithdrAmountTableCellInputing:self.moneyTextField.text indexPath:self.indexPath];
+    }
+    
+    NSString* tx = self.moneyTextField.text;
+    if (kStringIsEmpty(tx))
+    {
+        return;
+    }
+    
+    float sxf = tx.floatValue*0.003;
+    
+    //2种颜色
+    NSString* str = [NSString stringWithFormat:@"本次转账将扣除手续费：¥%.5f",sxf];
+    NSString* key = [NSString stringWithFormat:@"¥%.5f",sxf];
+    NSMutableAttributedString* aText = [ETHTool GetAttributedString:nil SrcText:str KeyWord:key KeyWordColor:RGBColorHex(0xf2041a) KeyWordFont:[UIFont systemFontOfSize:13] KeyWordBGolor:[UIColor clearColor]];
+    _service2Label.attributedText = aText;
+    
+    //2种颜色
+    float dz = tx.floatValue - sxf;
+    NSString* str2 = [NSString stringWithFormat:@"本次转账实际到账金额：¥%.5f",dz];
+    NSString* key2 = [NSString stringWithFormat:@"¥%.5f",dz];
+    NSMutableAttributedString* aText2 = [ETHTool GetAttributedString:nil SrcText:str2 KeyWord:key2 KeyWordColor:RGBColorHex(0xf2041a) KeyWordFont:[UIFont systemFontOfSize:13] KeyWordBGolor:[UIColor clearColor]];
+    _actualLabel.attributedText = aText2;
+}
+
+-(void)textFieldEditChanged2:(NSNotification *)obj
+{
+    UITextField *textField = (UITextField *)obj.object;
+    NSString *toBeString = textField.text;
+    if ([self.delegate respondsToSelector:@selector(ETHCashWithdrAmountTableCellInputing2: indexPath:)])
+    {
+        [self.delegate ETHCashWithdrAmountTableCellInputing2:self.moneyTextField.text indexPath:self.indexPath];
     }
 }
 

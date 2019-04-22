@@ -103,6 +103,7 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     }
 
     self.userInfo = [UserInfoModel mj_objectWithKeyValues:responseObject];
+    [self.userInfo saveUserInfo];
 
     [self.tableView reloadData];
 }
