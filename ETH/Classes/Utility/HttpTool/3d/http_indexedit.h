@@ -10,7 +10,7 @@
 #import "HttpTool.h"
 NS_ASSUME_NONNULL_BEGIN
 
-@interface http__indexedit : NSObject
+@interface http_indexedit : NSObject
 //3D首页信息接口
 +(void)indexedit:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
 /**

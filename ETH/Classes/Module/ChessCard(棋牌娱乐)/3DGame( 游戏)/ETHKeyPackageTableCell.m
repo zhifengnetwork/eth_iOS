@@ -112,15 +112,23 @@
 }
 - (void)confirmButtonDidClick
 {
-    ETHPayBounceView *view = [[ETHPayBounceView alloc]initWithFrame:CGRectMake(0, 0, 300, 220)];
-    TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
-    alertController.backgoundTapDismissEnable = YES;
-    [[self viewController] presentViewController:alertController animated:YES completion:nil];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(ETHKeyPackageTableCellDidClick:)])
+    {
+        [self.delegate ETHKeyPackageTableCellDidClick:1];
+    }
+    
+//    ETHPayBounceView *view = [[ETHPayBounceView alloc]initWithFrame:CGRectMake(0, 0, 300, 220)];
+//    TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
+//    alertController.backgoundTapDismissEnable = YES;
+//    [[self viewController] presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)cancelButtonDidClick
 {
-
+    if (self.delegate && [self.delegate respondsToSelector:@selector(ETHKeyPackageTableCellDidClick:)])
+    {
+        [self.delegate ETHKeyPackageTableCellDidClick:2];
+    }
 }
 
 - (UILabel *)keyLabel {

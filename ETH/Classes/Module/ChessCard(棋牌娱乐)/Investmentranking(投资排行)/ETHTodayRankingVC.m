@@ -8,7 +8,7 @@
 
 #import "ETHTodayRankingVC.h"
 #import "ETHTodayRankingCell.h"
-#import "http_ indexedit.h"
+#import "http_indexedit.h"
 #import "SVProgressHUD.h"
 #import "MJExtension.h"
 #import "RefreshGifHeader.h"
@@ -59,12 +59,12 @@ static NSString *const ETHTodayRankingCellID = @"ETHTodayRankingCellID";
     }];
     
     [_winProbabilitylLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.nameLabel.mas_right).with.offset(40);
+        make.left.equalTo(self.nameLabel.mas_right).with.offset(30);
         make.centerY.equalTo(self.rankLabel.mas_centerY);
     }];
     
     [_todayInvestmentAmount mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.winProbabilitylLabel.mas_right).with.offset(19.5);
+        make.left.equalTo(self.winProbabilitylLabel.mas_right).with.offset(15);
         make.centerY.equalTo(self.rankLabel.mas_centerY);
     }];
     
@@ -93,7 +93,7 @@ static NSString *const ETHTodayRankingCellID = @"ETHTodayRankingCellID";
 {
     ZWeakSelf
     //今日排行
-    [http__indexedit fucairanking:^(id responseObject)
+    [http_indexedit fucairanking:^(id responseObject)
      {
          [self.tableView.mj_header endRefreshing];
          [weakSelf showData:responseObject];
