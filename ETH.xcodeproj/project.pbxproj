@@ -890,7 +890,6 @@
 		840ADCAF225F2A5D00203D64 /* CashWithdrawal(提现) */ = {
 			isa = PBXGroup;
 			children = (
-				181249082261CC4B004DB1B3 /* Model */,
 				840ADCB6225F2F7E00203D64 /* ETHWalletETHTableCell.h */,
 				840ADCB7225F2F7E00203D64 /* ETHWalletETHTableCell.m */,
 				840ADCB0225F2D1100203D64 /* ETHDupAccountTableCell.h */,
@@ -1127,6 +1126,7 @@
 		842E8237225458D500CC5188 /* Home(首页) */ = {
 			isa = PBXGroup;
 			children = (
+				181249082261CC4B004DB1B3 /* Model */,
 				53B858562261821D008F1665 /* TodayEarnings(今日收益明细） */,
 				84BC88CA2255E8C3001BFC02 /* WalletBalance(钱包余额) */,
 				84BC88C02255B4F4001BFC02 /* SubordinateDetails(下级明细) */,
