@@ -22,6 +22,8 @@
 #import "MJExtension.h"
 #import "ETHTZModel.h"
 #import "ETH3DhomeModel.h"
+#import "ETHRulesGameVC.h"
+
 
 @interface ETH3DGameVC()<ETH3DGameFooterViewDelegate,ETHListWinnersTableCellDelegate,ETHKeyPackageTableCellDelegate>
 
@@ -261,6 +263,10 @@ static NSString *const ETHMultipleTableCellID = @"ETHMultipleTableCellID";
 - (void)ETHListWinnersTableCellDidClick:(int)type{
     if (type == 1) {
         ETHInvestmentRankingMVVC *vc = [[ETHInvestmentRankingMVVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else if (type == 2) {
+        ETHRulesGameVC *vc = [[ETHRulesGameVC alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

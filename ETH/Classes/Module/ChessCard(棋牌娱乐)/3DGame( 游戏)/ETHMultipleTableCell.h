@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface ETHMultipleTableCell : UITableViewCell
 
+@property (nonatomic, assign) NSInteger number;
+@property (nonatomic, assign) NSInteger bs;
+
 @end
 
 NS_ASSUME_NONNULL_END

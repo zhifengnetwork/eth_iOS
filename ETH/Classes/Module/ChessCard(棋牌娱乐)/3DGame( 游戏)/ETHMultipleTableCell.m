@@ -76,6 +76,20 @@
     }];
 }
 
+
+-(void)setNumber:(NSInteger)number
+{
+    //100
+    _number = number;
+    
+}
+
+-(void)setBs:(NSInteger)bs
+{
+    _bs = bs;
+    _numberButton.currentNumber = _bs;
+}
+
 - (void)number1ButtonDidClick
 {
     

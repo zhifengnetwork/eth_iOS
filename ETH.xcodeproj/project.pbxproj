@@ -16,6 +16,7 @@
 		1812490F2261CC4C004DB1B3 /* ETHNoticeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1812490B2261CC4B004DB1B3 /* ETHNoticeModel.m */; };
 		181249102261CC4C004DB1B3 /* ETHIndexModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1812490C2261CC4B004DB1B3 /* ETHIndexModel.m */; };
 		181249112261CC4C004DB1B3 /* ETHADModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1812490E2261CC4B004DB1B3 /* ETHADModel.m */; };
+		181D8A5C226E066B00CE27D7 /* ETHRulesGameVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 181D8A5B226E066B00CE27D7 /* ETHRulesGameVC.m */; };
 		18426B88226389A200F9358D /* ETHTeamModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18426B87226389A200F9358D /* ETHTeamModel.m */; };
 		18C0BB67226632AF004AF302 /* ETHTZModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C0BB66226632AF004AF302 /* ETHTZModel.m */; };
 		53029D362255F26800A5A49B /* ETHBuyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53029D342255F26700A5A49B /* ETHBuyVC.m */; };
@@ -218,6 +219,8 @@
 		1812490C2261CC4B004DB1B3 /* ETHIndexModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHIndexModel.m; sourceTree = "<group>"; };
 		1812490D2261CC4B004DB1B3 /* ETHNoticeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETHNoticeModel.h; sourceTree = "<group>"; };
 		1812490E2261CC4B004DB1B3 /* ETHADModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHADModel.m; sourceTree = "<group>"; };
+		181D8A5A226E066B00CE27D7 /* ETHRulesGameVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETHRulesGameVC.h; sourceTree = "<group>"; };
+		181D8A5B226E066B00CE27D7 /* ETHRulesGameVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHRulesGameVC.m; sourceTree = "<group>"; };
 		18426B86226389A200F9358D /* ETHTeamModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETHTeamModel.h; sourceTree = "<group>"; };
 		18426B87226389A200F9358D /* ETHTeamModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHTeamModel.m; sourceTree = "<group>"; };
 		18C0BB65226632AF004AF302 /* ETHTZModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETHTZModel.h; sourceTree = "<group>"; };
@@ -1529,6 +1532,8 @@
 		84A75117226DF44200420A8C /* RulesGame(游戏规则) */ = {
 			isa = PBXGroup;
 			children = (
+				181D8A5A226E066B00CE27D7 /* ETHRulesGameVC.h */,
+				181D8A5B226E066B00CE27D7 /* ETHRulesGameVC.m */,
 			);
 			path = "RulesGame(游戏规则)";
 			sourceTree = "<group>";
@@ -1873,6 +1878,7 @@
 				53C3243B2265872500A2A847 /* ETHleadershipAwardVC.m in Sources */,
 				53C3243E2265875E00A2A847 /* ETHLeadershipAwardCell.m in Sources */,
 				842E82F1225458D500CC5188 /* BaseTableViewCell.m in Sources */,
+				181D8A5C226E066B00CE27D7 /* ETHRulesGameVC.m in Sources */,
 				539B609E2254AB8B00FE7D80 /* ETHMeTableViewCell.m in Sources */,
 				842E82F3225458D500CC5188 /* BaseCollectionHeadView.m in Sources */,
 				531A3B24226DABA000C9436A /* ETHComplaintTF.m in Sources */,
