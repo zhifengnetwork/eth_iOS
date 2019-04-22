@@ -9,7 +9,8 @@
 #import "ETHWalletETHTableCell.h"
 #import "ETHTool.h"
 
-@interface ETHWalletETHTableCell()
+@interface ETHWalletETHTableCell()<UITextFieldDelegate>
+
 
 @property (nonatomic, strong) UIView *bg1View;
 @property (nonatomic, strong) UIView *bg2View;
@@ -105,6 +106,25 @@
         make.top.equalTo(self->_service2Label.mas_bottom).offset(7);
         make.left.equalTo(self->_bg1View.mas_left).offset(10);
     }];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFieldEditChanged:) name:@"UITextFieldTextDidChangeNotification" object:self.moneyTextField];
+    
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UITextFieldTextDidChangeNotification" object:self.moneyTextField];
+}
+
+#pragma mark - Notification Method
+-(void)textFieldEditChanged:(NSNotification *)obj
+{
+    UITextField *textField = (UITextField *)obj.object;
+    NSString *toBeString = textField.text;
+    if ([self.delegate respondsToSelector:@selector(ETHInvestmentPurchaseTableCellInputing: indexPath:)])
+    {
+        [self.delegate ETHWalletETHTableCellInputing:self.moneyTextField.text indexPath:self.indexPath];
+    }
 }
 
 - (void)wholeButtonDidClick:(UIButton *)sender

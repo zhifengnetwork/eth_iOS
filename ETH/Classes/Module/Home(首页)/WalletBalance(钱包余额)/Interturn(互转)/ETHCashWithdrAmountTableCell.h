@@ -10,10 +10,23 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol ETHCashWithdrAmountTableCellDelegate <NSObject>
+
+@optional
+
+//正在输入中
+-(void)ETHCashWithdrAmountTableCellInputing:(NSString*)text indexPath:(NSIndexPath*)indexPath;
+
+@end
+
 /**
  提现金额cell
  */
 @interface ETHCashWithdrAmountTableCell : UITableViewCell
+
+@property (nonatomic, weak) id<ETHCashWithdrAmountTableCellDelegate> delegate;
+
+@property (nonatomic, strong) NSIndexPath *indexPath;
 
 @end
 

@@ -48,30 +48,30 @@
  @param moneysxf 手续费
  @param ID 对方用户id
 */
-+ (void)zhuangzhangis:(NSString *)money moneysxf:(NSString *)moneysxf ID:(NSInteger)ID success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure
-{
-    HttpTool *http = [HttpTool sharedManager];
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc]initWithCapacity:1];
-
-    if ( !kStringIsEmpty(money) )
-    {
-        [parameters setObject:money forKey:@"money"];
-    }
-    if ( !kStringIsEmpty(moneysxf) )
-    {
-        [parameters setObject:moneysxf forKey:@"moneysxf"];
-    }
-    NSString *str = [NSString stringWithFormat:@"%ld",ID];
-    [parameters setObject:str forKey:@"id"];
-    
-    [parameters setObject:@"member.androidapi.zhuangzhangis" forKey:@"r"];
-    
-    NSDictionary* dic = [http hanldeSign:parameters];
-    
-    NSString* strUrl = [http getMainUrl];
-    strUrl = [strUrl stringByAppendingPathComponent:@"app/index.php"];
-    [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
-}
+//+ (void)zhuangzhangis:(NSString *)money moneysxf:(NSString *)moneysxf ID:(NSInteger)ID success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure
+//{
+//    HttpTool *http = [HttpTool sharedManager];
+//    NSMutableDictionary *parameters = [[NSMutableDictionary alloc]initWithCapacity:1];
+//
+//    if ( !kStringIsEmpty(money) )
+//    {
+//        [parameters setObject:money forKey:@"money"];
+//    }
+//    if ( !kStringIsEmpty(moneysxf) )
+//    {
+//        [parameters setObject:moneysxf forKey:@"moneysxf"];
+//    }
+//    NSString *str = [NSString stringWithFormat:@"%ld",ID];
+//    [parameters setObject:str forKey:@"id"];
+//
+//    [parameters setObject:@"member.androidapi.zhuangzhangis" forKey:@"r"];
+//
+//    NSDictionary* dic = [http hanldeSign:parameters];
+//
+//    NSString* strUrl = [http getMainUrl];
+//    strUrl = [strUrl stringByAppendingPathComponent:@"app/index.php"];
+//    [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
+//}
 /**
  钱包总记录
  @param type 传6

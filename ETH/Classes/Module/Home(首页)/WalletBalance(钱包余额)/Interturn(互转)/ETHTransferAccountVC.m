@@ -11,8 +11,14 @@
 #import "ETHCashWithdrAmountTableCell.h"
 #import "ETHTransferTipsTableCell.h"
 #import "ETHPaymentTableCell.h"
+#import "http_index.h"
+#import "SVProgressHUD.h"
+#import "MJExtension.h"
+#import "ETHTZModel.h"
 
 @interface ETHTransferAccountVC ()
+
+@property (nonatomic, strong) ETHTZDataModel *tz;
 
 @end
 
@@ -28,6 +34,7 @@ static NSString *const ETHTransferTipsTableCellID = @"ETHTransferTipsTableCellID
     
     self.title = @"转账";
     [self setupTableView];
+    [self loadData];
     
 }
 
@@ -160,6 +167,43 @@ static NSString *const ETHTransferTipsTableCellID = @"ETHTransferTipsTableCellID
         //        ZFPersonalDataVC* vc = [[ZFPersonalDataVC alloc]init];
         //        [self.navigationController pushViewController:vc animated:YES];
     }
+    else if (indexPath.section==2)
+    {
+        [self loadData];
+    }
 }
+
+
+-(void)loadData
+{
+    ZWeakSelf
+     [http_index zhuangzhangis:nil moneysxf:nil ID:nil success:^(id responseObject) {
+         [weakSelf showData:responseObject];
+     } failure:^(NSError *error)
+     {
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
+}
+
+-(void)showData:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
+    
+    self.tz = [ETHTZDataModel mj_objectWithKeyValues:responseObject];
+    
+    [self.tableView reloadData];
+}
+
+
+//正在输入中
+-(void)ETHInvestmentPurchaseTableCellInputing:(NSString*)text indexPath:(NSIndexPath*)indexPath
+{
+    self.tz.list.money = text;
+    NSLog(@"%@",text);
+}
+
 
 @end

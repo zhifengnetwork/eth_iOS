@@ -74,7 +74,7 @@
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.textColor = RGBColorHex(0x232833);
         _titleLabel.font = [UIFont systemFontOfSize:12];
-        _titleLabel.text = @"当前可用复投账户余额： ¥0.20";
+        _titleLabel.text = @"当前可用复投账户余额： ¥0.00";
     }
     return _titleLabel;
 }

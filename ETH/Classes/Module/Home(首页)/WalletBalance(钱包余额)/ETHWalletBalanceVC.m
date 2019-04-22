@@ -19,6 +19,9 @@
 #import "MJExtension.h"
 #import "RefreshGifHeader.h"
 #import "UserInfoModel.h"
+#import "ETHChessCardVC.h"
+#import "ETHC2C.h"
+#import "ETHTransferAccountWMVC.h"
 
 @interface ETHWalletBalanceVC ()<ETHDoubleThrowTableCellDelegate,ETHTwoDoubleThrowTableCellDelegate>
 
@@ -212,7 +215,9 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     }
     else if (type==2)
     {
-        
+        //跳转到棋牌娱乐
+        ETHChessCardVC* vc = [[ETHChessCardVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
@@ -227,20 +232,20 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     }
     else if (type==2)
     {
-        ETHWalletETHVC* vc = [[ETHWalletETHVC alloc]init];
+        ETHTransferAccountWMVC* vc = [[ETHTransferAccountWMVC alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
-    }
-    else if (type==2)
-    {
-        
     }
     else if (type==3)
     {
-        
+        //跳转到C2C
+        ETHC2C* vc = [[ETHC2C alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
     }
     else if (type==4)
     {
-        
+        //跳转到棋牌娱乐
+        ETHChessCardVC* vc = [[ETHChessCardVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
     }
     else if (type==5)
     {
