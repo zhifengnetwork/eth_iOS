@@ -11,8 +11,22 @@
 #import "ETHCashWithdrAmountTableCell.h"
 #import "ETHTransferTipsTableCell.h"
 #import "ETHPaymentTableCell.h"
+#import "http_index.h"
+#import "SVProgressHUD.h"
+#import "MJExtension.h"
+#import "ETHTZModel.h"
+#import "UserInfoModel.h"
+#import "http_wallet.h"
 
-@interface ETHTransferAccountVC ()
+@interface ETHTransferAccountVC ()<ETHCashWithdrAmountTableCellDelegate>
+
+@property (nonatomic, strong) ETHTZDataModel *tz;
+
+@property (nonatomic, strong) NSString *tx;
+@property (nonatomic, strong) NSString *sxf;
+@property (nonatomic, strong) NSString *zh;
+
+@property (nonatomic , strong)UserInfoModel *userInfo;
 
 @end
 
@@ -28,7 +42,7 @@ static NSString *const ETHTransferTipsTableCellID = @"ETHTransferTipsTableCellID
     
     self.title = @"转账";
     [self setupTableView];
-    
+    [self loadDatay];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -94,7 +108,8 @@ static NSString *const ETHTransferTipsTableCellID = @"ETHTransferTipsTableCellID
     {
         ETHCashWithdrAmountTableCell* ocell = [tableView dequeueReusableCellWithIdentifier:ETHCashWithdrAmountTableCellID];
         ocell = [[ ETHCashWithdrAmountTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: ETHCashWithdrAmountTableCellID];
-        
+        ocell.credit = self.userInfo.member.credit2;
+        ocell.delegate = self;
         cell = ocell;
     }
     else if (indexPath.section==2)
@@ -160,6 +175,66 @@ static NSString *const ETHTransferTipsTableCellID = @"ETHTransferTipsTableCellID
         //        ZFPersonalDataVC* vc = [[ZFPersonalDataVC alloc]init];
         //        [self.navigationController pushViewController:vc animated:YES];
     }
+    else if (indexPath.section==2)
+    {
+        [self loadData];
+    }
 }
+
+
+-(void)loadData
+{
+    ZWeakSelf
+     [http_index zhuangzhangis:self.tx moneysxf:nil ID:self.zh success:^(id responseObject) {
+         [weakSelf showData:responseObject];
+     } failure:^(NSError *error)
+     {
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
+}
+
+-(void)showData:(id)responseObject
+{
+    [SVProgressHUD showSuccessWithStatus:@"转账成功"];
+}
+
+
+//正在输入中
+-(void)ETHCashWithdrAmountTableCellInputing:(NSString*)text indexPath:(NSIndexPath*)indexPath
+{
+    self.tx = text;
+    NSLog(@"%@",text);
+}
+
+-(void)ETHCashWithdrAmountTableCellInputing2:(NSString*)text indexPath:(NSIndexPath*)indexPath
+{
+    self.zh = text;
+    NSLog(@"%@",text);
+}
+
+
+-(void)loadDatay
+{
+    ZWeakSelf
+    //总收益
+    [http_wallet my_wallet:^(id responseObject)
+     {
+         [weakSelf showDatay:responseObject];
+     } failure:^(NSError *error) {
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
+}
+-(void)showDatay:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
+    
+    self.userInfo = [UserInfoModel mj_objectWithKeyValues:responseObject];
+    
+    [self.tableView reloadData];
+}
+
 
 @end

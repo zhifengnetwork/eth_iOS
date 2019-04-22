@@ -16,13 +16,21 @@
 #import "ETH3DGameFooterView.h"
 #import "ETHInvestmentRankingMVVC.h"
 #import "ETHMultipleTableCell.h"
+#import "ETHPaymentTableCell.h"
+#import "http_indexedit.h"
+#import "SVProgressHUD.h"
+#import "MJExtension.h"
+#import "ETHTZModel.h"
+#import "ETH3DhomeModel.h"
 
-@interface ETH3DGameVC()<ETH3DGameFooterViewDelegate,ETHListWinnersTableCellDelegate>
+@interface ETH3DGameVC()<ETH3DGameFooterViewDelegate,ETHListWinnersTableCellDelegate,ETHKeyPackageTableCellDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong)UIButton *agreeButton;
 
 @property (nonatomic, strong) ETH3DGameFooterView *footerView;
+
+@property (nonatomic , strong)ETH3DhomeModel *homeModel;
 
 @end
 
@@ -46,8 +54,7 @@ static NSString *const ETHMultipleTableCellID = @"ETHMultipleTableCellID";
     [super viewWillAppear:animated];
 //    [self.navigationController setNavigationBarHidden:YES animated:animated];
     
-    //用户信息
-//    [self loadData];
+    [self loadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -84,35 +91,32 @@ static NSString *const ETHMultipleTableCellID = @"ETHMultipleTableCellID";
 }
 
 //加载数据
-//-(void)loadData
-//{
-//    ZWeakSelf
-//    [http_user userinfo:^(id responseObject)
-//     {
-//         [weakSelf loadData_ok:responseObject];
-//
-//     } failure:^(NSError *error) {
-//
-//         [SVProgressHUD showInfoWithStatus:error.domain];
-//     }];
-//}
+-(void)loadData
+{
+    ZWeakSelf
+    [http_indexedit indexedit:^(id responseObject)
+     {
+         [weakSelf loadData_ok:responseObject];
+
+     } failure:^(NSError *error) {
+
+         [SVProgressHUD showInfoWithStatus:error.domain];
+     }];
+}
 
 //加载数据完成
-//-(void)loadData_ok:(id)responseObject
-//{
-//    if (kObjectIsEmpty(responseObject))
-//    {
-//        return;
-//    }
-//
-//    //jsonToModel
-//    self.userInfo = [UserInfoModel mj_objectWithKeyValues:responseObject];
-//    //刷新数据
-//    self.headView.userInfo = self.userInfo;
-//    [self.tableView reloadData];
-//}
+-(void)loadData_ok:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
 
-
+    //jsonToModel
+    self.homeModel = [ETH3DhomeModel mj_objectWithKeyValues:responseObject];
+    
+    [self.tableView reloadData];
+}
 
 
 #pragma mark - Table view data source
@@ -260,8 +264,58 @@ static NSString *const ETHMultipleTableCellID = @"ETHMultipleTableCellID";
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
+
+//按钮被点击 1:确定 2:取消
+- (void)ETHKeyPackageTableCellDidClick:(int)type
+{
+    if (type==1)
+    {
+        [self loadData2];
+    }
+    
+}
+
+-(void)loadData2
+{
+    ZWeakSelf
+    [http_indexedit numberis:1 maxNum:1 openid:nil success:^(id responseObject)
+     {
+         [weakSelf loadData_ok:responseObject];
+         
+     } failure:^(NSError *error) {
+         
+         [SVProgressHUD showInfoWithStatus:error.domain];
+     }];
+}
+
+//加载数据完成
+-(void)loadData2_ok:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
+    
+    //jsonToModel
+    self.homeModel = [ETH3DhomeModel mj_objectWithKeyValues:responseObject];
+}
+
+
 //3D游戏底部
 - (void)ETH3DGameFooterViewDidClick
+{
+    ZWeakSelf
+    [http_indexedit bets:1 payment:1 money:nil list:nil success:^(id responseObject)
+    {
+        [weakSelf confirm_ok:responseObject];
+         
+    } failure:^(NSError *error) {
+        
+        [SVProgressHUD showInfoWithStatus:error.domain];
+    }];
+}
+
+-(void)confirm_ok:(id)responseObject
 {
     
 }

@@ -10,8 +10,14 @@
 #import "ETHCurrentInvestmentTableCell.h"
 #import "ETHAmountInvesTableCell.h"
 #import "ETHPaymentTableCell.h"
+#import "http_wallet.h"
+#import "SVProgressHUD.h"
+#import "MJExtension.h"
+#import "ETHTZModel.h"
 
-@interface ETHDoubleThrowVC ()
+@interface ETHDoubleThrowVC ()<ETHAmountInvesTableCellDelegate>
+
+@property (nonatomic, strong) ETHTZModel *tz;
 
 @end
 
@@ -27,7 +33,7 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     
     self.title = @"复投";
     [self setupTableView];
-    
+    [self loadData];
 }
 
 - (void)deleteButtonDidClick
@@ -67,6 +73,29 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     [self.tableView registerClass:[ETHPaymentTableCell class] forCellReuseIdentifier:ETHPaymentTableCellID];
 }
 
+-(void)loadData
+{
+    ZWeakSelf
+    [http_wallet fotou_info:^(id responseObject)  {
+        [weakSelf showData:responseObject];
+    } failure:^(NSError *error)
+     {
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
+}
+
+-(void)showData:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
+    
+    self.tz = [ETHTZModel mj_objectWithKeyValues:responseObject];
+    
+    [self.tableView reloadData];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -88,14 +117,23 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     if (indexPath.section==0)
     {
         scell.title = @"当前投资额：";
-        scell.name = @"1001.00";
+        scell.name = self.tz.credit1;
         
         cell = scell;
     }
     else if (indexPath.section==1)
     {
-        scell.title = @"复投账户：";
-        scell.name = @"0.2000";
+        if (self.type.intValue==0)
+        {
+            scell.title = @"复投账户：";
+            scell.name = self.tz.credit4;
+        }
+        else
+        {
+            scell.title = @"自由钱包：";
+            scell.name = self.tz.credit2;
+        }
+        
         
         cell = scell;
     }
@@ -103,6 +141,7 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     {
         ETHAmountInvesTableCell* ocell = [tableView dequeueReusableCellWithIdentifier:ETHAmountInvesTableCellID];
         ocell = [[ ETHAmountInvesTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: ETHAmountInvesTableCellID];
+        ocell.delegate = self;
         
         cell = ocell;
     }
@@ -145,12 +184,45 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
 //点击了哪个cell
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section==0)
+    if (indexPath.section==3)
     {
-        //        ZFPersonalDataVC* vc = [[ZFPersonalDataVC alloc]init];
-        //        [self.navigationController pushViewController:vc animated:YES];
+        [self loadData2];
     }
 }
+
+
+-(void)loadData2
+{
+    ZWeakSelf
+    NSString* str = nil;
+    if (self.type.intValue==0)
+    {
+        str = @"4";
+    }
+    else
+    {
+        str = @"2";
+    }
+    [http_wallet yijianfutou:str money:self.tz.creditmy success:^(id responseObject)  {
+        [weakSelf showData2:responseObject];
+    } failure:^(NSError *error)
+    {
+        [SVProgressHUD showErrorWithStatus:error.domain];
+    }];
+}
+
+-(void)showData2:(id)responseObject
+{
+    [SVProgressHUD showSuccessWithStatus:@"一键复投成功"];
+}
+
+
+//正在输入中
+-(void)ETHAmountInvesTableCellInputing:(NSString*)text indexPath:(NSIndexPath*)indexPath
+{
+    self.tz.creditmy = text;
+}
+
 
 
 @end

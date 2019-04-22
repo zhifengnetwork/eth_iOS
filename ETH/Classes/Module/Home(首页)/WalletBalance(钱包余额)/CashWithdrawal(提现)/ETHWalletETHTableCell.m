@@ -9,7 +9,8 @@
 #import "ETHWalletETHTableCell.h"
 #import "ETHTool.h"
 
-@interface ETHWalletETHTableCell()
+@interface ETHWalletETHTableCell()<UITextFieldDelegate>
+
 
 @property (nonatomic, strong) UIView *bg1View;
 @property (nonatomic, strong) UIView *bg2View;
@@ -105,15 +106,40 @@
         make.top.equalTo(self->_service2Label.mas_bottom).offset(7);
         make.left.equalTo(self->_bg1View.mas_left).offset(10);
     }];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFieldEditChanged:) name:@"UITextFieldTextDidChangeNotification" object:self.moneyTextField];
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UITextFieldTextDidChangeNotification" object:self.moneyTextField];
+}
+
+
+-(void)setCredit:(NSString *)credit
+{
+    _credit = credit;
+    _titleLabel.text = [NSString stringWithFormat:@"当前可提现额度： ¥%@",_credit];
+}
+
+#pragma mark - Notification Method
+-(void)textFieldEditChanged:(NSNotification *)obj
+{
+    UITextField *textField = (UITextField *)obj.object;
+    NSString *toBeString = textField.text;
+    if ([self.delegate respondsToSelector:@selector(ETHWalletETHTableCellInputing: indexPath:)])
+    {
+        [self.delegate ETHWalletETHTableCellInputing:self.moneyTextField.text indexPath:self.indexPath];
+    }
 }
 
 - (void)wholeButtonDidClick:(UIButton *)sender
 {
-//    _txCurrency = [NSString stringWithFormat:@"%.2f",[LKTool getMaxTx:self.currency.doubleValue dp:self.dp]];
-//    _inputTextField.text = [NSString stringWithFormat:@"%.2f",_txCurrency.doubleValue];
-//    if ([self.delegate respondsToSelector:@selector(LKPutForwardTableCellInputing:)]) {
-//        [self.delegate LKPutForwardTableCellInputing:self.inputTextField.text];
-//    }
+    self.moneyTextField.text = _credit;
+    if ([self.delegate respondsToSelector:@selector(ETHWalletETHTableCellInputing: indexPath:)])
+    {
+        [self.delegate ETHWalletETHTableCellInputing:self.moneyTextField.text indexPath:self.indexPath];
+    }
 }
 
 -(UIView *)bg1View

@@ -7,7 +7,7 @@
 //
 #import "ETHBetRecordVC.h"
 #import "ETHBetRecordCell.h"
-#import "http_ indexedit.h"
+#import "http_indexedit.h"
 #import "SVProgressHUD.h"
 #import "MJExtension.h"
 #import "RefreshGifHeader.h"
@@ -40,7 +40,7 @@ static NSString *const ETHBetRecordCellID = @"ETHBetRecordCellID";
 {
         ZWeakSelf
         //押注记录
-        [http__indexedit stakejiluis:1 success:^(id responseObject)
+        [http_indexedit stakejiluis:1 success:^(id responseObject)
          {
              [self.tableView.mj_header endRefreshing];
              [weakSelf showData:responseObject];

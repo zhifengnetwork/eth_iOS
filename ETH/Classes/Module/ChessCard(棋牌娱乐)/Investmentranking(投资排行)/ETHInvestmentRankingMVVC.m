@@ -8,7 +8,7 @@
 
 #import "ETHInvestmentRankingMVVC.h"
 #import "ETHTodayRankingVC.h"
-#import "http_ indexedit.h"
+#import "http_indexedit.h"
 #import "SVProgressHUD.h"
 #import "MJExtension.h"
 #import "RefreshGifHeader.h"
@@ -89,7 +89,7 @@
     
     ZWeakSelf
     //投资排行
-    [http__indexedit fucairanking:^(id responseObject)
+    [http_indexedit fucairanking:^(id responseObject)
      {
          
          [weakSelf showData:responseObject];

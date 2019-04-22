@@ -9,7 +9,7 @@
 #import "ETHAmountInvesTableCell.h"
 #import "PPNumberButton.h"
 
-@interface ETHAmountInvesTableCell()
+@interface ETHAmountInvesTableCell()<PPNumberButtonDelegate>
 
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) UILabel* titleLabel;
@@ -89,18 +89,34 @@
         _numberButton = [PPNumberButton numberButtonWithFrame:CGRectMake(0, 0, 110, 30)];
         // 开启抖动动画
         _numberButton.shakeAnimation = YES;
+        _numberButton.currentNumber = 0;
         // 设置最小值
-        _numberButton.minValue = 1;
+        _numberButton.minValue = 0;
         // 设置最大值
         _numberButton.maxValue = 1000;
         // 设置输入框中的字体大小
         _numberButton.inputFieldFont = 12;
         _numberButton.increaseTitle = @"＋";
         _numberButton.decreaseTitle = @"－";
-        
+        _numberButton.delegate = self;
     }
     
     return _numberButton;
+}
+
+/**
+ 加减代理回调
+ 
+ @param numberButton 按钮
+ @param number 结果
+ @param increaseStatus 是否为加状态
+ */
+- (void)pp_numberButton:(PPNumberButton *)numberButton number:(NSInteger)number increaseStatus:(BOOL)increaseStatus
+{
+    if ([self.delegate respondsToSelector:@selector(ETHAmountInvesTableCellInputing: indexPath:)])
+    {
+        [self.delegate ETHAmountInvesTableCellInputing:[NSString stringWithFormat:@"%ld",number] indexPath:nil];
+    }
 }
 
 @end

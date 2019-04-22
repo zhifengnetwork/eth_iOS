@@ -76,6 +76,7 @@
 @property (nonatomic, copy) NSString *arr;
 
 @property (nonatomic, copy) NSString *adress;
+@property (nonatomic, copy) NSString *walletcode;
 @property (nonatomic, copy) NSString *url;
 @property (nonatomic, copy) NSString *zfbfile;
 @property (nonatomic, copy) NSString *wxfile;

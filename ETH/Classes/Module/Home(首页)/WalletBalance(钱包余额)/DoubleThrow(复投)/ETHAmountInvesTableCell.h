@@ -10,10 +10,22 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol ETHAmountInvesTableCellDelegate <NSObject>
+
+@optional
+
+//正在输入中
+-(void)ETHAmountInvesTableCellInputing:(NSString*)text indexPath:(NSIndexPath*)indexPath;
+
+@end
+
+
 /**
  复投金额cell
  */
 @interface ETHAmountInvesTableCell : UITableViewCell
+
+@property (nonatomic, weak) id<ETHAmountInvesTableCellDelegate> delegate;
 
 @end
 

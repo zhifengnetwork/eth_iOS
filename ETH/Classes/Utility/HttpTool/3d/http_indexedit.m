@@ -6,9 +6,9 @@
 //  Copyright © 2019 admin. All rights reserved.
 //
 
-#import "http_ indexedit.h"
+#import "http_indexedit.h"
 
-@implementation http__indexedit
+@implementation http_indexedit
 //3D首页信息接口
 +(void)indexedit:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure
 {

@@ -13,7 +13,12 @@
 #import "UIImageView+WebCache.h"
 #import "UIButton+LXMImagePosition.h"
 #import "ETHLoginVC.h"
-
+#import "ETHTool.h"
+#import "http_mine.h"
+#import "SVProgressHUD.h"
+#import "MJExtension.h"
+#import "UserInfoModel.h"
+#import "CQCountDownButton.h"
 
 @interface ETHRegisterVC ()<LoginTypeViewDelegate>
 
@@ -32,13 +37,14 @@
 
 @property (nonatomic, strong) UITextField *phoneTextField;
 @property (nonatomic, strong) UITextField *vcodeTextField;
-@property (nonatomic, strong) UIButton *vcodeButton;
 @property (nonatomic, strong) UITextField *passwordTextField;
 @property (nonatomic, strong) UITextField *twoPasswordTextField;
 
 @property (nonatomic, strong) UIButton *loginButton;
 @property (nonatomic, strong) UIButton *wmButton;
 @property (nonatomic, strong) UIButton *twoLoginButton;
+
+@property (nonatomic, strong) CQCountDownButton* vcodeButton;
 
 @end
 
@@ -211,16 +217,6 @@
 
 }
 
-
--(void)vcodeButtonDidClick
-{
-    
-}
-
-- (void)loginButtonDidClick
-{
-    
-}
 
 - (void)wmButtonDidClick
 {
@@ -450,21 +446,6 @@
     return _twoLoginButton;
 }
 
-- (UIButton *)vcodeButton {
-    if (_vcodeButton == nil) {
-        _vcodeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_vcodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
-        _vcodeButton.titleLabel.font = [UIFont systemFontOfSize:12];
-        [_vcodeButton setTitleColor:RGBColorHex(0xFFFFFF) forState:UIControlStateNormal];
-        _vcodeButton.layer.cornerRadius = 3;
-        _vcodeButton.clipsToBounds = YES;
-        _vcodeButton.layer.borderWidth = 1.0f;
-        _vcodeButton.layer.borderColor = RGBColorHex(0xFFFFFF).CGColor;
-        [_vcodeButton addTarget:self action:@selector(vcodeButtonDidClick) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _vcodeButton;
-}
-
 - (UIButton *)returnButton {
     if (_returnButton == nil) {
         _returnButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -475,5 +456,144 @@
     }
     return _returnButton;
 }
+
+
+- (void)loginButtonDidClick
+{
+    NSString* phone = _phoneTextField.text;
+    NSString* vcode = _vcodeTextField.text;
+    NSString* password = _passwordTextField.text;
+    NSString* twoPassword = _twoPasswordTextField.text;
+    
+    if (kStringIsEmpty(phone))
+    {
+        [SVProgressHUD showInfoWithStatus:@"请输入手机号"];
+        return;
+    }
+    
+    if (kStringIsEmpty(vcode))
+    {
+        [SVProgressHUD showInfoWithStatus:@"请输入5位验证码"];
+        return;
+    }
+    
+    if (kStringIsEmpty(password))
+    {
+        [SVProgressHUD showInfoWithStatus:@"请输入您的登录密码"];
+        return;
+    }
+    
+    if (kStringIsEmpty(twoPassword))
+    {
+        [SVProgressHUD showInfoWithStatus:@"请输入确认登录密码"];
+        return;
+    }
+    
+    if ([password isEqualToString:twoPassword]==NO)
+    {
+        [SVProgressHUD showInfoWithStatus:@"两次密码不一致"];
+        return;
+    }
+    
+    ZWeakSelf
+    [SVProgressHUD showWithStatus:@"正在注册"];
+    NSString* str = nil;
+    if (self.type.intValue==0)
+    {
+        str = @"sms_reg";
+    }
+    else
+    {
+        str = @"sms_changepwd";
+    }
+    [http_mine reg_updpwd:str mobile:phone code:vcode.integerValue pwd:twoPassword success:^(id responseObject)
+    {
+        [weakSelf sdData:responseObject];
+    } failure:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:error.domain];
+    }];
+}
+
+-(void)sdData:(id)responseObject
+{
+    if (self.type.intValue==0)
+    {
+        [SVProgressHUD showSuccessWithStatus:@"注册成功"];
+    }
+    else
+    {
+        [SVProgressHUD showSuccessWithStatus:@"修改密码成功"];
+    }
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+
+- (void)vcodeButtonDidClick
+{
+    NSString* phone = _phoneTextField.text;
+    
+    ZWeakSelf
+    NSString* str = nil;
+    if (self.type.intValue==0)
+    {
+        str = @"sms_reg";
+    }
+    else
+    {
+        str = @"sms_changepwd";
+    }
+    [http_mine verifycode:phone temp:str imgcode:@"0" success:^(id responseObject)
+     {
+         [weakSelf verifycode_ok:responseObject];
+         
+     } failure:^(NSError *error) {
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
+}
+
+-(void)verifycode_ok:(id)responseObject
+{
+    [SVProgressHUD showSuccessWithStatus:@"发送成功"];
+    
+}
+
+- (CQCountDownButton *)vcodeButton
+{
+    if (_vcodeButton == nil) {
+        _vcodeButton = [CQCountDownButton buttonWithType:UIButtonTypeCustom];
+        [_vcodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [_vcodeButton setTitleColor:RGBColorHex(0xFFFFFF) forState:UIControlStateNormal];
+        _vcodeButton.titleLabel.font = [UIFont systemFontOfSize:12];
+        _vcodeButton.layer.cornerRadius = 3.0f;
+        _vcodeButton.layer.borderWidth = 1.0f;
+        _vcodeButton.layer.borderColor = [UIColor whiteColor].CGColor;
+        //        [_vcodeButton addTarget:self action:@selector(vcodeButtonDidClick) forControlEvents:UIControlEventTouchUpInside];
+        __weak typeof(self) weakSelf = self;
+        [_vcodeButton configDuration:60 buttonClicked:^{
+            //========== 按钮点击 ==========//
+            if ( kStringIsEmpty(weakSelf.phoneTextField.text) )
+            {
+                [SVProgressHUD showInfoWithStatus:@"请输入手机号码"];
+                return;
+            }
+            [weakSelf.vcodeButton startCountDown];
+            [weakSelf vcodeButtonDidClick];
+        } countDownStart:^{
+            //========== 倒计时开始 ==========//
+            NSLog(@"倒计时开始");
+        } countDownUnderway:^(NSInteger restCountDownNum) {
+            //========== 倒计时进行中 ==========//
+            NSString *title = [NSString stringWithFormat:@"%ldS", restCountDownNum];
+            [weakSelf.vcodeButton setTitle:title forState:UIControlStateNormal];
+        } countDownCompletion:^{
+            //========== 倒计时结束 ==========//
+            [weakSelf.vcodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+            NSLog(@"倒计时结束");
+        }];
+    }
+    return _vcodeButton;
+}
+
 
 @end

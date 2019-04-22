@@ -32,6 +32,22 @@ NS_ASSUME_NONNULL_BEGIN
  @param page 页数
  */
 +(void)money_log:(NSInteger)type page:(NSInteger)page success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
+
+
+/**
+ 钱包-复投信息
+ */
++(void)fotou_info:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
+
+
+/**
+ 一键复投
+
+ @param type  类型 : 2自由账户，4复投账户
+ @param money
+ */
++(void)yijianfutou:(NSString*)type money:(NSString*)money success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
+
 @end
 
 NS_ASSUME_NONNULL_END

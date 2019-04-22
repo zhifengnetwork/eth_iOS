@@ -16,12 +16,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * weixinfile;
 @property (nonatomic , copy) NSString              * add;
 @property (nonatomic , copy) NSString              * bibi;
-@property (nonatomic , copy) NSString              * credit1;
 
 @property (nonatomic , copy) NSString              * creditmy;
 @property (nonatomic , copy) NSString              * money;
 
 @property (nonatomic , copy) NSString              * zfurl;
+
+//当前投资额度
+@property (nonatomic , copy) NSString              * credit1;
+//复投账户
+@property (nonatomic , copy) NSString              * credit4;
+//自由钱包
+@property (nonatomic , copy) NSString              * credit2;
 
 @end
 

@@ -10,10 +10,25 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol ETHWalletETHTableCellDelegate <NSObject>
+
+@optional
+
+//正在输入中
+-(void)ETHWalletETHTableCellInputing:(NSString*)text indexPath:(NSIndexPath*)indexPath;
+
+@end
+
 /**
  ETH提现cell
  */
 @interface ETHWalletETHTableCell : UITableViewCell
+
+@property (nonatomic, weak) id<ETHWalletETHTableCellDelegate> delegate;
+
+@property (nonatomic, strong) NSIndexPath *indexPath;
+
+@property (nonatomic, strong) NSString *credit;
 
 @end
 

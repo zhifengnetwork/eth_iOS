@@ -8,7 +8,7 @@
 
 #import "ETHWinRecordVC.h"
 #import "ETHWinRecordCell.h"
-#import "http_ indexedit.h"
+#import "http_indexedit.h"
 #import "SVProgressHUD.h"
 #import "MJExtension.h"
 #import "RefreshGifHeader.h"
@@ -42,7 +42,7 @@ static NSString *const ETHWinRecordCellID = @"ETHWinRecordCellID";
 {
     ZWeakSelf
     //中奖记录
-    [http__indexedit winningrecordis:1 success:^(id responseObject)
+    [http_indexedit winningrecordis:1 success:^(id responseObject)
      {
          [self.tableView.mj_header endRefreshing];
          [weakSelf showData:responseObject];
