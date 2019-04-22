@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSIndexPath *indexPath;
 
+@property (nonatomic, strong) NSString *credit;
+
 @end
 
 NS_ASSUME_NONNULL_END

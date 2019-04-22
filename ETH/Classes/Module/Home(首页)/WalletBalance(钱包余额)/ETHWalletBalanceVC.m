@@ -103,7 +103,6 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     }
 
     self.userInfo = [UserInfoModel mj_objectWithKeyValues:responseObject];
-    [self.userInfo saveUserInfo];
 
     [self.tableView reloadData];
 }
@@ -212,6 +211,7 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     {
         //跳转到一键复投
         ETHDoubleThrowVC* vc = [[ETHDoubleThrowVC alloc]init];
+        vc.type = @"0";
         [self.navigationController pushViewController:vc animated:YES];
     }
     else if (type==2)
@@ -229,6 +229,7 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     {
         //跳转到一键复投
         ETHDoubleThrowVC* vc = [[ETHDoubleThrowVC alloc]init];
+        vc.type = @"1";
         [self.navigationController pushViewController:vc animated:YES];
     }
     else if (type==2)

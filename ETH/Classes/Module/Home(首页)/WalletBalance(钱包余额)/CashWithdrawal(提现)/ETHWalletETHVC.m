@@ -14,12 +14,16 @@
 #import "MJExtension.h"
 #import "ETHTZModel.h"
 #import "ETHMyWalletVC.h"
+#import "UserInfoModel.h"
+#import "http_wallet.h"
 
 
 @interface ETHWalletETHVC ()<ETHWalletETHTableCellDelegate>
 
 @property (nonatomic, strong) ETHTZDataModel *tz;
 @property (nonatomic, strong) NSString *tx;
+
+@property (nonatomic , strong)UserInfoModel *userInfo;
 
 @end
 
@@ -34,6 +38,7 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     
     self.title = @"提现";
     [self setupTableView];
+    [self loadDatay];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,6 +90,7 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     {
         ETHWalletETHTableCell* pcell = [tableView dequeueReusableCellWithIdentifier:ETHWalletETHTableCellID];
         pcell = [[ETHWalletETHTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHWalletETHTableCellID];
+        pcell.credit = self.userInfo.member.credit2;
         pcell.delegate = self;
         cell = pcell;
     }
@@ -172,6 +178,30 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
 {
     self.tx = text;
     NSLog(@"%@",text);
+}
+
+
+-(void)loadDatay
+{
+    ZWeakSelf
+    //总收益
+    [http_wallet my_wallet:^(id responseObject)
+     {
+         [weakSelf showDatay:responseObject];
+     } failure:^(NSError *error) {
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
+}
+-(void)showDatay:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
+    
+    self.userInfo = [UserInfoModel mj_objectWithKeyValues:responseObject];
+    
+    [self.tableView reloadData];
 }
 
 

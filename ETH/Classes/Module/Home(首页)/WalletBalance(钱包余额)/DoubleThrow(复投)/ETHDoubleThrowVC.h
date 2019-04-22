@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface ETHDoubleThrowVC : UITableViewController
 
+//0:复投账号 1:自由钱包
+@property (nonatomic, strong) NSString *type;
+
 @end
 
 NS_ASSUME_NONNULL_END

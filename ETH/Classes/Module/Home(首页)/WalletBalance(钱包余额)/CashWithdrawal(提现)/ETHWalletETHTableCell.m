@@ -8,7 +8,6 @@
 
 #import "ETHWalletETHTableCell.h"
 #import "ETHTool.h"
-#import "UserInfoModel.h"
 
 @interface ETHWalletETHTableCell()<UITextFieldDelegate>
 
@@ -109,14 +108,18 @@
     }];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFieldEditChanged:) name:@"UITextFieldTextDidChangeNotification" object:self.moneyTextField];
-    
-    UserInfoModel* u = [UserInfoModel readUserInfo];
-    _titleLabel.text = [NSString stringWithFormat:@"当前可提现额度： ¥%@",u.member.credit2];
 }
 
 -(void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UITextFieldTextDidChangeNotification" object:self.moneyTextField];
+}
+
+
+-(void)setCredit:(NSString *)credit
+{
+    _credit = credit;
+    _titleLabel.text = [NSString stringWithFormat:@"当前可提现额度： ¥%@",_credit];
 }
 
 #pragma mark - Notification Method
@@ -132,8 +135,7 @@
 
 - (void)wholeButtonDidClick:(UIButton *)sender
 {
-    UserInfoModel* u = [UserInfoModel readUserInfo];
-    self.moneyTextField.text = u.member.credit2;
+    self.moneyTextField.text = _credit;
     if ([self.delegate respondsToSelector:@selector(ETHWalletETHTableCellInputing: indexPath:)])
     {
         [self.delegate ETHWalletETHTableCellInputing:self.moneyTextField.text indexPath:self.indexPath];

@@ -8,7 +8,6 @@
 
 #import "ETHCashWithdrAmountTableCell.h"
 #import "ETHTool.h"
-#import "UserInfoModel.h"
 
 @interface ETHCashWithdrAmountTableCell()<UITextFieldDelegate>
 
@@ -120,9 +119,6 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFieldEditChanged:) name:@"UITextFieldTextDidChangeNotification" object:self.moneyTextField];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFieldEditChanged2:) name:@"UITextFieldTextDidChangeNotification" object:self.idTextField];
-    
-    UserInfoModel* u = [UserInfoModel readUserInfo];
-    _titleLabel.text = [NSString stringWithFormat:@"当前可转账额度： ¥%@",u.member.credit2];
 }
 
 -(void)dealloc
@@ -130,6 +126,12 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UITextFieldTextDidChangeNotification" object:self.moneyTextField];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UITextFieldTextDidChangeNotification" object:self.idTextField];
+}
+
+-(void)setCredit:(NSString *)credit
+{
+    _credit = credit;
+    _titleLabel.text = [NSString stringWithFormat:@"当前可转账额度： ¥%@",_credit];
 }
 
 #pragma mark - Notification Method

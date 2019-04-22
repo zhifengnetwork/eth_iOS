@@ -15,6 +15,8 @@
 #import "SVProgressHUD.h"
 #import "MJExtension.h"
 #import "ETHTZModel.h"
+#import "UserInfoModel.h"
+#import "http_wallet.h"
 
 @interface ETHTransferAccountVC ()<ETHCashWithdrAmountTableCellDelegate>
 
@@ -23,6 +25,8 @@
 @property (nonatomic, strong) NSString *tx;
 @property (nonatomic, strong) NSString *sxf;
 @property (nonatomic, strong) NSString *zh;
+
+@property (nonatomic , strong)UserInfoModel *userInfo;
 
 @end
 
@@ -38,7 +42,7 @@ static NSString *const ETHTransferTipsTableCellID = @"ETHTransferTipsTableCellID
     
     self.title = @"转账";
     [self setupTableView];
-    
+    [self loadDatay];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -104,6 +108,7 @@ static NSString *const ETHTransferTipsTableCellID = @"ETHTransferTipsTableCellID
     {
         ETHCashWithdrAmountTableCell* ocell = [tableView dequeueReusableCellWithIdentifier:ETHCashWithdrAmountTableCellID];
         ocell = [[ ETHCashWithdrAmountTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: ETHCashWithdrAmountTableCellID];
+        ocell.credit = self.userInfo.member.credit2;
         ocell.delegate = self;
         cell = ocell;
     }
@@ -205,6 +210,30 @@ static NSString *const ETHTransferTipsTableCellID = @"ETHTransferTipsTableCellID
 {
     self.zh = text;
     NSLog(@"%@",text);
+}
+
+
+-(void)loadDatay
+{
+    ZWeakSelf
+    //总收益
+    [http_wallet my_wallet:^(id responseObject)
+     {
+         [weakSelf showDatay:responseObject];
+     } failure:^(NSError *error) {
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
+}
+-(void)showDatay:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
+    
+    self.userInfo = [UserInfoModel mj_objectWithKeyValues:responseObject];
+    
+    [self.tableView reloadData];
 }
 
 
