@@ -177,7 +177,7 @@
 //添加申诉接口方法
 - (void)confirmClick{
 //    ZWeakSelf
-    [http_c2c guamai_appeal_add:_VCID files:<#(nonnull NSString *)#> text:_titleTF.text textarea:_contentTextView.text success:^(id responseObject){
+    [http_c2c guamai_appeal_add:_VCID files:nil text:_titleTF.text textarea:_contentTextView.text success:^(id responseObject){
     
     }failure:^(NSError *error) {
         [SVProgressHUD showErrorWithStatus:error.domain];

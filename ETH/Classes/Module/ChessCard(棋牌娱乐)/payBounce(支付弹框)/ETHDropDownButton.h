@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSArray *list;
 - (void)setupDefaultTable;
 - (void)setTitle:(NSString*)title List:(NSArray *)list;
+
+@property (nonatomic, assign) NSInteger index;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -7,10 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ETHTZModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol ETHPayBounceViewDelegate <NSObject>
+
+//3D游戏dlg
+- (void)ETHPayBounceViewDidClick:(NSString*)type;
+
+@end
+
+
 @interface ETHPayBounceView : UIView
+
+@property (nonatomic, weak) id<ETHPayBounceViewDelegate> delegate;
+
+@property (nonatomic , strong)ETHTZDataModel *tz;
 
 @end
 

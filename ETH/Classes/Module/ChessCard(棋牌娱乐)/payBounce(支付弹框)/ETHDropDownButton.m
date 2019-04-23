@@ -113,7 +113,8 @@ static NSString *CellIdentifier = @"DropDownCell";
     cell.textLabel.highlightedTextColor = [UIColor whiteColor];
     [cell.textLabel setTextColor:[UIColor blackColor]];
     //执行列表收起动画
-//    [self clickedToDropDown];
+    [self clickedToDropDown];
+    self.index = indexPath.row;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

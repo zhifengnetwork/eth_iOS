@@ -23,6 +23,9 @@
 #import "ETHTZModel.h"
 #import "ETH3DhomeModel.h"
 #import "ETHRulesGameVC.h"
+#import "ETHPayBounceView.h"
+#import "TYAlertController.h"
+#import "ETHTZModel.h"
 
 
 @interface ETH3DGameVC()<ETH3DGameFooterViewDelegate,ETHListWinnersTableCellDelegate,ETHKeyPackageTableCellDelegate>
@@ -32,7 +35,14 @@
 
 @property (nonatomic, strong) ETH3DGameFooterView *footerView;
 
-@property (nonatomic , strong)ETH3DhomeModel *homeModel;
+@property (nonatomic , strong) NSString* minNum;
+@property (nonatomic , strong) NSString* maxNum;
+@property (nonatomic , strong) NSString* bsNum;
+
+@property (nonatomic , strong)NSMutableArray *list;
+@property (nonatomic , strong)NSMutableArray *numList;
+
+@property (nonatomic , strong)ETHTZDataModel *tz;
 
 @end
 
@@ -115,7 +125,6 @@ static NSString *const ETHMultipleTableCellID = @"ETHMultipleTableCellID";
     }
 
     //jsonToModel
-    self.homeModel = [ETH3DhomeModel mj_objectWithKeyValues:responseObject];
     
     [self.tableView reloadData];
 }
@@ -131,6 +140,10 @@ static NSString *const ETHMultipleTableCellID = @"ETHMultipleTableCellID";
 //每个组有多少行
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (section==5)
+    {
+        return self.numList.count;
+    }
     return 1;
 }
 
@@ -178,7 +191,7 @@ static NSString *const ETHMultipleTableCellID = @"ETHMultipleTableCellID";
         {
             cell = [[ETHKeyPackageTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHKeyPackageTableCellID];
         }
-        //        cell.delegate = self;
+        cell.delegate = self;
         return cell;
     }
     else if (indexPath.section==5)
@@ -188,6 +201,8 @@ static NSString *const ETHMultipleTableCellID = @"ETHMultipleTableCellID";
         {
             cell = [[ETHMultipleTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHMultipleTableCellID];
         }
+        ETH3DhomeModel* model = [self.numList objectAtIndex:indexPath.row];
+        cell.model = model;
         //        cell.delegate = self;
         return cell;
     }
@@ -239,10 +254,6 @@ static NSString *const ETHMultipleTableCellID = @"ETHMultipleTableCellID";
     return _tableView;
 }
 
-- (void)handleSingleTap:(UITouch *)touch
-{
-    
-}
 
 -(ETH3DGameFooterView *)footerView
 {
@@ -250,11 +261,7 @@ static NSString *const ETHMultipleTableCellID = @"ETHMultipleTableCellID";
     {
         _footerView = [[ETH3DGameFooterView alloc]init];
         _footerView.backgroundColor = RGBColorHex(0xf4f4f4);
-        
-        //UIView增加点击事件
-        _footerView.userInteractionEnabled = YES;
-        UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
-        [_footerView addGestureRecognizer:singleTap];
+        _footerView.delegate = self;
     }
     
     return _footerView;
@@ -272,21 +279,29 @@ static NSString *const ETHMultipleTableCellID = @"ETHMultipleTableCellID";
 }
 
 //按钮被点击 1:确定 2:取消
-- (void)ETHKeyPackageTableCellDidClick:(int)type
+//小-大-倍数
+- (void)ETHKeyPackageTableCellDidClick:(int)type minNum:(NSString*)minNum maxNum:(NSString*)maxNum bs:(NSString*)bs
 {
     if (type==1)
     {
-        [self loadData2];
+        self.minNum = minNum;
+        self.maxNum = maxNum;
+        self.bsNum = bs;
+        [self loadData2:minNum maxNum:maxNum bs:bs];
     }
-    
+    else
+    {
+        [self.numList removeAllObjects];
+        [self.tableView reloadData];
+    }
 }
 
--(void)loadData2
+-(void)loadData2:(NSString*)minNum maxNum:(NSString*)maxNum bs:(NSString*)bs
 {
     ZWeakSelf
-    [http_indexedit numberis:1 maxNum:1 openid:nil success:^(id responseObject)
+    [http_indexedit numberis:minNum.intValue maxNum:maxNum.intValue openid:nil success:^(id responseObject)
      {
-         [weakSelf loadData_ok:responseObject];
+         [weakSelf loadData2_ok:responseObject];
          
      } failure:^(NSError *error) {
          
@@ -302,16 +317,38 @@ static NSString *const ETHMultipleTableCellID = @"ETHMultipleTableCellID";
         return;
     }
     
-    //jsonToModel
-    self.homeModel = [ETH3DhomeModel mj_objectWithKeyValues:responseObject];
+    NSArray* arr = [responseObject objectForKey:@"list"];
+    [self.list removeAllObjects];
+    [self.numList removeAllObjects];
+    self.list = [NSString mj_objectArrayWithKeyValuesArray:arr];
+    
+    for (int i=0; i<self.list.count; i++)
+    {
+        NSString* str = [self.list objectAtIndex:i];
+        ETH3DhomeModel* model = [[ETH3DhomeModel alloc]init];
+        model.number = str;
+        model.price = self.bsNum;
+        [self.numList addObject:model];
+    }
+    
+    [self.tableView reloadData];
 }
 
 
 //3D游戏底部
 - (void)ETH3DGameFooterViewDidClick
 {
+    NSMutableArray* arr = [[NSMutableArray alloc]init];
+    for (int i=0; i<self.numList.count; i++)
+    {
+        ETH3DhomeModel* model = [self.numList objectAtIndex:i];
+        [arr addObject:[model getListString]];
+    }
+    
+    NSString* strlist = [arr mj_JSONString];
+    
     ZWeakSelf
-    [http_indexedit bets:1 payment:1 money:nil list:nil success:^(id responseObject)
+    [http_indexedit bets:1 payment:1 money:@"0.001" list:strlist success:^(id responseObject)
     {
         [weakSelf confirm_ok:responseObject];
          
@@ -323,7 +360,56 @@ static NSString *const ETHMultipleTableCellID = @"ETHMultipleTableCellID";
 
 -(void)confirm_ok:(id)responseObject
 {
+    self.tz = [ETHTZDataModel mj_objectWithKeyValues:responseObject];
     
+    ETHPayBounceView *view = [[ETHPayBounceView alloc]initWithFrame:CGRectMake(0, 0, 300, 220)];
+    view.tz = self.tz;
+    view.delegate = self;
+    TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
+    alertController.backgoundTapDismissEnable = YES;
+    [self presentViewController:alertController animated:YES completion:nil];
+
+}
+
+//3D游戏dlg
+- (void)ETHPayBounceViewDidClick:(NSString*)type
+{
+    NSMutableArray* arr = [[NSMutableArray alloc]init];
+    for (int i=0; i<self.numList.count; i++)
+    {
+        ETH3DhomeModel* model = [self.numList objectAtIndex:i];
+        [arr addObject:[model getListString]];
+    }
+    
+    NSString* strlist = [arr mj_JSONString];
+    
+    [http_indexedit bets:2 payment:type.intValue money:@"0.001" list:strlist success:^(id responseObject)
+     {
+         [SVProgressHUD showSuccessWithStatus:@"下注成功"];
+         
+     } failure:^(NSError *error) {
+         
+         [SVProgressHUD showInfoWithStatus:error.domain];
+     }];
+}
+
+
+-(NSMutableArray *)list
+{
+    if (_list==nil) {
+        _list = [[NSMutableArray alloc]init];
+    }
+    
+    return _list;
+}
+
+-(NSMutableArray *)numList
+{
+    if (_numList==nil) {
+        _numList = [[NSMutableArray alloc]init];
+    }
+    
+    return _numList;
 }
 
 @end
