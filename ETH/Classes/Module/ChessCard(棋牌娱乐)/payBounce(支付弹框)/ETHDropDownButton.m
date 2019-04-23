@@ -36,6 +36,7 @@ static NSString *CellIdentifier = @"DropDownCell";
     [self setImageEdgeInsets:UIEdgeInsetsMake(0, 240, 0, -240)];
     [self setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [self addTarget:self action:@selector(clickedToDropDown) forControlEvents:UIControlEventTouchUpInside];
+    self.index = -1;
 }
 
 - (void)setupDefaultTable {

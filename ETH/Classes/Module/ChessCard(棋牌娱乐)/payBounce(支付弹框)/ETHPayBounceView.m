@@ -9,6 +9,7 @@
 #import "ETHPayBounceView.h"
 #import "ETHDropDownButton.h"
 #import "UIView+TYAlertView.h"
+#import "SVProgressHUD.h"
 @interface ETHPayBounceView()
 @property (nonatomic, strong)UILabel *freeAccountLabel;
 @property (nonatomic, strong)UILabel *reinstateAccountLabel;
@@ -135,6 +136,11 @@
 - (void)confirmButtonDidClick
 {
     NSString* str = nil;
+    if (self.button.index==-1)
+    {
+        [SVProgressHUD showInfoWithStatus:@"请选择支付方式"];
+        return;
+    }
     if (self.button.index==0)
     {
         str = @"1";
