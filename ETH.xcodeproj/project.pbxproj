@@ -328,7 +328,7 @@
 		53DB59F822576122009C05B3 /* ETHComplaintVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETHComplaintVC.h; sourceTree = "<group>"; };
 		53DB59F922576122009C05B3 /* ETHComplaintVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHComplaintVC.m; sourceTree = "<group>"; };
 		53DBC376226DA3B30054A885 /* ETHComplaintDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ETHComplaintDetailVC.h; path = "../我的订单/订单详情/ETHComplaintDetailVC.h"; sourceTree = "<group>"; };
-		53DBC377226DA3B30054A885 /* ETHComplaintDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHComplaintDetailVC.m; sourceTree = "<group>"; };
+		53DBC377226DA3B30054A885 /* ETHComplaintDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ETHComplaintDetailVC.m; path = "../发布广告/ETHComplaintDetailVC.m"; sourceTree = "<group>"; };
 		53DCFCC72268589D0082B9DA /* ETHChangeIconVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETHChangeIconVC.h; sourceTree = "<group>"; };
 		53DCFCC82268589D0082B9DA /* ETHChangeIconVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHChangeIconVC.m; sourceTree = "<group>"; };
 		53E0A33A226485A800FC27F4 /* http_c2c.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = http_c2c.h; sourceTree = "<group>"; };
@@ -672,8 +672,6 @@
 				538EA192225CA96E00667810 /* ETHDealVC.m */,
 				53DA5B0B225DEED1006D5066 /* ETHDealTF.h */,
 				53DA5B0C225DEED1006D5066 /* ETHDealTF.m */,
-				53DBC376226DA3B30054A885 /* ETHComplaintDetailVC.h */,
-				53DBC377226DA3B30054A885 /* ETHComplaintDetailVC.m */,
 			);
 			path = "发布广告";
 			sourceTree = "<group>";
@@ -687,6 +685,8 @@
 				53C4BA8222686B4400828BBA /* ETHComplaintCell.m */,
 				53C4BA8422687BB700828BBA /* ETHDetailComplaintVC.h */,
 				53C4BA8522687BB700828BBA /* ETHDetailComplaintVC.m */,
+				53DBC376226DA3B30054A885 /* ETHComplaintDetailVC.h */,
+				53DBC377226DA3B30054A885 /* ETHComplaintDetailVC.m */,
 			);
 			path = "我的申诉";
 			sourceTree = "<group>";

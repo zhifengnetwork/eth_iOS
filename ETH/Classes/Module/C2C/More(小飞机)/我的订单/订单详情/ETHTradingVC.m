@@ -11,12 +11,13 @@
 #import "ETHComplaintDetailVC.h"
 #import "UIImageView+WebCache.h"
 #import "http_c2c.h"
+#import "http_user.h"
 #import "SVProgressHUD.h"
 #import "MJExtension.h"
 #import "RefreshGifHeader.h"
 #import "ETHC2CModel.h"
 #import "ETHComplaintDetailVC.h"
-
+#import "TZImagePickerController.h"
 
 @interface ETHTradingVC ()
 @property (nonatomic, strong)UIView *view1;
@@ -37,6 +38,10 @@
 @property (nonatomic, strong)UILabel *payMethodLabel;
 @property (nonatomic, strong)ETHSelectPayButton *selectPayButton;
 @property (nonatomic, strong)UIView *view3;
+
+@property (nonatomic, strong)UILabel *QRLabel;
+@property (nonatomic, strong)UIImageView *QRimageView;
+
 @property (nonatomic, strong)UILabel *promptLabel;
 @property (nonatomic, strong)UILabel *bankLabel;
 @property (nonatomic, strong)UIButton *reproduceBtn;
@@ -46,6 +51,9 @@
 @property (nonatomic, strong)UIButton *reproduceBtn3;
 
 @property (nonatomic, strong)UILabel *paymentLabel;
+
+@property (nonatomic, strong)MASConstraint *top;//设置paymentlLabel的高约束
+
 @property (nonatomic, strong)UIImageView *imageView;
 @property (nonatomic, strong)UILabel *emptyLabel;
 @property (nonatomic, strong)UIButton *confirmButton;
@@ -84,6 +92,10 @@
     [self.view addSubview:self.receiverLabel];
     [self.view addSubview:self.payMethodLabel];
     [self.view addSubview:self.view3];
+    
+    [self.view3 addSubview:self.QRLabel];
+    [self.view3 addSubview:self.QRimageView];
+    
     [self.view3 addSubview:self.promptLabel];
     [self.view3 addSubview:self.bankLabel];
     [self.view3 addSubview:self.reproduceBtn];
@@ -91,17 +103,23 @@
     [self.view3 addSubview:self.reproduceBtn2];
     [self.view3 addSubview:self.cardID];
     [self.view3 addSubview:self.reproduceBtn3];
+    
     [self.view addSubview:self.paymentLabel];
     [self.view addSubview:self.imageView];
     
     [self.view addSubview:self.confirmButton];
     [self.view addSubview:self.complaintButton];
     
+    [self.imageView addSubview:self.emptyLabel];
+    
     _selectPayButton = [[ETHSelectPayButton alloc] init];
     [self.view addSubview:self.selectPayButton];
     [_selectPayButton setupDefaultTable];
+    //注册监听button的enabled状态
+    [_selectPayButton addObserver:self forKeyPath:@"titleLabel.text" options:NSKeyValueObservingOptionNew context:@"test_button"];
+    
     _selectPayButton.backgroundColor = RGBColorHex(0x4b4f66);
-    [_selectPayButton setTitle:@"选择支付方式" List:@[@"银行", @"复投账户"]];
+    [_selectPayButton setTitle:@"选择支付方式" List:@[@"银行", @"支付宝",@"微信"]];
     
     [_view1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).with.offset(15);
@@ -178,8 +196,21 @@
         make.top.equalTo(self.payMethodLabel.mas_bottom).with.offset(13);
         make.height.mas_equalTo(94.5);
     }];
+    [_QRLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view3);
+        make.centerX.equalTo(self.view3.mas_centerX);
+    }];
+    
+    [_QRimageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view3.mas_centerX);
+        make.top.equalTo(self.QRLabel.mas_bottom);
+        make.bottom.equalTo(self.view3);
+        make.width.mas_equalTo(84);
+    }];
+    
     [_promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(self.view3).with.offset(9);
+        make.left.equalTo(self.view3).with.offset(9);
+        self.top = make.top.equalTo(self.view3).with.offset(9);
     }];
     [_bankLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.promptLabel.mas_bottom).with.offset(8);
@@ -224,6 +255,11 @@
         make.height.mas_equalTo(95);
     }];
     
+    [_emptyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.imageView.mas_centerX);
+        make.centerY.equalTo(self.imageView.mas_centerY);
+    }];
+    
     [_confirmButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.imageView.mas_bottom).with.offset(13);
         make.centerX.equalTo(self.view.mas_centerX);
@@ -237,6 +273,8 @@
         make.height.mas_equalTo(25);
     }];
     
+    
+    
     ZWeakSelf
     [http_c2c guamaiedit:_vcID success:^(id responseObject)
      {
@@ -245,7 +283,7 @@
          [SVProgressHUD showErrorWithStatus:error.domain];
      }];
 }
-
+#pragma mark -- 显示数据
 -(void)showData:(id)responseObject
 {
     if (kObjectIsEmpty(responseObject))
@@ -255,24 +293,54 @@
     
     self.detailModel = [ETHDetailModel mj_objectWithKeyValues:responseObject];
     ETHC2CModel *model = self.detailModel.list;
-    if (self.detailModel.list.type.intValue == 0) {
+    if (self.detailModel.list.type.intValue == 1) {//买入时
         self.title = @"买入ETH";
-    }else{
+        _payMethodLabel.hidden = NO;
+        _view3.hidden = NO;
+        //调整paymentLabel的高度约束
+        [self.top uninstall];//先销毁约束
+        [_paymentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            self.top = make.top.equalTo(self.view3.mas_bottom).with.offset(9);
+        }];
+        
+        _selectPayButton.hidden = NO;
+        _paymentLabel.text =@"上传凭证";
+        _emptyLabel.text = @"点击上传支付凭证";
+        [_confirmButton setTitle:@"确认" forState:UIControlStateNormal];
+        _imageView.userInteractionEnabled = YES;
+    }else{//卖出时把控件隐藏
         self.title = @"卖出ETH";
+        _payMethodLabel.hidden = YES;
+        _view3.hidden = YES;
+        
+        //调整paymentLabel的高度约束
+        [self.top uninstall];//先销毁约束
+        [_paymentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            self.top = make.top.equalTo(self.receiver.mas_bottom).with.offset(9);
+        }];
+        
+        _selectPayButton.hidden = YES;
+        _paymentLabel.text =@"支付凭证";
+        _emptyLabel.text = @"未上传支付凭证";
+        [_confirmButton setTitle:@"确认收款" forState:UIControlStateNormal];
+        
+        _imageView.userInteractionEnabled = NO;
     }
     _orderIDLabel.text = [NSString stringWithFormat:@"%@",model.ID];
     _buyerIDLabel.text = [NSString stringWithFormat:@"%@",model.openid];
     _unitPriceLabel.text = [NSString stringWithFormat:@"%@",model.price];
     _numberLabel.text = [NSString stringWithFormat:@"%@",model.trx];
     _totalLabel.text = [NSString stringWithFormat:@"%@",model.money];
-    _receiverLabel.text = [NSString stringWithFormat:@"%@",self.detailModel.list.mobile2];
+    _receiverLabel.text = [NSString stringWithFormat:@"%@",model.mobile2];
+    _cardID.text = [NSString stringWithFormat:@"卡号：%@",model.bankid];
+    _bankLabel.text = [NSString stringWithFormat:@"银行：%@",model.bank];
+    _cardName.text = [NSString stringWithFormat:@"户主：%@",model.bankname];
     if ([model.file isEqualToString:@""]) {
         _emptyLabel.hidden = NO;
     }else{
         _emptyLabel.hidden = YES;
         [_imageView sd_setImageWithURL:[NSURL URLWithString:model.file]];
     }
-    
 }
 - (UIView *)view1{
     if (_view1 == nil) {
@@ -367,7 +435,7 @@
         _total = [[UILabel alloc]init];
         _total.font = [UIFont systemFontOfSize:15];
         _total.textColor = RGBColorHex(0x949bc3);
-        _total.text = @"需 付 款  ： ";
+        _total.text = @"需 付 款  ：";
     }
     return _total;
 }
@@ -416,6 +484,26 @@
     }
     return _view3;
 }
+
+- (UILabel *)QRLabel{
+    if (_QRLabel == nil) {
+        _QRLabel = [[UILabel alloc]init];
+        _QRLabel.font = [UIFont systemFontOfSize:10];
+        _QRLabel.textColor = [UIColor whiteColor];
+        _QRLabel.text = @"请扫描二维码完成支付";
+        _QRLabel.hidden = YES;
+    }return _QRLabel;
+}
+
+- (UIImageView *)QRimageView{
+    if (_QRimageView == nil) {
+        _QRimageView = [[UIImageView alloc]init];
+        _QRimageView.hidden = YES;
+    }return _QRimageView;
+}
+
+
+
 - (UILabel *)promptLabel{
     if (_promptLabel == nil) {
         _promptLabel = [[UILabel alloc]init];
@@ -441,6 +529,7 @@
         _reproduceBtn.titleLabel.font = [UIFont systemFontOfSize:9];
         [_reproduceBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_reproduceBtn setTitle:@"复制" forState:UIControlStateNormal];
+        [_reproduceBtn addTarget:self action:@selector(copyBankLabel) forControlEvents:UIControlEventTouchUpInside];
     }return _reproduceBtn;
 }
 
@@ -461,6 +550,7 @@
         _reproduceBtn2.titleLabel.font = [UIFont systemFontOfSize:9];
         [_reproduceBtn2 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_reproduceBtn2 setTitle:@"复制" forState:UIControlStateNormal];
+        [_reproduceBtn2 addTarget:self action:@selector(copyCardName) forControlEvents:UIControlEventTouchUpInside];
     }return _reproduceBtn2;
 }
 
@@ -481,6 +571,7 @@
         _reproduceBtn3.titleLabel.font = [UIFont systemFontOfSize:9];
         [_reproduceBtn3 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_reproduceBtn3 setTitle:@"复制" forState:UIControlStateNormal];
+        [_reproduceBtn3 addTarget:self action:@selector(copyCardID) forControlEvents:UIControlEventTouchUpInside];
     }return _reproduceBtn3;
 }
 
@@ -498,21 +589,24 @@
         _imageView = [[UIImageView alloc]init];
         _imageView.layer.borderWidth = 1;
         _imageView.layer.borderColor = RGBColorHex(0x6c91fa).CGColor;
-        if (_imageView.image == nil) {
-            _emptyLabel = [[UILabel alloc]init];
-            _emptyLabel.textColor = RGBColorHex(0x738393);
-            _emptyLabel.text = @"未上传支付凭证";
-            _emptyLabel.font = [UIFont systemFontOfSize:15];
-            [self.imageView addSubview:_emptyLabel];
-            [_emptyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(self.imageView.mas_centerX);
-                make.centerY.equalTo(self.imageView.mas_centerY);
-            }];
-        }
+        
+        _imageView.userInteractionEnabled = YES;//打开用户交互
+        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+        [_imageView addGestureRecognizer:singleTap];
+        
+        
     }
     return _imageView;
 }
 
+- (UILabel *)emptyLabel{
+    if (_emptyLabel == nil) {
+        _emptyLabel = [[UILabel alloc]init];
+        _emptyLabel.textColor = RGBColorHex(0x738393);
+        _emptyLabel.text = @"点击上传支付凭证";
+        _emptyLabel.font = [UIFont systemFontOfSize:15];
+    }return _emptyLabel;
+}
 - (UIButton *)confirmButton{
     if (_confirmButton == nil) {
         _confirmButton = [[UIButton alloc]init];
@@ -521,6 +615,7 @@
         _confirmButton.titleLabel.font = [UIFont systemFontOfSize:13];
         [_confirmButton setTitle:@"确认" forState:UIControlStateNormal];
         [_confirmButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_confirmButton addTarget:self action:@selector(confirmClick) forControlEvents:UIControlEventTouchUpInside];
     }return _confirmButton;
 }
 
@@ -546,5 +641,149 @@
     ETHComplaintDetailVC *vc = [[ETHComplaintDetailVC alloc]init];
     vc.VCID = self.detailModel.list.ID;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+//下拉框选中时显示不同控件
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    UIButton *button = (UIButton *)object;
+    if (_selectPayButton == button && [@"titleLabel.text" isEqualToString:keyPath]) {
+        if ([[change objectForKey:@"new"] isEqualToString:@"微信"]) {
+            self.promptLabel.hidden = YES;
+            self.bankLabel.hidden = YES;
+            self.reproduceBtn.hidden = YES;
+            self.cardName.hidden = YES;
+            self.reproduceBtn2.hidden = YES;
+            self.cardID.hidden = YES;
+            self.reproduceBtn3.hidden = YES;
+            _QRimageView.hidden = NO;
+            [_QRimageView sd_setImageWithURL:[NSURL URLWithString:self.detailModel.list.wxfile]];
+            _QRLabel.hidden = NO;
+        }else if ([[change objectForKey:@"new"] isEqualToString:@"支付宝"]){
+            self.promptLabel.hidden = YES;
+            self.bankLabel.hidden = YES;
+            self.reproduceBtn.hidden = YES;
+            self.cardName.hidden = YES;
+            self.reproduceBtn2.hidden = YES;
+            self.cardID.hidden = YES;
+            self.reproduceBtn3.hidden = YES;
+            _QRimageView.hidden = NO;
+            [_QRimageView sd_setImageWithURL:[NSURL URLWithString:self.detailModel.list.zfbfile]];
+            _QRLabel.hidden = NO;
+        }else{
+            _QRimageView.hidden = YES;
+            _QRLabel.hidden = YES;
+            self.promptLabel.hidden = NO;
+            self.bankLabel.hidden = NO;
+            self.reproduceBtn.hidden = NO;
+            self.cardName.hidden = NO;
+            self.reproduceBtn2.hidden = NO;
+            self.cardID.hidden = NO;
+            self.reproduceBtn3.hidden = NO;
+            
+        }
+    }}
+- (void)dealloc{
+    [_selectPayButton removeObserver:self forKeyPath:@"titleLabel.text"];
+}
+
+
+//点击上传图片
+- (void)handleSingleTap:(UIGestureRecognizer *)gestureRecognizer {
+    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:1 delegate:self];
+
+    // You can get the photos by block, the same as by delegate.
+    // 你可以通过block或者代理，来得到用户选择的照片.
+    ZWeakSelf
+    [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto)
+     {
+         [weakSelf uploadImage:[photos firstObject]];
+     }];
+    [self presentViewController:imagePickerVc animated:YES completion:nil];
+}
+
+-(void)uploadImage:(UIImage*)image
+{
+    NSData *imageData = UIImageJPEGRepresentation(image, 1.0f);
+    //NSDataBase64EncodingEndLineWithLineFeed这个枚举值是base64串不换行
+    NSString *imageBase64Str = [imageData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+    //    //不转base64
+    //    NSString * str =[[NSString alloc] initWithData:imageData encoding:NSUTF8StringEncoding];
+    
+    ZWeakSelf
+    [http_user uploader:imageBase64Str success:^(id responseObject)
+     {
+         [weakSelf uploadImage_ok:responseObject];
+     } failure:^(NSError *error)
+     {
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
+}
+
+-(void)uploadImage_ok:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
+    
+    self.detailModel.list.file = [responseObject objectForKey:@"img"];
+    [SVProgressHUD showSuccessWithStatus:@"上传成功"];
+    _emptyLabel.hidden = YES;
+    [_imageView sd_setImageWithURL:[NSURL URLWithString:self.detailModel.list.file]];
+}
+
+
+
+- (void)copyBankLabel{
+    //复制粘贴功能
+    UIPasteboard *pab = [UIPasteboard generalPasteboard];
+    pab.string = self.bankLabel.text;
+    if (pab == nil) {
+        [SVProgressHUD showErrorWithStatus:@"复制失败"];
+    }else
+    {
+        [SVProgressHUD showSuccessWithStatus:@"已复制"];
+    }
+}
+- (void)copyCardName{
+    //复制粘贴功能
+    UIPasteboard *pab = [UIPasteboard generalPasteboard];
+    pab.string = self.cardName.text;
+    if (pab == nil) {
+        [SVProgressHUD showErrorWithStatus:@"复制失败"];
+    }else
+    {
+        [SVProgressHUD showSuccessWithStatus:@"已复制"];
+    }
+}
+- (void)copyCardID{
+    //复制粘贴功能
+    UIPasteboard *pab = [UIPasteboard generalPasteboard];
+    pab.string = self.cardID.text;
+    if (pab == nil) {
+        [SVProgressHUD showErrorWithStatus:@"复制失败"];
+    }else
+    {
+        [SVProgressHUD showSuccessWithStatus:@"已复制"];
+    }
+}
+
+//确认收款或付款
+- (void)confirmClick{
+    //files 图片文件
+    if (self.detailModel.list.type.intValue == 1) {//买入时
+        [http_c2c selloutyes:self.detailModel.list.ID type:@"1" file:self.detailModel.list.file success:^(id responseObject){
+            [SVProgressHUD showSuccessWithStatus:@"买入成功"];
+        }failure:^(NSError *error) {
+            [SVProgressHUD showErrorWithStatus:error.domain];
+        }];
+    }else{
+        [http_c2c selloutyes:self.detailModel.list.ID type:@"2" file:@"1" success:^(id responseObject){
+            [SVProgressHUD showSuccessWithStatus:@"卖出成功"];
+        }failure:^(NSError *error) {
+            [SVProgressHUD showErrorWithStatus:error.domain];
+        }];
+    }
+    
 }
 @end

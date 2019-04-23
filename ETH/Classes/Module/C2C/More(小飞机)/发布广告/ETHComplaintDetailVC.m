@@ -9,8 +9,11 @@
 #import "ETHComplaintDetailVC.h"
 #import "ETHComplaintTF.h"
 #import "http_c2c.h"
+#import "http_user.h"
 #import "SVProgressHUD.h"
 #import "MJExtension.h"
+#import "TZImagePickerController.h"
+#import "UIImageView+WebCache.h"
 
 @interface ETHComplaintDetailVC ()
 @property (nonatomic, strong)UILabel *titleLabel;
@@ -21,6 +24,8 @@
 @property (nonatomic, strong)UIButton *selectImagebButton;
 @property (nonatomic, strong)UIButton *confirmButton;
 @property (nonatomic, strong)UILabel *emptyImageLabel;
+
+@property (nonatomic, strong)NSString *file;
 @end
 
 @implementation ETHComplaintDetailVC
@@ -157,6 +162,7 @@
         _selectImagebButton.titleLabel.font = [UIFont systemFontOfSize:13];
         [_selectImagebButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_selectImagebButton setTitle:@"选择图片" forState:UIControlStateNormal];
+        [_selectImagebButton addTarget:self action:@selector(selectImage) forControlEvents:UIControlEventTouchUpInside];
     }return _selectImagebButton;
 }
 
@@ -174,11 +180,55 @@
 
 
 #pragma mark -- 方法
+- (void)selectImage{
+    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:1 delegate:self];
+    
+    // You can get the photos by block, the same as by delegate.
+    // 你可以通过block或者代理，来得到用户选择的照片.
+    ZWeakSelf
+    [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto)
+     {
+         [weakSelf uploadImage:[photos firstObject]];
+     }];
+    [self presentViewController:imagePickerVc animated:YES completion:nil];
+}
+
+-(void)uploadImage:(UIImage*)image
+{
+    NSData *imageData = UIImageJPEGRepresentation(image, 1.0f);
+    //NSDataBase64EncodingEndLineWithLineFeed这个枚举值是base64串不换行
+    NSString *imageBase64Str = [imageData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+    //    //不转base64
+    //    NSString * str =[[NSString alloc] initWithData:imageData encoding:NSUTF8StringEncoding];
+    
+    ZWeakSelf
+    [http_user uploader:imageBase64Str success:^(id responseObject)
+     {
+         [weakSelf uploadImage_ok:responseObject];
+     } failure:^(NSError *error)
+     {
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
+}
+
+-(void)uploadImage_ok:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
+    
+    _file = [responseObject objectForKey:@"img"];
+    [SVProgressHUD showSuccessWithStatus:@"上传成功"];
+    
+    [_QRCodeImageView sd_setImageWithURL:[NSURL URLWithString:_file]];
+}
+
 //添加申诉接口方法
 - (void)confirmClick{
-//    ZWeakSelf
-    [http_c2c guamai_appeal_add:_VCID files:<#(nonnull NSString *)#> text:_titleTF.text textarea:_contentTextView.text success:^(id responseObject){
-    
+    //files 图片文件
+    [http_c2c guamai_appeal_add:_VCID files:_file text:_titleTF.text textarea:_contentTextView.text success:^(id responseObject){
+        [SVProgressHUD showSuccessWithStatus:@"提交申诉成功"];
     }failure:^(NSError *error) {
         [SVProgressHUD showErrorWithStatus:error.domain];
     }];

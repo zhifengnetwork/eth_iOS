@@ -232,7 +232,7 @@
          {
              [SVProgressHUD showInfoWithStatus:@"买入成功"];
          } failure:^(NSError *error) {
-             [SVProgressHUD showInfoWithStatus:@"买入失败"];
+             [SVProgressHUD showErrorWithStatus:error.domain];
          }];
     }else{
         if (_c2cModel.mine.intValue == 1)//判断该信息是否是自己发布的（未交易时） 1为自己 0为别人 做买入卖出的判断
@@ -244,7 +244,7 @@
          {
              [SVProgressHUD showInfoWithStatus:@"卖出成功"];
          } failure:^(NSError *error) {
-             [SVProgressHUD showInfoWithStatus:@"卖出失败"];
+             [SVProgressHUD showErrorWithStatus:error.domain];
          }];
     }
 //    if (_c2cModel.self3.intValue == 0) {//是否在交易中 1交易中 0不在交易中 做买入卖出的判断

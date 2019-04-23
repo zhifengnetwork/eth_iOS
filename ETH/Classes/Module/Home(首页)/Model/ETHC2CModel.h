@@ -30,10 +30,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              *file;
 @property (nonatomic , copy) NSString              *type1;
 @property (nonatomic , copy) NSString              *stuas;
-
+@property (nonatomic , copy) NSString              *files;
 
 @property (nonatomic , copy) NSString              *bankid;
+@property (nonatomic , copy) NSString              *bankid2;
 @property (nonatomic , copy) NSString              *bank;
+@property (nonatomic , copy) NSString              *bank2;
 @property (nonatomic , copy) NSString              *nickname;
 @property (nonatomic , copy) NSString              *nickname2;
 @property (nonatomic , copy) NSString              *mine;
@@ -45,7 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              *apple_time;
 
 @property (nonatomic , copy) NSString              *mobile;
-@property (nonatomic , copy) NSString              *banknanme;
+@property (nonatomic , copy) NSString              *bankname;
+@property (nonatomic , copy) NSString              *bankname2;
 @property (nonatomic , copy) NSString              *mobile2;
 @property (nonatomic , copy) NSString              *type_own;
 @property (nonatomic , copy) NSString              *name;

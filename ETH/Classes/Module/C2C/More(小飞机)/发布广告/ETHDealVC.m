@@ -29,6 +29,8 @@
 @property (nonatomic, strong)UILabel *totalLabel;
 @property (nonatomic, strong)ETHDealTF *totalTF;
 @property (nonatomic, strong)UIButton *agreeButton;
+
+//@property (nonatomic, assign)NSInteger tempCount;
 @end
 
 @implementation ETHDealVC
@@ -149,6 +151,7 @@
         _priceTF.placeholder = @"请输入买入的价格";
         [_priceTF setValue:RGBColorHex(0x737792) forKeyPath:@"_placeholderLabel.textColor"];
         [_priceTF setValue:[UIFont systemFontOfSize:12] forKeyPath:@"_placeholderLabel.font"];
+        [_priceTF addTarget:self action:@selector(priceTFDidChange:) forControlEvents:UIControlEventEditingChanged];
     }
     return _priceTF;
 }
@@ -186,6 +189,8 @@
         _numberTF.placeholder = @"请输入购买的数量";
         [_numberTF setValue:RGBColorHex(0x737792) forKeyPath:@"_placeholderLabel.textColor"];
         [_numberTF setValue:[UIFont systemFontOfSize:12] forKeyPath:@"_placeholderLabel.font"];
+        [_numberTF addTarget:self action:@selector(numberTFDidChange:) forControlEvents:UIControlEventEditingChanged];
+        
     }
     return _numberTF;
 }
@@ -207,6 +212,7 @@
         _billCountTF.placeholder = @"0";
         [_billCountTF setValue:RGBColorHex(0x737792) forKeyPath:@"_placeholderLabel.textColor"];
         [_billCountTF setValue:[UIFont systemFontOfSize:12] forKeyPath:@"_placeholderLabel.font"];
+        _billCountTF.enabled = NO;
     }
     return _billCountTF;
 }
@@ -233,10 +239,10 @@
         _totalLabel.textColor = [UIColor whiteColor];
         _totalLabel.text = @"预付金额(CNY)";
         
-        
     }
     return _totalLabel;
 }
+
 - (ETHDealTF *)totalTF{
     if (_totalTF ==nil) {
         _totalTF = [[ETHDealTF alloc]init];
@@ -245,6 +251,7 @@
         _totalTF.placeholder = @"0";
         [_totalTF setValue:RGBColorHex(0x737792) forKeyPath:@"_placeholderLabel.textColor"];
         [_totalTF setValue:[UIFont systemFontOfSize:12] forKeyPath:@"_placeholderLabel.font"];
+        _totalTF.enabled = NO;
     }
     return _totalTF;
 }
@@ -261,35 +268,7 @@
     }
     return _agreeButton;
 }
-- (void)agreeClick: (UIButton *)Btn{
-    /**
-     c2c订单中心确认买入或者卖出接口
-     @param type     1卖出 0买入
-     @param price 买入或者卖出价格
-     @param money 买入预付金额或者卖出预获金额
-     @param sxf0 手续费
-     @param trx 买入或者卖出数量
-     @param trx2 卖出所需支付TRX币 ETH
-     */
-    if (_type == 0) {
-//    ZWeakSelf
-//    [http_c2c hangonsale:@"0" price:_priceTF.text money:_billCountTF.text sxf0:<#(nonnull NSString *)#> trx:_numberTF.text trx2:<#(nonnull NSString *)#> success:<#^(id responseObject)ReqSuccess#> failure:<#^(NSError *error)ReqFailure#>
-//     {
-//         ETHCancelAlertView *view1 = [[ETHCancelAlertView alloc]initWithFrame:CGRectMake(100, 100, 235, 99)];
-//
-//             [view1 setTitle:@"买入成功"];
-//         TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view1 preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
-//         [self presentViewController:alertController animated:YES completion:nil];
-//
-//     } failure:^(NSError *error) {
-//         [self.tableView.mj_header endRefreshing];
-//         [SVProgressHUD showErrorWithStatus:error.domain];
-//     }];
-    }else{
-//        挂卖
-    }
-    
-}
+
 - (void)setType:(NSInteger)type{
     _type = type;
     if (_type == 0) {
@@ -309,4 +288,73 @@
     }
     
 }
+//监听textfield值变化
+//数量输入框变化
+- (void)numberTFDidChange:(id) sender {
+    UITextField *_field = (UITextField *)sender;
+    if (_type == 0) {
+        float count = _field.text.floatValue * _priceTF.text.floatValue;
+        _billCountTF.text = [NSString stringWithFormat:@"%.8f",count];
+        _totalTF.text = _billCountTF.text;
+    }else{
+        float count = _field.text.floatValue * _priceTF.text.floatValue;
+        float price = 1.01 * _field.text.floatValue;
+        _billCountTF.text = [NSString stringWithFormat:@"%.8f",count];
+        _totalTF.text = [NSString stringWithFormat:@"%.8f",round(price *100)/100];
+        
+    }
+}
+//价格输入框变化
+- (void)priceTFDidChange:(id) sender {
+    UITextField *_field = (UITextField *)sender;
+    if (_type == 0) {
+        float count = _field.text.floatValue * _numberTF.text.floatValue;
+        _billCountTF.text = [NSString stringWithFormat:@"%.8f",count];
+        _totalTF.text = _billCountTF.text;
+    }else{
+        float count = _field.text.floatValue * _numberTF.text.floatValue;
+        _billCountTF.text = [NSString stringWithFormat:@"%.8f",count];
+    }
+}
+
+
+- (void)agreeClick: (UIButton *)Btn{
+    /**
+     c2c订单中心确认买入或者卖出接口
+     @param type     1卖出 0买入
+     @param price 买入或者卖出价格
+     @param money 买入预付金额或者卖出预获金额
+     @param sxf0 手续费
+     @param trx 买入或者卖出数量
+     @param trx2 卖出所需支付TRX币 ETH
+     */
+    if (_type == 0) {
+    [http_c2c hangonsale:@"0" price:_priceTF.text money:_billCountTF.text sxf0:@"0.01" trx:_numberTF.text trx2:_totalTF.text success:^(id responseObject)
+     {
+         ETHCancelAlertView *view1 = [[ETHCancelAlertView alloc]initWithFrame:CGRectMake(100, 100, 235, 99)];
+
+             [view1 setTitle:@"挂买成功"];
+         TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view1 preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
+         [self presentViewController:alertController animated:YES completion:nil];
+
+     } failure:^(NSError *error) {
+         [SVProgressHUD showErrorWithStatus:error.domain];
+     }];
+    }else{
+//        挂卖
+        [http_c2c hangonsale:@"1" price:_priceTF.text money:_billCountTF.text sxf0:@"0.01" trx:_numberTF.text trx2:_totalTF.text success:^(id responseObject)
+         {
+             ETHCancelAlertView *view1 = [[ETHCancelAlertView alloc]initWithFrame:CGRectMake(100, 100, 235, 99)];
+             
+             [view1 setTitle:@"挂卖成功"];
+             TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view1 preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
+             [self presentViewController:alertController animated:YES completion:nil];
+             
+         } failure:^(NSError *error) {
+             [SVProgressHUD showErrorWithStatus:error.domain];
+         }];
+    }
+    
+}
+
 @end

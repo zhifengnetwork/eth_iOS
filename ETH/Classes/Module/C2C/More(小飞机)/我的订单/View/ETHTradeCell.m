@@ -179,7 +179,7 @@
     if (_unitpriceLabel == nil) {
         _unitpriceLabel = [[UILabel alloc]init];
         _unitpriceLabel.font = [UIFont systemFontOfSize:13];
-        _unitpriceLabel.text = @"$ ";
+        _unitpriceLabel.text = @"$";
         _unitpriceLabel.textColor = RGBColorHex(0xa4aff1);
     }
     return _unitpriceLabel;
@@ -199,7 +199,7 @@
     if (_totalLabel == nil) {
         _totalLabel = [[UILabel alloc]init];
         _totalLabel.font = [UIFont systemFontOfSize:13];
-        _totalLabel.text = @"总金额(CNY): ";
+        _totalLabel.text = @"总金额(CNY):";
         _totalLabel.textColor = RGBColorHex(0xa4aff1);
     }
     return _totalLabel;
@@ -232,7 +232,7 @@
 }
 - (void)setModel:(ETHC2CModel *)model{
     _model = model;
-    if (model.type.intValue == 1) {//1买入 0卖出
+    if (model.type.intValue == 1) {
         _transactionLabel.text = @"买入";
         _transactionLabel.textColor = RGBColorHex(0x70c376);
     }else{
@@ -243,7 +243,6 @@
     _unitpriceLabel2.text = [NSString stringWithFormat:@"%@",model.price];
      _totalLabel2.text = [NSString stringWithFormat:@"%@",model.money];
     _timeLabel.text = [NSString stringWithFormat:@"%@",model.datatime];
-//添加计时器
 }
 - (UIViewController*)viewController {
     for (UIView* next = [self superview]; next; next = next.superview) {

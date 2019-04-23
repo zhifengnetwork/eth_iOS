@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-//书写申诉界面
+//书写,添加申诉界面
 @interface ETHComplaintDetailVC : UIViewController
 @property (nonatomic, strong)NSString *VCID;
 @end

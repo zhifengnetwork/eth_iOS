@@ -8,6 +8,7 @@
 
 #import "ETHDetailComplaintVC.h"
 #import "ETHTitleView.h"
+#import "UIImageView+WebCache.h"
 
 @interface ETHDetailComplaintVC ()
 @property (nonatomic, strong)UIView *titleView;
@@ -35,6 +36,7 @@
 @property (nonatomic, strong)UILabel *statusLabel;
 @property (nonatomic, strong)UILabel *paymentLabel;
 @property (nonatomic, strong)UIImageView *imageView;
+@property (nonatomic, strong)UILabel *emptyLabel;
 @end
 
 @implementation ETHDetailComplaintVC
@@ -92,6 +94,7 @@
     [self.view addSubview:self.statusLabel];
     [self.view addSubview:self.paymentLabel];
     [self.view addSubview:self.imageView];
+    [self.imageView addSubview:self.emptyLabel];
     
     [_view1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.titleView.mas_bottom).with.offset(15);
@@ -197,6 +200,10 @@
         make.left.equalTo(self.view).with.offset(32);
         make.right.equalTo(self.view).with.offset(-32);
         make.height.mas_equalTo(130);
+    }];
+    [_emptyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.imageView.mas_centerX);
+        make.centerY.equalTo(self.imageView.mas_centerY);
     }];
 }
 - (UIView *)titleView{
@@ -311,7 +318,7 @@
         _complainantLabel = [[UILabel alloc]init];
         _complainantLabel.font = [UIFont boldSystemFontOfSize:15];
         _complainantLabel.textColor = RGBColorHex(0xffffff);
-        _complainantLabel.text = @"13949837438";
+        _complainantLabel.text = @"13178489831";
     }return _complainantLabel;
 }
 
@@ -328,7 +335,7 @@
         _respondentLabel = [[UILabel alloc]init];
         _respondentLabel.font = [UIFont boldSystemFontOfSize:15];
         _respondentLabel.textColor = RGBColorHex(0xffffff);
-        _respondentLabel.text = @"warp_user_12_32_23424223424";
+        _respondentLabel.text = @"wap_user_12_13178489831";
     }return _respondentLabel;
 }
 
@@ -399,18 +406,16 @@
         _imageView = [[UIImageView alloc]init];
         _imageView.layer.borderColor = RGBColorHex(0x6c91fa).CGColor;
         _imageView.layer.borderWidth = 1;
-        if (_imageView.image == nil) {
-            UILabel *empayLabel = [[UILabel alloc]init];
-            [self.imageView addSubview:empayLabel];
-            empayLabel.font = [UIFont systemFontOfSize:15];
-            empayLabel.textColor = RGBColorHex(0x737893);
-            empayLabel.text = @"未上传支付方式";
-            [empayLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(self.imageView.mas_centerX);
-                make.centerY.equalTo(self.imageView.mas_centerY);
-            }];
-        }
     }return _imageView;
+}
+- (UILabel *)emptyLabel{
+    if (_emptyLabel == nil) {
+        _emptyLabel = [[UILabel alloc]init];
+        
+        _emptyLabel.font = [UIFont systemFontOfSize:15];
+        _emptyLabel.textColor = RGBColorHex(0x737893);
+        _emptyLabel.text = @"未上传支付方式";
+    }return _emptyLabel;
 }
 
 - (void)setDetailModel:(ETHC2CModel *)detailModel{
@@ -418,6 +423,7 @@
     _problemLabel.text = [NSString stringWithFormat:@"%@",detailModel.ID];
     _reasonLabel.text = [NSString stringWithFormat:@"%@",detailModel.text];
     _orderLabel.text = [NSString stringWithFormat:@"%@",detailModel.textarea];
+
     _complainantLabel.text = [NSString stringWithFormat:@"%@",detailModel.openid];
     _respondentLabel.text = [NSString stringWithFormat:@"%@",detailModel.openid2];
     _ethAcountLabel.text = [NSString stringWithFormat:@"%@",detailModel.trx];
@@ -431,6 +437,13 @@
     }else{
         _statusLabel.text = @"申诉无效";
     }
+    if ([detailModel.file isEqualToString:@""]) {
+        _emptyLabel.hidden = NO;
+    }else{
+        _emptyLabel.hidden = YES;
+        [_imageView sd_setImageWithURL:[NSURL URLWithString:detailModel.file]];
+    }
+    
 }
 
 #pragma mark --方法

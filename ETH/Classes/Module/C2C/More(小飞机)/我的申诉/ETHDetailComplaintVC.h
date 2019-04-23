@@ -10,7 +10,7 @@
 #import "ETHC2CModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
+//申诉详情界面
 @interface ETHDetailComplaintVC : UIViewController
 @property (nonatomic,strong)ETHC2CModel *detailModel;
 @end

@@ -328,6 +328,32 @@
     strUrl = [strUrl stringByAppendingPathComponent:@"app/index.php"];
     [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
 }
+
++(void)selloutyes:(NSString*)ID type:(NSString*)type file:(NSString*)file success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure{
+    HttpTool *http = [HttpTool sharedManager];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc]initWithCapacity:1];
+    
+    if ( !kStringIsEmpty(ID) )
+    {
+        [parameters setObject:ID forKey:@"id"];
+    }
+    if ( !kStringIsEmpty(type) )
+    {
+        [parameters setObject:type forKey:@"type"];
+    }
+    if ( !kStringIsEmpty(file) )
+    {
+        [parameters setObject:file forKey:@"file"];
+    }
+    
+    [parameters setObject:@"member.androidapi.selloutyes" forKey:@"r"];
+    
+    NSDictionary* dic = [http hanldeSign:parameters];
+    
+    NSString* strUrl = [http getMainUrl];
+    strUrl = [strUrl stringByAppendingPathComponent:@"app/index.php"];
+    [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
+}
 //c2c撤销订单
 //挂卖编号 订单ID
 +(void)sellout_tab_con:(NSString*)ID success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure{

@@ -69,7 +69,7 @@ static NSString *CellIdentifier = @"DropDownCell";
     //    CGRect frame = _listView.frame;
     [self.height uninstall];//先销毁约束
     [_listView mas_updateConstraints:^(MASConstraintMaker *make) {
-        self.height = self.height = make.height.mas_equalTo(0);
+        self.height = make.height.mas_equalTo(0);
     }];
     //使listView高度在0.3秒内从最大高度过渡到0以隐藏全部列表项
 }

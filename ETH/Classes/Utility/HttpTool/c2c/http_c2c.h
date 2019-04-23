@@ -82,6 +82,15 @@ NS_ASSUME_NONNULL_BEGIN
  @param op 标识 0 或者 1
  */
 +(void)selloutyes:(NSString*)ID type:(NSString*)type op:(NSString*)op success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
+
+/**
+ c2c点击订单详情的各种操作
+ @param ID 挂卖编号 订单ID
+ @param type 买入订单 挂卖人进入 type = 1 卖出订单 挂卖人进入 type = 2 请求接口二传入
+ @param op 标识 0 或者 1
+ */
++(void)selloutyes:(NSString*)ID type:(NSString*)type file:(NSString*)file success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
+
 //c2c撤销订单
 //挂卖编号 订单ID
 +(void)sellout_tab_con:(NSString*)ID success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
