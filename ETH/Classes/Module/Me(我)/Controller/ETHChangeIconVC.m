@@ -236,7 +236,8 @@
 
 -(void)face_ok:(id)responseObject
 {
-    [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+//    [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
