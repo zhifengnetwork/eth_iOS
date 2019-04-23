@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<ETHAmountInvesTableCellDelegate> delegate;
 
+-(NSString*)getAmountText;
+
 @end
 
 NS_ASSUME_NONNULL_END

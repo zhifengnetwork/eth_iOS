@@ -193,6 +193,12 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
 
 -(void)loadData2
 {
+    ETHAmountInvesTableCell* xcell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]];
+    if (xcell)
+    {
+        self.tz.creditmy = [xcell getAmountText];
+    }
+    
     ZWeakSelf
     NSString* str = nil;
     if (self.type.intValue==0)

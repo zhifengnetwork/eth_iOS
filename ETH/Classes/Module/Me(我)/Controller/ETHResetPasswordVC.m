@@ -11,6 +11,7 @@
 #import "SVProgressHUD.h"
 #import "MJExtension.h"
 #import "CQCountDownButton.h"
+#import "ETHTool.h"
 
 
 @interface ETHResetPasswordVC ()
@@ -255,6 +256,12 @@
         return;
     }
     
+    if ( [ETHTool isPhoneNumber:phone]==NO )
+    {
+        [SVProgressHUD showInfoWithStatus:@"请输入正确的手机号码"];
+        return;
+    }
+    
     if (kStringIsEmpty(identifying))
     {
         [SVProgressHUD showInfoWithStatus:@"请输入5位验证码"];
@@ -333,8 +340,17 @@
             if ( kStringIsEmpty(weakSelf.phoneNumberTF.text) )
             {
                 [SVProgressHUD showInfoWithStatus:@"请输入手机号码"];
+                weakSelf.vcodeButton.enabled = YES;
                 return;
             }
+            
+            if ( [ETHTool isPhoneNumber:weakSelf.phoneNumberTF.text]==NO )
+            {
+                [SVProgressHUD showInfoWithStatus:@"请输入正确的手机号码"];
+                weakSelf.vcodeButton.enabled = YES;
+                return;
+            }
+            
             [weakSelf.vcodeButton startCountDown];
             [weakSelf vcodeButtonDidClick];
         } countDownStart:^{

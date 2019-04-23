@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ETHBuyVC : UIViewController
 @property (nonatomic, assign)NSInteger type;//0买入 1卖出
+@property (nonatomic, strong) NSString *name;
 @end
 
 NS_ASSUME_NONNULL_END

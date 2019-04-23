@@ -10,5 +10,7 @@
 
 @interface ETHC2C : WMPageController
 
+@property (nonatomic, strong) NSString *name;
+
 @end
 

@@ -119,4 +119,9 @@
     }
 }
 
+-(NSString*)getAmountText
+{
+    return [NSString stringWithFormat:@"%.2f",_numberButton.currentNumber];
+}
+
 @end

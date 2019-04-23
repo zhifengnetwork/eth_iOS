@@ -47,6 +47,11 @@ static NSString *const ETHBuyTableViewCellID = @"ETHBuyTableViewCellID";
         make.left.right.bottom.equalTo(self.view);
     }];
     
+    if (kStringIsEmpty(_name)==NO)
+    {
+        [_titleView hideLeftBtn:NO];
+    }
+    
     [self.view addSubview:self.emptyImageView];
     [self.view addSubview:self.emptyLabel];
     [_emptyImageView mas_makeConstraints:^(MASConstraintMaker *make) {

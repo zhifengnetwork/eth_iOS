@@ -59,6 +59,7 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
 {
     [super viewDidAppear:animated];
     
+    self.navigationController.navigationBar.hidden = NO;
 }
 
 - (void)setupTableView
@@ -241,6 +242,7 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     {
         //跳转到C2C
         ETHC2C* vc = [[ETHC2C alloc]init];
+        vc.name = @"vc";
         [self.navigationController pushViewController:vc animated:YES];
     }
     else if (type==4)

@@ -44,6 +44,10 @@
 
 @property (nonatomic , strong)ETHTZDataModel *tz;
 
+@property (nonatomic , assign) int number1;
+@property (nonatomic , assign) int number2;
+@property (nonatomic , assign) int number3;
+
 @end
 
 
@@ -59,6 +63,9 @@ static NSString *const ETHMultipleTableCellID = @"ETHMultipleTableCellID";
     
     self.title = @"3D游戏";
     [self setupUI];
+    _number1 = -1;
+    _number2 = -1;
+    _number3 = -1;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -169,19 +176,25 @@ static NSString *const ETHMultipleTableCellID = @"ETHMultipleTableCellID";
     else if (indexPath.section==1)
     {
         cell.title = @"百位";
-//        cell.delegate = self;
+        cell.indexPath = indexPath;
+        cell.delegate = self;
+        cell.index = self.number1;
         return cell;
     }
     else if (indexPath.section==2)
     {
         cell.title = @"十位";
-        //        cell.delegate = self;
+        cell.indexPath = indexPath;
+        cell.delegate = self;
+        cell.index = self.number2;
         return cell;
     }
     else if (indexPath.section==3)
     {
         cell.title = @"个位";
-        //        cell.delegate = self;
+        cell.indexPath = indexPath;
+        cell.delegate = self;
+        cell.index = self.number3;
         return cell;
     }
     else if (indexPath.section==4)
@@ -282,6 +295,21 @@ static NSString *const ETHMultipleTableCellID = @"ETHMultipleTableCellID";
 //小-大-倍数
 - (void)ETHKeyPackageTableCellDidClick:(int)type minNum:(NSString*)minNum maxNum:(NSString*)maxNum bs:(NSString*)bs
 {
+    if (kStringIsEmpty(minNum)) {
+        [SVProgressHUD showInfoWithStatus:@"请输入最小数"];
+        return;
+    }
+    
+    if (kStringIsEmpty(maxNum)) {
+        [SVProgressHUD showInfoWithStatus:@"请输入最大数"];
+        return;
+    }
+    
+    if (kStringIsEmpty(bs)) {
+        [SVProgressHUD showInfoWithStatus:@"请输入倍数"];
+        return;
+    }
+    
     if (type==1)
     {
         self.minNum = minNum;
@@ -338,6 +366,21 @@ static NSString *const ETHMultipleTableCellID = @"ETHMultipleTableCellID";
 //3D游戏底部
 - (void)ETH3DGameFooterViewDidClick
 {
+    if (kStringIsEmpty(self.minNum)) {
+        [SVProgressHUD showInfoWithStatus:@"请输入最小数"];
+        return;
+    }
+    
+    if (kStringIsEmpty(self.maxNum)) {
+        [SVProgressHUD showInfoWithStatus:@"请输入最大数"];
+        return;
+    }
+    
+    if (kStringIsEmpty(self.bsNum)) {
+        [SVProgressHUD showInfoWithStatus:@"请输入倍数"];
+        return;
+    }
+    
     NSMutableArray* arr = [[NSMutableArray alloc]init];
     for (int i=0; i<self.numList.count; i++)
     {
@@ -383,6 +426,7 @@ static NSString *const ETHMultipleTableCellID = @"ETHMultipleTableCellID";
     
     NSString* strlist = [arr mj_JSONString];
     
+    [SVProgressHUD showWithStatus:@"正在加载"];
     [http_indexedit bets:2 payment:type.intValue money:@"0.001" list:strlist success:^(id responseObject)
      {
          [SVProgressHUD showSuccessWithStatus:@"下注成功"];
@@ -391,6 +435,39 @@ static NSString *const ETHMultipleTableCellID = @"ETHMultipleTableCellID";
          
          [SVProgressHUD showInfoWithStatus:error.domain];
      }];
+}
+
+
+//下注数Cell被点击
+- (void)ETH3DGameTableCellDidClick:(int)index indexPath:(NSIndexPath*)indexPath
+{
+    if (indexPath.section==1)
+    {
+        self.number1 = index;
+    }
+    else if (indexPath.section==2)
+    {
+        self.number2 = index;
+    }
+    else if (indexPath.section==3)
+    {
+        self.number3 = index;
+    }
+    
+    if (self.number1>-1 && self.number2>-1 && self.number3>-1)
+    {
+        NSString* str = [NSString stringWithFormat:@"%d%d%d",self.number1,self.number2,self.number3];
+        ETH3DhomeModel* model = [[ETH3DhomeModel alloc]init];
+        model.number = str;
+        model.price = @"1";
+        [self.numList addObject:model];
+        
+        self.number1 = -1;
+        self.number2 = -1;
+        self.number3 = -1;
+        
+        [self.tableView reloadData];
+    }
 }
 
 

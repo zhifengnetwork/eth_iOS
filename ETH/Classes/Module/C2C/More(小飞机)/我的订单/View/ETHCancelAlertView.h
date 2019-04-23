@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ETHCancelAlertView : UIView
 - (void)setTitle: (NSString *)title;
 @property (nonatomic, strong)NSString *viewID;
+
+@property (nonatomic, assign)BOOL isNOApi;
 @end
 
 NS_ASSUME_NONNULL_END
