@@ -174,9 +174,13 @@
 
 
 #pragma mark -- 方法
+//添加申诉接口方法
 - (void)confirmClick{
 //    ZWeakSelf
-//    [http_c2c guamai_appeal_add:<#(nonnull NSString *)#> files:<#(nonnull NSString *)#> text:<#(nonnull NSString *)#> textarea:<#(nonnull NSString *)#> success:<#^(id responseObject)ReqSuccess#> failure:<#^(NSError *error)ReqFailure#>{
+    [http_c2c guamai_appeal_add:_VCID files:<#(nonnull NSString *)#> text:_titleTF.text textarea:_contentTextView.text success:^(id responseObject){
     
+    }failure:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:error.domain];
+    }];
 }
 @end

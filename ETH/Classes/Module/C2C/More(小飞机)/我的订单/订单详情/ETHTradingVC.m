@@ -265,7 +265,7 @@
     _unitPriceLabel.text = [NSString stringWithFormat:@"%@",model.price];
     _numberLabel.text = [NSString stringWithFormat:@"%@",model.trx];
     _totalLabel.text = [NSString stringWithFormat:@"%@",model.money];
-    _receiverLabel.text = [NSString stringWithFormat:@"%@",self.detailModel.list.mobile];
+    _receiverLabel.text = [NSString stringWithFormat:@"%@",self.detailModel.list.mobile2];
     if ([model.file isEqualToString:@""]) {
         _emptyLabel.hidden = NO;
     }else{
@@ -544,6 +544,7 @@
 
 - (void)complaintClick{
     ETHComplaintDetailVC *vc = [[ETHComplaintDetailVC alloc]init];
+    vc.VCID = self.detailModel.list.ID;
     [self.navigationController pushViewController:vc animated:YES];
 }
 @end

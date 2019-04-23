@@ -187,6 +187,7 @@
 
 - (void)complaintClick{
     ETHComplaintDetailVC *vc = [[ETHComplaintDetailVC alloc]init];
+    vc.VCID = self.detailModel.list.ID;
     [self.navigationController pushViewController:vc animated:YES];
 }
 @end

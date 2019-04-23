@@ -84,13 +84,12 @@
     return nil;
 }
 - (void)agreeClick{
-    [[self viewController] dismissViewControllerAnimated:YES completion:nil];
     
-//    [http_c2c sellout_tab_con:_viewID success:^(id responseObject){
-//        [[self viewController] dismissViewControllerAnimated:YES completion:nil];
-//    }failure:^(NSError *error) {
-//        [SVProgressHUD showErrorWithStatus:error.domain];
-//    }];
+    [http_c2c sellout_tab_con:_viewID success:^(id responseObject){
+        [[self viewController] dismissViewControllerAnimated:YES completion:nil];
+    }failure:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:error.domain];
+    }];
     
 }
 - (void)setTitle:(NSString *)title{

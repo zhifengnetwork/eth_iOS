@@ -25,7 +25,7 @@
 @property (nonatomic, strong)UILabel *totalLabel;
 @property (nonatomic, strong)UILabel *totalLabel2;
 @property (nonatomic, strong)UILabel *timeLabel;
-@property (nonatomic, strong)UILabel *countdownLabel;
+
 @end
 
 @implementation ETHTradeCell
@@ -57,7 +57,7 @@
     [self.contentView addSubview:self.totalLabel];
     [self.contentView addSubview:self.totalLabel2];
     [self.contentView addSubview:self.timeLabel];
-    [self.contentView addSubview:self.countdownLabel];
+
     [_transactionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self).with.offset(15);
     }];
@@ -106,10 +106,7 @@
         make.top.equalTo(self.numberLabel.mas_bottom).with.offset(15);
         make.left.equalTo(self).with.offset(15);
     }];
-    [_countdownLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.timeLabel.mas_centerY);
-        make.left.equalTo(self.timeLabel.mas_right).with.offset(15);
-    }];
+
 }
 - (void)setFrame:(CGRect)frame{
     
@@ -227,26 +224,9 @@
     }
     return _timeLabel;
 }
-- (UILabel *)countdownLabel{
-    if (_countdownLabel == nil) {
-        _countdownLabel = [[UILabel alloc]init];
-        _countdownLabel.font = [UIFont systemFontOfSize:11];
-        _countdownLabel.textColor = RGBColorHex(0x9496a3);
-        _countdownLabel.text = @"30:00";
-        _countdownLabel.hidden = NO;
-    }
-    return _countdownLabel;
-}
+
 #pragma mark --方法
-//- (void)settransaction:(BOOL)isSell{
-//    if (isSell == YES) {
-//        _transactionLabel.textColor = RGBColorHex(0xce2f50);
-//        _transactionLabel.text = @"卖出";
-//    }else{
-//        _transactionLabel.textColor = RGBColorHex(0x70c376);
-//        _transactionLabel.text = @"买入";
-//    }
-//}
+
 - (void)setStatus:(NSString *)status{
     self.statusLabel.text = status;
 }
@@ -263,12 +243,7 @@
     _unitpriceLabel2.text = [NSString stringWithFormat:@"%@",model.price];
      _totalLabel2.text = [NSString stringWithFormat:@"%@",model.money];
     _timeLabel.text = [NSString stringWithFormat:@"%@",model.datatime];
-    if (model.status.intValue == 1) {
-        _countdownLabel.text = [NSString stringWithFormat:@"%@",model.apple_time];
-        _countdownLabel.hidden = NO;
-    }else{
-        _countdownLabel.hidden = YES;
-    }
+//添加计时器
 }
 - (UIViewController*)viewController {
     for (UIView* next = [self superview]; next; next = next.superview) {
