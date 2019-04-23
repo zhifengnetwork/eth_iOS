@@ -226,9 +226,15 @@
 
 //添加申诉接口方法
 - (void)confirmClick{
+<<<<<<< HEAD
     //files 图片文件
     [http_c2c guamai_appeal_add:_VCID files:_file text:_titleTF.text textarea:_contentTextView.text success:^(id responseObject){
         [SVProgressHUD showSuccessWithStatus:@"提交申诉成功"];
+=======
+//    ZWeakSelf
+    [http_c2c guamai_appeal_add:_VCID files:nil text:_titleTF.text textarea:_contentTextView.text success:^(id responseObject){
+    
+>>>>>>> e88c8365595461bdd416e194fa402896902af463
     }failure:^(NSError *error) {
         [SVProgressHUD showErrorWithStatus:error.domain];
     }];

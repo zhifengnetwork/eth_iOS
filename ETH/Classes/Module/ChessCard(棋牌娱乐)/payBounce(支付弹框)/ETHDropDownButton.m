@@ -36,6 +36,7 @@ static NSString *CellIdentifier = @"DropDownCell";
     [self setImageEdgeInsets:UIEdgeInsetsMake(0, 240, 0, -240)];
     [self setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
     [self addTarget:self action:@selector(clickedToDropDown) forControlEvents:UIControlEventTouchUpInside];
+    self.index = -1;
 }
 
 - (void)setupDefaultTable {
@@ -113,7 +114,8 @@ static NSString *CellIdentifier = @"DropDownCell";
     cell.textLabel.highlightedTextColor = [UIColor whiteColor];
     [cell.textLabel setTextColor:[UIColor blackColor]];
     //执行列表收起动画
-//    [self clickedToDropDown];
+    [self clickedToDropDown];
+    self.index = indexPath.row;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

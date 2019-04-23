@@ -19,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 //期号
 @property (nonatomic, copy) NSString *time;
 
+
+-(NSString*)getListString;
+
 @end
 
 NS_ASSUME_NONNULL_END

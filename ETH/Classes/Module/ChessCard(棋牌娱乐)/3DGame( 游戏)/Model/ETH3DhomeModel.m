@@ -10,4 +10,10 @@
 
 @implementation ETH3DhomeModel
 
+
+-(NSString*)getListString
+{
+    return [NSString stringWithFormat:@"%@,%@",_number,_price];
+}
+
 @end

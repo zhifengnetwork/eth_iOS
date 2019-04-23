@@ -77,18 +77,27 @@
 }
 
 
--(void)setNumber:(NSInteger)number
+-(void)setModel:(ETH3DhomeModel *)model
 {
-    //100
-    _number = number;
+    _model = model;
     
+    NSString* str = _model.number;
+    NSMutableArray * arr = [NSMutableArray arrayWithCapacity:0];
+    // 遍历字符串，按字符来遍历。每个字符将通过block参数中的substring传出
+    [str enumerateSubstringsInRange:NSMakeRange(0, str.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+        [arr addObject:substring];
+    }];
+    
+    if (arr.count>2)
+    {
+        [_number1Button setTitle:arr[0] forState:UIControlStateNormal];
+        [_number2Button setTitle:arr[1] forState:UIControlStateNormal];
+        [_number3Button setTitle:arr[2] forState:UIControlStateNormal];
+    }
+    
+    _numberButton.currentNumber = _model.price.intValue;
 }
 
--(void)setBs:(NSInteger)bs
-{
-    _bs = bs;
-    _numberButton.currentNumber = _bs;
-}
 
 - (void)number1ButtonDidClick
 {

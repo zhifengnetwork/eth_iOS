@@ -7,8 +7,6 @@
 //
 
 #import "ETHKeyPackageTableCell.h"
-#import "ETHPayBounceView.h"
-#import "TYAlertController.h"
 
 @interface ETHKeyPackageTableCell ()
 
@@ -112,22 +110,17 @@
 }
 - (void)confirmButtonDidClick
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(ETHKeyPackageTableCellDidClick:)])
+    if (self.delegate && [self.delegate respondsToSelector:@selector(ETHKeyPackageTableCellDidClick: minNum:maxNum:bs:)])
     {
-        [self.delegate ETHKeyPackageTableCellDidClick:1];
+        [self.delegate ETHKeyPackageTableCellDidClick:1 minNum:_keyTextField.text maxNum:_key1TextField.text bs:_envelopeTextField.text];
     }
-    
-//    ETHPayBounceView *view = [[ETHPayBounceView alloc]initWithFrame:CGRectMake(0, 0, 300, 220)];
-//    TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
-//    alertController.backgoundTapDismissEnable = YES;
-//    [[self viewController] presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)cancelButtonDidClick
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(ETHKeyPackageTableCellDidClick:)])
+    if (self.delegate && [self.delegate respondsToSelector:@selector(ETHKeyPackageTableCellDidClick: minNum:maxNum:bs:)])
     {
-        [self.delegate ETHKeyPackageTableCellDidClick:2];
+        [self.delegate ETHKeyPackageTableCellDidClick:2 minNum:_keyTextField.text maxNum:_key1TextField.text bs:_envelopeTextField.text];
     }
 }
 

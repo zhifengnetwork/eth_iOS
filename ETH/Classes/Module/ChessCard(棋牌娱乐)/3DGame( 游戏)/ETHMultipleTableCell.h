@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ETH3DhomeModel.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,8 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface ETHMultipleTableCell : UITableViewCell
 
-@property (nonatomic, assign) NSInteger number;
-@property (nonatomic, assign) NSInteger bs;
+@property (nonatomic, strong) ETH3DhomeModel* model;
+
+@property (nonatomic, strong) NSIndexPath* indexPath;
 
 @end
 
