@@ -287,8 +287,8 @@
         _service2Label.textColor = RGBColorHex(0x232833);
         _service2Label.font = [UIFont systemFontOfSize:12];
         //2种颜色
-        NSString* str = @"本次转账将扣除手续费：¥0.01500";
-        NSString* key = @"¥0.01500";
+        NSString* str = @"本次转账将扣除手续费：¥0.0";
+        NSString* key = @"¥0.0";
         NSMutableAttributedString* aText = [ETHTool GetAttributedString:nil SrcText:str KeyWord:key KeyWordColor:RGBColorHex(0xf2041a) KeyWordFont:[UIFont systemFontOfSize:13] KeyWordBGolor:[UIColor clearColor]];
         _service2Label.attributedText = aText;
     }
@@ -301,8 +301,8 @@
         _actualLabel.textColor = RGBColorHex(0x232833);
         _actualLabel.font = [UIFont systemFontOfSize:12];
         //2种颜色
-        NSString* str = @"本次转账实际到账金额：¥5.35330";
-        NSString* key = @"¥5.35330";
+        NSString* str = @"本次转账实际到账金额：¥0.0";
+        NSString* key = @"¥0.0";
         NSMutableAttributedString* aText = [ETHTool GetAttributedString:nil SrcText:str KeyWord:key KeyWordColor:RGBColorHex(0xf2041a) KeyWordFont:[UIFont systemFontOfSize:13] KeyWordBGolor:[UIColor clearColor]];
         _actualLabel.attributedText = aText;
     }

@@ -57,7 +57,7 @@
     
     if (_isSelect)
     {
-        _numberButton.backgroundColor = RGBColorHex(0x2f4577);
+        _numberButton.backgroundColor = RGBColorHex(0x232833);
     }
     else
     {

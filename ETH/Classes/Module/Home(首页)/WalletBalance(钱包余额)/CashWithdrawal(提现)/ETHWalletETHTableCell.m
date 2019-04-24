@@ -131,7 +131,29 @@
     {
         [self.delegate ETHWalletETHTableCellInputing:self.moneyTextField.text indexPath:self.indexPath];
     }
+    
+    NSString* tx = self.moneyTextField.text;
+    if (kStringIsEmpty(tx))
+    {
+        return;
+    }
+    
+    float sxf = tx.floatValue*0.05;
+    
+    //2种颜色
+    NSString* str = [NSString stringWithFormat:@"本次提现将扣除手续费：¥%.5f",sxf];
+    NSString* key = [NSString stringWithFormat:@"¥%.5f",sxf];
+    NSMutableAttributedString* aText = [ETHTool GetAttributedString:nil SrcText:str KeyWord:key KeyWordColor:RGBColorHex(0xf2041a) KeyWordFont:[UIFont systemFontOfSize:13] KeyWordBGolor:[UIColor clearColor]];
+    _service2Label.attributedText = aText;
+    
+    //2种颜色
+    float dz = tx.floatValue - sxf;
+    NSString* str2 = [NSString stringWithFormat:@"本次提现实际到账金额：¥%.5f",dz];
+    NSString* key2 = [NSString stringWithFormat:@"¥%.5f",dz];
+    NSMutableAttributedString* aText2 = [ETHTool GetAttributedString:nil SrcText:str2 KeyWord:key2 KeyWordColor:RGBColorHex(0xf2041a) KeyWordFont:[UIFont systemFontOfSize:13] KeyWordBGolor:[UIColor clearColor]];
+    _actualLabel.attributedText = aText2;
 }
+
 
 - (void)wholeButtonDidClick:(UIButton *)sender
 {
@@ -240,8 +262,8 @@
         _service2Label.textColor = RGBColorHex(0x232833);
         _service2Label.font = [UIFont systemFontOfSize:12];
         //2种颜色
-        NSString* str = @"本次提现将扣除手续费：¥0.3";
-        NSString* key = @"¥0.3";
+        NSString* str = @"本次提现将扣除手续费：¥0.0";
+        NSString* key = @"¥0.0";
         NSMutableAttributedString* aText = [ETHTool GetAttributedString:nil SrcText:str KeyWord:key KeyWordColor:RGBColorHex(0xf2041a) KeyWordFont:[UIFont systemFontOfSize:13] KeyWordBGolor:[UIColor clearColor]];
         _service2Label.attributedText = aText;
     }
@@ -254,8 +276,8 @@
         _actualLabel.textColor = RGBColorHex(0x232833);
         _actualLabel.font = [UIFont systemFontOfSize:12];
         //2种颜色
-        NSString* str = @"本次提现实际到账金额：¥5.7";
-        NSString* key = @"¥5.7";
+        NSString* str = @"本次提现实际到账金额：¥0.0";
+        NSString* key = @"¥0.0";
         NSMutableAttributedString* aText = [ETHTool GetAttributedString:nil SrcText:str KeyWord:key KeyWordColor:RGBColorHex(0xf2041a) KeyWordFont:[UIFont systemFontOfSize:13] KeyWordBGolor:[UIColor clearColor]];
         _actualLabel.attributedText = aText;
     }
