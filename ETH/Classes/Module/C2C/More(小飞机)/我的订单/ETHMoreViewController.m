@@ -21,7 +21,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleUserLoginRegisterNotification:) name:GMNotification object:nil];
 }
+//通知调用的方法
+- (void)handleUserLoginRegisterNotification:(NSNotification *)notification
+{
+    //1
+    self.selectIndex = 0;
+}
+-(void)dealloc
+{
+    //移除通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:GMNotification object:nil];
+}
+
 - (void)viewWillAppear:(BOOL)animated{
     self.menuViewStyle = WMMenuViewStyleLine;
     self.titleFontName = @"Helvetica-Bold";

@@ -290,6 +290,8 @@ _Pragma("clang diagnostic pop") \
 #define UserShowTopToolViewNotification @"UserShowTopToolViewNotification"
 //通知消息：隐藏首页顶部工具栏
 #define UserHideTopToolViewNotification @"UserHideTopToolViewNotification"
+//通知消息：挂卖成功
+#define GMNotification @"GMNotification"
 
 
 #endif /* PrefixHeader_pch */

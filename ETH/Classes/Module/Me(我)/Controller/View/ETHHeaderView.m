@@ -87,17 +87,28 @@
     _userInfo = userInfo;
     
 //    显示头像
-    [_iconImageView sd_setImageWithURL:[NSURL URLWithString:_userInfo.member.avatar]];
+    if (!kStringIsEmpty(_userInfo.member.avatar))
+    {
+        [_iconImageView sd_setImageWithURL:[NSURL URLWithString:_userInfo.member.avatar]];
+    }
     _phoneLabel.text = _userInfo.member.nickname;
     _memberID.text = [NSString stringWithFormat:@"会员ID：%@",_userInfo.member.ID];
-    _memberLevel.text = [NSString stringWithFormat:@"会员等级：%@",_userInfo.huiyuanlevel.levelname1];
-    if (kStringIsEmpty(_userInfo.huiyuanlevel.levelname3))
+    
+    if (kStringIsEmpty(_userInfo.huiyuanlevel.levelname1))
     {
-        _marketLevel.hidden = YES;
+        _memberLevel.text = @"会员等级：暂无";
     }
     else
     {
-        _marketLevel.hidden = NO;
+        _memberLevel.text = [NSString stringWithFormat:@"会员等级：%@",_userInfo.huiyuanlevel.levelname1];
+    }
+    
+    if (kStringIsEmpty(_userInfo.huiyuanlevel.levelname3))
+    {
+        _marketLevel.text = @"市场等级：暂无";
+    }
+    else
+    {
         _marketLevel.text = [NSString stringWithFormat:@"市场等级：%@",_userInfo.huiyuanlevel.levelname3];
     }
 }
@@ -114,6 +125,7 @@
     if (_iconImageView == nil) {
         _iconImageView = [[UIImageView alloc]init];
         _iconImageView.circle = YES;
+        _iconImageView.image = [UIImage imageNamed:@"wode"];
         
     }
     return _iconImageView;

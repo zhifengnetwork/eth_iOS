@@ -163,8 +163,9 @@
 //登录按钮被点击
 - (void)loginButtonDidClick
 {
-    //模拟登录成功
-    [[NSNotificationCenter defaultCenter] postNotificationName:UserLoginRegisterNotification object:nil userInfo:nil];
+    NSString* username = _phoneTextField.text;
+    NSString* passwd = _passwordTextField.text;
+    [self toLogin:username password:passwd];
 }
 
 //注册按钮被点击

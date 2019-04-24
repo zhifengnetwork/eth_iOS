@@ -89,6 +89,8 @@
 
     if (self.isNOApi)
     {
+        //发通知
+        [[NSNotificationCenter defaultCenter] postNotificationName:GMNotification object:self];
         [self cancelButtonDidClick];
         return;
     }
