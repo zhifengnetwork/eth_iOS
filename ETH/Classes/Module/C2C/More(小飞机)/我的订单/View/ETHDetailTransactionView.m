@@ -205,7 +205,7 @@
 - (void)setModel:(ETHC2CModel *)model{
     _model = model;
     _orderIDLabel.text = [NSString stringWithFormat:@"%@",model.ID];
-    _buyerIDLabel.text = [NSString stringWithFormat:@"%@",model.openid];
+    _buyerIDLabel.text = [NSString stringWithFormat:@"%@",model.mobile];
     _unitPriceLabel.text = [NSString stringWithFormat:@"%@",model.price];
     _numberLabel.text = [NSString stringWithFormat:@"%@",model.trx];
     _totalLabel.text = [NSString stringWithFormat:@"%@",model.money];

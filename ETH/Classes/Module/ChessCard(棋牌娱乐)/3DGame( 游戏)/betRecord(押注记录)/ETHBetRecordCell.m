@@ -61,7 +61,7 @@
         make.top.equalTo(self.amountLabel.mas_bottom).with.offset(7);
     }];
     [_issuesNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self).with.offset(-10);
+        make.right.equalTo(self).with.offset(-20);
         make.top.equalTo(self).with.offset(11);
     }];
     [_multipleLabel mas_makeConstraints:^(MASConstraintMaker *make) {

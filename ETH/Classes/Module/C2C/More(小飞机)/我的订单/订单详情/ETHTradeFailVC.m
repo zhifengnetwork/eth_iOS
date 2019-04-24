@@ -108,7 +108,7 @@
     }else{
         self.title = @"卖出ETH";
     }
-    _nameLabel.text = [NSString stringWithFormat:@"%@",self.detailModel.list.mobile];
+    _nameLabel.text = [NSString stringWithFormat:@"%@",self.detailModel.list.mobile2];
     if ([_transactionView.model.file isEqualToString:@""]) {
         _emptyLabel.hidden = NO;
         _complaintButton.hidden = YES;
