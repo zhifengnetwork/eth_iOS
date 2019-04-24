@@ -220,6 +220,7 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
 -(void)showData2:(id)responseObject
 {
     [SVProgressHUD showSuccessWithStatus:@"一键复投成功"];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
