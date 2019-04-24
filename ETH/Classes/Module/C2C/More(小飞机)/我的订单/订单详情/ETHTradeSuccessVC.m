@@ -99,7 +99,7 @@
     
     self.detailModel = [ETHDetailModel mj_objectWithKeyValues:responseObject];
     _transactionView.model = self.detailModel.list;
-    if (self.detailModel.list.type.intValue == 0) {
+    if (self.detailModel.list.type.intValue == 1) {
         self.title = @"买入ETH";
     }else{
         self.title = @"卖出ETH";

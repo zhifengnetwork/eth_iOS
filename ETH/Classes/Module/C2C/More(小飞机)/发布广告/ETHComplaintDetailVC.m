@@ -239,5 +239,7 @@
     }failure:^(NSError *error) {
         [SVProgressHUD showErrorWithStatus:error.domain];
     }];
+
+    [self.navigationController popViewControllerAnimated:YES];
 }
 @end

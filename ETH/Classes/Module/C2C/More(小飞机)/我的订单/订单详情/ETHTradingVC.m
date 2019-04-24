@@ -293,7 +293,7 @@
     
     self.detailModel = [ETHDetailModel mj_objectWithKeyValues:responseObject];
     ETHC2CModel *model = self.detailModel.list;
-    if (self.detailModel.list.type.intValue == 1) {//买入时
+    if ([model.type isEqualToString:@"1"]) {//买入时
         self.title = @"买入ETH";
         _payMethodLabel.hidden = NO;
         _view3.hidden = NO;
