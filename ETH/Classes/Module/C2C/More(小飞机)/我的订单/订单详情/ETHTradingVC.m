@@ -774,12 +774,14 @@
     if (self.detailModel.list.type.intValue == 1) {//买入时
         [http_c2c selloutyes:self.detailModel.list.ID type:@"1" file:self.detailModel.list.file success:^(id responseObject){
             [SVProgressHUD showSuccessWithStatus:@"买入成功"];
+            [self backClick];
         }failure:^(NSError *error) {
             [SVProgressHUD showErrorWithStatus:error.domain];
         }];
     }else{
         [http_c2c selloutyes:self.detailModel.list.ID type:@"2" file:@"1" success:^(id responseObject){
             [SVProgressHUD showSuccessWithStatus:@"卖出成功"];
+            [self backClick];
         }failure:^(NSError *error) {
             [SVProgressHUD showErrorWithStatus:error.domain];
         }];

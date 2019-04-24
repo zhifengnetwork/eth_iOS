@@ -293,9 +293,10 @@
 - (void)numberTFDidChange:(id) sender {
     UITextField *_field = (UITextField *)sender;
     if (_type == 0) {
-        float count = _field.text.floatValue * _priceTF.text.floatValue;
+        float count = _field.text.floatValue * 0.99;
+        float price = _field.text.floatValue * _priceTF.text.floatValue;
         _billCountTF.text = [NSString stringWithFormat:@"%.8f",count];
-        _totalTF.text = _billCountTF.text;
+        _totalTF.text = [NSString stringWithFormat:@"%.8f",price];
     }else{
         float count = _field.text.floatValue * _priceTF.text.floatValue;
         float price = 1.01 * _field.text.floatValue;
@@ -308,9 +309,8 @@
 - (void)priceTFDidChange:(id) sender {
     UITextField *_field = (UITextField *)sender;
     if (_type == 0) {
-        float count = _field.text.floatValue * _numberTF.text.floatValue;
-        _billCountTF.text = [NSString stringWithFormat:@"%.8f",count];
-        _totalTF.text = _billCountTF.text;
+        float price = _field.text.floatValue * _numberTF.text.floatValue;
+        _totalTF.text = [NSString stringWithFormat:@"%.8f",price];
     }else{
         float count = _field.text.floatValue * _numberTF.text.floatValue;
         _billCountTF.text = [NSString stringWithFormat:@"%.8f",count];

@@ -12,6 +12,7 @@
 #import "SVProgressHUD.h"
 #import "ETHNoTransactionVC.h"
 #import "UIView+TYAlertView.h"
+#import "ETHTradeVC.h"
 @interface ETHCancelAlertView()
 @property (nonatomic, strong)UILabel *titleLabel;
 @property (nonatomic, strong)UIView *lineView;
@@ -86,15 +87,19 @@
 }
 - (void)agreeClick{
 
-
     if (self.isNOApi)
     {
         [self cancelButtonDidClick];
         return;
     }
     
+
     [http_c2c sellout_tab_con:_viewID success:^(id responseObject){
-        [[self viewController] dismissViewControllerAnimated:YES completion:nil];
+        [SVProgressHUD showSuccessWithStatus:@"取消成功"];
+        [[self currentViewController] dismissViewControllerAnimated:NO completion:^{
+            [self currentViewController].navigationController.navigationBar.hidden = YES;
+            [[self currentViewController].navigationController popViewControllerAnimated:NO];
+        }];
     }failure:^(NSError *error) {
         [SVProgressHUD showErrorWithStatus:error.domain];
     }];
@@ -126,4 +131,5 @@
     }
     return vc;
 }
+
 @end
