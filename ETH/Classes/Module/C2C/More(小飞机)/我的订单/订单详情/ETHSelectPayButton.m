@@ -92,12 +92,13 @@ static NSString *CellIdentifier = @"DropDownCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    tableView.backgroundColor = RGBColorHex(0x4b4f66);
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (nil == cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     //设置列表中的每一项文本、字体、颜色等
+    cell.backgroundColor = RGBColorHex(0x4b4f66);
     cell.textLabel.text = self.list[indexPath.row];
     cell.textLabel.font = self.titleLabel.font;
     cell.textLabel.textColor = self.titleLabel.textColor;

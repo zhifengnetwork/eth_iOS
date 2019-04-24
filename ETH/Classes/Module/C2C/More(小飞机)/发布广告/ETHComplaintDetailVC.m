@@ -46,7 +46,8 @@
     [self.view addSubview:self.QRCodeImageView];
     [self.view addSubview:self.selectImagebButton];
     [self.view addSubview:self.confirmButton];
-    
+    [self.QRCodeImageView addSubview:self.emptyImageLabel];
+   
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).with.offset(16);
         make.top.equalTo(self.view).with.offset(20);
@@ -75,6 +76,11 @@
         make.right.equalTo(self.view).with.offset(-16);
         make.top.equalTo(self.contentTextView.mas_bottom).with.offset(15);
         make.height.mas_equalTo(95);
+    }];
+    
+    [_emptyImageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.QRCodeImageView.mas_centerX);
+        make.centerY.equalTo(self.QRCodeImageView.mas_centerY);
     }];
     
     [_selectImagebButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -139,19 +145,18 @@
         _QRCodeImageView = [[UIImageView alloc]init];
         _QRCodeImageView.layer.borderWidth = 1;
         _QRCodeImageView.layer.borderColor = RGBColorHex(0x6c91fa).CGColor;
-        if (_QRCodeImageView.image == nil) {
-            _emptyImageLabel = [[UILabel alloc]init];
-            _emptyImageLabel.font = [UIFont systemFontOfSize:12];
-            _emptyImageLabel.textColor = RGBColorHex(0x737893);
-            _emptyImageLabel.text = @"请点击“选择图片”上传二维码";
-            [self.QRCodeImageView addSubview:self.emptyImageLabel];
-            [_emptyImageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(self.QRCodeImageView.mas_centerX);
-                make.centerY.equalTo(self.QRCodeImageView.mas_centerY);
-            }];
-        }
+        
     }
     return _QRCodeImageView;
+}
+
+- (UILabel *)emptyImageLabel{
+    if (_emptyImageLabel == nil) {
+        _emptyImageLabel = [[UILabel alloc]init];
+        _emptyImageLabel.font = [UIFont systemFontOfSize:12];
+        _emptyImageLabel.textColor = RGBColorHex(0x737893);
+        _emptyImageLabel.text = @"请点击“选择图片”上传二维码";
+    }return _emptyImageLabel;
 }
 
 - (UIButton *)selectImagebButton{
@@ -222,6 +227,7 @@
     [SVProgressHUD showSuccessWithStatus:@"上传成功"];
     
     [_QRCodeImageView sd_setImageWithURL:[NSURL URLWithString:_file]];
+    _emptyImageLabel.hidden = YES;
 }
 
 //添加申诉接口方法
