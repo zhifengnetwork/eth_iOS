@@ -74,6 +74,14 @@ static NSString *const ETHBetNumberCollectionCellID = @"ETHBetNumberCollectionCe
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ETHBetNumberCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ETHBetNumberCollectionCellID forIndexPath:indexPath];
+    if (_index==indexPath.item)
+    {
+        cell.isSelect = YES;
+    }
+    else
+    {
+        cell.isSelect = NO;
+    }
     if (indexPath.item==0)
     {
         cell.title = @"0";
@@ -121,11 +129,23 @@ static NSString *const ETHBetNumberCollectionCellID = @"ETHBetNumberCollectionCe
     return cell;
 }
 
+-(void)setIndex:(int)index
+{
+    _index = index;
+    [self.collectionView reloadData];
+}
+
 
 //预览cell点击
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.index = indexPath.item;
+    if (self.delegate && [self.delegate respondsToSelector:@selector(ETH3DGameTableCellDidClick: indexPath:)])
+    {
+        [self.delegate ETH3DGameTableCellDidClick:self.index indexPath:_indexPath];
+    }
     
+    [self.collectionView reloadData];
 }
 
 - (void)digitButtonDidClick

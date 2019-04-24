@@ -471,6 +471,12 @@
         return;
     }
     
+    if ( [ETHTool isPhoneNumber:phone]==NO )
+    {
+        [SVProgressHUD showInfoWithStatus:@"请输入正确的手机号码"];
+        return;
+    }
+    
     if (kStringIsEmpty(vcode))
     {
         [SVProgressHUD showInfoWithStatus:@"请输入5位验证码"];
@@ -575,8 +581,17 @@
             if ( kStringIsEmpty(weakSelf.phoneTextField.text) )
             {
                 [SVProgressHUD showInfoWithStatus:@"请输入手机号码"];
+                weakSelf.vcodeButton.enabled = YES;
                 return;
             }
+            
+            if ( [ETHTool isPhoneNumber:weakSelf.phoneTextField.text]==NO )
+            {
+                [SVProgressHUD showInfoWithStatus:@"请输入正确的手机号码"];
+                weakSelf.vcodeButton.enabled = YES;
+                return;
+            }
+            
             [weakSelf.vcodeButton startCountDown];
             [weakSelf vcodeButtonDidClick];
         } countDownStart:^{

@@ -11,6 +11,7 @@
 #import "http_c2c.h"
 #import "SVProgressHUD.h"
 #import "ETHNoTransactionVC.h"
+#import "UIView+TYAlertView.h"
 @interface ETHCancelAlertView()
 @property (nonatomic, strong)UILabel *titleLabel;
 @property (nonatomic, strong)UIView *lineView;
@@ -84,17 +85,54 @@
     return nil;
 }
 - (void)agreeClick{
-    if ([self.titleLabel.text isEqualToString:@"未交易是否取消"]) {
-        [http_c2c sellout_tab_con:_viewID success:^(id responseObject){
-            [SVProgressHUD showSuccessWithStatus:@"取消成功"];
-        }failure:^(NSError *error) {
-            [SVProgressHUD showErrorWithStatus:error.domain];
-        }];
+
+//    if ([self.titleLabel.text isEqualToString:@"未交易是否取消"]) {
+//        [http_c2c sellout_tab_con:_viewID success:^(id responseObject){
+//            [SVProgressHUD showSuccessWithStatus:@"取消成功"];
+//        }failure:^(NSError *error) {
+//            [SVProgressHUD showErrorWithStatus:error.domain];
+//        }];
+//    }
+//    [[self viewController] dismissViewControllerAnimated:YES completion:nil];
+//
+//    
+    if (self.isNOApi)
+    {
+        [self cancelButtonDidClick];
+        return;
     }
-    [[self viewController] dismissViewControllerAnimated:YES completion:nil];
+    
+    [http_c2c sellout_tab_con:_viewID success:^(id responseObject){
+        [[self viewController] dismissViewControllerAnimated:YES completion:nil];
+    }failure:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:error.domain];
+    }];
     
 }
 - (void)setTitle:(NSString *)title{
     self.titleLabel.text = title;
+}
+
+- (void)cancelButtonDidClick
+{
+    [[self currentViewController]dismissViewControllerAnimated:YES completion:nil];
+}
+//获取当前控制器
+- (UIViewController *)currentViewController{
+    UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
+    while (1) {
+        if ([vc isKindOfClass:[UITabBarController class]]) {
+            vc = ((UITabBarController *)vc).selectedViewController;
+        }
+        if ([vc isKindOfClass:[UINavigationController class]]) {
+            vc = ((UINavigationController *)vc).visibleViewController;
+        }
+        if (vc.presentedViewController) {
+            vc = vc.presentedViewController;
+        }else{
+            break;
+        }
+    }
+    return vc;
 }
 @end

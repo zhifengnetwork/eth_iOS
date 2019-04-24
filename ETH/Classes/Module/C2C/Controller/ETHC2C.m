@@ -98,6 +98,7 @@
     {
         _vc1 = [[ETHBuyVC alloc]init];
         _vc1.type = 0;
+        _vc1.name = self.name;
     }
     return _vc1;
 }
@@ -108,6 +109,7 @@
     {
         _vc2 = [[ETHBuyVC alloc]init];
         _vc2.type = 1;
+        _vc1.name = self.name;
     }
     return _vc2;
 }

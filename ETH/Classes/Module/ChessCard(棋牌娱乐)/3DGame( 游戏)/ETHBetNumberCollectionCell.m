@@ -54,6 +54,15 @@
 -(void)setIsSelect:(BOOL)isSelect
 {
     _isSelect = isSelect;
+    
+    if (_isSelect)
+    {
+        _numberButton.backgroundColor = RGBColorHex(0x2f4577);
+    }
+    else
+    {
+        _numberButton.backgroundColor = RGBColorHex(0xffffff);
+    }
 }
 
 - (UIButton *)numberButton {
@@ -68,6 +77,7 @@
         _numberButton.layer.borderWidth = 1.0f;
         _numberButton.layer.borderColor = RGBColorHex(0x4b4b4b).CGColor;
         [_numberButton addTarget:self action:@selector(numberButtonDidClick) forControlEvents:UIControlEventTouchUpInside];
+        _numberButton.userInteractionEnabled = NO;
     }
     return _numberButton;
 }
