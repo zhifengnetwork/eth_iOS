@@ -101,7 +101,7 @@ static NSString *const ETHRecordWithableCellID = @"ETHRecordWithableCellID";
     }
 }
 
-//子类重写这个方法其实不同的空白图片
+//子类重写这个方法显示不同的空白图片
 - (UIImage *)imageForEmptyDataSet
 {
     return [UIImage imageNamed:@"No orders"];
@@ -144,7 +144,7 @@ static NSString *const ETHRecordWithableCellID = @"ETHRecordWithableCellID";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 10;
+    return 0;
 }
 
 

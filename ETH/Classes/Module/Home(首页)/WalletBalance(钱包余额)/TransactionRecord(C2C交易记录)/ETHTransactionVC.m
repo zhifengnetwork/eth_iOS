@@ -92,6 +92,8 @@ static NSString *const ETHTransactionTableCellID = @"ETHTransactionTableCellID";
 
 -(void)showData:(id)responseObject
 {
+    self.isShowEmptyData = YES;
+    
     if (kObjectIsEmpty(responseObject))
     {
         return;
@@ -104,6 +106,12 @@ static NSString *const ETHTransactionTableCellID = @"ETHTransactionTableCellID";
         // viewController is visible
         [self.tableView reloadData];
     }
+}
+
+//子类重写这个方法显示不同的空白图片
+- (UIImage *)imageForEmptyDataSet
+{
+    return [UIImage imageNamed:@"No orders"];
 }
 
 #pragma mark - Table view data source
