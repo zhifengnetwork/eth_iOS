@@ -332,11 +332,7 @@
     [http_c2c hangonsale:@"0" price:_priceTF.text money:_billCountTF.text sxf0:@"0.01" trx:_numberTF.text trx2:_totalTF.text success:^(id responseObject)
      {
          ETHCancelAlertView *view1 = [[ETHCancelAlertView alloc]initWithFrame:CGRectMake(100, 100, 235, 99)];
-<<<<<<< HEAD
-=======
-
          view1.isNOApi = YES;
->>>>>>> 091fb1f25a44796f838c603ae98703490de5820a
              [view1 setTitle:@"挂买成功"];
          TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view1 preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
          [self presentViewController:alertController animated:YES completion:nil];
