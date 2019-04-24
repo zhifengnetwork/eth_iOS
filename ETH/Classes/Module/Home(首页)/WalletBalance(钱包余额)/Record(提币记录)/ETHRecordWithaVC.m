@@ -92,7 +92,11 @@ static NSString *const ETHRecordWithableCellID = @"ETHRecordWithableCellID";
     
     self.listModel = [ETHTeamListModel mj_objectWithKeyValues:responseObject];
     
-    [self.tableView reloadData];
+    if (self.isViewLoaded && self.view.window)
+    {
+        // viewController is visible
+        [self.tableView reloadData];
+    }
 }
 
 #pragma mark - Table view data source
@@ -111,7 +115,10 @@ static NSString *const ETHRecordWithableCellID = @"ETHRecordWithableCellID";
     UITableViewCell *cell = nil;
     
     ETHRecordWithableCell* scell = [tableView dequeueReusableCellWithIdentifier:ETHRecordWithableCellID];
-    scell = [[ETHRecordWithableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHRecordWithableCellID];
+    if (scell == nil)
+    {
+        scell = [[ETHRecordWithableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHRecordWithableCellID];
+    }
     ETHTeamModel *teamModel = [self.listModel.list objectAtIndex:indexPath.section];
     scell.teamModel = teamModel;
     

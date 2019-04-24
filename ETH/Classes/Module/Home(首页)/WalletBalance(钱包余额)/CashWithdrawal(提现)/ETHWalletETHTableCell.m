@@ -132,6 +132,11 @@
         [self.delegate ETHWalletETHTableCellInputing:self.moneyTextField.text indexPath:self.indexPath];
     }
     
+    [self updataText];
+}
+
+-(void)updataText
+{
     NSString* tx = self.moneyTextField.text;
     if (kStringIsEmpty(tx))
     {
@@ -162,6 +167,7 @@
     {
         [self.delegate ETHWalletETHTableCellInputing:self.moneyTextField.text indexPath:self.indexPath];
     }
+    [self updataText];
 }
 
 -(UIView *)bg1View
