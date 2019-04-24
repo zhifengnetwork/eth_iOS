@@ -366,18 +366,9 @@ static NSString *const ETHMultipleTableCellID = @"ETHMultipleTableCellID";
 //3D游戏底部
 - (void)ETH3DGameFooterViewDidClick
 {
-    if (kStringIsEmpty(self.minNum)) {
-        [SVProgressHUD showInfoWithStatus:@"请输入最小数"];
-        return;
-    }
-    
-    if (kStringIsEmpty(self.maxNum)) {
-        [SVProgressHUD showInfoWithStatus:@"请输入最大数"];
-        return;
-    }
-    
-    if (kStringIsEmpty(self.bsNum)) {
-        [SVProgressHUD showInfoWithStatus:@"请输入倍数"];
+    if (self.numList.count==0)
+    {
+        [SVProgressHUD showInfoWithStatus:@"请先下注"];
         return;
     }
     

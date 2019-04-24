@@ -80,10 +80,25 @@
 
 -(void)segmentAction:(UISegmentedControl*)sender
 {
-    self.walletBalanceVC.view.hidden = YES;
-    self.recordVC.view.hidden = YES;
-    self.moneyVC.view.hidden = YES;
-    self.c2cVC.view.hidden = YES;
+    if (_walletBalanceVC!=nil)
+    {
+        self.walletBalanceVC.view.hidden = YES;
+    }
+    
+    if (_recordVC!=nil)
+    {
+        self.recordVC.view.hidden = YES;
+    }
+    
+    if (_moneyVC!=nil)
+    {
+        self.moneyVC.view.hidden = YES;
+    }
+    
+    if (_c2cVC!=nil)
+    {
+        self.c2cVC.view.hidden = YES;
+    }
     
     if (sender.selectedSegmentIndex==0)
     {

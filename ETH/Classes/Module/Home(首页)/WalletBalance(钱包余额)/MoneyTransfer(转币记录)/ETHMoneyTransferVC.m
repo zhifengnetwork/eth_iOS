@@ -92,7 +92,11 @@ static NSString *const ETHMoneyTransferTableCellID = @"ETHMoneyTransferTableCell
     
     self.listModel = [ETHTeamListModel mj_objectWithKeyValues:responseObject];
     
-    [self.tableView reloadData];
+    if (self.isViewLoaded && self.view.window)
+    {
+        // viewController is visible
+        [self.tableView reloadData];
+    }
 }
 
 #pragma mark - Table view data source
@@ -111,7 +115,11 @@ static NSString *const ETHMoneyTransferTableCellID = @"ETHMoneyTransferTableCell
     UITableViewCell *cell = nil;
     
     ETHMoneyTransferTableCell* scell = [tableView dequeueReusableCellWithIdentifier:ETHMoneyTransferTableCellID];
-    scell = [[ETHMoneyTransferTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHMoneyTransferTableCellID];
+    if (scell == nil)
+    {
+        scell = [[ETHMoneyTransferTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHMoneyTransferTableCellID];
+    }
+    
     ETHTeamModel *teamModel = [self.listModel.list objectAtIndex:indexPath.section];
     scell.teamModel = teamModel;
     
