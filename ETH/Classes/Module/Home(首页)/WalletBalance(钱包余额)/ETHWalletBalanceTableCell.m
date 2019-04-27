@@ -71,9 +71,9 @@
     
     // 50为虚线Y值，和下面的50一起用。
     // kScreenWidth为虚线宽度
-    CGPathMoveToPoint(dotteShapePath, NULL, 0 ,58);
+    CGPathMoveToPoint(dotteShapePath, NULL, 10 ,58);
     
-    CGPathAddLineToPoint(dotteShapePath, NULL, 400, 58);
+    CGPathAddLineToPoint(dotteShapePath, NULL, LL_ScreenWidth-10, 58);
     
     [dotteShapeLayer setPath:dotteShapePath];
     

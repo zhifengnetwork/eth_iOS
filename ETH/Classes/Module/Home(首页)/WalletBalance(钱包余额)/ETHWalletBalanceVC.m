@@ -26,6 +26,9 @@
 @interface ETHWalletBalanceVC ()<ETHDoubleThrowTableCellDelegate,ETHTwoDoubleThrowTableCellDelegate>
 
 @property (nonatomic , strong)UserInfoModel *userInfo;
+
+@property (nonatomic , assign)BOOL show1;
+@property (nonatomic , assign)BOOL show2;
 @end
 
 @implementation ETHWalletBalanceVC
@@ -110,11 +113,26 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (section==0)
+    {
+        if (self.show1)
+        {
+            return 2;
+        }
+    }
+    else if (section==1)
+    {
+        if (self.show2)
+        {
+            return 2;
+        }
+    }
+    
     return 1;
 }
 
@@ -127,32 +145,39 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     
     if (indexPath.section==0)
     {
-        pcell.title = @"复投账户";
-        pcell.name = self.userInfo.member.credit4;
-        cell = pcell;
+        if (indexPath.row==0)
+        {
+            pcell.title = @"复投账户";
+            pcell.name = self.userInfo.member.credit4;
+            cell = pcell;
+        }
+        else if (indexPath.row==1)
+        {
+            ETHDoubleThrowTableCell* kcell = [tableView dequeueReusableCellWithIdentifier:ETHDoubleThrowTableCellID];
+            kcell = [[ETHDoubleThrowTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHDoubleThrowTableCellID];
+            kcell.delegate = self;
+            
+            cell = kcell;
+        }
     }
     else if (indexPath.section==1)
     {
-        ETHDoubleThrowTableCell* kcell = [tableView dequeueReusableCellWithIdentifier:ETHDoubleThrowTableCellID];
-        kcell = [[ETHDoubleThrowTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHDoubleThrowTableCellID];
-        kcell.delegate = self;
-        
-        cell = kcell;
+        if (indexPath.row==0)
+        {
+            pcell.title = @"自由钱包";
+            pcell.name = self.userInfo.member.credit2;
+            cell = pcell;
+        }
+        else if (indexPath.row==1)
+        {
+            ETHTwoDoubleThrowTableCell* kcell = [tableView dequeueReusableCellWithIdentifier:ETHDoubleThrowTableCellID];
+            kcell = [[ETHTwoDoubleThrowTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHTwoDoubleThrowTableCellID];
+            kcell.delegate = self;
+            
+            cell = kcell;
+        }
     }
-    else if (indexPath.section==2)
-    {
-        pcell.title = @"自由钱包";
-        pcell.name = self.userInfo.member.credit2;
-        cell = pcell;
-    }
-    else if (indexPath.section==3)
-    {
-        ETHTwoDoubleThrowTableCell* kcell = [tableView dequeueReusableCellWithIdentifier:ETHDoubleThrowTableCellID];
-        kcell = [[ETHTwoDoubleThrowTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHTwoDoubleThrowTableCellID];
-        kcell.delegate = self;
-        
-        cell = kcell;
-    }
+    
     
     return cell;
 }
@@ -170,7 +195,7 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     {
         return 32;
     }
-    else if (section==2)
+    else if (section==1)
     {
         return 12;
     }
@@ -189,20 +214,36 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
 //点击了哪个cell
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //    if (indexPath.section==0)
-    //    {
-    //        ZFPersonalDataVC* vc = [[ZFPersonalDataVC alloc]init];
-    //        [self.navigationController pushViewController:vc animated:YES];
-    //    }
-    //    else if (indexPath.section==1)
-    //    {
-    //        if (indexPath.row==0)
-    //        {
-    //            ZFAddressManagementVC* vc = [[ZFAddressManagementVC alloc]init];
-    //            [self.navigationController pushViewController:vc animated:YES];
-    //        }
-    //
-    //    }
+    if (indexPath.section==0)
+    {
+        if (indexPath.row==0)
+        {
+            if (self.show1)
+            {
+                self.show1 = NO;
+            }
+            else
+            {
+                self.show1 = YES;
+            }
+        }
+    }
+    else if (indexPath.section==1)
+    {
+        if (indexPath.row==0)
+        {
+            if (self.show2)
+            {
+                self.show2 = NO;
+            }
+            else
+            {
+                self.show2 = YES;
+            }
+        }
+    }
+    
+    [self.tableView reloadData];
 }
 
 //按钮被点击 1:一键复投 2:棋牌娱乐
