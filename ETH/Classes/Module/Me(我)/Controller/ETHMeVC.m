@@ -12,6 +12,7 @@
 #import "ETHPayManageVC.h"
 #import "ViewController.h"
 #import "ETHMyWalletVC.h"
+#import "ETHMyInviteVC.h"
 #import "ETHAnnouncementVC.h"
 #import "ETHResetPasswordVC.h"
 #import "UserInfoModel.h"
@@ -20,6 +21,8 @@
 #import "SVProgressHUD.h"
 #import "MJExtension.h"
 #import "UserInfoModel.h"
+#import "TYAlertController.h"
+#import "ETHQuitView.h"
 
 @interface ETHMeVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UITableView *tableView;
@@ -166,7 +169,11 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
     return 2;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
+    if (section == 0) {
+        return 3;
+    }else{
+        return 4;
+    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 10;
@@ -181,10 +188,12 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
             //跳转到钱包地址
             ETHMyWalletVC *vc = [[ETHMyWalletVC alloc]init];
             [self.navigationController pushViewController:vc animated:YES];
-        }else if (indexPath.row == 2){
-            //跳转到C2C订单
-            
-        }else if (indexPath.row == 3){
+        }
+//        else if (indexPath.row == 2){
+//            //跳转到C2C订单
+//
+//        }
+        else if (indexPath.row == 2){
             //跳转到修改密码
             ETHResetPasswordVC *vc = [[ETHResetPasswordVC alloc]init];
             [self.navigationController pushViewController:vc animated:YES];
@@ -193,7 +202,8 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
     }else{
         if (indexPath.row == 0) {
             //跳转到我的邀请
-            
+            ETHMyInviteVC *vc = [[ETHMyInviteVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
         }else if (indexPath.row == 1) {
             //跳转到平台公告
             ETHAnnouncementVC *vc = [[ETHAnnouncementVC alloc]init];
@@ -203,7 +213,11 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
             
         }else if (indexPath.row == 3){
             //跳转到退出机制
-            
+            ETHQuitView *view = [[ETHQuitView alloc]initWithFrame:CGRectMake(0, 0, 257, 284)];
+            view.money = self.userInfo.arr2.money;
+            TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
+            [self presentViewController:alertController animated:YES completion:nil];
+
         }
     }
 }
@@ -213,9 +227,11 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
     if (indexPath.section ==0) {
         if (indexPath.row == 1) {
             [cell setIcon:[UIImage imageNamed:@"qianbao"] WithText:@"钱包地址"];
-        }else if (indexPath.row == 2){
-            [cell setIcon:[UIImage imageNamed:@"C2C-1"] WithText:@"C2C订单"];
-        }else if (indexPath.row == 3){
+        }
+//        else if (indexPath.row == 2){
+//            [cell setIcon:[UIImage imageNamed:@"C2C-1"] WithText:@"C2C订单"];
+//        }
+        else if (indexPath.row == 2){
             [cell setIcon:[UIImage imageNamed:@"xiugaimima"] WithText:@"修改密码"];
         }
         

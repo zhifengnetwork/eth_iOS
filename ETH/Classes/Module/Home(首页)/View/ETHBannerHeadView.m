@@ -8,6 +8,7 @@
 
 #import "ETHBannerHeadView.h"
 #import <SDCycleScrollView.h>
+#import "ETHMyInviteVC.h"
 
 @interface ETHBannerHeadView ()<SDCycleScrollViewDelegate>
 
@@ -57,9 +58,29 @@
     
 }
 
+//获取当前控制器
+- (UIViewController *)currentViewController{
+    UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
+    while (1) {
+        if ([vc isKindOfClass:[UITabBarController class]]) {
+            vc = ((UITabBarController *)vc).selectedViewController;
+        }
+        if ([vc isKindOfClass:[UINavigationController class]]) {
+            vc = ((UINavigationController *)vc).visibleViewController;
+        }
+        if (vc.presentedViewController) {
+            vc = vc.presentedViewController;
+        }else{
+            break;
+        }
+    }
+    return vc;
+}
+
 - (void)shareButtonClick
 {
-    
+    ETHMyInviteVC *vc = [[ETHMyInviteVC alloc]init];
+    [[self currentViewController].navigationController pushViewController:vc animated:YES];
 }
 
 

@@ -52,11 +52,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              *mobile2;
 @property (nonatomic , copy) NSString              *type_own;
 @property (nonatomic , copy) NSString              *name;
+@property (nonatomic , copy) NSString              *img;
 @end
 @interface ETHDetailModel : NSObject
-
 @property (nonatomic , strong)ETHC2CModel              *list;
-
 @end
 
 @interface ETHC2CListModel : BaseListModel

@@ -69,7 +69,7 @@
 
 @property (nonatomic, strong) MemberModel *member;
 @property (nonatomic, strong) LevelModel *huiyuanlevel;
-@property (nonatomic, strong) Arr2Model *money;
+@property (nonatomic, strong) Arr2Model *arr2;
 
 @property (nonatomic, copy) NSString *money2;
 @property (nonatomic, copy) NSString *money4;
