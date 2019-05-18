@@ -49,7 +49,7 @@
 - (UIImageView *)backImg{
     if (_backImg == nil) {
         _backImg = [[UIImageView alloc]init];
-        _backImg.image = [UIImage imageNamed:@"BG1"];
+        _backImg.image = [UIImage imageNamed:@"NavigationBar"];
     }
     return _backImg;
 }

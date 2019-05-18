@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ETHAnnouncementVC : UIViewController
 
+@property (nonatomic, strong) NSArray *articleArray;
+@property (nonatomic, strong) NSString *uniacid;
 @end
 
 NS_ASSUME_NONNULL_END

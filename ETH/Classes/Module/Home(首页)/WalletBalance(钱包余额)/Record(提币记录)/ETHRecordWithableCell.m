@@ -13,6 +13,7 @@
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) UILabel* timeLabel;
 @property (nonatomic, strong) UILabel* typeLabel;
+@property (nonatomic, strong) UILabel *stateLabel;
 @property (nonatomic, strong) UILabel* moneyWithLabel;
 @property (nonatomic, strong) UILabel* actualAmountLabel;
 @property (nonatomic, strong) UILabel* serviceChargeLabel;
@@ -38,6 +39,7 @@
     [self.contentView addSubview:self.bgView];
     [self.contentView addSubview:self.timeLabel];
     [self.contentView addSubview:self.typeLabel];
+    [self.contentView addSubview:self.stateLabel];
     [self.contentView addSubview:self.moneyWithLabel];
     [self.contentView addSubview:self.actualAmountLabel];
     [self.contentView addSubview:self.serviceChargeLabel];
@@ -46,7 +48,7 @@
         make.left.mas_equalTo(10);
         make.right.mas_equalTo(-10);
         make.top.mas_equalTo(10);
-        make.height.mas_equalTo(110);
+        make.height.mas_equalTo(130);
     }];
     
     [_timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -59,9 +61,14 @@
         make.top.equalTo(self->_timeLabel.mas_bottom).offset(5);
     }];
     
-    [_moneyWithLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_stateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self->_bgView.mas_left).offset(10);
         make.top.equalTo(self->_typeLabel.mas_bottom).offset(5);
+    }];
+    
+    [_moneyWithLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self->_bgView.mas_left).offset(10);
+        make.top.equalTo(self->_stateLabel.mas_bottom).offset(5);
     }];
     
     [_actualAmountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -117,6 +124,16 @@
         _typeLabel.text = @"提币类型：ETH提现金额";
     }
     return _typeLabel;
+}
+
+- (UILabel *)stateLabel {
+    if (_stateLabel == nil) {
+        _stateLabel = [[UILabel alloc] init];
+        _stateLabel.textColor = RGBColorHex(0xffffff);
+        _stateLabel.font = [UIFont systemFontOfSize:12];
+        _stateLabel.text = @"提币状态：审核中";
+    }
+    return _stateLabel;
 }
 
 - (UILabel *)moneyWithLabel {

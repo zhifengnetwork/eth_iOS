@@ -93,7 +93,7 @@ static NSString * const ETHComplaintCellID = @"ETHComplaintCellID";
 - (UIImageView *)backImg{
     if (_backImg == nil) {
         _backImg = [[UIImageView alloc]init];
-        self.backImg.image = [UIImage imageNamed:@"BG-R"];
+        self.backImg.image = [UIImage imageNamed:@"BG"];
     }
     return _backImg;
 }

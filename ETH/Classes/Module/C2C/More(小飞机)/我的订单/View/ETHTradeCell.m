@@ -87,7 +87,7 @@
         make.left.equalTo(self.numberLabel.mas_right);
     }];
     [_unitpriceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.numberLabel2.mas_right).with.offset(15);
+        make.left.equalTo(self.numberLabel2.mas_right).with.offset(35);
         make.centerY.equalTo(self.numberLabel.mas_centerY);
     }];
     [_unitpriceLabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -95,16 +95,16 @@
         make.centerY.equalTo(self.numberLabel.mas_centerY);
     }];
     [_totalLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.unitpriceLabel2.mas_right).with.offset(15);
-        make.centerY.equalTo(self.numberLabel.mas_centerY);
-    }];
-    [_totalLabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.numberLabel.mas_centerY);
-        make.left.equalTo(self.totalLabel.mas_right);
-    }];
-    [_timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.numberLabel.mas_bottom).with.offset(15);
         make.left.equalTo(self).with.offset(15);
+    }];
+    [_totalLabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.totalLabel.mas_right);
+        make.centerY.equalTo(self.totalLabel.mas_centerY);
+    }];
+    [_timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.totalLabel2.mas_right).with.offset(40);
+        make.centerY.equalTo(self.totalLabel.mas_centerY);
     }];
 
 }
@@ -162,7 +162,7 @@
         _numberLabel = [[UILabel alloc]init];
         _numberLabel.font = [UIFont systemFontOfSize:13];
         _numberLabel.text = @"8.00";
-        _numberLabel.textColor = [UIColor whiteColor];
+        _numberLabel.textColor = RGBColorHex(0xa4aff1);
     }
     return _numberLabel;
 }
@@ -171,7 +171,7 @@
         _numberLabel2 = [[UILabel alloc]init];
         _numberLabel2.font = [UIFont systemFontOfSize:13];
         _numberLabel2.text = @"/个";
-        _numberLabel2.textColor = RGBColorHex(0xa4aff1);
+        _numberLabel2.textColor = RGBColorHex(0xffffff);
     }
     return _numberLabel2;
 }
@@ -179,8 +179,8 @@
     if (_unitpriceLabel == nil) {
         _unitpriceLabel = [[UILabel alloc]init];
         _unitpriceLabel.font = [UIFont systemFontOfSize:13];
-        _unitpriceLabel.text = @"$";
-        _unitpriceLabel.textColor = RGBColorHex(0xa4aff1);
+        _unitpriceLabel.text = @"CNY:";
+        _unitpriceLabel.textColor = RGBColorHex(0xffffff);
     }
     return _unitpriceLabel;
 }
@@ -190,7 +190,7 @@
         _unitpriceLabel2 = [[UILabel alloc]init];
         _unitpriceLabel2.font = [UIFont systemFontOfSize:13];
         _unitpriceLabel2.text = @"4.000000";
-        _unitpriceLabel2.textColor = [UIColor whiteColor];
+        _unitpriceLabel2.textColor = RGBColorHex(0xa4aff1);
     }
     return _unitpriceLabel2;
 }
@@ -200,7 +200,7 @@
         _totalLabel = [[UILabel alloc]init];
         _totalLabel.font = [UIFont systemFontOfSize:13];
         _totalLabel.text = @"总金额(CNY):";
-        _totalLabel.textColor = RGBColorHex(0xa4aff1);
+        _totalLabel.textColor = [UIColor whiteColor];
     }
     return _totalLabel;
 }
@@ -210,7 +210,7 @@
         _totalLabel2 = [[UILabel alloc]init];
         _totalLabel2.font = [UIFont systemFontOfSize:13];
         _totalLabel2.text = @"16.000000";
-        _totalLabel2.textColor = [UIColor whiteColor];
+        _totalLabel2.textColor = RGBColorHex(0xa4aff1);
     }
     return _totalLabel2;
 }

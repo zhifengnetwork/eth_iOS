@@ -139,12 +139,12 @@ static NSString *const ETHRecordWithableCellID = @"ETHRecordWithableCellID";
 //每行的高度是多少
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 120;
+    return 130;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 0;
+    return 10;
 }
 
 

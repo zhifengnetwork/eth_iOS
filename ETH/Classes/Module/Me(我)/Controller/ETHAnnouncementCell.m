@@ -7,6 +7,7 @@
 //
 
 #import "ETHAnnouncementCell.h"
+#import "UIImageView+WebCache.h"
 @interface ETHAnnouncementCell()
 @property (nonatomic, strong)UIImageView *iconImageView;
 @property (nonatomic, strong)UILabel *headLabel;
@@ -67,5 +68,18 @@
         _rightImageView = [[UIImageView alloc]init];
         _rightImageView.image = [UIImage imageNamed:@"tiaozhuan"];
     }return _rightImageView;
+}
+
+- (void)setArticleModel:(ETHArticleModel *)articleModel{
+    _articleModel = articleModel;
+    
+    _headLabel.text = [NSString stringWithFormat:@"%@",_articleModel.article_title];
+    
+    if (!kStringIsEmpty(_articleModel.resp_img))
+    {
+        NSString* str = [NSString stringWithFormat:@"%@%@",ImageUrl,_articleModel.resp_img];
+        [_iconImageView sd_setImageWithURL:[NSURL URLWithString:str]];
+    }
+
 }
 @end

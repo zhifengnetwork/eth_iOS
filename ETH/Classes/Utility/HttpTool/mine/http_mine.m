@@ -69,15 +69,13 @@
 }
 //我的-平台公告列表
 //系统公告
-+ (void)article_getlist:(NSInteger)page cateid:(NSInteger)cateid success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure
++ (void)article_getlist:(NSInteger)page success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure
 {
     HttpTool *http = [HttpTool sharedManager];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc]initWithCapacity:1];
     
     NSString *str = [NSString stringWithFormat:@"%ld",page];
     [parameters setObject:str forKey:@"page"];
-    NSString *str1 = [NSString stringWithFormat:@"%ld",cateid];
-    [parameters setObject:str1 forKey:@"cateid"];
     
     [parameters setObject:@"member.androidapi.article_getlist" forKey:@"r"];
     

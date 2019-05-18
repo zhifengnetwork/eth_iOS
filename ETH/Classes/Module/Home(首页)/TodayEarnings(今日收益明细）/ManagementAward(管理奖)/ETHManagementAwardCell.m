@@ -11,7 +11,7 @@
 @property (nonatomic, strong)UILabel *releaseTimeLabel;
 @property (nonatomic, strong)UILabel *bonusSourceLabel;
 @property (nonatomic, strong)UILabel *freeAccountLabel;
-@property (nonatomic, strong)UILabel *reinstatementAccountLabel;
+
 @end
 @implementation ETHManagementAwardCell
 
@@ -39,7 +39,7 @@
     [self addSubview:self.releaseTimeLabel];
     [self addSubview:self.bonusSourceLabel];
     [self addSubview:self.freeAccountLabel];
-    [self addSubview:self.reinstatementAccountLabel];
+
     [_releaseTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).with.offset(10);
         make.left.equalTo(self).with.offset(10);
@@ -52,10 +52,7 @@
         make.top.equalTo(self.bonusSourceLabel.mas_bottom).with.offset(8);
         make.left.equalTo(self).with.offset(10);
     }];
-    [_reinstatementAccountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.freeAccountLabel.mas_bottom).with.offset(8);
-        make.left.equalTo(self).with.offset(10);
-    }];
+
 }
 -(void)setIncomeModel:(ETHIncomeModel *)incomeModel
 {
@@ -63,7 +60,7 @@
     _releaseTimeLabel.text = [NSString stringWithFormat:@"发放时间：%@",_incomeModel.createtime];
     _bonusSourceLabel.text = [NSString stringWithFormat:@"奖金来源：%@",_incomeModel.nickname];
     _freeAccountLabel.text = [NSString stringWithFormat:@"自由账户奖金：%@",_incomeModel.money];
-    _reinstatementAccountLabel.text = [NSString stringWithFormat:@"复投账户奖金：%@",_incomeModel.money2];
+ 
 }
 
 - (UILabel *)releaseTimeLabel{
@@ -90,12 +87,5 @@
         _freeAccountLabel.text = @"自由账户奖金：0.123353";
     }return _freeAccountLabel;
 }
-- (UILabel *)reinstatementAccountLabel{
-    if (_reinstatementAccountLabel == nil) {
-        _reinstatementAccountLabel = [[UILabel alloc]init];
-        _reinstatementAccountLabel.font = [UIFont systemFontOfSize:12];
-        _reinstatementAccountLabel.textColor = [UIColor whiteColor];
-        _reinstatementAccountLabel.text = @"复投账户奖金：0.025231";
-    }return _reinstatementAccountLabel;
-}
+
 @end

@@ -132,9 +132,9 @@ static NSString *const ETHBuyTableViewCellID = @"ETHBuyTableViewCellID";
     if (_backImg == nil) {
         _backImg = [[UIImageView alloc]init];
         if (_type ==0) {
-            self.backImg.image = [UIImage imageNamed:@"BG2"];
+            self.backImg.image = [UIImage imageNamed:@"BG"];
         }else{
-            self.backImg.image = [UIImage imageNamed:@"BG3"];
+            self.backImg.image = [UIImage imageNamed:@"BG"];
         }
         
     }

@@ -13,7 +13,7 @@
 #import "ViewController.h"
 #import "ETHMyWalletVC.h"
 #import "ETHMyInviteVC.h"
-#import "ETHAnnouncementVC.h"
+#import "ETHAnnouncementMVVC.h"
 #import "ETHResetPasswordVC.h"
 #import "UserInfoModel.h"
 #import "AppDelegate.h"
@@ -206,7 +206,7 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
             [self.navigationController pushViewController:vc animated:YES];
         }else if (indexPath.row == 1) {
             //跳转到平台公告
-            ETHAnnouncementVC *vc = [[ETHAnnouncementVC alloc]init];
+            ETHAnnouncementMVVC *vc = [[ETHAnnouncementMVVC alloc]init];
             [self.navigationController pushViewController:vc animated:YES];
         }else if (indexPath.row == 2){
             //跳转到联系客服

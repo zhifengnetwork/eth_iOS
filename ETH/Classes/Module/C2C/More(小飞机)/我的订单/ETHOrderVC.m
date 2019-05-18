@@ -96,7 +96,7 @@
 - (UIImageView *)backImg{
     if (_backImg == nil) {
         _backImg = [[UIImageView alloc]init];
-        self.backImg.image = [UIImage imageNamed:@"BG-L"];
+        self.backImg.image = [UIImage imageNamed:@"BG"];
     }
     return _backImg;
 }

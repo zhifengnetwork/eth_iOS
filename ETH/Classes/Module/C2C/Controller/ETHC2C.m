@@ -38,7 +38,11 @@
     return 20;
 }
 - (UIColor *)menuView:(WMMenuView *)menu titleColorForState:(WMMenuItemState)state atIndex:(NSInteger)index{
-    return RGBColorHex(0xffffff);
+    if (state == WMMenuItemStateSelected) {
+        return [UIColor redColor];
+    }else{
+        return [UIColor whiteColor];
+    }
 }
 - (WMMenuViewStyle)menuViewStyle{
     return WMMenuViewStyleLine;
