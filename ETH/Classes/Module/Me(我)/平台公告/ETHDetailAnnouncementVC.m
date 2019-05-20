@@ -49,8 +49,9 @@
         make.top.equalTo(self.authorLabel.mas_bottom).with.offset(20);
         make.left.right.bottom.equalTo(self.view);
     }];
-    
-    
+    UILongPressGestureRecognizer* longPressed = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressed:)];
+    longPressed.delegate = self;
+    [self.webView addGestureRecognizer:longPressed];
     
 }
 
@@ -109,13 +110,90 @@
 - (UIWebView *)webView{
     if (_webView == nil) {
         _webView = [[UIWebView alloc]init];
-        UILongPressGestureRecognizer* longPressed = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressed:)];
-        longPressed.delegate = self;
-        [self.webView addGestureRecognizer:longPressed];
-        _webView.userInteractionEnabled = YES;
+        
+
         
     }return _webView;
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+    
+}
 
+
+- (void)longPressed:(UILongPressGestureRecognizer*)recognizer
+{
+    if (recognizer.state != UIGestureRecognizerStateBegan) {
+        return;
+    }
+    
+    CGPoint touchPoint = [recognizer locationInView:self.webView];
+    
+    NSString *imgURL = [NSString stringWithFormat:@"document.elementFromPoint(%f, %f).src", touchPoint.x, touchPoint.y];
+    NSString *urlToSave = [self.webView stringByEvaluatingJavaScriptFromString:imgURL];
+    
+    if (urlToSave.length == 0) {
+        return;
+    }
+    
+    [self showImageOptionsWithUrl:urlToSave];
+}
+
+- (void)showImageOptionsWithUrl:(NSString *)imageUrl
+{
+    
+    TYAlertView *alertView = [TYAlertView alertViewWithTitle:@"TYAlertView" message:@"是否保存图片"];
+    
+    [alertView addAction:[TYAlertAction actionWithTitle:@"不保存" style:TYAlertActionStyleCancel handler:^(TYAlertAction *action) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }]];
+    
+    // 弱引用alertView 否则 会循环引用
+    __typeof (alertView) __weak weakAlertView = alertView;
+    [alertView addAction:[TYAlertAction actionWithTitle:@"确定" style:TYAlertActionStyleDestructive handler:^(TYAlertAction *action) {
+        
+        NSLog(@"%@",action.title);
+        [self saveImageToDiskWithUrl:imageUrl];
+    }]];
+    TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:alertView preferredStyle:TYAlertControllerStyleAlert];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)saveImageToDiskWithUrl:(NSString *)imageUrl
+{
+    NSURL *url = [NSURL URLWithString:imageUrl];
+    
+    NSURLSessionConfiguration * configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[NSOperationQueue new]];
+    
+    NSURLRequest *imgRequest = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30.0];
+    
+    NSURLSessionDownloadTask  *task = [session downloadTaskWithRequest:imgRequest completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (error) {
+            return ;
+        }
+        
+        NSData * imageData = [NSData dataWithContentsOfURL:location];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            UIImage * image = [UIImage imageWithData:imageData];
+            
+            UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+        });
+    }];
+    
+    [task resume];
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+{
+    if (error) {
+        [SVProgressHUD showErrorWithStatus:@"保存失败"];
+    }else{
+        [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+    }
+}
 @end
