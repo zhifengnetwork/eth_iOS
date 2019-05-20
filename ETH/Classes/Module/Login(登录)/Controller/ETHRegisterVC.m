@@ -69,7 +69,12 @@
     else
     {
         [self.loginButton setTitle:@"立即找回" forState:UIControlStateNormal];
-        
+        [_bgView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self->_headView.mas_bottom).offset(40);
+            make.left.equalTo(self.view).offset(10);
+            make.right.equalTo(self.view).offset(-10);
+            make.height.mas_equalTo(40);
+        }];
     }
 }
 
