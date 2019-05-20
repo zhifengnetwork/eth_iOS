@@ -105,7 +105,9 @@ static NSString * const ETHAnnouncementCellID = @"ETHAnnouncementCellID";
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     ETHDetailAnnouncementVC *vc = [[ETHDetailAnnouncementVC alloc]init];
-    
+    ETHArticleModel *articleModel = [self.articleArray objectAtIndex:indexPath.row];
+    vc.aid = articleModel.ID.integerValue;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ETHAnnouncementCell *cell = [tableView dequeueReusableCellWithIdentifier:ETHAnnouncementCellID forIndexPath:indexPath];

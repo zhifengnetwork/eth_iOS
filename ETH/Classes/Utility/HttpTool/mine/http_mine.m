@@ -85,6 +85,24 @@
     strUrl = [strUrl stringByAppendingPathComponent:@"app/index.php"];
     [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
 }
+
+//平台公告详情
+//aid 文章id
++(void)article_detail:(NSInteger)aid success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure{
+    HttpTool *http = [HttpTool sharedManager];
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc]initWithCapacity:1];
+    
+    NSString *str = [NSString stringWithFormat:@"%ld",aid];
+    [parameters setObject:str forKey:@"aid"];
+    
+    [parameters setObject:@"member.androidapi.article_detail" forKey:@"r"];
+    
+    NSDictionary* dic = [http hanldeSign:parameters];
+    
+    NSString* strUrl = [http getMainUrl];
+    strUrl = [strUrl stringByAppendingPathComponent:@"app/index.php"];
+    [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
+}
 //我的-退出机制
 //钱包总记录
 +(void)out:(NSString*)money success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure

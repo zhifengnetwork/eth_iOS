@@ -10,8 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ETHDetailAnnouncementVC : NSObject
+@interface ETHDetailAnnouncementVC : UIViewController
 
+@property (nonatomic, assign)NSInteger aid;
 @end
 
 NS_ASSUME_NONNULL_END

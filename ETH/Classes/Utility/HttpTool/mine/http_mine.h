@@ -23,6 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
 //我的-平台公告列表
 //系统公告
 +(void)article_getlist:(NSInteger)page success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
+
+//平台公告详情
+//aid 文章id
++(void)article_detail:(NSInteger)aid success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
+
 //我的-退出机制
 //钱包总记录
 +(void)out:(NSString*)money success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;

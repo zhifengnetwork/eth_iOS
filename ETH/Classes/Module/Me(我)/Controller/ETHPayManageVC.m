@@ -220,7 +220,7 @@
         _alipayLabel = [[UILabel alloc]init];
         _alipayLabel.font = [UIFont systemFontOfSize:12];
         _alipayLabel.textColor = [UIColor whiteColor];
-        _alipayLabel.text = @"支付宝二维码";
+        _alipayLabel.text = @"支付宝收款二维码";
     }return _alipayLabel;
 }
 - (UIImageView *)alipayQRCode{
@@ -241,7 +241,7 @@
         _weChatLabel = [[UILabel alloc]init];
         _weChatLabel.font = [UIFont systemFontOfSize:12];
         _weChatLabel.textColor = [UIColor whiteColor];
-        _weChatLabel.text = @"微信二维码";
+        _weChatLabel.text = @"微信收款二维码";
     }return _weChatLabel;
 }
 - (UIImageView *)weChatQRCode{

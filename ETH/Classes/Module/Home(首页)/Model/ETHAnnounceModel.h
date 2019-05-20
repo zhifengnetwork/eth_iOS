@@ -36,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              *article_sys;
 @property (nonatomic , strong) NSArray              *categorys;
 @property (nonatomic , strong) NSArray              *articles;
+@property (nonatomic , strong) NSArray              *advs;
+
 @end
 
 NS_ASSUME_NONNULL_END
