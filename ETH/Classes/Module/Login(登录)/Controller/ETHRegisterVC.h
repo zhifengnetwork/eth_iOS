@@ -19,6 +19,12 @@ NS_ASSUME_NONNULL_BEGIN
 //0:注册 1:找回密码
 @property (nonatomic, strong) NSString *type;
 
+@property (nonatomic, assign) BOOL isShowBgview;
+@property (nonatomic, assign) BOOL isShowLabel;
+@property (nonatomic, assign) BOOL isShowField;
+
+@property (nonatomic, strong) NSString *titleBgview;
+
 @end
 
 NS_ASSUME_NONNULL_END

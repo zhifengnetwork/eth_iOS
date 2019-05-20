@@ -26,6 +26,7 @@
 @property (nonatomic, strong) UIButton *returnButton;
 @property (nonatomic, strong) UIImageView* headView;
 
+@property (nonatomic, strong) UIView *bg4View;
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) UIView *bg1View;
 @property (nonatomic, strong) UIView *bg2View;
@@ -35,6 +36,8 @@
 @property (nonatomic, strong) UIImageView* icon2View;
 @property (nonatomic, strong) UIImageView* icon3View;
 
+@property (nonatomic, strong) UILabel *recommenderLabel;
+@property (nonatomic, strong) UITextField *recommenderField;
 @property (nonatomic, strong) UITextField *phoneTextField;
 @property (nonatomic, strong) UITextField *vcodeTextField;
 @property (nonatomic, strong) UITextField *passwordTextField;
@@ -59,10 +62,14 @@
     if (self.type.intValue==0)
     {
         [self.loginButton setTitle:@"立即注册" forState:UIControlStateNormal];
+        self.isShowBgview = NO;
+        self.isShowLabel = NO;
+        self.isShowField = NO;
     }
     else
     {
         [self.loginButton setTitle:@"立即找回" forState:UIControlStateNormal];
+        
     }
 }
 
@@ -86,6 +93,7 @@
     [self.view addSubview:self.bjIconView];
     [self.view addSubview:self.returnButton];
     [self.view addSubview:self.headView];
+    [self.view addSubview:self.bg4View];
     [self.view addSubview:self.bgView];
     [self.view addSubview:self.bg1View];
     [self.view addSubview:self.bg2View];
@@ -94,6 +102,8 @@
     [self.view addSubview:self.icon1View];
     [self.view addSubview:self.icon2View];
     [self.view addSubview:self.icon3View];
+    [self.view addSubview:self.recommenderLabel];
+    [self.view addSubview:self.recommenderField];
     [self.view addSubview:self.phoneTextField];
     [self.view addSubview:self.vcodeTextField];
     [self.view addSubview:self.vcodeButton];
@@ -118,8 +128,16 @@
         make.top.mas_equalTo(30);
     }];
     
-    [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_bg4View mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self->_headView.mas_bottom).offset(40);
+        make.left.equalTo(self.view).offset(10);
+        make.right.equalTo(self.view).offset(-10);
+        make.height.mas_equalTo(40);
+    }];
+    self.isShowBgview = YES;
+    
+    [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self->_bg4View.mas_bottom).offset(10);
         make.left.equalTo(self.view).offset(10);
         make.right.equalTo(self.view).offset(-10);
         make.height.mas_equalTo(40);
@@ -172,6 +190,19 @@
         make.right.mas_equalTo(-15);
     }];
     
+    [_recommenderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self->_bg4View.mas_left).offset(20);
+        make.centerY.equalTo(self->_bg4View);
+    }];
+    self.isShowLabel = YES;
+    
+    [_recommenderField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self->_recommenderLabel.mas_right);
+        make.top.bottom.equalTo(self->_bg4View);
+        make.right.mas_equalTo(-15);
+    }];
+    self.isShowField = YES;
+    
     [_vcodeTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self->_bg1View.mas_left).offset(30);
         make.top.bottom.equalTo(self->_bg1View);
@@ -215,6 +246,27 @@
         make.top.equalTo(self->_loginButton.mas_bottom).offset(5);
     }];
 
+}
+
+-(void)setIsShowBgview:(BOOL)isShowBgview
+{
+    _isShowBgview = isShowBgview;
+    
+    self.bg4View.hidden = _isShowBgview;
+}
+
+-(void)setIsShowLabel:(BOOL)isShowLabel
+{
+    _isShowLabel = isShowLabel;
+    
+    _recommenderLabel.hidden = _isShowLabel;
+}
+
+-(void)setIsShowField:(BOOL)isShowField
+{
+    _isShowField = isShowField;
+    
+    _recommenderField.hidden = _isShowField;
 }
 
 
@@ -270,6 +322,26 @@
         _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
     }
     return _phoneTextField;
+}
+
+- (UILabel *)recommenderLabel {
+    if (_recommenderLabel == nil) {
+        _recommenderLabel = [[UILabel alloc] init];
+        _recommenderLabel.textColor = RGBColorHex(0xffffff);
+        _recommenderLabel.font = [UIFont systemFontOfSize:12];
+        _recommenderLabel.text = @"推荐人ID:";
+    }
+    return _recommenderLabel;
+}
+
+
+- (UITextField *)recommenderField {
+    if (_recommenderField == nil) {
+        _recommenderField = [[UITextField alloc] init];
+        _recommenderField.font = [UIFont systemFontOfSize:12];
+        _recommenderField.textColor = RGBColorHex(0xffffff);
+    }
+    return _recommenderField;
 }
 
 - (UITextField *)vcodeTextField {
@@ -328,6 +400,17 @@
     return _twoPasswordTextField;
 }
 
+-(UIView *)bg4View
+{
+    if(_bg4View==nil)
+    {
+        _bg4View = [[UIView alloc]initWithFrame:CGRectZero];
+        _bg4View.layer.borderWidth = 1.0f;
+        _bg4View.layer.borderColor = RGBColorHex(0xcdcdcd).CGColor;
+        _bg4View.layer.cornerRadius = 3.0f;
+    }
+    return _bg4View;
+}
 
 -(UIView *)bgView
 {
