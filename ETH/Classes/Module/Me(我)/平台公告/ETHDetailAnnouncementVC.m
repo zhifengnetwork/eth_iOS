@@ -13,6 +13,7 @@
 #import "ETHDetailAnnounceModel.h"
 #import "UIImageView+WebCache.h"
 #import "TYAlertController.h"
+#import "TYAlertView.h"
 
 @interface ETHDetailAnnouncementVC()<UIGestureRecognizerDelegate>
 @property (nonatomic, strong)UILabel *mpLabel;
@@ -116,80 +117,5 @@
     }return _webView;
 }
 
-- (void)longPressed:(UILongPressGestureRecognizer*)recognizer
-{
-    if (recognizer.state != UIGestureRecognizerStateBegan) {
-        return;
-    }
-    
-    CGPoint touchPoint = [recognizer locationInView:self.webView];
-    
-    NSString *imgURL = [NSString stringWithFormat:@"document.elementFromPoint(%f, %f).src", touchPoint.x, touchPoint.y];
-    NSString *urlToSave = [self.webView stringByEvaluatingJavaScriptFromString:imgURL];
-    
-    if (urlToSave.length == 0) {
-        return;
-    }
-    
-    [self showImageOptionsWithUrl:urlToSave];
-}
 
-- (void)showImageOptionsWithUrl:(NSString *)imageUrl
-{
-    
-    UIButton *saveBtn = [[UIButton alloc] init];
-    saveBtn.type = kRAActionCustomButtonTypeSheetWhite;
-    [saveBtn setTitle:@"保存图片" forState:UIControlStateNormal];
-    saveBtn.touchUpInsideBlock = ^(UIButton *btn){
-        [self saveImageToDiskWithUrl:imageUrl];
-    };
-    
-    UIButton *cancelBtn = [[UIButton alloc] init];
-    cancelBtn.type = kRAActionCustomButtonTypeSheetWhite;
-    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
-    cancelBtn.touchUpInsideBlock = ^(RAActionCustomButton *btn){
-        
-    };
-    
-    RAActionSheet *sheet = [[RAActionSheet alloc] init];
-    sheet.actionBtns = @[ saveBtn, cancelBtn];
-    [sheet show];
-}
-
-- (void)saveImageToDiskWithUrl:(NSString *)imageUrl
-{
-    NSURL *url = [NSURL URLWithString:imageUrl];
-    
-    NSURLSessionConfiguration * configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[NSOperationQueue new]];
-    
-    NSURLRequest *imgRequest = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:30.0];
-    
-    NSURLSessionDownloadTask  *task = [session downloadTaskWithRequest:imgRequest completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (error) {
-            return ;
-        }
-        
-        NSData * imageData = [NSData dataWithContentsOfURL:location];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            UIImage * image = [UIImage imageWithData:imageData];
-            
-            UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
-        });
-    }];
-    
-    [task resume];
-}
-
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
-{
-    if (error) {
-        [[RAProgressHUD sharedHUD] showErrorWithMessage:@"保存失败"];
-    }else{
-        [[RAProgressHUD sharedHUD] showSuccessWithMessage:@"保存成功"];
-    }
-}
 @end
