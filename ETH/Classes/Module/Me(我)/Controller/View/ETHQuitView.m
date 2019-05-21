@@ -225,7 +225,7 @@
     _money = money;
     _InvestmentLabal.text = [NSString stringWithFormat:@"%@",money];
 
-    _refundableLabel.text = [NSString stringWithFormat:@"%f",money.intValue *0.5];
+    _refundableLabel.text = [NSString stringWithFormat:@"%f",money.floatValue *0.5];
 }
 - (void)cancelClick{
     [[self currentViewController] dismissViewControllerAnimated:YES completion:nil];

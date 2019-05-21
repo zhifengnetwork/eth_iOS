@@ -84,6 +84,7 @@
 		53E65A052274049F0048E3DD /* ETHMyInviteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E65A042274049F0048E3DD /* ETHMyInviteVC.m */; };
 		53EA94EF2256F355001DDE8B /* ETHTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 53EA94EE2256F355001DDE8B /* ETHTitleView.m */; };
 		53EF31AA226973AE00241ED4 /* ETHC2CModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 53EF31A9226973AE00241ED4 /* ETHC2CModel.m */; };
+		53EFE1A022940099009495F2 /* ETHKefu.m in Sources */ = {isa = PBXBuildFile; fileRef = 53EFE19F22940099009495F2 /* ETHKefu.m */; };
 		59CE31BA14FFF22E95BFE556 /* libPods-ETHUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42CF981EC7976CAFA4C5A0E8 /* libPods-ETHUITests.a */; };
 		6652218635D0B942A4B63E8A /* libPods-ETHTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E657BB1015AC713789FC207B /* libPods-ETHTests.a */; };
 		84052D59225C7B9F0092A905 /* ETHCurrentInvestmentTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84052D58225C7B9F0092A905 /* ETHCurrentInvestmentTableCell.m */; };
@@ -371,6 +372,8 @@
 		53EA94F12257045D001DDE8B /* ETHBuyTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ETHBuyTableViewCell.m; path = ETH/Classes/Module/C2C/Controller/ETHBuyTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		53EF31A8226973AE00241ED4 /* ETHC2CModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETHC2CModel.h; sourceTree = "<group>"; };
 		53EF31A9226973AE00241ED4 /* ETHC2CModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHC2CModel.m; sourceTree = "<group>"; };
+		53EFE19E22940099009495F2 /* ETHKefu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETHKefu.h; sourceTree = "<group>"; };
+		53EFE19F22940099009495F2 /* ETHKefu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHKefu.m; sourceTree = "<group>"; };
 		6F5E1E9D92847B0F51F41A92 /* Pods-ETH.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ETH.debug.xcconfig"; path = "Target Support Files/Pods-ETH/Pods-ETH.debug.xcconfig"; sourceTree = "<group>"; };
 		84052D57225C7B9F0092A905 /* ETHCurrentInvestmentTableCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETHCurrentInvestmentTableCell.h; sourceTree = "<group>"; };
 		84052D58225C7B9F0092A905 /* ETHCurrentInvestmentTableCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHCurrentInvestmentTableCell.m; sourceTree = "<group>"; };
@@ -817,6 +820,8 @@
 				539B609D2254AB8B00FE7D80 /* ETHMeTableViewCell.m */,
 				53254B0022744B4200E84DAE /* ETHQuitView.h */,
 				53254B0122744B4200E84DAE /* ETHQuitView.m */,
+				53EFE19E22940099009495F2 /* ETHKefu.h */,
+				53EFE19F22940099009495F2 /* ETHKefu.m */,
 			);
 			name = View;
 			path = Controller/View;
@@ -1887,6 +1892,7 @@
 				840ADCB8225F2F7E00203D64 /* ETHWalletETHTableCell.m in Sources */,
 				534B99DE225D95C600DC2A97 /* ETHNoTransactionVC.m in Sources */,
 				842E831022545D1700CC5188 /* ETHC2C.m in Sources */,
+				53EFE1A022940099009495F2 /* ETHKefu.m in Sources */,
 				539B609B2254890D00FE7D80 /* ETHHeaderView.m in Sources */,
 				84052D5F225C7F540092A905 /* ETHReceiptAddressTableCell.m in Sources */,
 				843CE5382261C99500DE176F /* ETH3DGameFooterView.m in Sources */,

@@ -23,6 +23,7 @@
 #import "UserInfoModel.h"
 #import "TYAlertController.h"
 #import "ETHQuitView.h"
+#import "ETHKefu.h"
 
 @interface ETHMeVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UITableView *tableView;
@@ -210,11 +211,20 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
             [self.navigationController pushViewController:vc animated:YES];
         }else if (indexPath.row == 2){
             //跳转到联系客服
+            ETHKefu *view = [[ETHKefu alloc]initWithFrame:CGRectMake(0, 0, 300, 200)];
+            view.model = self.userInfo.kefu;
+                             TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
+                             [self presentViewController:alertController animated:YES completion:nil];
             
         }else if (indexPath.row == 3){
             //跳转到退出机制
             ETHQuitView *view = [[ETHQuitView alloc]initWithFrame:CGRectMake(0, 0, 257, 284)];
-            view.money = self.userInfo.arr2.money;
+            if (!kStringIsEmpty(self.userInfo.arr2.money)) {
+                view.money = self.userInfo.arr2.money;
+            }else{
+                view.money = @"0.00";
+            }
+            
             TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
             [self presentViewController:alertController animated:YES completion:nil];
 

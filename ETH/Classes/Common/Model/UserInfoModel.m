@@ -20,6 +20,11 @@
 
 @end
 
+@implementation UserkefuModel
+MJCodingImplementation
+
+@end
+
 @implementation MemberModel
 MJCodingImplementation
 

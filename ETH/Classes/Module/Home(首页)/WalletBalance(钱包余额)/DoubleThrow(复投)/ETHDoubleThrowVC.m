@@ -210,7 +210,12 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
         str = @"2";
     }
     [http_wallet yijianfutou:str money:self.tz.creditmy success:^(id responseObject)  {
-        [weakSelf showData2:responseObject];
+        if (self.tz.creditmy.integerValue == 0) {
+            [SVProgressHUD showErrorWithStatus:@"复投金额不能为0"];
+        }else{
+            [weakSelf showData2:responseObject];
+        }
+        
     } failure:^(NSError *error)
     {
         [SVProgressHUD showErrorWithStatus:error.domain];

@@ -17,6 +17,12 @@
 
 @end
 
+@interface UserkefuModel : NSObject
+@property (nonatomic, copy) NSString *kefufile;
+@property (nonatomic, copy) NSString *wxkffile;
+
+@end
+
 @interface LevelModel : NSObject<NSCoding>
 
 @property (nonatomic, copy) NSString *levelname1;
@@ -70,6 +76,7 @@
 @property (nonatomic, strong) MemberModel *member;
 @property (nonatomic, strong) LevelModel *huiyuanlevel;
 @property (nonatomic, strong) Arr2Model *arr2;
+@property (nonatomic, strong) UserkefuModel *kefu;
 
 @property (nonatomic, copy) NSString *money2;
 @property (nonatomic, copy) NSString *money4;
