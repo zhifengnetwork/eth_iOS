@@ -8,6 +8,7 @@
 
 #import "ETHFightVC.h"
 #import "RefreshGifHeader.h"
+#import "SVProgressHUD.h"
 #import "ETHRecreationCollectionCell.h"
 
 @interface ETHFightVC ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
@@ -213,13 +214,11 @@ static NSString *const ETHRecreationCollectionCellID = @"ETHRecreationCollection
 //点击事件
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section==1)
-    {
-        if (indexPath.row==0)
-        {
+    
+    [SVProgressHUD showErrorWithStatus:@"敬请期待"];
             //            ETHInvestmentRecordVC* vc = [[ETHInvestmentRecordVC alloc]init];
             //            [self.navigationController pushViewController:vc animated:YES];
-        }
+    
         //        else if (indexPath.row==3)
         //        {
         //            ETHWalletBalanceVC* vc = [[ETHWalletBalanceVC alloc]init];
@@ -235,7 +234,7 @@ static NSString *const ETHRecreationCollectionCellID = @"ETHRecreationCollection
         //            ETHSubordinateVC* vc = [[ETHSubordinateVC alloc]init];
         //            [self.navigationController pushViewController:vc animated:YES];
         //        }
-    }
+    
 }
 
 -(void)updateTimeInVisibleCells

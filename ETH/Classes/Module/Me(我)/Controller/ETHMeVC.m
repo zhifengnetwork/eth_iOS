@@ -28,7 +28,7 @@
 @interface ETHMeVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UITableView *tableView;
 @property (nonatomic, strong)ETHHeaderView *headerView;
-@property (nonatomic, strong)UIButton *logoutButton;
+//@property (nonatomic, strong)UIButton *logoutButton;
 
 @property (nonatomic, strong) UserInfoModel *userInfo;
 
@@ -48,16 +48,16 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
     _headerView = [[ETHHeaderView alloc]initWithFrame:CGRectMake(0, 0, LL_ScreenWidth, 165)];
     [_tableView setTableHeaderView:_headerView];
     
-    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, LL_ScreenWidth, 100)];
-    [_tableView setTableFooterView:footerView];
+//    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, LL_ScreenWidth, 100)];
+//    [_tableView setTableFooterView:footerView];
     
-    [footerView addSubview:self.logoutButton];
-    [_logoutButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(footerView).with.offset(31);
-        make.width.mas_equalTo(275);
-        make.height.mas_equalTo(35);
-        make.centerX.equalTo(footerView.mas_centerX);
-    }];
+//    [footerView addSubview:self.logoutButton];
+//    [_logoutButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(footerView).with.offset(31);
+//        make.width.mas_equalTo(275);
+//        make.height.mas_equalTo(35);
+//        make.centerX.equalTo(footerView.mas_centerX);
+//    }];
 }
 - (void)viewWillDisappear:(BOOL)animated{
     self.navigationController.navigationBar.hidden = NO;
@@ -114,18 +114,18 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
     }
     return _tableView;
 }
-- (UIButton *)logoutButton{
-    if (_logoutButton == nil) {
-        _logoutButton = [[UIButton alloc]init];
-        _logoutButton.layer.cornerRadius = 5;
-        _logoutButton.backgroundColor = RGBColorHex(0xf63a3a);
-        _logoutButton.titleLabel.font =[UIFont systemFontOfSize:15];
-        _logoutButton.titleLabel.textColor = RGBColorHex(0xffffff);
-        [_logoutButton setTitle:@"退出登录" forState:UIControlStateNormal];
-        [_logoutButton addTarget:self action:@selector(logoutButtonDidClick) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _logoutButton;
-}
+//- (UIButton *)logoutButton{
+//    if (_logoutButton == nil) {
+//        _logoutButton = [[UIButton alloc]init];
+//        _logoutButton.layer.cornerRadius = 5;
+//        _logoutButton.backgroundColor = RGBColorHex(0xf63a3a);
+//        _logoutButton.titleLabel.font =[UIFont systemFontOfSize:15];
+//        _logoutButton.titleLabel.textColor = RGBColorHex(0xffffff);
+//        [_logoutButton setTitle:@"退出登录" forState:UIControlStateNormal];
+//        [_logoutButton addTarget:self action:@selector(logoutButtonDidClick) forControlEvents:UIControlEventTouchUpInside];
+//    }
+//    return _logoutButton;
+//}
 
 - (void)logoutButtonDidClick
 {
@@ -173,7 +173,7 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
     if (section == 0) {
         return 3;
     }else{
-        return 4;
+        return 5;
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -228,6 +228,8 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
             TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
             [self presentViewController:alertController animated:YES completion:nil];
 
+        }else if (indexPath.row == 4){
+            [self logoutButtonDidClick];
         }
     }
 }
@@ -254,6 +256,8 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
             [cell setIcon:[UIImage imageNamed:@"kefu"] WithText:@"联系客服"];
         }else if (indexPath.row == 3){
             [cell setIcon:[UIImage imageNamed:@"touzi"] WithText:@"退出机制"];
+        }else if (indexPath.row == 4){
+            [cell setIcon:[UIImage imageNamed:@"touzi"] WithText:@"退出登录"];
         }
     }
     return cell;
