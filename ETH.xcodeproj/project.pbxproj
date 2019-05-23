@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		180B476022608DAA008077D0 /* ETHWalletBalanceWMVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 180B475F22608DAA008077D0 /* ETHWalletBalanceWMVC.m */; };
 		180B4763226099C3008077D0 /* ETHTransactionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 180B4762226099C3008077D0 /* ETHTransactionVC.m */; };
+		180C5A51229685D9006B1C15 /* UUMarqueeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 180C5A50229685D8006B1C15 /* UUMarqueeView.m */; };
 		1811ABA82267819D00245CAD /* CQCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811ABA52267819D00245CAD /* CQCountDownButton.m */; };
 		1811ABA92267819D00245CAD /* NSTimer+CQBlockSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 1811ABA62267819D00245CAD /* NSTimer+CQBlockSupport.m */; };
 		181249062261CC3F004DB1B3 /* http_index.m in Sources */ = {isa = PBXBuildFile; fileRef = 181249022261CC3E004DB1B3 /* http_index.m */; };
@@ -216,6 +217,8 @@
 		180B475F22608DAA008077D0 /* ETHWalletBalanceWMVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHWalletBalanceWMVC.m; sourceTree = "<group>"; };
 		180B4761226099C3008077D0 /* ETHTransactionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETHTransactionVC.h; sourceTree = "<group>"; };
 		180B4762226099C3008077D0 /* ETHTransactionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHTransactionVC.m; sourceTree = "<group>"; };
+		180C5A4F229685D8006B1C15 /* UUMarqueeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUMarqueeView.h; sourceTree = "<group>"; };
+		180C5A50229685D8006B1C15 /* UUMarqueeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUMarqueeView.m; sourceTree = "<group>"; };
 		1811ABA42267819D00245CAD /* NSTimer+CQBlockSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+CQBlockSupport.h"; sourceTree = "<group>"; };
 		1811ABA52267819D00245CAD /* CQCountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CQCountDownButton.m; sourceTree = "<group>"; };
 		1811ABA62267819D00245CAD /* NSTimer+CQBlockSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+CQBlockSupport.m"; sourceTree = "<group>"; };
@@ -613,6 +616,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		180C5A4E229685D8006B1C15 /* UUMarqueeView */ = {
+			isa = PBXGroup;
+			children = (
+				180C5A4F229685D8006B1C15 /* UUMarqueeView.h */,
+				180C5A50229685D8006B1C15 /* UUMarqueeView.m */,
+			);
+			path = UUMarqueeView;
+			sourceTree = "<group>";
+		};
 		1811ABA32267819D00245CAD /* CQCountDownButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -1416,6 +1428,7 @@
 		842E829B225458D500CC5188 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				180C5A4E229685D8006B1C15 /* UUMarqueeView */,
 				1811ABA32267819D00245CAD /* CQCountDownButton */,
 				842E829C225458D500CC5188 /* HJViewStyle */,
 				842E829F225458D500CC5188 /* Emoticon */,
@@ -2002,6 +2015,7 @@
 				842E82CB225458D500CC5188 /* LoginPhoneView.m in Sources */,
 				84A75112226D6CDC00420A8C /* ETHTransferAccountWMVC.m in Sources */,
 				8497727E225B32A800A274D1 /* ETHRegisterVC.m in Sources */,
+				180C5A51229685D9006B1C15 /* UUMarqueeView.m in Sources */,
 				8468E1C82266C2F600D81DD2 /* ETHAnnounModel.m in Sources */,
 				849DE433225D8B4400351A48 /* ETHTwoDoubleThrowTableCell.m in Sources */,
 				53C343832261EE33008E42FB /* ETHPayBounceView.m in Sources */,

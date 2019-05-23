@@ -115,6 +115,25 @@
     self.clipsToBounds = YES;
     self.layer.cornerRadius = 3.f;
     self.backgroundColor = [UIColor whiteColor];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFieldEditChanged:) name:@"UITextFieldTextDidChangeNotification" object:self.textField];
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UITextFieldTextDidChangeNotification" object:self.textField];
+}
+
+#pragma mark - Notification Method
+-(void)textFieldEditChanged:(NSNotification *)obj
+{
+    UITextField *textField = (UITextField *)obj.object;
+    NSString *toBeString = textField.text;
+    
+    if (toBeString.floatValue>_maxValue)
+    {
+        textField.text = [NSString stringWithFormat:@"%.2f",_maxValue];
+    }
 }
 
 //设置加减按钮的公共方法
