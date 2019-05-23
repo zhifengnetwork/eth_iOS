@@ -43,10 +43,21 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
 
 - (void)setup{
     self.view.backgroundColor = [UIColor whiteColor];
+    
     [self.view addSubview:self.tableView];
+    
+    UIView *footerView= [[UIView alloc]init];
+    footerView.backgroundColor = RGBColorHex(0x142241);
+    [self.view addSubview:footerView];
     
     _headerView = [[ETHHeaderView alloc]initWithFrame:CGRectMake(0, 0, LL_ScreenWidth, 165)];
     [_tableView setTableHeaderView:_headerView];
+    
+    
+    [footerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.left.right.equalTo(self.view);
+        make.height.mas_equalTo(191);
+    }];
     
 //    UIView *footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, LL_ScreenWidth, 100)];
 //    [_tableView setTableFooterView:footerView];
@@ -179,6 +190,7 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 10;
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section ==0) {
         if (indexPath.row == 0) {

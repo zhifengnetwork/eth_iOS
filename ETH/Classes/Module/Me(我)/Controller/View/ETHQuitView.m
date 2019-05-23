@@ -138,7 +138,9 @@
         _label2.font = [UIFont boldSystemFontOfSize:10];
         _label2.textColor = RGBColorHex(0x666666);
         _label2.numberOfLines = 0;
-        _label2.text = @"退出规则：进行该操作，交易日退出投资的50% 分5个月退还!";
+        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:@"退出规则：进行该操作，交易日退出投资的50%，剩下的50% 分5个月退还!取消操作点击不退出"];
+        [attr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(37, 9)];
+        [_label2 setAttributedText:attr];
     }return _label2;
 }
 
@@ -223,9 +225,9 @@
 }
 - (void)setMoney:(NSString *)money{
     _money = money;
-    _InvestmentLabal.text = [NSString stringWithFormat:@"%@",money];
+    _InvestmentLabal.text = [NSString stringWithFormat:@"投资金额：%@",money];
 
-    _refundableLabel.text = [NSString stringWithFormat:@"%f",money.floatValue *0.5];
+    _refundableLabel.text = [NSString stringWithFormat:@"可退金额：%f",money.floatValue *0.5];
 }
 - (void)cancelClick{
     [[self currentViewController] dismissViewControllerAnimated:YES completion:nil];
