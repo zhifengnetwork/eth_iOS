@@ -91,7 +91,7 @@
         _numberButton.shakeAnimation = YES;
         _numberButton.currentNumber = 0;
         // 设置最小值
-        _numberButton.minValue = 0;
+        _numberButton.minValue = 0.000001;
         // 设置最大值
         _numberButton.maxValue = 1000;
         // 设置输入框中的字体大小
@@ -113,6 +113,7 @@
  */
 - (void)pp_numberButton:(PPNumberButton *)numberButton number:(NSInteger)number increaseStatus:(BOOL)increaseStatus
 {
+
     if ([self.delegate respondsToSelector:@selector(ETHAmountInvesTableCellInputing: indexPath:)])
     {
         [self.delegate ETHAmountInvesTableCellInputing:[NSString stringWithFormat:@"%ld",number] indexPath:nil];

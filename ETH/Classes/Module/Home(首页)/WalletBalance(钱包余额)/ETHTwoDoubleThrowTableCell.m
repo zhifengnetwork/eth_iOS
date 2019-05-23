@@ -151,7 +151,7 @@
 - (UIButton *)cashButton {
     if (_cashButton == nil) {
         _cashButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_cashButton setTitle:@"提现" forState:UIControlStateNormal];
+        [_cashButton setTitle:@"提币" forState:UIControlStateNormal];
         [_cashButton setTitleColor:RGBColorHex(0xffffff) forState:UIControlStateNormal];
         _cashButton.titleLabel.font = [UIFont systemFontOfSize:15];
         _cashButton.backgroundColor = RGBColorHex(0xce1717);
