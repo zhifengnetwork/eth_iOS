@@ -202,6 +202,7 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
         else if (indexPath.section == 1)
         {
             ETHHomePageTitleHeadView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:ETHHomePageTitleHeadViewID forIndexPath:indexPath];
+            headerView.notices = self.indexDataModel.notice;
             reusableview = headerView;
         }
         

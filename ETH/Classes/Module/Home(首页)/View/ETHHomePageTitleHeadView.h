@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface ETHHomePageTitleHeadView : UICollectionReusableView
 
+@property (nonatomic, strong) NSMutableArray* notices;
+
 @end
 
 NS_ASSUME_NONNULL_END

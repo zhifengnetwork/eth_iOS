@@ -93,7 +93,7 @@
         // 设置最小值
         _numberButton.minValue = 0.000001;
         // 设置最大值
-        _numberButton.maxValue = 1000;
+        _numberButton.maxValue = 999999;
         // 设置输入框中的字体大小
         _numberButton.inputFieldFont = 12;
         _numberButton.increaseTitle = @"＋";
