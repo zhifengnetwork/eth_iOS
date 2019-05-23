@@ -45,6 +45,10 @@
     [self.view2 addSubview:self.walletLabel];
     [self.view2 addSubview:self.walletQRCode];
     [self.view addSubview:self.ensureButton];
+    UIView *lineView = [[UIView alloc]init];
+    lineView.backgroundColor = RGBColorHex(0xcccccc);
+    [self.view addSubview:lineView];
+    
     [_view1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).with.offset(9);
         make.right.equalTo(self.view).with.offset(-9);
@@ -60,6 +64,13 @@
         make.top.bottom.equalTo(self.view1);
         make.width.mas_equalTo(300);
     }];
+    [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.walletAddressTF.mas_left);
+        make.top.equalTo(self.walletAddressTF.mas_bottom);
+        make.height.mas_equalTo(1);
+        make.right.equalTo(self.view).with.offset(-10);
+    }];
+    
     [_view2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view1.mas_bottom).with.offset(25);
         make.centerX.equalTo(self.view.mas_centerX);
@@ -86,14 +97,14 @@
     if (_view1 == nil) {
         _view1 = [[UIView alloc]init];
         _view1.layer.cornerRadius = 3;
-        _view1.backgroundColor = RGBColorHex(0x224eaf);
+        _view1.backgroundColor = [UIColor whiteColor];
     }return _view1;
 }
 - (UILabel *)walletAddressLabel{
     if (_walletAddressLabel == nil) {
         _walletAddressLabel = [[UILabel alloc]init];
         _walletAddressLabel.font = [UIFont systemFontOfSize:12];
-        _walletAddressLabel.textColor = [UIColor whiteColor];
+        _walletAddressLabel.textColor = [UIColor blackColor];
         _walletAddressLabel.text = @"钱包地址：";
     }return _walletAddressLabel;
 }
@@ -101,27 +112,29 @@
     if (_walletAddressTF == nil) {
         _walletAddressTF = [[UITextField alloc]init];
         _walletAddressTF.font = [UIFont systemFontOfSize:12];
-        _walletAddressTF.textColor = [UIColor whiteColor];
+        _walletAddressTF.textColor = [UIColor blackColor];
     }return _walletAddressTF;
 }
 - (UIView *)view2{
     if (_view2 == nil) {
         _view2 = [[UIView alloc]init];
         _view2.layer.cornerRadius = 5;
-        _view2.backgroundColor = RGBColorHex(0x224eaf);
+        _view2.backgroundColor = [UIColor whiteColor];
     }return _view2;
 }
 - (UILabel *)walletLabel{
     if (_walletLabel == nil) {
         _walletLabel = [[UILabel alloc]init];
         _walletLabel.font = [UIFont systemFontOfSize:12];
-        _walletLabel.textColor = [UIColor whiteColor];
+        _walletLabel.textColor = [UIColor blackColor];
         _walletLabel.text = @"钱包二维码";
     }return _walletLabel;
 }
 - (UIImageView *)walletQRCode{
     if (_walletQRCode == nil) {
         _walletQRCode = [[UIImageView alloc]init];
+        _walletQRCode.layer.borderWidth= 1;
+        _walletQRCode.layer.borderColor = [UIColor blackColor].CGColor;
         _walletQRCode.image = [UIImage imageNamed:@"erweima"];
         _walletQRCode.userInteractionEnabled = YES;
         UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
@@ -132,10 +145,10 @@
     if (_ensureButton == nil) {
         _ensureButton = [[UIButton alloc]init];
         _ensureButton.layer.cornerRadius = 3;
-        _ensureButton.backgroundColor = RGBColorHex(0x224eaf);
+        _ensureButton.backgroundColor = [UIColor grayColor];
         _ensureButton.titleLabel.font = [UIFont systemFontOfSize:20];
         [_ensureButton setTitle:@"确认" forState:UIControlStateNormal];
-        [_ensureButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_ensureButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_ensureButton addTarget:self action:@selector(ensureButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }return _ensureButton;
 }
