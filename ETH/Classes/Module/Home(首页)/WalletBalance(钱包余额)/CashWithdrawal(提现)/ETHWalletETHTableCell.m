@@ -119,7 +119,7 @@
 -(void)setCredit:(NSString *)credit
 {
     _credit = credit;
-    _titleLabel.text = [NSString stringWithFormat:@"当前可提现额度： ¥%@",_credit];
+    _titleLabel.text = [NSString stringWithFormat:@"当前可提币额度： ¥%@",_credit];
 }
 
 #pragma mark - Notification Method
@@ -146,14 +146,14 @@
     float sxf = tx.floatValue*0.05;
     
     //2种颜色
-    NSString* str = [NSString stringWithFormat:@"本次提现将扣除手续费：¥%.5f",sxf];
+    NSString* str = [NSString stringWithFormat:@"本次提币将扣除手续费：¥%.5f",sxf];
     NSString* key = [NSString stringWithFormat:@"¥%.5f",sxf];
     NSMutableAttributedString* aText = [ETHTool GetAttributedString:nil SrcText:str KeyWord:key KeyWordColor:RGBColorHex(0xf2041a) KeyWordFont:[UIFont systemFontOfSize:13] KeyWordBGolor:[UIColor clearColor]];
     _service2Label.attributedText = aText;
     
     //2种颜色
     float dz = tx.floatValue - sxf;
-    NSString* str2 = [NSString stringWithFormat:@"本次提现实际到账金额：¥%.5f",dz];
+    NSString* str2 = [NSString stringWithFormat:@"本次提币实际到账金额：¥%.5f",dz];
     NSString* key2 = [NSString stringWithFormat:@"¥%.5f",dz];
     NSMutableAttributedString* aText2 = [ETHTool GetAttributedString:nil SrcText:str2 KeyWord:key2 KeyWordColor:RGBColorHex(0xf2041a) KeyWordFont:[UIFont systemFontOfSize:13] KeyWordBGolor:[UIColor clearColor]];
     _actualLabel.attributedText = aText2;
@@ -204,7 +204,7 @@
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.textColor = RGBColorHex(0x232833);
         _titleLabel.font = [UIFont systemFontOfSize:12];
-        _titleLabel.text = @"当前可提现额度： ¥43808";
+        _titleLabel.text = @"当前可提币额度： ¥43808";
     }
     return _titleLabel;
 }
@@ -212,7 +212,7 @@
 - (UIButton *)wholeButton {
     if (_wholeButton == nil) {
         _wholeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_wholeButton setTitle:@"全部提现" forState:UIControlStateNormal];
+        [_wholeButton setTitle:@"全部提币" forState:UIControlStateNormal];
         [_wholeButton setTitleColor:RGBColorHex(0x44b435) forState:UIControlStateNormal];
         _wholeButton.titleLabel.font = [UIFont systemFontOfSize:12];
         _wholeButton.userInteractionEnabled = YES;
@@ -247,7 +247,7 @@
         _numberLabel = [[UILabel alloc] init];
         _numberLabel.textColor = RGBColorHex(0xf2041a);
         _numberLabel.font = [UIFont systemFontOfSize:9];
-        _numberLabel.text = @"*提现的金额只能是1的倍数";
+        _numberLabel.text = @"*提币的金额只能是1的倍数";
     }
     return _numberLabel;
 }
@@ -257,7 +257,7 @@
         _serviceLabel = [[UILabel alloc] init];
         _serviceLabel.textColor = RGBColorHex(0x232833);
         _serviceLabel.font = [UIFont systemFontOfSize:12];
-        _serviceLabel.text = @"提现手续费为5%";
+        _serviceLabel.text = @"提币手续费为5%";
     }
     return _serviceLabel;
 }
@@ -268,7 +268,7 @@
         _service2Label.textColor = RGBColorHex(0x232833);
         _service2Label.font = [UIFont systemFontOfSize:12];
         //2种颜色
-        NSString* str = @"本次提现将扣除手续费：¥0.0";
+        NSString* str = @"本次提币将扣除手续费：¥0.0";
         NSString* key = @"¥0.0";
         NSMutableAttributedString* aText = [ETHTool GetAttributedString:nil SrcText:str KeyWord:key KeyWordColor:RGBColorHex(0xf2041a) KeyWordFont:[UIFont systemFontOfSize:13] KeyWordBGolor:[UIColor clearColor]];
         _service2Label.attributedText = aText;
@@ -282,7 +282,7 @@
         _actualLabel.textColor = RGBColorHex(0x232833);
         _actualLabel.font = [UIFont systemFontOfSize:12];
         //2种颜色
-        NSString* str = @"本次提现实际到账金额：¥0.0";
+        NSString* str = @"本次提币实际到账金额：¥0.0";
         NSString* key = @"¥0.0";
         NSMutableAttributedString* aText = [ETHTool GetAttributedString:nil SrcText:str KeyWord:key KeyWordColor:RGBColorHex(0xf2041a) KeyWordFont:[UIFont systemFontOfSize:13] KeyWordBGolor:[UIColor clearColor]];
         _actualLabel.attributedText = aText;

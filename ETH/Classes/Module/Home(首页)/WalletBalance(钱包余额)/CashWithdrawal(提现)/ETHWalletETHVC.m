@@ -98,7 +98,7 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     {
         ETHPaymentTableCell* ocell = [tableView dequeueReusableCellWithIdentifier:ETHPaymentTableCellID];
         ocell = [[ETHPaymentTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHPaymentTableCellID];
-        ocell.title = @"提现";
+        ocell.title = @"提币";
         cell = ocell;
     }
     
@@ -168,7 +168,7 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
 
 -(void)showData:(id)responseObject
 {
-    [SVProgressHUD showSuccessWithStatus:@"提现成功"];
+    [SVProgressHUD showSuccessWithStatus:@"提币成功"];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

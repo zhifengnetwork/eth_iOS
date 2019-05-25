@@ -87,12 +87,7 @@
     _userInfo = userInfo;
     
 //    显示头像
-    if (!kStringIsEmpty(_userInfo.member.avatar))
-    {
-        [_iconImageView sd_setImageWithURL:[NSURL URLWithString:_userInfo.member.avatar]];
-    }else{
-        _iconImageView.image = [UIImage imageNamed:@"icon1"];
-    }
+    [_iconImageView sd_setImageWithURL:[NSURL URLWithString:_userInfo.member.avatar] placeholderImage:[UIImage imageNamed:@"icon1"]];
     _phoneLabel.text = _userInfo.member.nickname;
     _memberID.text = [NSString stringWithFormat:@"会员ID：%@",_userInfo.member.ID];
     
