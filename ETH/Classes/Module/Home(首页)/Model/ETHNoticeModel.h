@@ -25,6 +25,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * shopid;
 @property (nonatomic , copy) NSString              * iswxapp;
 
+@property (nonatomic , copy) NSString              * zhuanzhangsxf;
+@property (nonatomic , copy) NSString              * withdraw;
+@property (nonatomic , copy) NSString              * withdrawmoney;
+@property (nonatomic , copy) NSString              * withdrawcharge;
+
+@property (nonatomic , copy) NSString              * withdrawsxf;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

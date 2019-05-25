@@ -28,6 +28,12 @@ NS_ASSUME_NONNULL_BEGIN
 //aid 文章id
 +(void)article_detail:(NSInteger)aid success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
 
+//用户等级提升
++(void)lingdaolevel:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
+
+//ether获取ETH实时价格
++(void)ether:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
+
 //我的-退出机制
 //钱包总记录
 +(void)out:(NSString*)money success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;

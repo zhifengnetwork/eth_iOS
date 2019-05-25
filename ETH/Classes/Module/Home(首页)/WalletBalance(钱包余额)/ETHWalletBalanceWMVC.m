@@ -10,6 +10,7 @@
 #import "ETHWalletBalanceVC.h"
 #import "ETHRecordWithaVC.h"
 #import "ETHTransactionVC.h"
+#import "ETHAllRecordVC.h"
 #import "ETHMoneyTransferVC.h"
 
 
@@ -17,6 +18,7 @@
 
 @property (nonatomic, strong) ETHWalletBalanceVC *walletBalanceVC;
 @property (nonatomic, strong) ETHRecordWithaVC *recordVC;
+@property (nonatomic, strong) ETHAllRecordVC *allVC;
 @property (nonatomic, strong) ETHMoneyTransferVC *moneyVC;
 @property (nonatomic, strong) ETHTransactionVC *c2cVC;
 
@@ -34,14 +36,15 @@
     UISegmentedControl* segment = [[UISegmentedControl alloc]initWithFrame:CGRectMake(0, 10, LL_ScreenWidth, 30)];
     //在索引值为0的位置上插入一个标题为red的按钮，第三个参数为是否开启动画
     [segment insertSegmentWithTitle:@"钱包" atIndex:0 animated:YES];
-    [segment insertSegmentWithTitle:@"提币记录" atIndex:1 animated:YES];
-    [segment insertSegmentWithTitle:@"转币记录" atIndex:2 animated:YES];
-    [segment insertSegmentWithTitle:@"C2C记录" atIndex:3 animated:YES];
+    [segment insertSegmentWithTitle:@"总记录" atIndex:1 animated:YES];
+    [segment insertSegmentWithTitle:@"提币记录" atIndex:2 animated:YES];
+    [segment insertSegmentWithTitle:@"转币记录" atIndex:3 animated:YES];
+    [segment insertSegmentWithTitle:@"C2C记录" atIndex:4 animated:YES];
     
     //设置Segment的字体
     NSDictionary *dic = @{
                           //1.设置字体样式:例如黑体,和字体大小
-                          NSFontAttributeName:[UIFont fontWithName:@"Arial" size:17],
+                          NSFontAttributeName:[UIFont fontWithName:@"Arial" size:15],
                           //2.字体颜色
                           NSForegroundColorAttributeName:RGBColorHex(0x7685a6)
                           };
@@ -51,7 +54,7 @@
     //设置Segment选中的字体
     NSDictionary *dic2 = @{
                            //1.设置字体样式:例如黑体,和字体大小
-                           NSFontAttributeName:[UIFont fontWithName:@"Arial" size:17],
+                           NSFontAttributeName:[UIFont fontWithName:@"Arial" size:15],
                            //2.字体颜色
                            NSForegroundColorAttributeName:RGBColorHex(0xffffff)
                            };
@@ -85,6 +88,10 @@
         self.walletBalanceVC.view.hidden = YES;
     }
     
+    if (_allVC!= nil) {
+        self.allVC.view.hidden = YES;
+    }
+    
     if (_recordVC!=nil)
     {
         self.recordVC.view.hidden = YES;
@@ -106,17 +113,22 @@
         self.walletBalanceVC.view.hidden = NO;
     }
     else if (sender.selectedSegmentIndex==1)
-    {
-        //提币记录
-        self.recordVC.view.hidden = NO;
+    {   //总记录
+        self.allVC.view.hidden = NO;
     }
     else if (sender.selectedSegmentIndex==2)
     {
-        //转币记录
-        self.moneyVC.view.hidden = NO;
+        //提币记录
+        self.recordVC.view.hidden = NO;
+        
     }
     else if (sender.selectedSegmentIndex==3)
     {
+        //转币记录
+        self.moneyVC.view.hidden = NO;
+        
+    }else if (sender.selectedSegmentIndex == 4){
+        
         //C2C记录
         self.c2cVC.view.hidden = NO;
     }
@@ -156,6 +168,21 @@
     }
     
     return _walletBalanceVC;
+}
+
+- (ETHAllRecordVC *)allVC{
+    if (_allVC==nil) {
+        _allVC = [[ETHAllRecordVC alloc]init];
+//        _allVC.type = @"6";
+        [self addChildViewController:_allVC];
+        [self.view addSubview:_allVC.view];
+        [_allVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.mas_equalTo(0);
+            make.top.mas_equalTo(40);
+        }];
+    }
+
+    return _allVC;
 }
 
 -(ETHRecordWithaVC *)recordVC

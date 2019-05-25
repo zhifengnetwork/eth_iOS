@@ -11,6 +11,8 @@
 #import "ETHCancelAlertView.h"
 #import "TYAlertController.h"
 #import "http_c2c.h"
+#import "ETHC2CModel.h"
+#import "http_mine.h"
 #import "SVProgressHUD.h"
 #import "MJExtension.h"
 
@@ -126,7 +128,23 @@
         make.width.mas_equalTo(140);
         make.height.mas_equalTo(37);
     }];
+    
+    [http_mine ether:^(id responseObject) {
+        [self showData:responseObject];
+    } failure:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:error.domain];
+    }];
 }
+
+- (void)showData:(id)responseObject{
+    if (kObjectIsEmpty(responseObject)) {
+        return;
+    }
+    ETHDetailModel *detailModel = [ETHDetailModel mj_objectWithKeyValues:responseObject];
+    _referenceLabel.text = [NSString stringWithFormat:@"参考价格：￥%@",detailModel.list.trxprice];
+    _serviceCharge.text = [NSString stringWithFormat:@"手续费：%@%%",detailModel.list.trxsxf];
+}
+
 - (UIView *)bgView{
     if (_bgView == nil) {
         _bgView = [[UIView alloc]init];

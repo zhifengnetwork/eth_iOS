@@ -97,17 +97,17 @@
         make.left.equalTo(self->_bg1View.mas_left).offset(10);
     }];
     
-    [_service2Label mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self->_serviceLabel.mas_bottom).offset(7);
-        make.left.equalTo(self->_bg1View.mas_left).offset(10);
-    }];
+//    [_service2Label mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self->_serviceLabel.mas_bottom).offset(7);
+//        make.left.equalTo(self->_bg1View.mas_left).offset(10);
+//    }];
+//
+//    [_actualLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self->_service2Label.mas_bottom).offset(7);
+//        make.left.equalTo(self->_bg1View.mas_left).offset(10);
+//    }];
     
-    [_actualLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self->_service2Label.mas_bottom).offset(7);
-        make.left.equalTo(self->_bg1View.mas_left).offset(10);
-    }];
-    
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFieldEditChanged:) name:@"UITextFieldTextDidChangeNotification" object:self.moneyTextField];
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFieldEditChanged:) name:@"UITextFieldTextDidChangeNotification" object:self.moneyTextField];
 }
 
 -(void)dealloc
@@ -115,6 +115,14 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UITextFieldTextDidChangeNotification" object:self.moneyTextField];
 }
 
+- (void)setNoticeModel:(ETHNoticeModel *)noticeModel{
+    _noticeModel = noticeModel;
+    if (kStringIsEmpty(noticeModel.withdrawmoney)||noticeModel.withdrawmoney.integerValue == 0) {
+        _numberLabel.hidden = YES;
+    }
+    _numberLabel.text = [NSString stringWithFormat:@"*提币的金额只能是%@的倍数",noticeModel.withdrawmoney];
+    _serviceLabel.text = [NSString stringWithFormat:@"提币手续费为%@%%",noticeModel.withdrawsxf];
+}
 
 -(void)setCredit:(NSString *)credit
 {
@@ -123,41 +131,41 @@
 }
 
 #pragma mark - Notification Method
--(void)textFieldEditChanged:(NSNotification *)obj
-{
-    UITextField *textField = (UITextField *)obj.object;
-    NSString *toBeString = textField.text;
-    if ([self.delegate respondsToSelector:@selector(ETHWalletETHTableCellInputing: indexPath:)])
-    {
-        [self.delegate ETHWalletETHTableCellInputing:self.moneyTextField.text indexPath:self.indexPath];
-    }
-    
-    [self updataText];
-}
-
--(void)updataText
-{
-    NSString* tx = self.moneyTextField.text;
-    if (kStringIsEmpty(tx))
-    {
-        return;
-    }
-    
-    float sxf = tx.floatValue*0.05;
-    
-    //2种颜色
-    NSString* str = [NSString stringWithFormat:@"本次提币将扣除手续费：¥%.5f",sxf];
-    NSString* key = [NSString stringWithFormat:@"¥%.5f",sxf];
-    NSMutableAttributedString* aText = [ETHTool GetAttributedString:nil SrcText:str KeyWord:key KeyWordColor:RGBColorHex(0xf2041a) KeyWordFont:[UIFont systemFontOfSize:13] KeyWordBGolor:[UIColor clearColor]];
-    _service2Label.attributedText = aText;
-    
-    //2种颜色
-    float dz = tx.floatValue - sxf;
-    NSString* str2 = [NSString stringWithFormat:@"本次提币实际到账金额：¥%.5f",dz];
-    NSString* key2 = [NSString stringWithFormat:@"¥%.5f",dz];
-    NSMutableAttributedString* aText2 = [ETHTool GetAttributedString:nil SrcText:str2 KeyWord:key2 KeyWordColor:RGBColorHex(0xf2041a) KeyWordFont:[UIFont systemFontOfSize:13] KeyWordBGolor:[UIColor clearColor]];
-    _actualLabel.attributedText = aText2;
-}
+//-(void)textFieldEditChanged:(NSNotification *)obj
+//{
+//    UITextField *textField = (UITextField *)obj.object;
+//    NSString *toBeString = textField.text;
+//    if ([self.delegate respondsToSelector:@selector(ETHWalletETHTableCellInputing: indexPath:)])
+//    {
+//        [self.delegate ETHWalletETHTableCellInputing:self.moneyTextField.text indexPath:self.indexPath];
+//    }
+//
+//    [self updataText];
+//}
+//
+//-(void)updataText
+//{
+//    NSString* tx = self.moneyTextField.text;
+//    if (kStringIsEmpty(tx))
+//    {
+//        return;
+//    }
+//
+//    float sxf = tx.floatValue*0.05;
+//
+//    //2种颜色
+//    NSString* str = [NSString stringWithFormat:@"本次提币将扣除手续费：¥%.5f",sxf];
+//    NSString* key = [NSString stringWithFormat:@"¥%.5f",sxf];
+//    NSMutableAttributedString* aText = [ETHTool GetAttributedString:nil SrcText:str KeyWord:key KeyWordColor:RGBColorHex(0xf2041a) KeyWordFont:[UIFont systemFontOfSize:13] KeyWordBGolor:[UIColor clearColor]];
+//    _service2Label.attributedText = aText;
+//
+//    //2种颜色
+//    float dz = tx.floatValue - sxf;
+//    NSString* str2 = [NSString stringWithFormat:@"本次提币实际到账金额：¥%.5f",dz];
+//    NSString* key2 = [NSString stringWithFormat:@"¥%.5f",dz];
+//    NSMutableAttributedString* aText2 = [ETHTool GetAttributedString:nil SrcText:str2 KeyWord:key2 KeyWordColor:RGBColorHex(0xf2041a) KeyWordFont:[UIFont systemFontOfSize:13] KeyWordBGolor:[UIColor clearColor]];
+//    _actualLabel.attributedText = aText2;
+//}
 
 
 - (void)wholeButtonDidClick:(UIButton *)sender
@@ -167,7 +175,7 @@
     {
         [self.delegate ETHWalletETHTableCellInputing:self.moneyTextField.text indexPath:self.indexPath];
     }
-    [self updataText];
+//    [self updataText];
 }
 
 -(UIView *)bg1View
@@ -262,31 +270,31 @@
     return _serviceLabel;
 }
 
-- (UILabel *)service2Label {
-    if (_service2Label == nil) {
-        _service2Label = [[UILabel alloc] init];
-        _service2Label.textColor = RGBColorHex(0x232833);
-        _service2Label.font = [UIFont systemFontOfSize:12];
-        //2种颜色
-        NSString* str = @"本次提币将扣除手续费：¥0.0";
-        NSString* key = @"¥0.0";
-        NSMutableAttributedString* aText = [ETHTool GetAttributedString:nil SrcText:str KeyWord:key KeyWordColor:RGBColorHex(0xf2041a) KeyWordFont:[UIFont systemFontOfSize:13] KeyWordBGolor:[UIColor clearColor]];
-        _service2Label.attributedText = aText;
-    }
-    return _service2Label;
-}
-
-- (UILabel *)actualLabel {
-    if (_actualLabel == nil) {
-        _actualLabel = [[UILabel alloc] init];
-        _actualLabel.textColor = RGBColorHex(0x232833);
-        _actualLabel.font = [UIFont systemFontOfSize:12];
-        //2种颜色
-        NSString* str = @"本次提币实际到账金额：¥0.0";
-        NSString* key = @"¥0.0";
-        NSMutableAttributedString* aText = [ETHTool GetAttributedString:nil SrcText:str KeyWord:key KeyWordColor:RGBColorHex(0xf2041a) KeyWordFont:[UIFont systemFontOfSize:13] KeyWordBGolor:[UIColor clearColor]];
-        _actualLabel.attributedText = aText;
-    }
-    return _actualLabel;
-}
+//- (UILabel *)service2Label {
+//    if (_service2Label == nil) {
+//        _service2Label = [[UILabel alloc] init];
+//        _service2Label.textColor = RGBColorHex(0x232833);
+//        _service2Label.font = [UIFont systemFontOfSize:12];
+//        //2种颜色
+//        NSString* str = @"本次提币将扣除手续费：¥0.0";
+//        NSString* key = @"¥0.0";
+//        NSMutableAttributedString* aText = [ETHTool GetAttributedString:nil SrcText:str KeyWord:key KeyWordColor:RGBColorHex(0xf2041a) KeyWordFont:[UIFont systemFontOfSize:13] KeyWordBGolor:[UIColor clearColor]];
+//        _service2Label.attributedText = aText;
+//    }
+//    return _service2Label;
+//}
+//
+//- (UILabel *)actualLabel {
+//    if (_actualLabel == nil) {
+//        _actualLabel = [[UILabel alloc] init];
+//        _actualLabel.textColor = RGBColorHex(0x232833);
+//        _actualLabel.font = [UIFont systemFontOfSize:12];
+//        //2种颜色
+//        NSString* str = @"本次提币实际到账金额：¥0.0";
+//        NSString* key = @"¥0.0";
+//        NSMutableAttributedString* aText = [ETHTool GetAttributedString:nil SrcText:str KeyWord:key KeyWordColor:RGBColorHex(0xf2041a) KeyWordFont:[UIFont systemFontOfSize:13] KeyWordBGolor:[UIColor clearColor]];
+//        _actualLabel.attributedText = aText;
+//    }
+//    return _actualLabel;
+//}
 @end

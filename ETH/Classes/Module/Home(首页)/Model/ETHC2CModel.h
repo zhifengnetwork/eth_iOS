@@ -53,6 +53,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              *type_own;
 @property (nonatomic , copy) NSString              *name;
 @property (nonatomic , copy) NSString              *img;
+@property (nonatomic , copy) NSString              *trxprice;
+@property (nonatomic , copy) NSString              *trxsxf;
 @end
 @interface ETHDetailModel : NSObject
 @property (nonatomic , strong)ETHC2CModel              *list;

@@ -18,6 +18,7 @@
 #import "UserInfoModel.h"
 #import "AppDelegate.h"
 #import "http_user.h"
+#import "http_mine.h"
 #import "SVProgressHUD.h"
 #import "MJExtension.h"
 #import "UserInfoModel.h"
@@ -76,6 +77,15 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
 -(void)loadData
 {
     ZWeakSelf
+    [http_mine lingdaolevel:^(id responseObject) {
+        if (kObjectIsEmpty(responseObject)) {
+            return;
+        }
+    } failure:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:error.domain];
+    }];
+    
+    
     [http_user userinfo:^(id responseObject)
      {
          [weakSelf loadData_ok:responseObject];

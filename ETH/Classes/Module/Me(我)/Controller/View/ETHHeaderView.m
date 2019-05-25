@@ -108,6 +108,11 @@
     {
         _marketLevel.text = [NSString stringWithFormat:@"市场等级：%@",_userInfo.huiyuanlevel.levelname3];
     }
+    if (_userInfo.member.type.integerValue == 0) {
+        _activationLabel.text = @"未激活";
+    }else{
+        _activationLabel.text = @"已激活";
+    }
 }
 
 - (UIImageView *)backImageView{
@@ -130,7 +135,7 @@
 - (UILabel *)phoneLabel{
     if (_phoneLabel == nil) {
         _phoneLabel = [[UILabel alloc]init];
-        _phoneLabel.font = [UIFont systemFontOfSize:11];
+        _phoneLabel.font = [UIFont systemFontOfSize:12];
         _phoneLabel.textColor = RGBColorHex(0xffffff);
         _phoneLabel.text = @"182xxxx8820";
     }
@@ -139,7 +144,7 @@
 - (UILabel *)memberID{
     if (_memberID == nil) {
         _memberID = [[UILabel alloc]init];
-        _memberID.font = [UIFont systemFontOfSize:11];
+        _memberID.font = [UIFont systemFontOfSize:12];
         _memberID.textColor = RGBColorHex(0xffffff);
         _memberID.text = @"会员ID：36538";
     }
@@ -148,7 +153,7 @@
 - (UILabel *)memberLevel{
     if (_memberLevel == nil) {
         _memberLevel = [[UILabel alloc]init];
-        _memberLevel.font = [UIFont systemFontOfSize:11];
+        _memberLevel.font = [UIFont systemFontOfSize:12];
         _memberLevel.textColor = RGBColorHex(0xffffff);
         _memberLevel.text = @"会员等级：暂无";
     }
@@ -157,7 +162,7 @@
 - (UILabel *)marketLevel{
     if (_marketLevel == nil) {
         _marketLevel = [[UILabel alloc]init];
-        _marketLevel.font = [UIFont systemFontOfSize:11];
+        _marketLevel.font = [UIFont systemFontOfSize:12];
         _marketLevel.textColor = RGBColorHex(0xffffff);
         _marketLevel.text = @"市场等级：等级二";
     }

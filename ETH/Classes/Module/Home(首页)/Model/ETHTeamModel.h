@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy)NSString *mobile;
 @property (nonatomic , copy)NSString *nickname;
 @property (nonatomic , copy)NSString *openid;
+@property (nonatomic , copy)NSString *openid2;
 @property (nonatomic , copy)NSString *createtime;
 
 @property (nonatomic , copy)NSString *title;
@@ -28,7 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy)NSString *RMB;
 @property (nonatomic , copy)NSString *realmoney;
 @property (nonatomic , copy)NSString *charge;
-
+@property (nonatomic, copy)NSString *shouxufei;
+@property (nonatomic, copy)NSString* after_money;
 @end
 
 @interface ETHTeamListModel : BaseListModel

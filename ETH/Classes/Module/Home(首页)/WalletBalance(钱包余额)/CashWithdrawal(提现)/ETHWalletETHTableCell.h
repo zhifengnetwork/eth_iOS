@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ETHNoticeModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol ETHWalletETHTableCellDelegate <NSObject>
@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSIndexPath *indexPath;
 
 @property (nonatomic, strong) NSString *credit;
-
+@property (nonatomic, strong)ETHNoticeModel *noticeModel;
 @end
 
 NS_ASSUME_NONNULL_END

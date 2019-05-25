@@ -215,7 +215,9 @@ static NSString *const ETHTransferTipsTableCellID = @"ETHTransferTipsTableCellID
 
 -(void)loadDatay
 {
+    
     ZWeakSelf
+
     //总收益
     [http_wallet my_wallet:^(id responseObject)
      {

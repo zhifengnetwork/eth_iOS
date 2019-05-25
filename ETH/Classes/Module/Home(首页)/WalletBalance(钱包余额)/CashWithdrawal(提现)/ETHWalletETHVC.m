@@ -9,12 +9,13 @@
 #import "ETHWalletETHVC.h"
 #import "ETHWalletETHTableCell.h"
 #import "ETHPaymentTableCell.h"
-#import "http_wallet.h"
+#import "http_mine.h"
 #import "SVProgressHUD.h"
 #import "MJExtension.h"
 #import "ETHTZModel.h"
 #import "ETHMyWalletVC.h"
 #import "UserInfoModel.h"
+#import "ETHNoticeModel.h"
 #import "http_wallet.h"
 
 
@@ -25,6 +26,7 @@
 
 @property (nonatomic , strong)UserInfoModel *userInfo;
 
+@property (nonatomic, strong)ETHNoticeModel *noticeModel;
 @end
 
 @implementation ETHWalletETHVC
@@ -91,6 +93,7 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
         ETHWalletETHTableCell* pcell = [tableView dequeueReusableCellWithIdentifier:ETHWalletETHTableCellID];
         pcell = [[ETHWalletETHTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHWalletETHTableCellID];
         pcell.credit = self.userInfo.member.credit2;
+        pcell.noticeModel = self.noticeModel;
         pcell.delegate = self;
         cell = pcell;
     }
@@ -142,6 +145,10 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
         }
         else if (indexPath.section==1)
         {
+            if ([self.noticeModel.withdraw isEqualToString:@"0"]) {
+                [SVProgressHUD showErrorWithStatus:@"提现功能暂未开放"];
+                return;
+            }
             [self loadData];
         }
 }
@@ -184,6 +191,17 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
 -(void)loadDatay
 {
     ZWeakSelf
+    
+    //获取手续费
+    [http_mine get_sxf:^(id responseObject) {
+        if (kObjectIsEmpty(responseObject)) {
+            return;
+        }
+        self.noticeModel = [ETHNoticeModel mj_objectWithKeyValues:responseObject];
+    } failure:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:error.domain];
+    }];
+    
     //总收益
     [http_wallet my_wallet:^(id responseObject)
      {
