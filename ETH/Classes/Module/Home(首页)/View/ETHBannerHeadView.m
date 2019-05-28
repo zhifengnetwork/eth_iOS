@@ -49,6 +49,13 @@
     }];
 }
 
+- (void)setType:(NSInteger)type{
+    _type = type;
+    if (_type == 1) {
+        self.shareButton.hidden = YES;
+    }
+}
+
 - (void)setImageUrls:(NSArray *)imageUrls
 {
     _imageUrls = imageUrls;

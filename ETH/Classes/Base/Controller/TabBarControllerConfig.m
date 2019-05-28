@@ -8,6 +8,7 @@
 
 #import "TabBarControllerConfig.h"
 #import "BaseNaviViewController.h"
+
 #import "ETHHomeVC.h"
 #import "ETHChessCardVC.h"
 #import "ETHC2C.h"
@@ -24,12 +25,15 @@
 @implementation TabBarControllerConfig
 
 
+
+
 /**
  *  lazy load tabBarController
  *
  *  @return CYLTabBarController
  */
 - (CYLTabBarController *)tabBarController {
+
     if (_tabBarController == nil) {
         /**
          * 以下两行代码目的在于手动设置让TabBarItem只显示图标，不显示文字，并让图标垂直居中。
@@ -65,68 +69,74 @@
 
 - (NSArray *)viewControllers
 {
-    ETHHomeVC *firstViewController = [[ETHHomeVC alloc] init];
-    UIViewController *firstNavigationController = [[BaseNaviViewController alloc]
-                                                   initWithRootViewController:firstViewController];
-
-    ETHChessCardVC *secondViewController = [[ETHChessCardVC alloc] init];
-    UIViewController *secondNavigationController = [[BaseNaviViewController alloc]
-                                                    initWithRootViewController:secondViewController];
-
-    ETHC2C *thirdViewController = [[ETHC2C alloc] init];
-    UIViewController *thirdNavigationController = [[BaseNaviViewController alloc]
-                                                    initWithRootViewController:thirdViewController];
-    ETHMeVC *fourthViewController = [[ETHMeVC alloc] init];
-    UIViewController *fourthNavigationController = [[BaseNaviViewController alloc]
-                                                    initWithRootViewController:fourthViewController];
-
-
-    NSArray *viewControllers = @[
-                                 firstNavigationController,
-                                 secondNavigationController,
-                                 thirdNavigationController,
-                                 fourthNavigationController
-                                 ];
-    return viewControllers;
+        ETHHomeVC *firstViewController = [[ETHHomeVC alloc] init];
+        UIViewController *firstNavigationController = [[BaseNaviViewController alloc]
+                                                       initWithRootViewController:firstViewController];
+        
+        ETHChessCardVC *secondViewController = [[ETHChessCardVC alloc] init];
+        UIViewController *secondNavigationController = [[BaseNaviViewController alloc]
+                                                        initWithRootViewController:secondViewController];
+        
+        ETHC2C *thirdViewController = [[ETHC2C alloc] init];
+        UIViewController *thirdNavigationController = [[BaseNaviViewController alloc]
+                                                       initWithRootViewController:thirdViewController];
+        ETHMeVC *fourthViewController = [[ETHMeVC alloc] init];
+        UIViewController *fourthNavigationController = [[BaseNaviViewController alloc]
+                                                        initWithRootViewController:fourthViewController];
+        
+        
+        NSArray *viewControllers = @[
+                                     firstNavigationController,
+                                     secondNavigationController,
+                                     thirdNavigationController,
+                                     fourthNavigationController
+                                     ];
+        return viewControllers;
+    
+    
 }
 
 - (NSArray *)tabBarItemsAttributesForController
 {
-    NSDictionary *firstTabBarItemsAttributes =
-    @{
-      CYLTabBarItemTitle : @"首页",
-      CYLTabBarItemImage : @"home page1",
-      CYLTabBarItemSelectedImage : @"home page",
-      };
     
-    NSDictionary *secondTabBarItemsAttributes =
-    @{
-      CYLTabBarItemTitle : @"棋牌娱乐",
-      CYLTabBarItemImage : @"Chess",
-      CYLTabBarItemSelectedImage : @"Chess1",
-      };
+        NSDictionary *firstTabBarItemsAttributes =
+        @{
+          CYLTabBarItemTitle : @"首页",
+          CYLTabBarItemImage : @"home page1",
+          CYLTabBarItemSelectedImage : @"home page",
+          };
+        
+        NSDictionary *secondTabBarItemsAttributes =
+        @{
+          CYLTabBarItemTitle : @"棋牌娱乐",
+          CYLTabBarItemImage : @"Chess",
+          CYLTabBarItemSelectedImage : @"Chess1",
+          };
+        
+        NSDictionary *thirdTabBarItemsAttributes =
+        @{
+          CYLTabBarItemTitle : @"C2C",
+          CYLTabBarItemImage : @"two",
+          CYLTabBarItemSelectedImage : @"two1",
+          };
+        
+        NSDictionary *fourthTabBarItemsAttributes =
+        @{
+          CYLTabBarItemTitle : @"我的",
+          CYLTabBarItemImage : @"My",
+          CYLTabBarItemSelectedImage : @"my1"
+          };
+        
+        NSArray *tabBarItemsAttributes = @[
+                                           firstTabBarItemsAttributes,
+                                           secondTabBarItemsAttributes,
+                                           thirdTabBarItemsAttributes,
+                                           fourthTabBarItemsAttributes
+                                           ];
+        
+       return tabBarItemsAttributes;
     
-    NSDictionary *thirdTabBarItemsAttributes =
-  @{
-      CYLTabBarItemTitle : @"C2C",
-      CYLTabBarItemImage : @"two",
-      CYLTabBarItemSelectedImage : @"two1",
-    };
-    
-    NSDictionary *fourthTabBarItemsAttributes =
-    @{
-      CYLTabBarItemTitle : @"我的",
-      CYLTabBarItemImage : @"My",
-      CYLTabBarItemSelectedImage : @"my1"
-      };
-    
-    NSArray *tabBarItemsAttributes = @[
-                                       firstTabBarItemsAttributes,
-                                       secondTabBarItemsAttributes,
-                                       thirdTabBarItemsAttributes,
-                                       fourthTabBarItemsAttributes
-                                       ];
-    return tabBarItemsAttributes;
 }
+
 
 @end

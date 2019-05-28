@@ -108,10 +108,13 @@
     {
         _marketLevel.text = [NSString stringWithFormat:@"市场等级：%@",_userInfo.huiyuanlevel.levelname3];
     }
-    if (_userInfo.member.type.integerValue == 0) {
+    if (_userInfo.member.type == 0) {
         _activationLabel.text = @"未激活";
-    }else{
+    }else if (_userInfo.member.type == 1){
         _activationLabel.text = @"已激活";
+    }else{
+        _activationLabel.text = @"已锁户";
+        
     }
 }
 

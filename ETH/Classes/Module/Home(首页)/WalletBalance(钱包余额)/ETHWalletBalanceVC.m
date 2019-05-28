@@ -86,6 +86,12 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     }];
     [self.tableView.mj_header beginRefreshing];
 }
+
+- (void)setType:(NSInteger)type{
+    _type = type;
+    [self.tableView reloadData];
+}
+
 -(void)loadData
 {
         ZWeakSelf
@@ -113,6 +119,9 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (_type == 1) {
+        return 1;
+    }
     return 2;
 }
 
@@ -142,26 +151,7 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     
     ETHWalletBalanceTableCell* pcell = [tableView dequeueReusableCellWithIdentifier:ETHWalletBalanceTableCellID];
     pcell = [[ETHWalletBalanceTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHWalletBalanceTableCellID];
-    
-    if (indexPath.section==0)
-    {
-        if (indexPath.row==0)
-        {
-            pcell.title = @"复投账户";
-            pcell.name = self.userInfo.member.credit4;
-            cell = pcell;
-        }
-        else if (indexPath.row==1)
-        {
-            ETHDoubleThrowTableCell* kcell = [tableView dequeueReusableCellWithIdentifier:ETHDoubleThrowTableCellID];
-            kcell = [[ETHDoubleThrowTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHDoubleThrowTableCellID];
-            kcell.delegate = self;
-            
-            cell = kcell;
-        }
-    }
-    else if (indexPath.section==1)
-    {
+    if (_type == 1) {//已锁户
         if (indexPath.row==0)
         {
             pcell.title = @"自由钱包";
@@ -173,10 +163,84 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
             ETHTwoDoubleThrowTableCell* kcell = [tableView dequeueReusableCellWithIdentifier:ETHDoubleThrowTableCellID];
             kcell = [[ETHTwoDoubleThrowTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHTwoDoubleThrowTableCellID];
             kcell.delegate = self;
-            
+            kcell.type = 1;
             cell = kcell;
         }
+    }else if (_type == 2){//复投账号锁户
+        
+        if (indexPath.section==0)
+        {
+            if (indexPath.row==0)
+            {
+                pcell.title = @"复投账户";
+                pcell.name = self.userInfo.member.credit4;
+                cell = pcell;
+            }
+            else if (indexPath.row==1)
+            {
+                ETHDoubleThrowTableCell* kcell = [tableView dequeueReusableCellWithIdentifier:ETHDoubleThrowTableCellID];
+                kcell = [[ETHDoubleThrowTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHDoubleThrowTableCellID];
+                kcell.delegate = self;
+                kcell.type = 2;
+                cell = kcell;
+            }
+        }
+        else if (indexPath.section==1)
+        {
+            if (indexPath.row==0)
+            {
+                pcell.title = @"自由钱包";
+                pcell.name = self.userInfo.member.credit2;
+                cell = pcell;
+            }
+            else if (indexPath.row==1)
+            {
+                ETHTwoDoubleThrowTableCell* kcell = [tableView dequeueReusableCellWithIdentifier:ETHDoubleThrowTableCellID];
+                kcell = [[ETHTwoDoubleThrowTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHTwoDoubleThrowTableCellID];
+                kcell.delegate = self;
+                kcell.type = 2;
+                cell = kcell;
+            }
+        }
+        
+    }else{
+        //未锁户
+        if (indexPath.section==0)
+        {
+            if (indexPath.row==0)
+            {
+                pcell.title = @"复投账户";
+                pcell.name = self.userInfo.member.credit4;
+                cell = pcell;
+            }
+            else if (indexPath.row==1)
+            {
+                ETHDoubleThrowTableCell* kcell = [tableView dequeueReusableCellWithIdentifier:ETHDoubleThrowTableCellID];
+                kcell = [[ETHDoubleThrowTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHDoubleThrowTableCellID];
+                kcell.delegate = self;
+                
+                cell = kcell;
+            }
+        }
+        else if (indexPath.section==1)
+        {
+            if (indexPath.row==0)
+            {
+                pcell.title = @"自由钱包";
+                pcell.name = self.userInfo.member.credit2;
+                cell = pcell;
+            }
+            else if (indexPath.row==1)
+            {
+                ETHTwoDoubleThrowTableCell* kcell = [tableView dequeueReusableCellWithIdentifier:ETHDoubleThrowTableCellID];
+                kcell = [[ETHTwoDoubleThrowTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHTwoDoubleThrowTableCellID];
+                kcell.delegate = self;
+                
+                cell = kcell;
+            }
+        }
     }
+    
     
     
     return cell;

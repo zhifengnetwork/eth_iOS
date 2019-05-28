@@ -15,6 +15,7 @@
 
 
 @interface ETHWalletBalanceWMVC ()
+@property (nonatomic, strong)UISegmentedControl *segment;
 
 @property (nonatomic, strong) ETHWalletBalanceVC *walletBalanceVC;
 @property (nonatomic, strong) ETHRecordWithaVC *recordVC;
@@ -35,12 +36,23 @@
     
     UISegmentedControl* segment = [[UISegmentedControl alloc]initWithFrame:CGRectMake(0, 10, LL_ScreenWidth, 30)];
     //在索引值为0的位置上插入一个标题为red的按钮，第三个参数为是否开启动画
-    [segment insertSegmentWithTitle:@"钱包" atIndex:0 animated:YES];
-    [segment insertSegmentWithTitle:@"总记录" atIndex:1 animated:YES];
-    [segment insertSegmentWithTitle:@"提币记录" atIndex:2 animated:YES];
-    [segment insertSegmentWithTitle:@"转币记录" atIndex:3 animated:YES];
-    [segment insertSegmentWithTitle:@"C2C记录" atIndex:4 animated:YES];
+    if (_type == 1) {
+       [segment insertSegmentWithTitle:@"钱包" atIndex:0 animated:YES];
+       [segment insertSegmentWithTitle:@"提币记录" atIndex:1 animated:YES];
+        
+    }else if (_type == 2){
+        [segment insertSegmentWithTitle:@"钱包" atIndex:0 animated:YES];
+        [segment insertSegmentWithTitle:@"总记录" atIndex:1 animated:YES];
+        
+    }else{
+        [segment insertSegmentWithTitle:@"钱包" atIndex:0 animated:YES];
+        [segment insertSegmentWithTitle:@"总记录" atIndex:1 animated:YES];
+        [segment insertSegmentWithTitle:@"提币记录" atIndex:2 animated:YES];
+        [segment insertSegmentWithTitle:@"转币记录" atIndex:3 animated:YES];
+        [segment insertSegmentWithTitle:@"C2C记录" atIndex:4 animated:YES];
+    }
     
+    self.segment = segment;
     //设置Segment的字体
     NSDictionary *dic = @{
                           //1.设置字体样式:例如黑体,和字体大小
@@ -81,6 +93,8 @@
     self.walletBalanceVC.view.hidden = NO;
 }
 
+
+
 -(void)segmentAction:(UISegmentedControl*)sender
 {
     if (_walletBalanceVC!=nil)
@@ -107,31 +121,43 @@
         self.c2cVC.view.hidden = YES;
     }
     
-    if (sender.selectedSegmentIndex==0)
-    {
-        //钱包
-        self.walletBalanceVC.view.hidden = NO;
+    if (_type == 1) {
+        if (sender.selectedSegmentIndex==0)
+        {
+            //钱包
+            self.walletBalanceVC.view.hidden = NO;
+        }else if (sender.selectedSegmentIndex==1)
+        {   //提币记录
+            self.recordVC.view.hidden = NO;
+        }
+    }else{
+        if (sender.selectedSegmentIndex==0)
+        {
+            //钱包
+            self.walletBalanceVC.view.hidden = NO;
+        }
+        else if (sender.selectedSegmentIndex==1)
+        {   //总记录
+            self.allVC.view.hidden = NO;
+        }
+        else if (sender.selectedSegmentIndex==2)
+        {
+            //提币记录
+            self.recordVC.view.hidden = NO;
+            
+        }
+        else if (sender.selectedSegmentIndex==3)
+        {
+            //转币记录
+            self.moneyVC.view.hidden = NO;
+            
+        }else if (sender.selectedSegmentIndex == 4){
+            
+            //C2C记录
+            self.c2cVC.view.hidden = NO;
+        }
     }
-    else if (sender.selectedSegmentIndex==1)
-    {   //总记录
-        self.allVC.view.hidden = NO;
-    }
-    else if (sender.selectedSegmentIndex==2)
-    {
-        //提币记录
-        self.recordVC.view.hidden = NO;
-        
-    }
-    else if (sender.selectedSegmentIndex==3)
-    {
-        //转币记录
-        self.moneyVC.view.hidden = NO;
-        
-    }else if (sender.selectedSegmentIndex == 4){
-        
-        //C2C记录
-        self.c2cVC.view.hidden = NO;
-    }
+    
     //titleForSegmentAtIndex通过索引值获取被选中的分段控制器的按钮标题，selectedSegmentIndex 是获取被选中按钮的索引值
     NSLog(@"----%@",[sender titleForSegmentAtIndex:sender.selectedSegmentIndex]);
     
@@ -165,6 +191,7 @@
             make.left.right.bottom.mas_equalTo(0);
             make.top.mas_equalTo(40);
         }];
+        _walletBalanceVC.type = self.type;
     }
     
     return _walletBalanceVC;

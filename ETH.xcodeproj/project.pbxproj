@@ -83,6 +83,7 @@
 		53DBC378226DA3B30054A885 /* ETHComplaintDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53DBC377226DA3B30054A885 /* ETHComplaintDetailVC.m */; };
 		53DCFCC92268589D0082B9DA /* ETHChangeIconVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53DCFCC82268589D0082B9DA /* ETHChangeIconVC.m */; };
 		53E0A33C226485A800FC27F4 /* http_c2c.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E0A33B226485A800FC27F4 /* http_c2c.m */; };
+		53E4A33B229BDDCD009EC78D /* TabBarControllerConfig1.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E4A33A229BDDCD009EC78D /* TabBarControllerConfig1.m */; };
 		53E616D2226D701E009F0CCB /* ETHSelectPayButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E616D1226D701E009F0CCB /* ETHSelectPayButton.m */; };
 		53E65A052274049F0048E3DD /* ETHMyInviteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53E65A042274049F0048E3DD /* ETHMyInviteVC.m */; };
 		53EA94EF2256F355001DDE8B /* ETHTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 53EA94EE2256F355001DDE8B /* ETHTitleView.m */; };
@@ -371,6 +372,8 @@
 		53DCFCC82268589D0082B9DA /* ETHChangeIconVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHChangeIconVC.m; sourceTree = "<group>"; };
 		53E0A33A226485A800FC27F4 /* http_c2c.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = http_c2c.h; sourceTree = "<group>"; };
 		53E0A33B226485A800FC27F4 /* http_c2c.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = http_c2c.m; sourceTree = "<group>"; };
+		53E4A339229BDDCD009EC78D /* TabBarControllerConfig1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarControllerConfig1.h; sourceTree = "<group>"; };
+		53E4A33A229BDDCD009EC78D /* TabBarControllerConfig1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarControllerConfig1.m; sourceTree = "<group>"; };
 		53E616D0226D701E009F0CCB /* ETHSelectPayButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ETHSelectPayButton.h; path = "../订单详情/ETHSelectPayButton.h"; sourceTree = "<group>"; };
 		53E616D1226D701E009F0CCB /* ETHSelectPayButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ETHSelectPayButton.m; path = "../订单详情/ETHSelectPayButton.m"; sourceTree = "<group>"; };
 		53E65A032274049F0048E3DD /* ETHMyInviteVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETHMyInviteVC.h; sourceTree = "<group>"; };
@@ -1416,6 +1419,8 @@
 				842E828E225458D500CC5188 /* BaseTabBarController.m */,
 				842E828D225458D500CC5188 /* TabBarControllerConfig.h */,
 				842E8290225458D500CC5188 /* TabBarControllerConfig.m */,
+				53E4A339229BDDCD009EC78D /* TabBarControllerConfig1.h */,
+				53E4A33A229BDDCD009EC78D /* TabBarControllerConfig1.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1935,6 +1940,7 @@
 				53C4BA8622687BB700828BBA /* ETHDetailComplaintVC.m in Sources */,
 				181249102261CC4C004DB1B3 /* ETHIndexModel.m in Sources */,
 				53BB770122602901006F1DA4 /* ETHMyWalletVC.m in Sources */,
+				53E4A33B229BDDCD009EC78D /* TabBarControllerConfig1.m in Sources */,
 				842E830A22545C4700CC5188 /* ETHChessCardVC.m in Sources */,
 				1811ABA82267819D00245CAD /* CQCountDownButton.m in Sources */,
 				539F1D74226466A300493B0E /* http_wallet.m in Sources */,

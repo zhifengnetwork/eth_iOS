@@ -47,7 +47,8 @@
 @property (nonatomic, copy) NSString *ID;
 @property (nonatomic, copy) NSString *levelname1;
 @property (nonatomic, copy) NSString *levelname3;
-@property (nonatomic, copy) NSString *type;
+@property (nonatomic, assign) NSInteger type;
+@property (nonatomic, assign) NSInteger suoding;
 @property (nonatomic, copy) NSString *credit1;
 
 @property (nonatomic, copy) NSString *credit2;

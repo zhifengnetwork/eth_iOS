@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 /* 轮播图数组 */
 @property (copy , nonatomic)NSArray *imageUrls;
 
+@property (nonatomic, assign)NSInteger type;
+
 @end
 
 NS_ASSUME_NONNULL_END

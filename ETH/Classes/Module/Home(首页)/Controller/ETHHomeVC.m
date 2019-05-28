@@ -17,9 +17,11 @@
 #import "ETHSubordinateVC.h"
 #import "ETHWalletBalanceWMVC.h"
 #import "http_index.h"
+#import "http_user.h"
 #import "SVProgressHUD.h"
 #import "MJExtension.h"
 #import "ETHIndexModel.h"
+#import "UserInfoModel.h"
 #import "ETHTodayEarningMVVC.h"
 
 
@@ -31,6 +33,7 @@
 @property (strong , nonatomic)NSMutableArray *imageUrls;
 
 @property (strong , nonatomic)ETHIndexDataModel *indexDataModel;
+@property (nonatomic, strong)UserInfoModel *userInfo;
 
 @end
 
@@ -80,6 +83,13 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
 -(void)loadData
 {
     ZWeakSelf
+    
+    [http_user userinfo:^(id responseObject) {
+        [weakSelf showData1:responseObject];
+    } failure:^(NSError *error) {
+        [SVProgressHUD showErrorWithStatus:error.domain];
+    }];
+    
     [http_index index_api:^(id responseObject)
      {
          [self.collectionView.mj_header endRefreshing];
@@ -110,6 +120,16 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
     [self.collectionView reloadData];
 }
 
+- (void)showData1:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
+    
+    //jsonToModel
+    self.userInfo = [UserInfoModel mj_objectWithKeyValues:responseObject];
+}
 
 
 #pragma mark - <UICollectionViewDataSource>
@@ -195,7 +215,11 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
     {
         if (indexPath.section == 0)
         {
+            
             ETHBannerHeadView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:ETHBannerHeadViewID forIndexPath:indexPath];
+            if (self.userInfo.member.type == 2||self.userInfo.member.suoding ==1) {
+                headerView.type = 1;
+            }
             headerView.imageUrls = self.imageUrls;
             reusableview = headerView;
         }
@@ -282,42 +306,60 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
 //点击事件
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section==1)
-    {
-        if (indexPath.row==0)
-        {
-            ETHInvestmentRecordVC* vc = [[ETHInvestmentRecordVC alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
-            vc.type = @"1";
-        }
-        else if (indexPath.row==1)
-        {
-            ETHTodayEarningMVVC* vc = [[ETHTodayEarningMVVC alloc]init];
-            vc.incomeType = @"1";
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-        else if (indexPath.row==2)
-        {
-            ETHTodayEarningMVVC* vc = [[ETHTodayEarningMVVC alloc]init];
-            vc.incomeType = @"2";
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-        else if (indexPath.row==3)
+    if (self.userInfo.member.type == 2||self.userInfo.member.suoding ==1) {//已锁户
+        if (indexPath.row==3)
         {
             ETHWalletBalanceWMVC* vc = [[ETHWalletBalanceWMVC alloc]init];
+            if (self.userInfo.member.type == 2) {
+                vc.type = 1;
+            }else if (self.userInfo.member.suoding == 1){
+                vc.type = 2;
+            }
+            //type = 1就是已经锁户，type = 2就是复投账户锁户
             [self.navigationController pushViewController:vc animated:YES];
         }
-        else if (indexPath.row==4)
-        {
-            ETHInvestmentPurchaseVC* vc = [[ETHInvestmentPurchaseVC alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
+        else{
+            [SVProgressHUD showErrorWithStatus:@"该账号已锁户"];
         }
-        else if (indexPath.row==5)
+    }else{//未锁户
+        if (indexPath.section==1)
         {
-            ETHSubordinateVC* vc = [[ETHSubordinateVC alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
+            if (indexPath.row==0)
+            {
+                ETHInvestmentRecordVC* vc = [[ETHInvestmentRecordVC alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
+                vc.type = @"1";
+            }
+            else if (indexPath.row==1)
+            {
+                ETHTodayEarningMVVC* vc = [[ETHTodayEarningMVVC alloc]init];
+                vc.incomeType = @"1";
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+            else if (indexPath.row==2)
+            {
+                ETHTodayEarningMVVC* vc = [[ETHTodayEarningMVVC alloc]init];
+                vc.incomeType = @"2";
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+            else if (indexPath.row==3)
+            {
+                ETHWalletBalanceWMVC* vc = [[ETHWalletBalanceWMVC alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+            else if (indexPath.row==4)
+            {
+                ETHInvestmentPurchaseVC* vc = [[ETHInvestmentPurchaseVC alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+            else if (indexPath.row==5)
+            {
+                ETHSubordinateVC* vc = [[ETHSubordinateVC alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }
         }
     }
+    
 }
 
 #pragma mark - <UIScrollViewDelegate>

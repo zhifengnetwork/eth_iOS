@@ -86,6 +86,20 @@
     
 }
 
+- (void)setType:(NSInteger)type{
+    _type = type;
+    if (_type == 1) {
+        self.doubleButton.hidden = YES;
+        self.c2cButton.hidden = YES;
+        self.entertainButton.hidden = YES;
+        self.interturnButton.hidden = YES;
+    }else if (_type == 2){
+        self.c2cButton.hidden = YES;
+        self.entertainButton.hidden = YES;
+        self.interturnButton.hidden = YES;
+    }
+}
+
 - (void)doubleButtonDidClick
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(ETHTwoDoubleThrowTableCellDidClick:)])

@@ -76,6 +76,13 @@
     }
 }
 
+- (void)setType:(NSInteger)type{
+    _type = type;
+    if (_type == 2) {
+        self.entertainButton.hidden = YES;
+    }
+}
+
 -(UIView *)bgView
 {
     if(_bgView==nil)

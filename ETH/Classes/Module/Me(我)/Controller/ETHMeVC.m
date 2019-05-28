@@ -15,7 +15,6 @@
 #import "ETHMyInviteVC.h"
 #import "ETHAnnouncementMVVC.h"
 #import "ETHResetPasswordVC.h"
-#import "UserInfoModel.h"
 #import "AppDelegate.h"
 #import "http_user.h"
 #import "http_mine.h"
@@ -81,8 +80,9 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
         if (kObjectIsEmpty(responseObject)) {
             return;
         }
+        
     } failure:^(NSError *error) {
-        [SVProgressHUD showErrorWithStatus:error.domain];
+        
     }];
     
     
@@ -183,11 +183,17 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
     return 2;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
     if (section == 0) {
         return 3;
     }else{
-        return 5;
+        if (self.userInfo.member.type == 2||self.userInfo.member.suoding ==1) {//已锁户
+            return 4;
+        }else{//未锁户
+            return 5;
+        }
     }
+    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 10;
@@ -195,7 +201,7 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     if (section == 1) {
-        return 100;
+        return 200;
     }
     return 0;
 }
@@ -214,87 +220,122 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section ==0) {
-        if (indexPath.row == 0) {
-            //跳转到支付管理
-            ETHPayManageVC *vc = [[ETHPayManageVC alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }if (indexPath.row == 1) {
-            //跳转到钱包地址
-            ETHMyWalletVC *vc = [[ETHMyWalletVC alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-//        else if (indexPath.row == 2){
-//            //跳转到C2C订单
-//
-//        }
-        else if (indexPath.row == 2){
-            //跳转到修改密码
-            ETHResetPasswordVC *vc = [[ETHResetPasswordVC alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
+    if (self.userInfo.member.type == 2||self.userInfo.member.suoding ==1) {
+        //已锁户
+        if (indexPath.section ==1) {
+            if (indexPath.row == 2){
+                //跳转到联系客服
+                ETHKefu *view = [[ETHKefu alloc]initWithFrame:CGRectMake(0, 0, 300, 200)];
+                view.model = self.userInfo.kefu;
+                TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
+                [self presentViewController:alertController animated:YES completion:nil];
+            }else if (indexPath.row == 3){
+                [self logoutButtonDidClick];
+            }else{
+               [SVProgressHUD showErrorWithStatus:@"该账户已锁户"];
+            }
+        }else{
+            [SVProgressHUD showErrorWithStatus:@"该账户已锁户"];
         }
         
-    }else{
-        if (indexPath.row == 0) {
-            //跳转到我的邀请
-            ETHMyInviteVC *vc = [[ETHMyInviteVC alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }else if (indexPath.row == 1) {
-            //跳转到平台公告
-            ETHAnnouncementMVVC *vc = [[ETHAnnouncementMVVC alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
-        }else if (indexPath.row == 2){
-            //跳转到联系客服
-            ETHKefu *view = [[ETHKefu alloc]initWithFrame:CGRectMake(0, 0, 300, 200)];
-            view.model = self.userInfo.kefu;
-                             TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
-                             [self presentViewController:alertController animated:YES completion:nil];
-            
-        }else if (indexPath.row == 3){
-            //跳转到退出机制
-            ETHQuitView *view = [[ETHQuitView alloc]initWithFrame:CGRectMake(0, 0, 257, 284)];
-            if (!kStringIsEmpty(self.userInfo.arr2.money)) {
-                view.money = self.userInfo.arr2.money;
-            }else{
-                view.money = @"0.00";
+    }else{//未锁户
+        if (indexPath.section ==0) {
+            if (indexPath.row == 0) {
+                //跳转到支付管理
+                ETHPayManageVC *vc = [[ETHPayManageVC alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }if (indexPath.row == 1) {
+                //跳转到钱包地址
+                ETHMyWalletVC *vc = [[ETHMyWalletVC alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+            //        else if (indexPath.row == 2){
+            //            //跳转到C2C订单
+            //
+            //        }
+            else if (indexPath.row == 2){
+                //跳转到修改密码
+                ETHResetPasswordVC *vc = [[ETHResetPasswordVC alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
             }
             
-            TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
-            [self presentViewController:alertController animated:YES completion:nil];
-
-        }else if (indexPath.row == 4){
-            [self logoutButtonDidClick];
+        }else{
+            if (indexPath.row == 0) {
+                //跳转到我的邀请
+                ETHMyInviteVC *vc = [[ETHMyInviteVC alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }else if (indexPath.row == 1) {
+                //跳转到平台公告
+                ETHAnnouncementMVVC *vc = [[ETHAnnouncementMVVC alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }else if (indexPath.row == 2){
+                //跳转到联系客服
+                ETHKefu *view = [[ETHKefu alloc]initWithFrame:CGRectMake(0, 0, 300, 200)];
+                view.model = self.userInfo.kefu;
+                TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
+                [self presentViewController:alertController animated:YES completion:nil];
+                
+            }else if (indexPath.row == 3){
+                //跳转到退出机制
+                ETHQuitView *view = [[ETHQuitView alloc]initWithFrame:CGRectMake(0, 0, 257, 284)];
+                if (!kStringIsEmpty(self.userInfo.arr2.money)) {
+                    view.money = self.userInfo.arr2.money;
+                }else{
+                    view.money = @"0.00";
+                }
+                
+                TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
+                [self presentViewController:alertController animated:YES completion:nil];
+                
+            }else if (indexPath.row == 4){
+                [self logoutButtonDidClick];
+            }
         }
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     ETHMeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ETHMeTableViewCellID forIndexPath:indexPath];
     if (indexPath.section ==0) {
         if (indexPath.row == 1) {
             [cell setIcon:[UIImage imageNamed:@"qianbao"] WithText:@"钱包地址"];
         }
-//        else if (indexPath.row == 2){
-//            [cell setIcon:[UIImage imageNamed:@"C2C-1"] WithText:@"C2C订单"];
-//        }
+        //        else if (indexPath.row == 2){
+        //            [cell setIcon:[UIImage imageNamed:@"C2C-1"] WithText:@"C2C订单"];
+        //        }
         else if (indexPath.row == 2){
             [cell setIcon:[UIImage imageNamed:@"xiugaimima"] WithText:@"修改密码"];
         }
         
     }else{
-        if (indexPath.row == 0) {
-            [cell setIcon:[UIImage imageNamed:@"yaoqing"] WithText:@"我的邀请"];
-        }else if (indexPath.row == 1) {
-            [cell setIcon:[UIImage imageNamed:@"gonggao"] WithText:@"平台公告"];
-        }else if (indexPath.row == 2){
-            [cell setIcon:[UIImage imageNamed:@"kefu"] WithText:@"联系客服"];
-        }else if (indexPath.row == 3){
-            [cell setIcon:[UIImage imageNamed:@"touzi"] WithText:@"退出机制"];
-        }else if (indexPath.row == 4){
-            [cell setIcon:[UIImage imageNamed:@"touzi"] WithText:@"退出登录"];
-        }
+        if (self.userInfo.member.type == 2||self.userInfo.member.suoding ==1) {//已锁户
+            if (indexPath.row == 0) {
+                [cell setIcon:[UIImage imageNamed:@"yaoqing"] WithText:@"我的邀请"];
+            }else if (indexPath.row == 1) {
+                [cell setIcon:[UIImage imageNamed:@"gonggao"] WithText:@"平台公告"];
+            }else if (indexPath.row == 2){
+                [cell setIcon:[UIImage imageNamed:@"kefu"] WithText:@"联系客服"];
+            }else if(indexPath.row == 3){
+                [cell setIcon:[UIImage imageNamed:@"touzi"] WithText:@"退出登录"];
+            }
+        }else{
+                
+                if (indexPath.row == 0) {
+                    [cell setIcon:[UIImage imageNamed:@"yaoqing"] WithText:@"我的邀请"];
+                }else if (indexPath.row == 1) {
+                    [cell setIcon:[UIImage imageNamed:@"gonggao"] WithText:@"平台公告"];
+                }else if (indexPath.row == 2){
+                    [cell setIcon:[UIImage imageNamed:@"kefu"] WithText:@"联系客服"];
+                }else if (indexPath.row == 3){
+                    [cell setIcon:[UIImage imageNamed:@"touzi"] WithText:@"退出机制"];
+                }else if (indexPath.row == 4){
+                    [cell setIcon:[UIImage imageNamed:@"touzi"] WithText:@"退出登录"];
+                }
+            }
+            
+        
     }
     return cell;
-    
 }
 @end

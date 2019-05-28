@@ -9,25 +9,29 @@
 #import "AppDelegate.h"
 #import "SVProgressHUD.h"
 #import "TabBarControllerConfig.h"
+#import "TabBarControllerConfig1.h"
 #import "BaseNaviViewController.h"
 #import "ETHLoginVC.h"
 #import "HttpTool.h"
 #import "ETHTool.h"
 #import "UserInfoModel.h"
+#import "http_user.h"
+#import "SVProgressHUD.h"
+#import "MJExtension.h"
 #import <SDWebImage/SDWebImageManager.h>
 
 
 @interface AppDelegate ()
 
+@property (nonatomic, strong)UserInfoModel *userInfo;
 @end
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
     //设置svp最小时间
     [SVProgressHUD setMinimumDismissTimeInterval:1.0f];
     
@@ -43,6 +47,34 @@
     [self BaseSetup];
     
     return YES;
+}
+
+
+//加载数据
+-(void)loadData
+{
+    [http_user userinfo:^(id responseObject)
+     {
+         [self loadData_ok:responseObject];
+         
+     } failure:^(NSError *error) {
+         
+         [SVProgressHUD showInfoWithStatus:error.domain];
+     }];
+   
+}
+
+//加载数据完成
+-(void)loadData_ok:(id)responseObject
+{
+    if (kObjectIsEmpty(responseObject))
+    {
+        return;
+    }
+    
+    //jsonToModel
+    self.userInfo = [UserInfoModel mj_objectWithKeyValues:responseObject];
+    [self to_HomeVC];
 }
 
 
@@ -96,6 +128,7 @@
     }
     else
     {
+        [self loadData];
         [self to_HomeVC];
     }
 }
@@ -103,9 +136,16 @@
 //跳到主界面
 -(void)to_HomeVC
 {
-    TabBarControllerConfig *tabBarControllerConfig = [[TabBarControllerConfig alloc] init];
-    BaseTabBarController *tabBarController = tabBarControllerConfig.tabBarController;
-    [self.window setRootViewController:tabBarController];
+    if (self.userInfo.member.type == 2||self.userInfo.member.suoding ==1) {
+        TabBarControllerConfig1 *tabBarControllerConfig1 = [[TabBarControllerConfig1 alloc] init];
+        BaseTabBarController *tabBarController = tabBarControllerConfig1.tabBarController;
+        [self.window setRootViewController:tabBarController];
+    }else{
+        TabBarControllerConfig *tabBarControllerConfig = [[TabBarControllerConfig alloc] init];
+        BaseTabBarController *tabBarController = tabBarControllerConfig.tabBarController;
+        [self.window setRootViewController:tabBarController];
+    }
+   
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
@@ -143,8 +183,13 @@
 - (void)handleUserLoginRegisterNotification:(NSNotification *)notification
 {
     //进入主界面
+    [self loadData];
     [self to_HomeVC];
 }
 
-
+- (UserInfoModel *)userInfo{
+    if (_userInfo == nil) {
+        _userInfo = [[UserInfoModel alloc]init];
+    }return _userInfo;
+}
 @end
