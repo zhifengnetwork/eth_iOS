@@ -95,6 +95,11 @@
     _teamModel = teamModel;
     _iphoneLabel.text = _teamModel.mobile;
     _timeLabel.text = _teamModel.createtime;
+    if (teamModel.type == 1) {
+        _titleLabel.text = @"直推";
+    }else{
+        _titleLabel.text = @"团队";
+    }
 }
 
 

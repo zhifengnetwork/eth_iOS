@@ -141,7 +141,7 @@
         return;
     }
     ETHDetailModel *detailModel = [ETHDetailModel mj_objectWithKeyValues:responseObject];
-    _referenceLabel.text = [NSString stringWithFormat:@"参考价格：￥%@",detailModel.list.trxprice];
+    _referenceLabel.text = [NSString stringWithFormat:@"参考价格：￥%f~%f",detailModel.list.trxprice.floatValue*0.1,detailModel.list.trxprice.floatValue*1.1];
     _serviceCharge.text = [NSString stringWithFormat:@"手续费：%@%%",detailModel.list.trxsxf];
 }
 

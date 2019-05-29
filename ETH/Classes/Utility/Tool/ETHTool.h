@@ -48,14 +48,29 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param strSeparator     分隔符
  *  @return strData     带有分隔符的字符串
  */
-+(NSString *)ArrTostr: (NSMutableArray*)arrData Separator:(NSString*)strSeparator;
 
+//日期格式化
++(NSDateFormatter *)dateFormatWith:(NSString *)formatStr;
 
 //时间戳转日期
 + (NSDate*)UnixTimeToDate:(long long)lTime;
 
 //获取时间显示字符串
 + (NSString*)dateTimeAgoText:(NSString*)datelineString;
+
+//字符串转时间
++(NSDate *)nsstringConversionNSDate:(NSString *)dateStr;
+
+//时间转时间戳
++(NSString *)dateConversionTimeStamp:(NSDate *)date;
+
+/**
+ *  获取时间差值  截止时间-当前时间
+ *  nowDateStr : 当前时间
+ *  deadlineStr : 截止时间
+ *  @return 时间戳差值
+ */
++ (NSInteger)getDateDifferenceWithNowDateStr:(NSString*)nowDateStr deadlineStr:(NSString*)deadlineStr;
 
 
 //将图片字符串转换为URL

@@ -14,6 +14,8 @@
 #import "MJExtension.h"
 #import "RefreshGifHeader.h"
 #import "ETHTeamModel.h"
+#import "ETHTool.h"
+
 
 
 @interface ETHSubordinateVC ()
@@ -113,9 +115,61 @@ static NSString *const ETHSubordinateTableCellID = @"ETHSubordinateTableCellID";
     
     self.listModel = [ETHTeamListModel mj_objectWithKeyValues:responseObject];
     
+    NSMutableArray *zhiArray = [NSMutableArray new];
+    NSMutableArray *tuanArray = [NSMutableArray new];
+    
+    for (ETHTeamModel *teamModel in self.listModel.list) {
+        if (teamModel.type == 1) {
+            [zhiArray addObject:teamModel];
+        }else{
+            [tuanArray addObject:teamModel];
+        }
+    }
+    
+    for (int i = 0; i < zhiArray.count; i++) {
+        for (int j = 0; j < zhiArray.count - 1 - i; j++) {
+            
+            ETHTeamModel *jModel = zhiArray[j];
+            ETHTeamModel *iModel = zhiArray[j+1];
+            NSInteger count  = [ETHTool getDateDifferenceWithNowDateStr:jModel.createtime deadlineStr:iModel.createtime];
+            if (count> 0) {
+                ETHTeamModel* tmp = zhiArray[j];
+                zhiArray[j] = zhiArray[j + 1];
+                zhiArray[j + 1] = tmp;
+            }
+        }
+    }
+    
+    
+    
+    
+    for (int i = 0; i < tuanArray.count; i++) {
+        for (int j = 0; j < tuanArray.count - 1 - i; j++) {
+           
+            ETHTeamModel *jModel = tuanArray[j];
+             ETHTeamModel *iModel = tuanArray[j+1];
+            NSInteger count  = [ETHTool getDateDifferenceWithNowDateStr:jModel.createtime deadlineStr:iModel.createtime];
+            if (count>= 0) {
+                ETHTeamModel* tmp = tuanArray[j];
+                tuanArray[j] = tuanArray[j + 1];
+                tuanArray[j + 1] = tmp;
+            }
+        }
+    }
+    
+    [self.listModel.list removeAllObjects];
+    
+    for (ETHTeamModel *teamModel in zhiArray) {
+        [self.listModel.list addObject:teamModel];
+    }
+    for (ETHTeamModel *teamModel in tuanArray) {
+        [self.listModel.list addObject:teamModel];
+    }
+    
+    
+    
     [self.tableView reloadData];
 }
-
 
 #pragma mark - Table view data source
 

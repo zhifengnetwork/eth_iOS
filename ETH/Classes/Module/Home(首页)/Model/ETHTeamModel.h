@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy)NSString *charge;
 @property (nonatomic, copy)NSString *shouxufei;
 @property (nonatomic, copy)NSString* after_money;
+@property (nonatomic, assign)NSInteger type;
 @end
 
 @interface ETHTeamListModel : BaseListModel

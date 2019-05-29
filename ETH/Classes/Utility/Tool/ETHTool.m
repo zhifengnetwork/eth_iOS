@@ -94,6 +94,43 @@
     return date.timeAgoSinceNow;
 }
 
+//字符串转时间
++(NSDate *)nsstringConversionNSDate:(NSString *)dateStr
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    NSDate *datestr = [dateFormatter dateFromString:dateStr];
+    return datestr;
+}
+
+//时间转时间戳
++(NSString *)dateConversionTimeStamp:(NSDate *)date
+{
+    NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[date timeIntervalSince1970]];
+    return timeSp;
+}
+
+/**
+ *  获取时间差值  截止时间-当前时间
+ *  nowDateStr : 当前时间
+ *  deadlineStr : 截止时间
+ *  @return 时间戳差值
+ */
++ (NSInteger)getDateDifferenceWithNowDateStr:(NSString*)nowDateStr deadlineStr:(NSString*)deadlineStr {
+    
+    NSInteger timeDifference = 0;
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yy-MM-dd HH:mm:ss"];
+    NSDate *nowDate = [formatter dateFromString:nowDateStr];
+    NSDate *deadline = [formatter dateFromString:deadlineStr];
+    NSTimeInterval oldTime = [nowDate timeIntervalSince1970];
+    NSTimeInterval newTime = [deadline timeIntervalSince1970];
+    timeDifference = newTime - oldTime;
+    
+    return timeDifference;
+}
+
 
 //将图片字符串转换为URL
 +(NSURL *)IconStringToUrl:(NSString*)iconString
