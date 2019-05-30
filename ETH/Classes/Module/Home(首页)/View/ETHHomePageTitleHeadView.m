@@ -54,7 +54,7 @@
     
     [_noticeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self->_iconView.mas_right).offset(9);
-        make.centerY.equalTo(self->_bgView);;
+        make.centerY.equalTo(self->_bgView);
     }];
     
     [_marqueeView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -97,7 +97,10 @@
     // 'index'即为数据源数组的索引值。
     UILabel *content = [itemView viewWithTag:1001];
     ETHNoticeModel* model = [self.notices objectAtIndex:index];
-    content.text = model.title;
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithData:[model.detail dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
+    [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, attrStr.length)];
+    content.attributedText = attrStr;
+    //    content.text = model.detail;
 }
 
 - (CGFloat)itemViewWidthAtIndex:(NSUInteger)index forMarqueeView:(UUMarqueeView*)marqueeView {
@@ -106,7 +109,10 @@
     ETHNoticeModel* model = [self.notices objectAtIndex:index];
     UILabel *content = [[UILabel alloc] init];
     content.font = [UIFont systemFontOfSize:12.0f];
-    content.text = model.title;
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithData:[model.detail dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
+    [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, attrStr.length)];
+    content.attributedText = attrStr;
+//    content.text = model.detail;
     return content.intrinsicContentSize.width;
 }
 
@@ -139,7 +145,6 @@
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.textColor = RGBColorHex(0xffffff);
         _titleLabel.font = [UIFont systemFontOfSize:12];
-        _titleLabel.text = @"为什么大家附近规划局规划";
     }
     return _titleLabel;
 }

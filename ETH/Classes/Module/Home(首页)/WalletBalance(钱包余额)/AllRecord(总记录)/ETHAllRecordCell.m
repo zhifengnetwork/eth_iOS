@@ -86,35 +86,47 @@
 - (void)setTeamModel:(ETHTeamModel *)teamModel{
     _teamModel = teamModel;
     
-    NSString *tempStr;
-    if ([teamModel.shouxufei containsString:@"-"]) {
-        tempStr = [_teamModel.shouxufei substringFromIndex:1];
-        teamModel.shouxufei = tempStr;
-    }
-    
     if ([teamModel.title isEqualToString:@"自由账户一键复投"]) {
         _timeLabel.text = [NSString stringWithFormat:@"时间：%@",teamModel.createtime];
         _typeLabel.text = [NSString stringWithFormat:@"交易金额：%@",teamModel.money];
         _stateLabel.text = [NSString stringWithFormat:@"描述：%@",teamModel.title];
         _moneyWithLabel.text = [NSString stringWithFormat:@"自由账户可用余额：%@",teamModel.after_money];
-        _actualAmountLabel.text = [NSString stringWithFormat:@"手续费：%@",teamModel.shouxufei];
+        if (teamModel.shouxufei.integerValue > 0) {
+            _actualAmountLabel.text = [NSString stringWithFormat:@"手续费：%@",teamModel.shouxufei];
+        }else{
+            _actualAmountLabel.hidden = YES;
+        }
     }else if ([teamModel.title isEqualToString:@"复投账户一键复投"]){
         _timeLabel.text = [NSString stringWithFormat:@"时间：%@",teamModel.createtime];
         _typeLabel.text = [NSString stringWithFormat:@"交易金额：%@",teamModel.money];
         _stateLabel.text = [NSString stringWithFormat:@"描述：%@",teamModel.title];
         _moneyWithLabel.text = [NSString stringWithFormat:@"复投账户可用余额：%@",teamModel.after_money];
-        _actualAmountLabel.text = [NSString stringWithFormat:@"手续费：%@",teamModel.shouxufei];
+        if (teamModel.shouxufei.integerValue> 0) {
+            _actualAmountLabel.text = [NSString stringWithFormat:@"手续费：%@",teamModel.shouxufei];
+        }else{
+            _actualAmountLabel.hidden = YES;
+        }
+        
     }else if ([teamModel.title isEqualToString:@"转币"]){
         _timeLabel.text = [NSString stringWithFormat:@"时间：%@",teamModel.createtime];
         _typeLabel.text = [NSString stringWithFormat:@"收款人：%@",teamModel.openid2];
         _stateLabel.text = [NSString stringWithFormat:@"描述：%@",teamModel.title];
         _moneyWithLabel.text = [NSString stringWithFormat:@"收款金额：%@",teamModel.money2];
-        _actualAmountLabel.text = [NSString stringWithFormat:@"手续费：%@",teamModel.money];
+        if (teamModel.money> 0) {
+            _actualAmountLabel.text = [NSString stringWithFormat:@"手续费：%@",teamModel.money];
+        }else{
+            _actualAmountLabel.hidden = YES;
+        }
+        
     }else{
         _timeLabel.text = [NSString stringWithFormat:@"时间：%@",teamModel.createtime];
         _typeLabel.text = [NSString stringWithFormat:@"交易金额：%@",teamModel.money];
         _stateLabel.text = [NSString stringWithFormat:@"描述：%@",teamModel.title];
-        _moneyWithLabel.text = [NSString stringWithFormat:@"手续费：%@",teamModel.shouxufei];
+        if (teamModel.shouxufei.integerValue> 0) {
+            _moneyWithLabel.text = [NSString stringWithFormat:@"手续费：%@",teamModel.shouxufei];
+        }else{
+            _moneyWithLabel.hidden = YES;
+        }
         _actualAmountLabel.hidden = YES;
     }
    
