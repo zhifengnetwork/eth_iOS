@@ -120,6 +120,7 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
         self.tableView.estimatedRowHeight = 100;
         
         self.tableView.sectionFooterHeight = 0;
+        self.tableView.backgroundColor = RGBColorHex(0x142241);
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.tableView.scrollEnabled = NO;
         self.tableView.delegate = self;
@@ -180,66 +181,37 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
 
 #pragma mark --协议
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    if (section == 0) {
-        return 3;
-    }else{
-        if (self.userInfo.member.type == 2||self.userInfo.member.suoding ==1) {//已锁户
-            return 4;
-        }else{//未锁户
-            return 5;
-        }
+    if (self.userInfo.member.type == 2||self.userInfo.member.suoding ==1) {//已锁户
+        return 7;
+    }else{//未锁户
+        return 8;
     }
-    
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 10;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    if (section == 1) {
-        return 200;
-    }
-    return 0;
+   
 }
 
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    if (section == 1) {
-        UIView *footerView= [[UIView alloc]init];
-        footerView.backgroundColor = RGBColorHex(0x142241);
-        return footerView;
-    }
-    UIView *view = [[UIView alloc]init];
-    view.backgroundColor = [UIColor clearColor];
-    return view;
-                             
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.userInfo.member.type == 2||self.userInfo.member.suoding ==1) {
         //已锁户
-        if (indexPath.section ==1) {
-            if (indexPath.row == 2){
-                //跳转到联系客服
-                ETHKefu *view = [[ETHKefu alloc]initWithFrame:CGRectMake(0, 0, 300, 200)];
-                view.model = self.userInfo.kefu;
-                TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
-                [self presentViewController:alertController animated:YES completion:nil];
-            }else if (indexPath.row == 3){
-                [self logoutButtonDidClick];
-            }else{
-               [SVProgressHUD showErrorWithStatus:@"该账户已锁户"];
-            }
+        if (indexPath.row == 5){
+            //跳转到联系客服
+            ETHKefu *view = [[ETHKefu alloc]initWithFrame:CGRectMake(0, 0, 300, 200)];
+            view.model = self.userInfo.kefu;
+            TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }else if (indexPath.row == 6){
+            [self logoutButtonDidClick];
         }else{
             [SVProgressHUD showErrorWithStatus:@"该账户已锁户"];
         }
         
+        
     }else{//未锁户
-        if (indexPath.section ==0) {
             if (indexPath.row == 0) {
                 //跳转到支付管理
                 ETHPayManageVC *vc = [[ETHPayManageVC alloc]init];
@@ -257,25 +229,22 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
                 //跳转到修改密码
                 ETHResetPasswordVC *vc = [[ETHResetPasswordVC alloc]init];
                 [self.navigationController pushViewController:vc animated:YES];
-            }
-            
-        }else{
-            if (indexPath.row == 0) {
+            }else if (indexPath.row == 3) {
                 //跳转到我的邀请
                 ETHMyInviteVC *vc = [[ETHMyInviteVC alloc]init];
                 [self.navigationController pushViewController:vc animated:YES];
-            }else if (indexPath.row == 1) {
+            }else if (indexPath.row == 4) {
                 //跳转到平台公告
                 ETHAnnouncementMVVC *vc = [[ETHAnnouncementMVVC alloc]init];
                 [self.navigationController pushViewController:vc animated:YES];
-            }else if (indexPath.row == 2){
+            }else if (indexPath.row == 5){
                 //跳转到联系客服
                 ETHKefu *view = [[ETHKefu alloc]initWithFrame:CGRectMake(0, 0, 300, 200)];
                 view.model = self.userInfo.kefu;
                 TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
                 [self presentViewController:alertController animated:YES completion:nil];
                 
-            }else if (indexPath.row == 3){
+            }else if (indexPath.row == 6){
                 //跳转到退出机制
                 ETHQuitView *view = [[ETHQuitView alloc]initWithFrame:CGRectMake(0, 0, 257, 284)];
                 if (!kStringIsEmpty(self.userInfo.arr2.money)) {
@@ -287,17 +256,15 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
                 TYAlertController *alertController = [TYAlertController alertControllerWithAlertView:view preferredStyle:TYAlertControllerStyleAlert transitionAnimation:TYAlertTransitionAnimationScaleFade];
                 [self presentViewController:alertController animated:YES completion:nil];
                 
-            }else if (indexPath.row == 4){
+            }else if (indexPath.row == 7){
                 [self logoutButtonDidClick];
             }
         }
-    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     ETHMeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ETHMeTableViewCellID forIndexPath:indexPath];
-    if (indexPath.section ==0) {
         if (indexPath.row == 1) {
             [cell setIcon:[UIImage imageNamed:@"qianbao"] WithText:@"钱包地址"];
         }
@@ -307,35 +274,30 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
         else if (indexPath.row == 2){
             [cell setIcon:[UIImage imageNamed:@"xiugaimima"] WithText:@"修改密码"];
         }
-        
-    }else{
         if (self.userInfo.member.type == 2||self.userInfo.member.suoding ==1) {//已锁户
-            if (indexPath.row == 0) {
+            if (indexPath.row == 3) {
                 [cell setIcon:[UIImage imageNamed:@"yaoqing"] WithText:@"我的邀请"];
-            }else if (indexPath.row == 1) {
+            }else if (indexPath.row == 4) {
                 [cell setIcon:[UIImage imageNamed:@"gonggao"] WithText:@"平台公告"];
-            }else if (indexPath.row == 2){
+            }else if (indexPath.row == 5){
                 [cell setIcon:[UIImage imageNamed:@"kefu"] WithText:@"联系客服"];
-            }else if(indexPath.row == 3){
+            }else if(indexPath.row == 6){
                 [cell setIcon:[UIImage imageNamed:@"touzi"] WithText:@"退出登录"];
             }
         }else{
-                
-                if (indexPath.row == 0) {
+                if (indexPath.row == 3) {
                     [cell setIcon:[UIImage imageNamed:@"yaoqing"] WithText:@"我的邀请"];
-                }else if (indexPath.row == 1) {
+                }else if (indexPath.row == 4) {
                     [cell setIcon:[UIImage imageNamed:@"gonggao"] WithText:@"平台公告"];
-                }else if (indexPath.row == 2){
+                }else if (indexPath.row == 5){
                     [cell setIcon:[UIImage imageNamed:@"kefu"] WithText:@"联系客服"];
-                }else if (indexPath.row == 3){
+                }else if (indexPath.row == 6){
                     [cell setIcon:[UIImage imageNamed:@"touzi"] WithText:@"退出机制"];
-                }else if (indexPath.row == 4){
+                }else if (indexPath.row == 7){
                     [cell setIcon:[UIImage imageNamed:@"touzi"] WithText:@"退出登录"];
                 }
             }
-            
-        
-    }
-    return cell;
+    
+        return cell;
 }
 @end

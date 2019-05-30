@@ -71,4 +71,9 @@
     return _titleLabel;
 }
 
+- (void)setAddress:(NSString *)address{
+    _address = address;
+    self.titleLabel.text = [NSString stringWithFormat:@"收款地址：%@",address];
+}
+
 @end

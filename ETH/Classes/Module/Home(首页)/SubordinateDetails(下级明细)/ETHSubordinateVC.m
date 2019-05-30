@@ -132,7 +132,7 @@ static NSString *const ETHSubordinateTableCellID = @"ETHSubordinateTableCellID";
             ETHTeamModel *jModel = zhiArray[j];
             ETHTeamModel *iModel = zhiArray[j+1];
             NSInteger count  = [ETHTool getDateDifferenceWithNowDateStr:jModel.createtime deadlineStr:iModel.createtime];
-            if (count> 0) {
+            if (count>= 0) {
                 ETHTeamModel* tmp = zhiArray[j];
                 zhiArray[j] = zhiArray[j + 1];
                 zhiArray[j + 1] = tmp;

@@ -115,6 +115,7 @@ static NSString *const ETHTradeCellID = @"ETHTradeCellID";
         [cell setStatus:@"未交易"];
     }else if (_type == 1) {
         [cell setStatus:@"交易中"];
+        
     }else if (_type == 2) {
         [cell setStatus:@"交易完成"];
     }else{

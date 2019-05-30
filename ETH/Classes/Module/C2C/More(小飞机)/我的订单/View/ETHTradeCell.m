@@ -22,6 +22,7 @@
 @property (nonatomic, strong)UILabel *numberLabel2;
 @property (nonatomic, strong)UILabel *unitpriceLabel;
 @property (nonatomic, strong)UILabel *unitpriceLabel2;
+@property (nonatomic, strong)UILabel *CutDownLabel;
 @property (nonatomic, strong)UILabel *totalLabel;
 @property (nonatomic, strong)UILabel *totalLabel2;
 @property (nonatomic, strong)UILabel *timeLabel;
@@ -54,6 +55,7 @@
     [self.contentView addSubview:self.numberLabel2];
     [self.contentView addSubview:self.unitpriceLabel];
     [self.contentView addSubview:self.unitpriceLabel2];
+    [self.contentView addSubview:self.CutDownLabel];
     [self.contentView addSubview:self.totalLabel];
     [self.contentView addSubview:self.totalLabel2];
     [self.contentView addSubview:self.timeLabel];
@@ -230,6 +232,11 @@
 - (void)setStatus:(NSString *)status{
     self.statusLabel.text = status;
 }
+
+- (void)setCutTime{
+    
+}
+
 - (void)setModel:(ETHC2CModel *)model{
     _model = model;
     if (model.type.intValue == 1) {

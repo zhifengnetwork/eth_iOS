@@ -7,6 +7,7 @@
 //
 
 #import "ETHQRCodeTableCell.h"
+#import "UIImageView+WebCache.h"
 
 @interface ETHQRCodeTableCell()
 
@@ -41,6 +42,7 @@
     
     [_iconView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.centerX.equalTo(self.contentView);
+        make.width.height.mas_equalTo(100);
     }];
 }
 
@@ -60,6 +62,13 @@
 {
     _isClick = isClick;
     _iconView.userInteractionEnabled = _isClick;
+}
+
+- (void)setImg:(NSString *)img{
+    _img = img;
+    NSString* str = [NSString stringWithFormat:@"%@%@",ImageUrl,img];
+    [_iconView sd_setImageWithURL:[NSURL URLWithString:str]];
+
 }
 
 - (UILabel *)nameLabel {

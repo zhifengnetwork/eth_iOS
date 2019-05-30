@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface ETHReceiptAddressTableCell : UITableViewCell
 
+@property (nonatomic, copy)NSString *address;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -8,6 +8,7 @@
 
 #import "ETHDetailComplaintVC.h"
 #import "ETHTitleView.h"
+#import "ETHBigImageView.h"
 #import "UIImageView+WebCache.h"
 
 @interface ETHDetailComplaintVC ()
@@ -35,7 +36,7 @@
 @property (nonatomic, strong)UILabel *status;
 @property (nonatomic, strong)UILabel *statusLabel;
 @property (nonatomic, strong)UILabel *paymentLabel;
-@property (nonatomic, strong)UIImageView *imageView;
+@property (nonatomic, strong)ETHBigImageView *imageView;
 @property (nonatomic, strong)UILabel *emptyLabel;
 @end
 
@@ -401,9 +402,9 @@
         _paymentLabel.text = @"支付凭证";
     }return _paymentLabel;
 }
-- (UIImageView *)imageView{
+- (ETHBigImageView *)imageView{
     if (_imageView == nil) {
-        _imageView = [[UIImageView alloc]init];
+        _imageView = [[ETHBigImageView alloc]init];
         _imageView.layer.borderColor = RGBColorHex(0x6c91fa).CGColor;
         _imageView.layer.borderWidth = 1;
     }return _imageView;

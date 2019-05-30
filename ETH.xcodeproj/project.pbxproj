@@ -40,6 +40,7 @@
 		53397733228FDA1300E277D0 /* ETHAnnounceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 53397732228FDA1300E277D0 /* ETHAnnounceModel.m */; };
 		533A34BF2266C48600439651 /* ETHInvestmentRankingMVVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 533A34BE2266C48600439651 /* ETHInvestmentRankingMVVC.m */; };
 		533A34C22266CF7F00439651 /* ETHTodayRankingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 533A34C12266CF7F00439651 /* ETHTodayRankingVC.m */; };
+		53479B88229FC15900934403 /* ETHBigImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 53479B87229FC15900934403 /* ETHBigImageView.m */; };
 		534B99CB225D8F9C00DC2A97 /* ETHDetailTransactionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 534B99C1225D8F9B00DC2A97 /* ETHDetailTransactionView.m */; };
 		534B99D7225D930A00DC2A97 /* ETHMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 534B99D6225D930A00DC2A97 /* ETHMoreViewController.m */; };
 		534B99DA225D931100DC2A97 /* ETHCancelAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 534B99D8225D931100DC2A97 /* ETHCancelAlertView.m */; };
@@ -286,6 +287,8 @@
 		533A34BE2266C48600439651 /* ETHInvestmentRankingMVVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHInvestmentRankingMVVC.m; sourceTree = "<group>"; };
 		533A34C02266CF7F00439651 /* ETHTodayRankingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ETHTodayRankingVC.h; sourceTree = "<group>"; };
 		533A34C12266CF7F00439651 /* ETHTodayRankingVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHTodayRankingVC.m; sourceTree = "<group>"; };
+		53479B86229FC15900934403 /* ETHBigImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ETHBigImageView.h; path = "../SubordinateDetails(下级明细)/ETHBigImageView.h"; sourceTree = "<group>"; };
+		53479B87229FC15900934403 /* ETHBigImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ETHBigImageView.m; path = "../SubordinateDetails(下级明细)/ETHBigImageView.m"; sourceTree = "<group>"; };
 		534B99BF225D8F9B00DC2A97 /* ETHDetailTransactionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETHDetailTransactionView.h; sourceTree = "<group>"; };
 		534B99C1225D8F9B00DC2A97 /* ETHDetailTransactionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETHDetailTransactionView.m; sourceTree = "<group>"; };
 		534B99C3225D8F9B00DC2A97 /* ETHTradeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETHTradeCell.h; sourceTree = "<group>"; };
@@ -1279,6 +1282,8 @@
 				842E831B2254931800CC5188 /* ETHHomePageTitleHeadView.m */,
 				842E831E2254988F00CC5188 /* ETHHomeCollectionCell.h */,
 				842E831D2254988F00CC5188 /* ETHHomeCollectionCell.m */,
+				53479B86229FC15900934403 /* ETHBigImageView.h */,
+				53479B87229FC15900934403 /* ETHBigImageView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1974,6 +1979,7 @@
 				53904A052266DF2A001C8C88 /* ETHTodayRankingCell.m in Sources */,
 				840ADCC6225F51AC00203D64 /* ETHRecreationVC.m in Sources */,
 				842E82EA225458D500CC5188 /* RefreshGifHeader.m in Sources */,
+				53479B88229FC15900934403 /* ETHBigImageView.m in Sources */,
 				842E82EE225458D500CC5188 /* BaseTabBarController.m in Sources */,
 				840ADCB2225F2D1100203D64 /* ETHDupAccountTableCell.m in Sources */,
 				530531AB22670CED0002A967 /* ETHBetRecordCell.m in Sources */,

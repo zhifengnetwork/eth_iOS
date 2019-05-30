@@ -164,6 +164,7 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     {
         ETHQRCodeTableCell* pcell = [tableView dequeueReusableCellWithIdentifier:ETHQRCodeTableCellID];
         pcell = [[ETHQRCodeTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHQRCodeTableCellID];
+        pcell.img = self.tz.list.weixinfile;
         pcell.title = @"二维码";
         pcell.isClick = NO;
         cell = pcell;
@@ -172,7 +173,7 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     {
         ETHReceiptAddressTableCell* kcell = [tableView dequeueReusableCellWithIdentifier:ETHReceiptAddressTableCellID];
         kcell = [[ETHReceiptAddressTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHReceiptAddressTableCellID];
-        
+        kcell.address = self.tz.list.add;
         cell = kcell;
     }
     else if (indexPath.section==6)

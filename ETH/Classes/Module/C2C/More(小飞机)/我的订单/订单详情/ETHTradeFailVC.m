@@ -11,6 +11,7 @@
 #import "ETHDetailTransactionView.h"
 #import "UIImageView+WebCache.h"
 #import "http_c2c.h"
+#import "ETHBigImageView.h"
 #import "SVProgressHUD.h"
 #import "MJExtension.h"
 #import "RefreshGifHeader.h"
@@ -23,7 +24,7 @@
 @property (nonatomic, strong)UILabel *name;
 @property (nonatomic, strong)UILabel *nameLabel;
 @property (nonatomic, strong)UILabel *paymentLabel;
-@property (nonatomic, strong)UIImageView *paymentImageView;
+@property (nonatomic, strong)ETHBigImageView *paymentImageView;
 @property (nonatomic, strong)UILabel *emptyLabel;
 
 @property (nonatomic, strong)UIButton *complaintButton;
@@ -147,9 +148,9 @@
     }
     return _paymentLabel;
 }
-- (UIImageView *)paymentImageView{
+- (ETHBigImageView *)paymentImageView{
     if (_paymentImageView == nil) {
-        _paymentImageView = [[UIImageView alloc]init];
+        _paymentImageView = [[ETHBigImageView alloc]init];
         [_paymentImageView.layer setBorderWidth:1];
         //设置边框线的颜色
         [_paymentImageView.layer setBorderColor:[RGBColorHex(0x6c91fa) CGColor]];

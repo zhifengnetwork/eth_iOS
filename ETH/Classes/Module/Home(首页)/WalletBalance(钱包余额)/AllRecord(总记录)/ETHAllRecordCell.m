@@ -86,46 +86,36 @@
 - (void)setTeamModel:(ETHTeamModel *)teamModel{
     _teamModel = teamModel;
     
+    
     if ([teamModel.title isEqualToString:@"自由账户一键复投"]) {
         _timeLabel.text = [NSString stringWithFormat:@"时间：%@",teamModel.createtime];
         _typeLabel.text = [NSString stringWithFormat:@"交易金额：%@",teamModel.money];
         _stateLabel.text = [NSString stringWithFormat:@"描述：%@",teamModel.title];
         _moneyWithLabel.text = [NSString stringWithFormat:@"自由账户可用余额：%@",teamModel.after_money];
-        if (teamModel.shouxufei.integerValue > 0) {
-            _actualAmountLabel.text = [NSString stringWithFormat:@"手续费：%@",teamModel.shouxufei];
-        }else{
-            _actualAmountLabel.hidden = YES;
-        }
+        _actualAmountLabel.hidden = YES;
     }else if ([teamModel.title isEqualToString:@"复投账户一键复投"]){
         _timeLabel.text = [NSString stringWithFormat:@"时间：%@",teamModel.createtime];
         _typeLabel.text = [NSString stringWithFormat:@"交易金额：%@",teamModel.money];
         _stateLabel.text = [NSString stringWithFormat:@"描述：%@",teamModel.title];
         _moneyWithLabel.text = [NSString stringWithFormat:@"复投账户可用余额：%@",teamModel.after_money];
-        if (teamModel.shouxufei.integerValue> 0) {
-            _actualAmountLabel.text = [NSString stringWithFormat:@"手续费：%@",teamModel.shouxufei];
-        }else{
-            _actualAmountLabel.hidden = YES;
-        }
+        _actualAmountLabel.hidden = YES;
         
     }else if ([teamModel.title isEqualToString:@"转币"]){
         _timeLabel.text = [NSString stringWithFormat:@"时间：%@",teamModel.createtime];
         _typeLabel.text = [NSString stringWithFormat:@"收款人：%@",teamModel.openid2];
         _stateLabel.text = [NSString stringWithFormat:@"描述：%@",teamModel.title];
-        _moneyWithLabel.text = [NSString stringWithFormat:@"收款金额：%@",teamModel.money2];
-        if (teamModel.money> 0) {
-            _actualAmountLabel.text = [NSString stringWithFormat:@"手续费：%@",teamModel.money];
-        }else{
-            _actualAmountLabel.hidden = YES;
-        }
-        
+        _moneyWithLabel.text = [NSString stringWithFormat:@"收款金额：%@",teamModel.money];
+        _actualAmountLabel.text = [NSString stringWithFormat:@"手续费：%@",teamModel.money2];
+        _actualAmountLabel.hidden = NO;
     }else{
         _timeLabel.text = [NSString stringWithFormat:@"时间：%@",teamModel.createtime];
         _typeLabel.text = [NSString stringWithFormat:@"交易金额：%@",teamModel.money];
         _stateLabel.text = [NSString stringWithFormat:@"描述：%@",teamModel.title];
-        if (teamModel.shouxufei.integerValue> 0) {
-            _moneyWithLabel.text = [NSString stringWithFormat:@"手续费：%@",teamModel.shouxufei];
-        }else{
+        if ([teamModel.shouxufei containsString:@"-"]) {
             _moneyWithLabel.hidden = YES;
+        }else{
+            _moneyWithLabel.text = [NSString stringWithFormat:@"手续费：%@",teamModel.shouxufei];
+            _moneyWithLabel.hidden = NO;
         }
         _actualAmountLabel.hidden = YES;
     }

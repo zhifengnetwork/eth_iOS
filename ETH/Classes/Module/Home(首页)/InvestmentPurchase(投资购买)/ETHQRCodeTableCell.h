@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL isClick;
 
+@property (nonatomic, copy)NSString *img;
+
 @property (nonatomic, weak) id<ETHQRCodeTableCellDelegate> delegate;
 
 @end
