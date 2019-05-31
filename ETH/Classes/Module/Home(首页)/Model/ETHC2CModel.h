@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              *openid2;
 @property (nonatomic , copy) NSString              *price;
 @property (nonatomic , copy) NSString              *trx;
+@property (nonatomic , copy) NSString              *trx2;
 @property (nonatomic , copy) NSString              *money;
 @property (nonatomic , copy) NSString              *status;
 @property (nonatomic , copy) NSString              *createtime;

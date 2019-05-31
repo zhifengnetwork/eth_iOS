@@ -111,18 +111,19 @@ static NSString *const ETHTradeCellID = @"ETHTradeCellID";
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ETHTradeCell *cell = [tableView dequeueReusableCellWithIdentifier:ETHTradeCellID forIndexPath:indexPath];
+    ETHC2CModel *model = [self.listModel.list objectAtIndex:indexPath.row];
+    cell.model = model;
     if (_type == 0) {
         [cell setStatus:@"未交易"];
     }else if (_type == 1) {
         [cell setStatus:@"交易中"];
-        
+        [cell setCutDown:model.apple_time];
     }else if (_type == 2) {
         [cell setStatus:@"交易完成"];
     }else{
         [cell setStatus:@"交易失败"];
     }
-    ETHC2CModel *model = [self.listModel.list objectAtIndex:indexPath.row];
-    cell.model = model;
+    
     return cell;
 }
 @end

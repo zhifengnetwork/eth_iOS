@@ -61,6 +61,9 @@ NS_ASSUME_NONNULL_BEGIN
 //字符串转时间
 +(NSDate *)nsstringConversionNSDate:(NSString *)dateStr;
 
+//获取当前时间戳
++(NSString*)UnixTimeString;
+
 //时间转时间戳
 +(NSString *)dateConversionTimeStamp:(NSDate *)date;
 

@@ -208,7 +208,7 @@
     _buyerIDLabel.text = [NSString stringWithFormat:@"%@",model.mobile];
     _unitPriceLabel.text = [NSString stringWithFormat:@"%@",model.price];
     _numberLabel.text = [NSString stringWithFormat:@"%@",model.trx];
-    _totalLabel.text = [NSString stringWithFormat:@"%@",model.money];
+    _totalLabel.text = [NSString stringWithFormat:@"%@",model.trx2];
 }
 
 @end

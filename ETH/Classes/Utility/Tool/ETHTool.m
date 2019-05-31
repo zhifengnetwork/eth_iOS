@@ -131,6 +131,15 @@
     return timeDifference;
 }
 
+//获取当前时间戳
++(NSString*)UnixTimeString
+{
+    NSDate *date = [NSDate dateWithTimeIntervalSinceNow:0]; // 获取当前时间0秒后的时间
+    NSTimeInterval time = [date timeIntervalSince1970];// *1000 是精确到毫秒(13位),不乘就是精确到秒(10位)
+    NSString *timeString = [NSString stringWithFormat:@"%.0f", time];
+    return timeString;
+}
+
 
 //将图片字符串转换为URL
 +(NSURL *)IconStringToUrl:(NSString*)iconString
