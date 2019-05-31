@@ -13,6 +13,10 @@ NS_ASSUME_NONNULL_BEGIN
 //交易详情一部分view
 @interface ETHDetailTransactionView : UIView
 @property (nonatomic, strong)ETHC2CModel *model;
+
+@property (nonatomic, assign)NSInteger type;//买入卖出
+
+@property (nonatomic, assign)NSInteger status;//判断交易状态
 @end
 
 NS_ASSUME_NONNULL_END

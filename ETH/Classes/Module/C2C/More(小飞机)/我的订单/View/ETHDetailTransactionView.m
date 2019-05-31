@@ -202,6 +202,25 @@
     return _totalLabel;
 }
 
+- (void)setStatus:(NSInteger)status{
+    _status = status;
+    if (self.type == 1) {
+        if (self.status == 2) {
+            _total.text = @"已 付 款  ：";
+        }else{
+            _total.text = @"待 付 款  ：";
+        }
+        
+    }else{
+        if (self.status == 2) {
+            _total.text = @"已 收 款  ：";
+        }else{
+            _total.text = @"待 收 款  ：";
+        }
+        
+    }
+}
+
 - (void)setModel:(ETHC2CModel *)model{
     _model = model;
     _orderIDLabel.text = [NSString stringWithFormat:@"%@",model.ID];

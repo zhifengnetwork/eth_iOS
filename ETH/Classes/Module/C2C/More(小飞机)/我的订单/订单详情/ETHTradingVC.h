@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 //交易中页面
 @interface ETHTradingVC : UIViewController
 @property (nonatomic, strong)NSString *vcID;
+
+@property (nonatomic, assign)NSInteger type;//买入卖出
 @end
 
 NS_ASSUME_NONNULL_END

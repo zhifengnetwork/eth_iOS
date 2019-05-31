@@ -91,7 +91,7 @@
     }];
     [_priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self).with.offset(-33);
-        make.centerY.equalTo(self.phoneLabel.mas_centerY);
+        make.centerY.equalTo(self.idLabel.mas_centerY);
     }];
     [_btn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.phoneLabel.mas_bottom).with.offset(6);

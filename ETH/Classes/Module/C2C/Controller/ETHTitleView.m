@@ -33,7 +33,7 @@
     }];
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.mas_centerX);
-        make.centerY.equalTo(self.mas_centerY).with.offset(-17);
+        make.centerY.equalTo(self.mas_centerY).with.offset(-10);
     }];
     [_rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self).with.offset(-16);

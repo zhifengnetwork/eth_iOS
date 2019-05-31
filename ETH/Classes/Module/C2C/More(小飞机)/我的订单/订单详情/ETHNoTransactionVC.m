@@ -29,7 +29,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(backClick)];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont boldSystemFontOfSize:22]}];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"BG1"] forBarMetrics:UIBarMetricsDefault];
-    self.title = @"卖出ETH";
+//    self.title = @"卖出ETH";
     [self setup];
 }
 
@@ -59,6 +59,14 @@
     
 }
 
+- (void)setType:(NSInteger)type{
+    _type = type;
+    if (self.type == 1) {
+        self.title = @"买入ETH";
+    }else{
+        self.title = @"卖出ETH";
+    }
+}
 -(void)showData:(id)responseObject
 {
     if (kObjectIsEmpty(responseObject))
@@ -67,8 +75,9 @@
     }
     
     self.detailModel = [ETHDetailModel mj_objectWithKeyValues:responseObject];
-    _transactionView.model = self.detailModel.list;
-    if (self.detailModel.list.type.intValue == 0) {
+    self.transactionView.model = self.detailModel.list;
+    self.transactionView.type = self.type;
+    if (self.detailModel.list.type.intValue == 1) {
         self.title = @"买入ETH";
     }else{
         self.title = @"卖出ETH";

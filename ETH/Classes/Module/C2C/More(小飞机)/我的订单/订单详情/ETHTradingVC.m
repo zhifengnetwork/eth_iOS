@@ -70,7 +70,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(backClick)];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont boldSystemFontOfSize:22]}];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"BG1"] forBarMetrics:UIBarMetricsDefault];
-    self.title = @"卖出ETH";
+//    self.title = @"卖出ETH";
     [self setup];
 }
 
@@ -302,7 +302,7 @@
         [_paymentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             self.top = make.top.equalTo(self.view3.mas_bottom).with.offset(9);
         }];
-        
+        _receiver.text =@"收 款 人 ：";
         _selectPayButton.hidden = NO;
         _paymentLabel.text =@"上传凭证";
         _emptyLabel.text = @"点击上传支付凭证";
@@ -318,7 +318,7 @@
         [_paymentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             self.top = make.top.equalTo(self.receiver.mas_bottom).with.offset(9);
         }];
-        
+        _receiver.text =@"付 款 人 ：";
         _selectPayButton.hidden = YES;
         _paymentLabel.text =@"支付凭证";
         _emptyLabel.text = @"未上传支付凭证";
@@ -327,7 +327,7 @@
         _imageView.userInteractionEnabled = NO;
     }
     _orderIDLabel.text = [NSString stringWithFormat:@"%@",model.ID];
-    _buyerIDLabel.text = [NSString stringWithFormat:@"%@",model.openid];
+    _buyerIDLabel.text = [NSString stringWithFormat:@"%@",model.mobile];
     _unitPriceLabel.text = [NSString stringWithFormat:@"%@",model.price];
     _numberLabel.text = [NSString stringWithFormat:@"%@",model.trx];
     _totalLabel.text = [NSString stringWithFormat:@"%@",model.money];
@@ -342,6 +342,16 @@
         [_imageView sd_setImageWithURL:[NSURL URLWithString:model.file]];
     }
 }
+
+- (void)setType:(NSInteger)type{
+    _type = type;
+    if (self.type == 1) {
+        self.title = @"买入ETH";
+    }else{
+        self.title = @"卖出ETH";
+    }
+}
+
 - (UIView *)view1{
     if (_view1 == nil) {
         _view1 = [[UIView alloc]init];

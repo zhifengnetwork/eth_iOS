@@ -40,10 +40,10 @@ static NSString *const ETHBuyTableViewCellID = @"ETHBuyTableViewCellID";
     [self.view addSubview:self.tableView];
     [_titleView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
-        make.height.mas_equalTo(LL_StatusBarAndNavigationBarHeight +60);
+        make.height.mas_equalTo(LL_StatusBarAndNavigationBarHeight +40);
     }];
     [_backImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.titleView.mas_bottom).with.offset(-60);
+        make.top.equalTo(self.titleView.mas_bottom).with.offset(-40);
         make.left.right.bottom.equalTo(self.view);
     }];
     
@@ -64,7 +64,8 @@ static NSString *const ETHBuyTableViewCellID = @"ETHBuyTableViewCellID";
     }];
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.titleView.mas_bottom).with.offset(5);
-        make.left.right.bottom.equalTo(self.view);
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).with.offset(-LL_TabbarHeight);
     }];
     
     //自定义刷新动画

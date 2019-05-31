@@ -14,6 +14,7 @@
 #import "ETHTradeSuccessVC.h"
 
 @interface ETHTradeCell()
+@property (nonatomic, strong)UILabel *idLabel;
 @property (nonatomic, strong)UILabel *transactionLabel;
 @property (nonatomic, strong)UILabel *nameLabel;
 @property (nonatomic, strong)UILabel *statusLabel;
@@ -48,6 +49,7 @@
 - (void)setup{
     self.layer.cornerRadius = 8;
     self.backgroundColor = RGBColorHex(0x4b4f66);
+    [self.contentView addSubview:self.idLabel];
     [self.contentView addSubview:self.transactionLabel];
     [self.contentView addSubview:self.nameLabel];
     [self.contentView addSubview:self.statusLabel];
@@ -62,8 +64,14 @@
     [self.contentView addSubview:self.totalLabel2];
     [self.contentView addSubview:self.timeLabel];
 
+    [_idLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).with.offset(10);
+        make.left.equalTo(self).with.offset(15);
+    }];
+    
     [_transactionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(self).with.offset(15);
+        make.top.equalTo(self.idLabel.mas_bottom).with.offset(10);
+        make.left.equalTo(self).with.offset(15);
     }];
     [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.transactionLabel.mas_right).with.offset(12);
@@ -71,7 +79,7 @@
     }];
     [_jumpImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self).with.offset(-15);
-        make.top.equalTo(self).with.offset(15);
+        make.centerY.equalTo(self.transactionLabel.mas_centerY).with.offset(-15);
     }];
     [_statusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
        make.right.equalTo(self.jumpImageView.mas_left).with.offset(-12);
@@ -83,11 +91,11 @@
         make.bottom.equalTo(self.statusLabel.mas_bottom);
     }];
     [_numberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.transactionLabel.mas_bottom).with.offset(15);
+        make.top.equalTo(self.transactionLabel.mas_bottom).with.offset(10);
         make.left.equalTo(self).with.offset(15);
     }];
     [_numberLabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.transactionLabel.mas_bottom).with.offset(15);
+        make.top.equalTo(self.transactionLabel.mas_bottom).with.offset(10);
         make.left.equalTo(self.numberLabel.mas_right);
     }];
     [_unitpriceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -105,7 +113,7 @@
     }];
     
     [_totalLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.numberLabel.mas_bottom).with.offset(15);
+        make.top.equalTo(self.numberLabel.mas_bottom).with.offset(10);
         make.left.equalTo(self).with.offset(15);
     }];
     [_totalLabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -126,6 +134,17 @@
     frame.size.height-= 10;
     [super setFrame:frame];
 }
+
+- (UILabel *)idLabel{
+    if (_idLabel == nil) {
+        _idLabel = [[UILabel alloc]init];
+        _idLabel.font = [UIFont boldSystemFontOfSize:15];
+        _idLabel.textColor = RGBColorHex(0xf0e68c);
+        _idLabel.text = @"订单编号：493";
+    }
+    return _idLabel;
+}
+
 - (UILabel *)transactionLabel{
     if (_transactionLabel == nil) {
         _transactionLabel = [[UILabel alloc]init];
@@ -263,7 +282,7 @@
     _unitpriceLabel2.text = [NSString stringWithFormat:@"%@",model.price];
      _totalLabel2.text = [NSString stringWithFormat:@"%@",model.money];
     _timeLabel.text = [NSString stringWithFormat:@"%@",model.datatime];
-    
+    _idLabel.text = [NSString stringWithFormat:@"订单编号：%@",model.ID];
     
     
 }
@@ -322,18 +341,22 @@
     if ([_statusLabel.text isEqualToString:@"交易失败"]) {
         ETHTradeFailVC *vc = [[ETHTradeFailVC alloc]init];
         vc.vcID = _model.ID;
+        vc.type = _model.type.integerValue;
         [[self viewController].navigationController pushViewController:vc animated:YES];
     }else if ([_statusLabel.text isEqualToString:@"未交易"]){
         ETHNoTransactionVC *vc1 = [[ETHNoTransactionVC alloc]init];
         vc1.vcID = _model.ID;
+        vc1.type = _model.type.integerValue;
         [[self viewController].navigationController pushViewController:vc1 animated:YES];
     }else if ([_statusLabel.text isEqualToString:@"交易中"]){
         ETHTradingVC *vc2 = [[ETHTradingVC alloc]init];
         vc2.vcID = _model.ID;
+        vc2.type = _model.type.integerValue;
         [[self viewController].navigationController pushViewController:vc2 animated:YES];
     }else{
         ETHTradeSuccessVC *vc3 = [[ETHTradeSuccessVC alloc]init];
         vc3.vcID = _model.ID;
+        vc3.type = _model.type.integerValue;
         [[self viewController].navigationController pushViewController:vc3 animated:YES];
     }
 }

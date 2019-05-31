@@ -37,7 +37,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(backClick)];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont boldSystemFontOfSize:22]}];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"BG1"] forBarMetrics:UIBarMetricsDefault];
-    self.title = @"卖出ETH";
+//    self.title = @"卖出ETH";
     [self setup];
 }
 - (void)setup{
@@ -109,6 +109,7 @@
     }else{
         self.title = @"卖出ETH";
     }
+    self.transactionView.type = self.type;
     _nameLabel.text = [NSString stringWithFormat:@"%@",self.detailModel.list.mobile2];
     if ([_transactionView.model.file isEqualToString:@""]) {
         _emptyLabel.hidden = NO;
@@ -119,6 +120,15 @@
         _complaintButton.hidden = NO;
     }
     
+}
+
+- (void)setType:(NSInteger)type{
+    _type = type;
+    if (self.type == 1) {
+        self.title = @"买入ETH";
+    }else{
+        self.title = @"卖出ETH";
+    }
 }
 
 - (UILabel *)name{

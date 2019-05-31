@@ -40,7 +40,7 @@ static NSString * const ETHComplaintCellID = @"ETHComplaintCellID";
         make.height.mas_equalTo(LL_StatusBarAndNavigationBarHeight +55);
     }];
     [_backImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.titleView.mas_bottom).with.offset(-60);
+        make.top.equalTo(self.titleView.mas_bottom).with.offset(-50);
         make.left.right.bottom.equalTo(self.view);
     }];
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
