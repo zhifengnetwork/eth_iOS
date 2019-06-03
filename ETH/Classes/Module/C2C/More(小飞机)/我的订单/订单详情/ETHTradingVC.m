@@ -302,13 +302,15 @@
         [_paymentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             self.top = make.top.equalTo(self.view3.mas_bottom).with.offset(9);
         }];
-        _receiver.text =@"收 款 人 ：";
+        _total.text = @"需 付 款  ：";
+        _receiver.text =@"付 款 人 ：";
         _selectPayButton.hidden = NO;
         _paymentLabel.text =@"上传凭证";
         _emptyLabel.text = @"点击上传支付凭证";
         [_confirmButton setTitle:@"确认" forState:UIControlStateNormal];
         _imageView.userInteractionEnabled = YES;
     }else{//卖出时把控件隐藏
+        
         self.title = @"卖出ETH";
         _payMethodLabel.hidden = YES;
         _view3.hidden = YES;
@@ -318,7 +320,8 @@
         [_paymentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             self.top = make.top.equalTo(self.receiver.mas_bottom).with.offset(9);
         }];
-        _receiver.text =@"付 款 人 ：";
+        _total.text = @"待 收 款  ：";
+        _receiver.text =@"收 款 人 ：";
         _selectPayButton.hidden = YES;
         _paymentLabel.text =@"支付凭证";
         _emptyLabel.text = @"未上传支付凭证";

@@ -77,6 +77,7 @@
     self.detailModel = [ETHDetailModel mj_objectWithKeyValues:responseObject];
     self.transactionView.model = self.detailModel.list;
     self.transactionView.type = self.type;
+    self.transactionView.status = self.detailModel.list.status.integerValue;
     if (self.detailModel.list.type.intValue == 1) {
         self.title = @"买入ETH";
     }else{

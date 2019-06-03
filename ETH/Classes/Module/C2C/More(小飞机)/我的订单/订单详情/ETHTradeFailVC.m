@@ -106,10 +106,13 @@
     _transactionView.model = self.detailModel.list;
     if (self.detailModel.list.type.intValue == 1) {
         self.title = @"买入ETH";
+        _name.text = @"付 款 人  ： ";
     }else{
         self.title = @"卖出ETH";
+        _name.text = @"收 款 人  ： ";
     }
     self.transactionView.type = self.type;
+    self.transactionView.status = self.detailModel.list.status.integerValue;
     _nameLabel.text = [NSString stringWithFormat:@"%@",self.detailModel.list.mobile2];
     if ([_transactionView.model.file isEqualToString:@""]) {
         _emptyLabel.hidden = NO;
