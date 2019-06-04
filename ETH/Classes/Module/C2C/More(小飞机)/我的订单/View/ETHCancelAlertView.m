@@ -98,12 +98,12 @@
 
     [http_c2c sellout_tab_con:_viewID success:^(id responseObject){
         [SVProgressHUD showSuccessWithStatus:@"取消成功"];
-        [[self currentViewController] dismissViewControllerAnimated:NO completion:^{
-            [self currentViewController].navigationController.navigationBar.hidden = YES;
-            [[self currentViewController].navigationController popViewControllerAnimated:NO];
-        }];
     }failure:^(NSError *error) {
         [SVProgressHUD showErrorWithStatus:error.domain];
+    }];
+    [[self currentViewController] dismissViewControllerAnimated:NO completion:^{
+        [self currentViewController].navigationController.navigationBar.hidden = YES;
+        [[self currentViewController].navigationController popViewControllerAnimated:NO];
     }];
     
 }

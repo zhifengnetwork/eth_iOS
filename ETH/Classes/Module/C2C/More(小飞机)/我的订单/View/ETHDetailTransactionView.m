@@ -202,21 +202,46 @@
     return _totalLabel;
 }
 
-- (void)setStatus:(NSInteger)status{
-    _status = status;
-    if (self.type == 1) {
-        if (self.status == 2) {
-            _total.text = @"已 付 款  ：";
+- (void)setType_own:(NSInteger)type_own{
+    _type_own = type_own;
+    if (self.type_own == 1) {//查看订单的角色 1自己买入或者卖出的订单 2购买人买入或者卖出的订单
+        if (self.type == 1) {
+            
+            if (self.status == 2) {//交易完成
+                _total.text = @"已 付 款  ：";
+            }else{
+                _total.text = @"待 付 款  ：";
+            }
+            
         }else{
-            _total.text = @"待 付 款  ：";
+            if (self.status == 2) {
+                _total.text = @"已 收 款  ：";
+            }else{
+                _total.text = @"待 收 款  ：";
+            }
+            
         }
-        
+        _buyerID.text = @"挂 买 人 ：";
     }else{
-        if (self.status == 2) {
-            _total.text = @"已 收 款  ：";
+        //购买人买入或者卖出的订单
+        if (self.type == 1) {//买入
+            _buyerID.text = @"挂 卖 人 ：";
+            if (self.status == 2) {//交易完成
+                _total.text = @"已 付 款  ：";
+            }else{
+                _total.text = @"待 付 款  ：";
+            }
+            
         }else{
-            _total.text = @"待 收 款  ：";
+            
+            if (self.status == 2) {
+                _total.text = @"已 收 款  ：";
+            }else{
+                _total.text = @"待 收 款  ：";
+            }
+            
         }
+        //无论买入卖出都是挂买人
         
     }
 }
@@ -224,7 +249,7 @@
 - (void)setModel:(ETHC2CModel *)model{
     _model = model;
     _orderIDLabel.text = [NSString stringWithFormat:@"%@",model.ID];
-    _buyerIDLabel.text = [NSString stringWithFormat:@"%@",model.mobile];
+    _buyerIDLabel.text = [NSString stringWithFormat:@"%@",model.mobile2];
     _unitPriceLabel.text = [NSString stringWithFormat:@"%@",model.price];
     _numberLabel.text = [NSString stringWithFormat:@"%@",model.trx];
     _totalLabel.text = [NSString stringWithFormat:@"%@",model.money];

@@ -78,6 +78,11 @@
     self.transactionView.model = self.detailModel.list;
     self.transactionView.type = self.type;
     self.transactionView.status = self.detailModel.list.status.integerValue;
+    if (self.detailModel.type_own == 1) {//查看订单的角色 1自己买入或者卖出的订单 2购买人买入或者卖出的订单
+        
+    }else{
+        
+    }
     if (self.detailModel.list.type.intValue == 1) {
         self.title = @"买入ETH";
     }else{

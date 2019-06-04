@@ -292,43 +292,84 @@
     }
     
     self.detailModel = [ETHDetailModel mj_objectWithKeyValues:responseObject];
-    ETHC2CModel *model = self.detailModel.list;
-    if ([model.type isEqualToString:@"1"]) {//买入时
-        self.title = @"买入ETH";
-        _payMethodLabel.hidden = NO;
-        _view3.hidden = NO;
-        //调整paymentLabel的高度约束
-        [self.top uninstall];//先销毁约束
-        [_paymentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            self.top = make.top.equalTo(self.view3.mas_bottom).with.offset(9);
-        }];
-        _total.text = @"需 付 款  ：";
-        _receiver.text =@"付 款 人 ：";
-        _selectPayButton.hidden = NO;
-        _paymentLabel.text =@"上传凭证";
-        _emptyLabel.text = @"点击上传支付凭证";
-        [_confirmButton setTitle:@"确认" forState:UIControlStateNormal];
-        _imageView.userInteractionEnabled = YES;
-    }else{//卖出时把控件隐藏
-        
-        self.title = @"卖出ETH";
-        _payMethodLabel.hidden = YES;
-        _view3.hidden = YES;
-        
-        //调整paymentLabel的高度约束
-        [self.top uninstall];//先销毁约束
-        [_paymentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            self.top = make.top.equalTo(self.receiver.mas_bottom).with.offset(9);
-        }];
-        _total.text = @"待 收 款  ：";
-        _receiver.text =@"收 款 人 ：";
-        _selectPayButton.hidden = YES;
-        _paymentLabel.text =@"支付凭证";
-        _emptyLabel.text = @"未上传支付凭证";
-        [_confirmButton setTitle:@"确认收款" forState:UIControlStateNormal];
-        
-        _imageView.userInteractionEnabled = NO;
+    if (self.detailModel.type_own == 1) {//查看订单的角色 1自己买入或者卖出的订单 2购买人买入或者卖出的订单
+        ETHC2CModel *model = self.detailModel.list;
+        if ([model.type isEqualToString:@"1"]) {//买入时
+            self.title = @"买入ETH";
+            _payMethodLabel.hidden = NO;
+            _view3.hidden = NO;
+            //调整paymentLabel的高度约束
+            [self.top uninstall];//先销毁约束
+            [_paymentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                self.top = make.top.equalTo(self.view3.mas_bottom).with.offset(9);
+            }];
+            _total.text = @"需 付 款  ：";
+            _selectPayButton.hidden = NO;
+            _paymentLabel.text =@"上传凭证";
+            _emptyLabel.text = @"点击上传支付凭证";
+            [_confirmButton setTitle:@"确认" forState:UIControlStateNormal];
+            _imageView.userInteractionEnabled = YES;
+        }else{//卖出时把控件隐藏
+            
+            self.title = @"卖出ETH";
+            _payMethodLabel.hidden = YES;
+            _view3.hidden = YES;
+            _buyerID.text = @"挂 卖 人 ：";
+            //调整paymentLabel的高度约束
+            [self.top uninstall];//先销毁约束
+            [_paymentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                self.top = make.top.equalTo(self.receiver.mas_bottom).with.offset(9);
+            }];
+            _total.text = @"待 收 款  ：";
+            _receiver.text =@"付 款 人 ：";
+            _selectPayButton.hidden = YES;
+            _paymentLabel.text =@"支付凭证";
+            _emptyLabel.text = @"未上传支付凭证";
+            [_confirmButton setTitle:@"确认收款" forState:UIControlStateNormal];
+            
+            _imageView.userInteractionEnabled = NO;
+        }
+    }else{
+//        购买人买入或者卖出的订单
+        ETHC2CModel *model = self.detailModel.list;
+        if ([model.type isEqualToString:@"1"]) {//买入时
+            self.title = @"买入ETH";
+            _buyerID.text = @"挂 卖 人 ：";
+            _payMethodLabel.hidden = NO;
+            _view3.hidden = NO;
+            //调整paymentLabel的高度约束
+            [self.top uninstall];//先销毁约束
+            [_paymentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                self.top = make.top.equalTo(self.view3.mas_bottom).with.offset(9);
+            }];
+            _total.text = @"需 付 款  ：";
+            _receiver.text =@"付 款 人 ：";
+            _selectPayButton.hidden = NO;
+            _paymentLabel.text =@"上传凭证";
+            _emptyLabel.text = @"点击上传支付凭证";
+            [_confirmButton setTitle:@"确认" forState:UIControlStateNormal];
+            _imageView.userInteractionEnabled = YES;
+        }else{//卖出时把控件隐藏
+            
+            self.title = @"卖出ETH";
+            _payMethodLabel.hidden = YES;
+            _view3.hidden = YES;
+            
+            //调整paymentLabel的高度约束
+            [self.top uninstall];//先销毁约束
+            [_paymentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                self.top = make.top.equalTo(self.receiver.mas_bottom).with.offset(9);
+            }];
+            _total.text = @"待 收 款  ：";
+            _selectPayButton.hidden = YES;
+            _paymentLabel.text =@"支付凭证";
+            _emptyLabel.text = @"未上传支付凭证";
+            [_confirmButton setTitle:@"确认收款" forState:UIControlStateNormal];
+            
+            _imageView.userInteractionEnabled = NO;
+        }
     }
+    ETHC2CModel *model = self.detailModel.list;
     _orderIDLabel.text = [NSString stringWithFormat:@"%@",model.ID];
     _buyerIDLabel.text = [NSString stringWithFormat:@"%@",model.mobile];
     _unitPriceLabel.text = [NSString stringWithFormat:@"%@",model.price];
@@ -386,7 +427,7 @@
         _buyerID = [[UILabel alloc]init];
         _buyerID.font = [UIFont boldSystemFontOfSize:15];
         _buyerID.textColor = RGBColorHex(0x949bc3);
-        _buyerID.text = @"挂 卖 人 ：";
+        _buyerID.text = @"挂 买 人 ：";
     }
     return _buyerID;
 }

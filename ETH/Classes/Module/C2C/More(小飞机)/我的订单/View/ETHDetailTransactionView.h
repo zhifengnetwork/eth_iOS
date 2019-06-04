@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign)NSInteger type;//买入卖出
 
 @property (nonatomic, assign)NSInteger status;//判断交易状态
+
+@property (nonatomic, assign)NSInteger type_own;//查看订单的角色 1自己买入或者卖出的订单 2购买人买入或者卖出的订单
+
 @end
 
 NS_ASSUME_NONNULL_END

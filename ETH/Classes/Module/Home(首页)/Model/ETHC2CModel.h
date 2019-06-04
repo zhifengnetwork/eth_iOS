@@ -59,6 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 @interface ETHDetailModel : NSObject
 @property (nonatomic , strong)ETHC2CModel              *list;
+@property (nonatomic , assign)NSInteger              type_own;
 @end
 
 @interface ETHC2CListModel : BaseListModel

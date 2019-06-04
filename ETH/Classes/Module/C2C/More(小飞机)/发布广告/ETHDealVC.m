@@ -32,6 +32,7 @@
 @property (nonatomic, strong)ETHDealTF *totalTF;
 @property (nonatomic, strong)UIButton *agreeButton;
 
+@property (nonatomic, strong)ETHDetailModel *detailModel;
 //@property (nonatomic, assign)NSInteger tempCount;
 @end
 
@@ -140,9 +141,9 @@
     if (kObjectIsEmpty(responseObject)) {
         return;
     }
-    ETHDetailModel *detailModel = [ETHDetailModel mj_objectWithKeyValues:responseObject];
-    _referenceLabel.text = [NSString stringWithFormat:@"参考价格：￥%f~%f",detailModel.list.trxprice.floatValue*0.9,detailModel.list.trxprice.floatValue*1.1];
-    _serviceCharge.text = [NSString stringWithFormat:@"手续费：%@%%",detailModel.list.trxsxf];
+    self.detailModel = [ETHDetailModel mj_objectWithKeyValues:responseObject];
+    _referenceLabel.text = [NSString stringWithFormat:@"参考价格：￥%f~%f",_detailModel.list.trxprice.floatValue*0.9,_detailModel.list.trxprice.floatValue*1.1];
+    _serviceCharge.text = [NSString stringWithFormat:@"手续费：%@%%",_detailModel.list.trxsxf];
 }
 
 - (UIView *)bgView{
@@ -313,13 +314,13 @@
     if (_type == 0) {
         float count = _field.text.floatValue * 0.99;
         float price = _field.text.floatValue * _priceTF.text.floatValue;
-        _billCountTF.text = [NSString stringWithFormat:@"%.8f",count];
-        _totalTF.text = [NSString stringWithFormat:@"%.8f",price];
+        _billCountTF.text = [NSString stringWithFormat:@"%.2f",count];
+        _totalTF.text = [NSString stringWithFormat:@"%.2f",price];
     }else{
         float count = _field.text.floatValue * _priceTF.text.floatValue;
         float price = 1.01 * _field.text.floatValue;
-        _billCountTF.text = [NSString stringWithFormat:@"%.8f",count];
-        _totalTF.text = [NSString stringWithFormat:@"%.8f",round(price *100)/100];
+        _billCountTF.text = [NSString stringWithFormat:@"%.2f",count];
+        _totalTF.text = [NSString stringWithFormat:@"%.2f",round(price *100)/100];
         
     }
 }
@@ -337,6 +338,7 @@
 
 
 - (void)agreeClick: (UIButton *)Btn{
+    NSString * shouxufei = [NSString stringWithFormat:@"%ld",self.detailModel.list.trxsxf.integerValue/100];
     /**
      c2c订单中心确认买入或者卖出接口
      @param type     1卖出 0买入
@@ -347,7 +349,7 @@
      @param trx2 卖出所需支付TRX币 ETH
      */
     if (_type == 0) {
-    [http_c2c hangonsale:@"0" price:_priceTF.text money:_billCountTF.text sxf0:@"0.01" trx:_numberTF.text trx2:_totalTF.text success:^(id responseObject)
+    [http_c2c hangonsale:@"0" price:_priceTF.text money:_totalTF.text sxf0:shouxufei trx:_numberTF.text trx2:_billCountTF.text success:^(id responseObject)
      {
          ETHCancelAlertView *view1 = [[ETHCancelAlertView alloc]initWithFrame:CGRectMake(100, 100, 235, 99)];
          view1.isNOApi = YES;
@@ -360,7 +362,7 @@
      }];
     }else{
 //        挂卖
-        [http_c2c hangonsale:@"1" price:_priceTF.text money:_billCountTF.text sxf0:@"0.01" trx:_numberTF.text trx2:_totalTF.text success:^(id responseObject)
+        [http_c2c hangonsale:@"1" price:_priceTF.text money:_billCountTF.text sxf0:shouxufei trx:_numberTF.text trx2:_totalTF.text success:^(id responseObject)
          {
              ETHCancelAlertView *view1 = [[ETHCancelAlertView alloc]initWithFrame:CGRectMake(100, 100, 235, 99)];
              view1.isNOApi = YES;

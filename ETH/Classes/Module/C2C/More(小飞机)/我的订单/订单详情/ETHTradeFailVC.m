@@ -103,24 +103,38 @@
     }
     
     self.detailModel = [ETHDetailModel mj_objectWithKeyValues:responseObject];
-    _transactionView.model = self.detailModel.list;
-    if (self.detailModel.list.type.intValue == 1) {
-        self.title = @"买入ETH";
-        _name.text = @"付 款 人  ： ";
-    }else{
-        self.title = @"卖出ETH";
-        _name.text = @"收 款 人  ： ";
+    if (self.detailModel.type_own == 1) {//查看订单的角色 1自己买入或者卖出的订单 2购买人买入或者卖出的订单
+        if (self.detailModel.list.type.intValue == 1) {
+            self.title = @"买入ETH";
+            _name.text = @"付 款 人  ： ";
+        }else{
+            self.title = @"卖出ETH";
+            _name.text = @"收 款 人  ： ";
+        }
+        
+    }else{//购买人买入或者卖出的订单
+        if (self.detailModel.list.type.intValue == 1) {
+            self.title = @"买入ETH";
+            _name.text = @"付 款 人  ： ";
+        }else{
+            self.title = @"卖出ETH";
+            _name.text = @"收 款 人  ： ";
+        }
     }
+    _transactionView.model = self.detailModel.list;
+    
     self.transactionView.type = self.type;
     self.transactionView.status = self.detailModel.list.status.integerValue;
-    _nameLabel.text = [NSString stringWithFormat:@"%@",self.detailModel.list.mobile2];
+    self.transactionView.type_own = self.detailModel.type_own;
+    _nameLabel.text = [NSString stringWithFormat:@"%@",self.detailModel.list.mobile];
+    
     if ([_transactionView.model.file isEqualToString:@""]) {
         _emptyLabel.hidden = NO;
-        _complaintButton.hidden = YES;
+//        _complaintButton.hidden = YES;
     }else{
         _emptyLabel.hidden = YES;
         [_paymentImageView sd_setImageWithURL:[NSURL URLWithString:_transactionView.model.file]];
-        _complaintButton.hidden = NO;
+//        _complaintButton.hidden = NO;
     }
     
 }
@@ -190,7 +204,6 @@
         [_complaintButton setTitle:@"申诉" forState:UIControlStateNormal];
         [_complaintButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_complaintButton addTarget:self action:@selector(complaintClick) forControlEvents:UIControlEventTouchUpInside];
-        _complaintButton.hidden = YES;
     }return _complaintButton;
 }
 
