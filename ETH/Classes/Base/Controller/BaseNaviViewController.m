@@ -42,7 +42,7 @@
     {
         self.interactivePopGestureRecognizer.delegate = viewController;
         
-        //隐藏底部条
+        //跳转后隐藏底部条
         viewController.hidesBottomBarWhenPushed = YES;
         
         [self setNaviagtionItem:viewController];
@@ -74,6 +74,7 @@
     //添加左边按钮
     UIImage *img = [UIImage imageNamed:@"Left arrow-1"];
     viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:img style:UIBarButtonItemStylePlain target:self action:@selector(LeftButtonDidClick:)];
+    
 }
 
 #pragma mark - action

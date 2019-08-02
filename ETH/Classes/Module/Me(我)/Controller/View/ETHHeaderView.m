@@ -193,6 +193,7 @@
         if ([nextResponder isKindOfClass:[UIViewController
                                           class]]) {
             return (UIViewController*)nextResponder;
+        
         }
     }
     return nil;

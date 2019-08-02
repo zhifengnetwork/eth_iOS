@@ -420,6 +420,7 @@ static void * const CYLTabImageViewDefaultOffsetContext = (void*)&CYLTabImageVie
     }
     if (self.shouldCustomizeTitlePositionAdjustment || [self isNOTEmptyForTitlePositionAdjustment:titlePositionAdjustment]) {
         UIOffset offset = (([self isNOTEmptyForTitlePositionAdjustment:titlePositionAdjustment]) ? titlePositionAdjustment : self.titlePositionAdjustment);
+        
         viewController.tabBarItem.titlePositionAdjustment = offset;
     }
     [self addChildViewController:viewController];

@@ -12,7 +12,7 @@
 #import "ETHRecreationVC.h"
 #import "ETHFightVC.h"
 #import "ETH3DGameWMVC.h"
-
+#import "SVProgressHUD.h"
 @interface ETHChessCardVC ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 /* collectionView */
@@ -230,18 +230,25 @@ static NSString *const ETHChessCardCollectionCellID = @"ETHChessCardCollectionCe
 {
     if (indexPath.section==0)
     {
+        if (indexPath.row==1) {
+            [SVProgressHUD showErrorWithStatus:@"敬请期待"];
+        }else{
         ETH3DGameWMVC* vc = [[ETH3DGameWMVC alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
+        }
     }
     else if (indexPath.section==1)
     {
-        ETHRecreationVC* vc = [[ETHRecreationVC alloc]init];
-        [self.navigationController pushViewController:vc animated:YES];
+//        ETHRecreationVC* vc = [[ETHRecreationVC alloc]init];
+//        [self.navigationController pushViewController:vc animated:YES];
+        [SVProgressHUD showErrorWithStatus:@"敬请期待"];
     }
     else if (indexPath.section==2)
     {
-        ETHFightVC* vc = [[ETHFightVC alloc]init];
-        [self.navigationController pushViewController:vc animated:YES];
+//        ETHFightVC* vc = [[ETHFightVC alloc]init];
+//        [self.navigationController pushViewController:vc animated:YES];
+        [SVProgressHUD showErrorWithStatus:@"敬请期待"];
+
     }
 }
 

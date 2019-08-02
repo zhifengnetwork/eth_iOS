@@ -97,6 +97,7 @@ static NSInteger kEmoticonToolbarTagBaseValue = 1000;
     [btn setTitleColor:[UIColor grayColor] forState:UIControlStateSelected];
     
     NSString *imageName = [NSString stringWithFormat:@"compose_emotion_table_%@_normal", bgImageName];
+    NSString *touch = [NSString stringWithFormat:@"touzi"];
     NSString *imageNameSL = [NSString stringWithFormat:@"compose_emotion_table_%@_selected", bgImageName];
     
     [btn setBackgroundImage:[[UIImage hm_imageNamed:imageName] hm_resizableImage] forState:UIControlStateNormal];

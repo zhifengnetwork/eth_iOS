@@ -56,7 +56,7 @@
 -(void)setIncomeModel:(ETHIncomeModel *)incomeModel
 {
     _incomeModel = incomeModel;
-    _releaseTimeLabel.text = [NSString stringWithFormat:@"释放时间：%@",_incomeModel.createtime];
+    _releaseTimeLabel.text = [NSString stringWithFormat:@"发放时间：%@",_incomeModel.createtime];
     _freeAccountLabel.text = [NSString stringWithFormat:@"释放至自由账户：%@",_incomeModel.money];
     _reinstatementAccountLabel.text = [NSString stringWithFormat:@"释放至复投账户：%@",_incomeModel.money2];
 }
@@ -66,7 +66,7 @@
         _releaseTimeLabel = [[UILabel alloc]init];
         _releaseTimeLabel.font = [UIFont systemFontOfSize:12];
         _releaseTimeLabel.textColor = [UIColor whiteColor];
-        _releaseTimeLabel.text = @"释放时间：2019-04-13 02:42:43";
+        _releaseTimeLabel.text = @"发放时间：2019-04-13 02:42:43";
     }return _releaseTimeLabel;
 }
 - (UILabel *)freeAccountLabel{
@@ -83,6 +83,7 @@
         _reinstatementAccountLabel.font = [UIFont systemFontOfSize:12];
         _reinstatementAccountLabel.textColor = [UIColor whiteColor];
         _reinstatementAccountLabel.text = @"释放至复投账户：0.025231";
+        
     }return _reinstatementAccountLabel;
 }
 @end

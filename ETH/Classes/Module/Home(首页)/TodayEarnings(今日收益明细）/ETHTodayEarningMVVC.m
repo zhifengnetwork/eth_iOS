@@ -24,9 +24,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (_index == 0) {
+    if ([_incomeType isEqualToString:@"1"]) {
         self.title = @"收益明细";
-    }else{
+    }
+    if ([_incomeType isEqualToString:@"2"]){
         self.title = @"今日收益明细";
     }
     self.view.backgroundColor = RGBColorHex(0x080e2c);

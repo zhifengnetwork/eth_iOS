@@ -84,7 +84,7 @@
 - (UIImageView *)iconView {
     if (_iconView == nil) {
         _iconView = [[UIImageView alloc] init];
-        _iconView.image = [UIImage imageNamed:@"QR code"];
+        _iconView.image = [UIImage imageNamed:@"icon_add_img"];
         //图片点击事件
         _iconView.userInteractionEnabled = YES;
         UITapGestureRecognizer* singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];

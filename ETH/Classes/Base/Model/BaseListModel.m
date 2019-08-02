@@ -70,6 +70,9 @@
     
     [self.list addObjectsFromArray:model.list];
 }
+- (void)addMoreData:(BaseListModel*)model {
+    
+}
 
 
 //清空数据

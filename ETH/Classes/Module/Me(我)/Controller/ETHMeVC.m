@@ -70,6 +70,7 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
     
     //用户信息
     [self loadData];
+    
 }
 
 //加载数据
@@ -108,7 +109,9 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
     self.userInfo = [UserInfoModel mj_objectWithKeyValues:responseObject];
     //刷新数据
     self.headerView.userInfo = self.userInfo;
+    NSLog(@"data%@",self.userInfo.arr2);
     [self.tableView reloadData];
+    
 }
 
 
@@ -247,8 +250,8 @@ static NSString *const ETHMeTableViewCellID = @"ETHMeTableViewCellID";
             }else if (indexPath.row == 6){
                 //跳转到退出机制
                 ETHQuitView *view = [[ETHQuitView alloc]initWithFrame:CGRectMake(0, 0, 257, 284)];
-                if (!kStringIsEmpty(self.userInfo.arr2.money)) {
-                    view.money = self.userInfo.arr2.money;
+                if (!kStringIsEmpty(self.userInfo.arr2.credit1)) {
+                    view.money = self.userInfo.arr2.credit1;
                 }else{
                     view.money = @"0.00";
                 }

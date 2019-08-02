@@ -124,7 +124,10 @@
     
     return _walletVC;
 }
-
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
 //-(ETHCashWithdrawaVC *)cashWithdVC
 //{
 //    if (_cashWithdVC==nil) {

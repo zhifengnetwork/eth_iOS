@@ -58,7 +58,7 @@
     _incomeModel = incomeModel;
     _releaseTimeLabel.text = [NSString stringWithFormat:@"发放时间：%@",_incomeModel.createtime];
     _bonusSourceLabel.text = [NSString stringWithFormat:@"奖金来源：%@",_incomeModel.nickname];
-    _freeAccountLabel.text = [NSString stringWithFormat:@"自由账户奖金：%@",_incomeModel.money];
+    _freeAccountLabel.text = [NSString stringWithFormat:@"释放至自由账户：%@",_incomeModel.money3];
 
 }
 - (UILabel *)releaseTimeLabel{
@@ -82,7 +82,7 @@
         _freeAccountLabel = [[UILabel alloc]init];
         _freeAccountLabel.font = [UIFont systemFontOfSize:12];
         _freeAccountLabel.textColor = [UIColor whiteColor];
-        _freeAccountLabel.text = @"自由账户奖金：0.123353";
+        _freeAccountLabel.text = @"释放至自由账户：0.123353";
     }return _freeAccountLabel;
 }
 

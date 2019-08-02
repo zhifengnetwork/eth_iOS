@@ -41,17 +41,18 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
 
 -(void)loadData
 {
-    if (kStringIsEmpty(self.tz.list.creditmy))
-    {
-        [SVProgressHUD showInfoWithStatus:@"请输入追加投资金额"];
-        return;
-    }
     
     if (kStringIsEmpty(self.tz.list.zfurl))
     {
         [SVProgressHUD showInfoWithStatus:@"请上传支付凭证"];
         return;
     }
+    if (kStringIsEmpty(self.tz.list.creditmy))
+    {
+        [SVProgressHUD showInfoWithStatus:@"请输入追加投资金额"];
+        return;
+    }
+    
     
     ZWeakSelf
     [SVProgressHUD showWithStatus:@"正在加载"];
@@ -132,7 +133,7 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     if (indexPath.section==0)
     {
         scell.title = @"当前投资额：";
-        scell.name = self.tz.list.credit1;
+        scell.name = [NSString stringWithFormat:@"%.3f",self.tz.list.credit1.floatValue];
         
         cell = scell;
     }
@@ -156,7 +157,7 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     else if (indexPath.section==3)
     {
         scell.title = @"当前最多可投资：";
-        scell.name = [NSString stringWithFormat:@"%f",self.tz.list.bibi.floatValue - self.tz.list.credit1.floatValue];
+        scell.name = [NSString stringWithFormat:@"%.3f",self.tz.list.bibi.floatValue - self.tz.list.credit1.floatValue];
         
         cell = scell;
     }
@@ -240,7 +241,7 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
 - (void)ETHQRCodeTableCellDidClick
 {
     TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:1 delegate:self];
-    
+    imagePickerVc.allowTakeVideo = NO;
     // You can get the photos by block, the same as by delegate.
     // 你可以通过block或者代理，来得到用户选择的照片.
     ZWeakSelf

@@ -107,18 +107,26 @@
         if (self.detailModel.list.type.intValue == 1) {
             self.title = @"买入ETH";
             _name.text = @"付 款 人  ： ";
+            _nameLabel.text = [NSString stringWithFormat:@"%@",self.detailModel.list.mobile2];
+
         }else{
             self.title = @"卖出ETH";
             _name.text = @"收 款 人  ： ";
+            _nameLabel.text = [NSString stringWithFormat:@"%@",self.detailModel.list.mobile];
+
         }
         
     }else{//购买人买入或者卖出的订单
         if (self.detailModel.list.type.intValue == 1) {
             self.title = @"买入ETH";
             _name.text = @"付 款 人  ： ";
+            _nameLabel.text = [NSString stringWithFormat:@"%@",self.detailModel.list.mobile2];
+
         }else{
             self.title = @"卖出ETH";
             _name.text = @"收 款 人  ： ";
+            _nameLabel.text = [NSString stringWithFormat:@"%@",self.detailModel.list.mobile];
+
         }
     }
     _transactionView.model = self.detailModel.list;
@@ -126,7 +134,6 @@
     self.transactionView.type = self.type;
     self.transactionView.status = self.detailModel.list.status.integerValue;
     self.transactionView.type_own = self.detailModel.type_own;
-    _nameLabel.text = [NSString stringWithFormat:@"%@",self.detailModel.list.mobile];
     
     if ([_transactionView.model.file isEqualToString:@""]) {
         _emptyLabel.hidden = NO;

@@ -15,7 +15,7 @@
 #import "TZImagePickerController.h"
 #import "UIImageView+WebCache.h"
 
-@interface ETHComplaintDetailVC ()
+@interface ETHComplaintDetailVC ()<UITextViewDelegate>
 @property (nonatomic, strong)UILabel *titleLabel;
 @property (nonatomic, strong)ETHComplaintTF *titleTF;
 @property (nonatomic, strong)UILabel *contentLabel;
@@ -47,6 +47,7 @@
     [self.view addSubview:self.selectImagebButton];
     [self.view addSubview:self.confirmButton];
     [self.QRCodeImageView addSubview:self.emptyImageLabel];
+    _contentTextView.delegate = self;
    
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).with.offset(16);
@@ -136,7 +137,8 @@
         _contentTextView.backgroundColor = RGBColorHex(0x4b4f66);
         _contentTextView.font = [UIFont systemFontOfSize:12];
         _contentTextView.textColor = RGBColorHex(0xcccccc);
-        _contentTextView.text = @"  请输入内容";
+//        _contentTextView.text = @"  请输入内容";
+        
     }return _contentTextView;
 }
 
@@ -187,7 +189,7 @@
 #pragma mark -- 方法
 - (void)selectImage{
     TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:1 delegate:self];
-    
+    imagePickerVc.allowPickingVideo = NO;
     // You can get the photos by block, the same as by delegate.
     // 你可以通过block或者代理，来得到用户选择的照片.
     ZWeakSelf
@@ -229,10 +231,37 @@
     [_QRCodeImageView sd_setImageWithURL:[NSURL URLWithString:_file]];
     _emptyImageLabel.hidden = YES;
 }
-
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    if(textView.text.length < 1){
+        textView.text = @"请输入内容";
+        textView.textColor = [UIColor grayColor];
+    }
+}
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    if([textView.text isEqualToString:@"请输入内容"]){
+        textView.text=@"";
+        textView.textColor=[UIColor whiteColor];
+    }
+}
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+};
 //添加申诉接口方法
 - (void)confirmClick{
 
+    if (_titleTF.text.length == 0) {
+        [SVProgressHUD showErrorWithStatus:@"请输入标题"];
+        
+    }
+    else if (_contentTextView.text.length <1) {
+        [SVProgressHUD showErrorWithStatus:@"请输入申诉内容"];
+    }else if (_QRCodeImageView.image == nil){
+        [SVProgressHUD showErrorWithStatus:@"请选择图片"];
+    }
+    else{
     //files 图片文件
     [http_c2c guamai_appeal_add:_VCID files:_file text:_titleTF.text textarea:_contentTextView.text success:^(id responseObject){
         [SVProgressHUD showSuccessWithStatus:@"提交申诉成功"];
@@ -241,5 +270,6 @@
     }];
 
     [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 @end

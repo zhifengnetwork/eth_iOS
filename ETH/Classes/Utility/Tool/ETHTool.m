@@ -121,7 +121,7 @@
     NSInteger timeDifference = 0;
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yy-MM-dd HH:mm:ss"];
+    [formatter setDateFormat:@"yy-MM-dd HH:mm"];
     NSDate *nowDate = [formatter dateFromString:nowDateStr];
     NSDate *deadline = [formatter dateFromString:deadlineStr];
     NSTimeInterval oldTime = [nowDate timeIntervalSince1970];

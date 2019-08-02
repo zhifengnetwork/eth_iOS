@@ -371,11 +371,11 @@
     }
     ETHC2CModel *model = self.detailModel.list;
     _orderIDLabel.text = [NSString stringWithFormat:@"%@",model.ID];
-    _buyerIDLabel.text = [NSString stringWithFormat:@"%@",model.mobile];
+    _buyerIDLabel.text = [NSString stringWithFormat:@"%@",model.mobile2];
     _unitPriceLabel.text = [NSString stringWithFormat:@"%@",model.price];
     _numberLabel.text = [NSString stringWithFormat:@"%@",model.trx];
     _totalLabel.text = [NSString stringWithFormat:@"%@",model.money];
-    _receiverLabel.text = [NSString stringWithFormat:@"%@",model.mobile2];
+    _receiverLabel.text = [NSString stringWithFormat:@"%@",model.mobile];
     _cardID.text = [NSString stringWithFormat:@"卡号：%@",model.bankid];
     _bankLabel.text = [NSString stringWithFormat:@"银行：%@",model.bank];
     _cardName.text = [NSString stringWithFormat:@"户主：%@",model.bankname];
@@ -747,6 +747,7 @@
 
     // You can get the photos by block, the same as by delegate.
     // 你可以通过block或者代理，来得到用户选择的照片.
+    imagePickerVc.allowTakeVideo = NO;
     ZWeakSelf
     [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto)
      {
@@ -779,11 +780,15 @@
     {
         return;
     }
+    if (kStringIsEmpty(self.detailModel.list.file)) {
+        [SVProgressHUD showErrorWithStatus:@"请上传支付凭证"];
+    }else{
     
     self.detailModel.list.file = [responseObject objectForKey:@"img"];
     [SVProgressHUD showSuccessWithStatus:@"上传成功"];
     _emptyLabel.hidden = YES;
     [_imageView sd_setImageWithURL:[NSURL URLWithString:self.detailModel.list.file]];
+    }
 }
 
 

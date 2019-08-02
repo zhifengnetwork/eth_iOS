@@ -134,7 +134,8 @@
 
 - (void)interturnButtonDidClick
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(ETHTwoDoubleThrowTableCellDidClick:)])
+    if (self.delegate && [self.delegate respondsToSelector:@selector(ETHTwoDoubleThrowTableCellDidClick
+                                                          :)])
     {
         [self.delegate ETHTwoDoubleThrowTableCellDidClick:5];
     }

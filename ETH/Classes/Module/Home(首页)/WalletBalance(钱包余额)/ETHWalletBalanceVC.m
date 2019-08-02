@@ -319,6 +319,7 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
         ETHDoubleThrowVC* vc = [[ETHDoubleThrowVC alloc]init];
         vc.type = @"0";
         [self.navigationController pushViewController:vc animated:YES];
+       
     }
     else if (type==2)
     {
@@ -328,9 +329,13 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     }
 }
 
-//按钮被点击 1:一键复投 2:提现 3:C2C 4:棋牌娱乐 5:互转
+//按钮被点击 1:一键复投 2:提币3:C2C 4:棋牌娱乐 5:互转
+
 - (void)ETHTwoDoubleThrowTableCellDidClick:(int)type
 {
+   
+    
+    
     if (type==1)
     {
         //跳转到一键复投
@@ -340,6 +345,7 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     }
     else if (type==2)
     {
+        //跳转到提币
         ETHTransferAccountWMVC* vc = [[ETHTransferAccountWMVC alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
     }
@@ -358,8 +364,10 @@ static NSString *const ETHTwoDoubleThrowTableCellID = @"ETHTwoDoubleThrowTableCe
     }
     else if (type==5)
     {
+        //跳转到互转
         ETHTransferAccountVC* vc = [[ETHTransferAccountVC alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
+        
     }
 }
 @end

@@ -55,4 +55,6 @@
 //清空数据
 -(void)emptyList;
 
+//追加更多数据
+- (void)addMoreData:(BaseListModel*)model;
 @end

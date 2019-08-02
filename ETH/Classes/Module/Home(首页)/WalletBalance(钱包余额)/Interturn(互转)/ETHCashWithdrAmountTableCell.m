@@ -8,6 +8,7 @@
 
 #import "ETHCashWithdrAmountTableCell.h"
 #import "ETHTool.h"
+#import "ETHTransferAccountVC.h"
 
 @interface ETHCashWithdrAmountTableCell()<UITextFieldDelegate>
 
@@ -52,7 +53,7 @@
     [self.contentView addSubview:self.serviceLabel];
     [self.contentView addSubview:self.service2Label];
     [self.contentView addSubview:self.actualLabel];
-    
+ 
     [_bg1View mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(10);
         make.right.mas_equalTo(-10);
@@ -172,10 +173,13 @@
     NSString *toBeString = textField.text;
     if ([self.delegate respondsToSelector:@selector(ETHCashWithdrAmountTableCellInputing2: indexPath:)])
     {
-        [self.delegate ETHCashWithdrAmountTableCellInputing2:self.moneyTextField.text indexPath:self.indexPath];
+        [self.delegate ETHCashWithdrAmountTableCellInputing2:self.idTextField.text indexPath:self.indexPath];
     }
 }
-
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.contentView endEditing:YES];
+}
 -(UIView *)bg1View
 {
     if(_bg1View==nil)

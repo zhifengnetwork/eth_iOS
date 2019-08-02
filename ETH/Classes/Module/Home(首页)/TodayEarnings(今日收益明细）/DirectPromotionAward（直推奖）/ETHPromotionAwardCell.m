@@ -59,7 +59,7 @@
 -(void)setIncomeModel:(ETHIncomeModel *)incomeModel
 {
     _incomeModel = incomeModel;
-    _releaseTimeLabel.text = [NSString stringWithFormat:@"释放时间：%@",_incomeModel.createtime];
+    _releaseTimeLabel.text = [NSString stringWithFormat:@"发放时间：%@",_incomeModel.createtime];
     _bonusSourceLabel.text = [NSString stringWithFormat:@"奖金来源：%@",_incomeModel.nickname];
     _freeAccountLabel.text = [NSString stringWithFormat:@"自由账户奖金：%@",_incomeModel.money];
 

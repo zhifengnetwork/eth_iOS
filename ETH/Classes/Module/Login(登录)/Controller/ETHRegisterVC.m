@@ -607,7 +607,10 @@
         [SVProgressHUD showErrorWithStatus:error.domain];
     }];
 }
-
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
 -(void)sdData:(id)responseObject
 {
     if (self.type.intValue==0)

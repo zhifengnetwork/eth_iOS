@@ -10,10 +10,11 @@
 
 @interface ETHTransactionTableCell()
 
-@property (nonatomic, strong) UIView *bgView;
+@property (nonatomic, strong) UIView * bgView;
 @property (nonatomic, strong) UILabel* timeLabel;
 @property (nonatomic, strong) UILabel* numberLabel;
 @property (nonatomic, strong) UILabel* moneyLabel;
+//@property (nonatomic, strong) UILabel* tradTypeLabel;
 
 @end
 
@@ -37,12 +38,12 @@
     [self.contentView addSubview:self.timeLabel];
     [self.contentView addSubview:self.numberLabel];
     [self.contentView addSubview:self.moneyLabel];
-    
+//    [self.contentView addSubview:self.tradTypeLabel];
     [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(10);
         make.right.mas_equalTo(-10);
         make.top.mas_equalTo(0);
-        make.height.mas_equalTo(70);
+        make.height.mas_equalTo(85);
     }];
     
     [_timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -60,6 +61,12 @@
         make.top.equalTo(self->_numberLabel.mas_bottom).offset(5);
     }];
     
+//    [_tradTypeLabel mas_makeConstraints:^(MASConstraintMaker *make)
+//     {
+//         make.left.equalTo(self.bgView.mas_left).offset(10);
+//         make.top.equalTo(self.moneyLabel.mas_bottom).offset(5);
+//     }];
+    
 }
 
 -(void)setTeamModel:(ETHTeamModel *)teamModel
@@ -68,6 +75,11 @@
     _timeLabel.text = [NSString stringWithFormat:@"C2C交易时间：%@",_teamModel.createtime];
     _numberLabel.text = [NSString stringWithFormat:@"ETH数量：%@",_teamModel.title];
     _moneyLabel.text = [NSString stringWithFormat:@"交易金额：%@",_teamModel.RMB];
+//    if ([teamModel.typec2c isEqualToString:@"1"]) {
+//        _tradTypeLabel.text = [NSString stringWithFormat:@"类型：买入"];
+//    }else{
+//    _tradTypeLabel.text = [NSString stringWithFormat:@"类型：卖出"];
+//    }
 }
 
 -(UIView *)bgView
@@ -111,6 +123,15 @@
     }
     return _moneyLabel;
 }
-
+//-(UILabel *)tradTypeLabel
+//{
+//    if (_tradTypeLabel == nil) {
+//        _tradTypeLabel = [[UILabel alloc]init];
+//        _tradTypeLabel.textColor = RGBColorHex(0xffffff);
+//        _tradTypeLabel.font = [UIFont systemFontOfSize:12];
+//        _tradTypeLabel.text = @"类型：买入";
+//    }
+//    return _tradTypeLabel;
+//}
 
 @end

@@ -13,10 +13,11 @@
 #import "MJExtension.h"
 #import "RefreshGifHeader.h"
 #import "ETHTeamModel.h"
-
+#import <MJRefresh.h>
 @interface ETHTransactionVC ()
 
 @property (nonatomic , strong)ETHTeamListModel *listModel;
+@property (nonatomic,assign) NSUInteger pageNum;
 
 @end
 
@@ -28,7 +29,7 @@ static NSString *const ETHTransactionTableCellID = @"ETHTransactionTableCellID";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    self.pageNum = 1;
     self.title = @"C2C交易记录";
     [self setupTableView];
     
@@ -70,17 +71,27 @@ static NSString *const ETHTransactionTableCellID = @"ETHTransactionTableCellID";
     //自定义刷新动画
     ZWeakSelf
     self.tableView.mj_header = [RefreshGifHeader headerWithRefreshingBlock:^{
-        
-        [weakSelf loadData];
+        self.pageNum = 1;
+        [weakSelf loadData:self.pageNum];
     }];
     [self.tableView.mj_header beginRefreshing];
+    // 上拉刷新
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    // 设置footer
+    self.tableView.mj_footer = footer;
+    self.tableView.mj_footer.hidden = NO;
+
+    
+}
+- (void)loadMoreData {
+    [self loadData:self.pageNum];
     
 }
 
--(void)loadData
+-(void)loadData:(NSInteger)pageNum
 {
     ZWeakSelf
-    [http_index investment_record:1 type:self.type success:^(id responseObject)
+    [http_index investment_record:pageNum type:self.type success:^(id responseObject)
      {
          [self.tableView.mj_header endRefreshing];
          [weakSelf showData:responseObject];
@@ -99,7 +110,22 @@ static NSString *const ETHTransactionTableCellID = @"ETHTransactionTableCellID";
         return;
     }
     
-    self.listModel = [ETHTeamListModel mj_objectWithKeyValues:responseObject];
+//    self.listModel = [ETHTeamListModel mj_objectWithKeyValues:responseObject];
+    if (self.pageNum == 1) {
+        self.listModel = [ETHTeamListModel mj_objectWithKeyValues:responseObject];
+        self.tableView.mj_footer.hidden = self.listModel.list.count == 0;
+    } else {
+        ETHTeamListModel *moreListModel = [ETHTeamListModel mj_objectWithKeyValues:responseObject];
+        [self.listModel addModel:moreListModel];
+    }
+    
+    if (self.listModel.list.count != self.listModel.total) {
+        self.tableView.mj_footer.state = MJRefreshStateIdle;
+        self.pageNum += 1;
+        
+    }else {
+        [self.tableView.mj_footer endRefreshingWithNoMoreData] ;
+    }
     
     if (self.isViewLoaded && self.view.window)
     {
@@ -147,7 +173,7 @@ static NSString *const ETHTransactionTableCellID = @"ETHTransactionTableCellID";
 //每行的高度是多少
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 70;
+    return 85;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

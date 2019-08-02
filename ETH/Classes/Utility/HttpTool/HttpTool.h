@@ -42,7 +42,7 @@ typedef void (^ErrorData)(NSError *error);
 /**
  *  会话状态和响应状态判断
  *
- *  @param JSONData <#JSONData description#>
+ *  @param JSONData JSONData description
  *
  *  @return 1为登录成功，-1为更新accessToken过期，-2为其他设备登录，0为登录失败（请求结果,1为成功，0为失败）
  */
@@ -59,7 +59,7 @@ typedef void (^ErrorData)(NSError *error);
 
 /**
  Post请求
-
+ 
  @param strUrl <#strUrl description#>
  @param dicParameters <#dicParameters description#>
  @param ReqSuccess <#ReqSuccess description#>
@@ -80,6 +80,5 @@ typedef void (^ErrorData)(NSError *error);
  @param ReqFailure <#ReqFailure description#>
  */
 - (void)DeleteRequest:(NSString *)strUrl Parameters:(NSDictionary *)dicParameters success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure;
-
 
 @end

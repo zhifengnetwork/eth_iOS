@@ -22,6 +22,7 @@
 @property (nonatomic, strong) UILabel* serviceLabel;
 @property (nonatomic, strong) UILabel* service2Label;
 @property (nonatomic, strong) UILabel* actualLabel;
+@property (nonatomic, strong) UILabel* minMoneyLabel;
 
 @end
 
@@ -33,6 +34,7 @@
     if (self)
     {
         [self setup];
+        
         self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
@@ -51,7 +53,8 @@
     [self.contentView addSubview:self.serviceLabel];
     [self.contentView addSubview:self.service2Label];
     [self.contentView addSubview:self.actualLabel];
-    
+    [self.contentView addSubview:self.minMoneyLabel];
+    _moneyTextField.keyboardType = UIKeyboardTypeDecimalPad;
     [_bg1View mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(10);
         make.right.mas_equalTo(-10);
@@ -106,6 +109,12 @@
         make.top.equalTo(self->_service2Label.mas_bottom).offset(7);
         make.left.equalTo(self->_bg1View.mas_left).offset(10);
     }];
+    
+    [_minMoneyLabel mas_makeConstraints:^(MASConstraintMaker *make)
+     {
+         make.top.equalTo(self->_moneyTextField.mas_bottom).offset(7);
+         make.left.equalTo(self->_bg1View.mas_left).offset(10);
+     }];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFieldEditChanged:) name:@"UITextFieldTextDidChangeNotification" object:self.moneyTextField];
 }
@@ -238,7 +247,15 @@
     }
     return _moneyLabel;
 }
-
+-(UILabel *)minMoneyLabel{
+    if (_minMoneyLabel == nil) {
+        _minMoneyLabel = [[UILabel alloc]init];
+        _minMoneyLabel.textColor = [UIColor redColor];
+        _minMoneyLabel.font = [UIFont systemFontOfSize:10];
+        _minMoneyLabel.text = @"*最低提币金额:0.1";
+    }
+    return  _minMoneyLabel;
+}
 - (UITextField *)moneyTextField {
     if (_moneyTextField == nil) {
         _moneyTextField = [[UITextField alloc] init];

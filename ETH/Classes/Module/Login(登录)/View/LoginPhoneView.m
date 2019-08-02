@@ -216,7 +216,6 @@
     }
     return _passwordTextField;
 }
-
 - (UITextField *)vcodeTextField {
     if (_vcodeTextField == nil) {
         _vcodeTextField = [[UITextField alloc] init];
@@ -225,6 +224,7 @@
         _vcodeTextField.textColor = RGBColorHex(0x333333);
         _vcodeTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _vcodeTextField.keyboardType = UIKeyboardTypeASCIICapable;
+        
     }
     return _vcodeTextField;
 }

@@ -23,7 +23,6 @@ static NSString *const ETHDupAccountTableCellID = @"ETHDupAccountTableCellID";
     
     self.title = @"提现";
     [self setupTableView];
-    
 }
 
 - (void)didReceiveMemoryWarning {

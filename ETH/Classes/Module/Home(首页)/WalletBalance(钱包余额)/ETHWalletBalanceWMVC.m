@@ -35,7 +35,7 @@
     self.view.backgroundColor = RGBColorHex(0x080e2c);
     
     UISegmentedControl* segment = [[UISegmentedControl alloc]initWithFrame:CGRectMake(0, 10, LL_ScreenWidth, 30)];
-    //在索引值为0的位置上插入一个标题为red的按钮，第三个参数为是否开启动画
+    //在索引值为0的位置上插入一个标题为red的按钮，第三个参数为是否1
     if (_type == 1) {
        [segment insertSegmentWithTitle:@"钱包" atIndex:0 animated:YES];
        [segment insertSegmentWithTitle:@"提币记录" atIndex:1 animated:YES];

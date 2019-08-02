@@ -54,7 +54,7 @@
     
         [self.navigationController setNavigationBarHidden:YES animated:animated];
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-        //设置状态栏与到导航栏都是透明
+        //设置状态栏与导航栏都是透明
         self.navigationController.navigationBar.translucent = YES;
 }
 
@@ -105,6 +105,7 @@
         make.left.equalTo(self.view).offset(10);
         make.right.equalTo(self.view).offset(-10);
         make.height.mas_equalTo(40);
+        
     }];
     
     [_iconView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -145,11 +146,11 @@
         make.right.mas_equalTo(-10);
         make.top.equalTo(self->_loginButton.mas_bottom).offset(5);
     }];
-    
+
     
     
 #ifdef APP_TEST
-    [self.view addSubview:self.testButton];
+//    [self.view addSubview:self.testButton];
     [_testButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(50);
         make.right.mas_equalTo(-20);
@@ -157,7 +158,6 @@
 #else
     
 #endif
-    
 }
 
 //登录按钮被点击
@@ -202,6 +202,7 @@
          [weakSelf toLogin_ok:responseObject];
      } failure:^(NSError *error) {
          [SVProgressHUD showErrorWithStatus:error.domain];
+         
      }];
 }
 
@@ -244,6 +245,8 @@
         _phoneTextField.attributedPlaceholder = attrString;
         _phoneTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
+        
+        
     }
     return _phoneTextField;
 }
@@ -287,6 +290,7 @@
         _bg1View.layer.borderWidth = 1.0f;
         _bg1View.layer.borderColor = RGBColorHex(0xcdcdcd).CGColor;
         _bg1View.layer.cornerRadius = 3.0f;
+        
     }
     return _bg1View;
 }
@@ -349,6 +353,7 @@
         _passwordButton.titleLabel.font = [UIFont systemFontOfSize:10];
         [_passwordButton setTitleColor:RGBColorHex(0xdfe4eb) forState:UIControlStateNormal];
         [_passwordButton addTarget:self action:@selector(wmButtonDidClick) forControlEvents:UIControlEventTouchUpInside];
+       
     }
     return _passwordButton;
 }
@@ -359,8 +364,12 @@
         [_testButton setTitle:@"测试账号" forState:UIControlStateNormal];
         [_testButton setTitleColor:RGBColorHex(0xffffff) forState:UIControlStateNormal];
         [_testButton addTarget:self action:@selector(testButtonDidClick) forControlEvents:UIControlEventTouchUpInside];
+      
     }
     return _testButton;
 }
-
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
 @end

@@ -87,11 +87,21 @@
 -(void)setTeamModel:(ETHTeamModel *)teamModel
 {
     _teamModel = teamModel;
+    NSLog(@"teammodel%@",_teamModel);
     _timeLabel.text = [NSString stringWithFormat:@"提币时间：%@",_teamModel.createtime];
     _typeLabel.text = [NSString stringWithFormat:@"提币类型：%@",_teamModel.title];
     _moneyWithLabel.text = [NSString stringWithFormat:@"提币金额：%@个：",_teamModel.money];
     _actualAmountLabel.text = [NSString stringWithFormat:@"实到金额：%@个",_teamModel.realmoney];
     _serviceChargeLabel.text = [NSString stringWithFormat:@"手续费：%@个",_teamModel.charge];
+    if ([_teamModel.status isEqualToString:@"0"]) {
+        _stateLabel.text = @"提币状态：审核中";
+    }else if ([_teamModel.status isEqualToString:@"1"])
+    {
+        _stateLabel.text = @"提币状态：成功";
+    }else
+    {
+        _stateLabel.text = @"提币状态：失败";
+    }
 }
 
 -(UIView *)bgView

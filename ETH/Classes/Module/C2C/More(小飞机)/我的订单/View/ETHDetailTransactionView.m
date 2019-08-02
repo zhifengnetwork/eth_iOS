@@ -126,7 +126,7 @@
         _buyerID = [[UILabel alloc]init];
         _buyerID.font = [UIFont boldSystemFontOfSize:15];
         _buyerID.textColor = RGBColorHex(0x949bc3);
-        _buyerID.text = @"挂 卖 人 ：";
+        _buyerID.text = @"挂 买 人 ：";
     }
     return _buyerID;
 }
@@ -206,25 +206,6 @@
     _type_own = type_own;
     if (self.type_own == 1) {//查看订单的角色 1自己买入或者卖出的订单 2购买人买入或者卖出的订单
         if (self.type == 1) {
-            
-            if (self.status == 2) {//交易完成
-                _total.text = @"已 付 款  ：";
-            }else{
-                _total.text = @"待 付 款  ：";
-            }
-            
-        }else{
-            if (self.status == 2) {
-                _total.text = @"已 收 款  ：";
-            }else{
-                _total.text = @"待 收 款  ：";
-            }
-            
-        }
-        _buyerID.text = @"挂 买 人 ：";
-    }else{
-        //购买人买入或者卖出的订单
-        if (self.type == 1) {//买入
             _buyerID.text = @"挂 卖 人 ：";
             if (self.status == 2) {//交易完成
                 _total.text = @"已 付 款  ：";
@@ -234,6 +215,8 @@
             
         }else{
             
+            _buyerID.text = @"挂 买 人 ：";
+
             if (self.status == 2) {
                 _total.text = @"已 收 款  ：";
             }else{
@@ -241,18 +224,49 @@
             }
             
         }
-        //无论买入卖出都是挂买人
+        if([_buyerID.text isEqualToString:@"挂 卖 人 ："]){
+            _buyerIDLabel.text = [NSString stringWithFormat:@"%@",_model.mobile2];
+        }else{
+            _buyerIDLabel.text = [NSString stringWithFormat:@"%@",_model.mobile];
+        }
+    }else{
+        //购买人买入或者卖出的订单
+        if (self.type == 1) {//买入
+           _buyerID.text = @"挂 卖 人 ：";
+            if (self.status == 2) {//交易完成
+                _total.text = @"已 付 款  ：";
+            }else{
+                _total.text = @"待 付 款  ：";
+            }
+            
+        }else{
+          
+ _buyerID.text = @"挂 买 人 ：";
+            if (self.status == 2) {
+                _total.text = @"已 收 款  ：";
+            }else{
+                _total.text = @"待 收 款  ：";
+            }
+            
+        }
         
+        //无论买入卖出都是挂买人
+        if([_buyerID.text isEqualToString:@"挂 卖 人 ："]){
+            _buyerIDLabel.text = [NSString stringWithFormat:@"%@",_model.mobile];
+        }else{
+            _buyerIDLabel.text = [NSString stringWithFormat:@"%@",_model.mobile2];
+        }
     }
 }
 
 - (void)setModel:(ETHC2CModel *)model{
     _model = model;
     _orderIDLabel.text = [NSString stringWithFormat:@"%@",model.ID];
-    _buyerIDLabel.text = [NSString stringWithFormat:@"%@",model.mobile2];
+    _buyerIDLabel.text = [NSString stringWithFormat:@"%@",model.mobile];
     _unitPriceLabel.text = [NSString stringWithFormat:@"%@",model.price];
     _numberLabel.text = [NSString stringWithFormat:@"%@",model.trx];
     _totalLabel.text = [NSString stringWithFormat:@"%@",model.money];
+    //mobile131784  mobile2152794
 }
 
 @end

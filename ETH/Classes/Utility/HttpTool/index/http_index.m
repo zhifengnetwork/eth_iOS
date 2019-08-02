@@ -81,6 +81,7 @@
     NSString* strUrl = [http getMainUrl];
     strUrl = [strUrl stringByAppendingPathComponent:@"app/index.php"];
     [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
+    
 }
 
 //钱包转账

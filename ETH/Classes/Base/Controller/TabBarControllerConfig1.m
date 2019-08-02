@@ -48,7 +48,7 @@
                                                                           imageInsets:imageInsets
                                                               titlePositionAdjustment:titlePositionAdjustment];
         
-        // 拿到 TabBar 在拿到想应的item
+        // 拿到 TabBar 在拿到相应的item
         UITabBar *tabBar = _tabBarController.tabBar;
         //修改字体颜色
         tabBar.tintColor = [UIColor whiteColor];

@@ -55,6 +55,8 @@
     [self.bgView addSubview:self.confirmPassWordTF];
     [self.view addSubview:self.changeButton];
     [self.view addSubview:self.vcodeButton];
+    _freshPassWordTF.secureTextEntry = YES;
+    _confirmPassWordTF.secureTextEntry = YES;
     [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).with.offset(10);
         make.left.equalTo(self.view).with.offset(9);
@@ -294,7 +296,10 @@
         [SVProgressHUD showErrorWithStatus:error.domain];
     }];
 }
-
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
 -(void)sdData:(id)responseObject
 {
     [SVProgressHUD showSuccessWithStatus:@"修改密码成功"];

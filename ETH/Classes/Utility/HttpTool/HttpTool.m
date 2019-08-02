@@ -91,7 +91,7 @@ static int invalidtoken_code = 1005;
 /**
  *  设置请求超时时间
  *
- *  @param dTimeOut <#nTimeOut description#>
+ *  @param dTimeOut nTimeOut description
  */
 -(void)SetRequestTimeOut:(double)dTimeOut
 {
@@ -127,7 +127,7 @@ static int invalidtoken_code = 1005;
 /**
  *  会话状态和响应状态判断
  *
- *  @param JSONData <#JSONData description#>
+ *  @param JSONData JSONData description
  *
  *  @return 请求结果,0为成功，x为失败
  */
@@ -296,10 +296,10 @@ static int invalidtoken_code = 1005;
 /**
  Post请求
  
- @param strUrl <#strUrl description#>
- @param dicParameters <#dicParameters description#>
- @param ReqSuccess <#ReqSuccess description#>
- @param ReqFailure <#ReqFailure description#>
+ @param strUrl strUrl description
+ @param dicParameters dicParameters description
+ @param ReqSuccess ReqSuccess description
+ @param ReqFailure ReqFailure description
  */
 - (void)PostRequest:(NSString *)strUrl Parameters:(NSDictionary *)dicParameters success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure
 {
@@ -459,7 +459,6 @@ static int invalidtoken_code = 1005;
     [parameters setObject:@"ewei_shopv2" forKey:@"m"];
     [parameters setObject:@"mobile" forKey:@"do"];
     [parameters setObject:@"1" forKey:@"q"];
-    
     //设置请求头
     UserInfoModel* userInfo = [UserInfoModel readUserInfo];
     if (kStringIsEmpty(userInfo.userid)==NO)
@@ -468,6 +467,7 @@ static int invalidtoken_code = 1005;
 //        NSMutableDictionary* dic = [[NSMutableDictionary alloc]init];
 //        [dic setObject:userInfo.user_id forKey:@"userid"];
 //        [self setRequestHeader:dic];
+        
     }
     
     return parameters;
@@ -475,6 +475,7 @@ static int invalidtoken_code = 1005;
 
 
 //错误状态的处理
+
 -(void)ErrorStatus:(NSError *)error failure:(ErrorData)ReqFailure
 {
     NSError* err = nil;
@@ -516,9 +517,9 @@ static int invalidtoken_code = 1005;
 /**
  Delete请求
  
- @param strUrl <#strUrl description#>
- @param dicParameters <#dicParameters description#>
- @param ReqSuccess <#ReqSuccess description#>
+ @param strUrl strUrl description
+ @param dicParameters dicParameters description
+ @param ReqSuccess ReqSuccess description
  @param ReqFailure <#ReqFailure description#>
  */
 - (void)DeleteRequest:(NSString *)strUrl Parameters:(NSDictionary *)dicParameters success:(SuccessData)ReqSuccess failure:(ErrorData)ReqFailure

@@ -16,6 +16,7 @@
 @property (nonatomic, strong) UILabel* iphoneLabel;
 @property (nonatomic, strong) UILabel* timeLabel;
 @property (nonatomic, strong) UILabel* titleLabel;
+@property (nonatomic, strong) UILabel *phoneNumLbl;
 
 @end
 
@@ -41,12 +42,13 @@
     [self.contentView addSubview:self.iphoneLabel];
     [self.contentView addSubview:self.timeLabel];
     [self.contentView addSubview:self.titleLabel];
+    [self.contentView addSubview:self.phoneNumLbl];
     
     [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(10);
         make.right.mas_equalTo(-10);
-        make.top.mas_equalTo(0);
-        make.height.mas_equalTo(50);
+        make.top.equalTo(self.contentView.mas_top);
+        make.bottom.equalTo(self.contentView.mas_bottom);
     }];
     
     [_iconView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -74,6 +76,11 @@
         make.centerY.equalTo(self->_bgView);
     }];
     
+    [self.phoneNumLbl mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.timeLabel.mas_bottom).with.offset(7);
+        make.left.equalTo(self->_iconView.mas_right).offset(20);
+    }];
+    
     //下面横线
     UIView *hLineView = [[UIView alloc] init];
     hLineView.backgroundColor = RGBColorHex(0x232833);
@@ -93,13 +100,17 @@
 -(void)setTeamModel:(ETHTeamModel *)teamModel
 {
     _teamModel = teamModel;
-    _iphoneLabel.text = _teamModel.mobile;
+    _iphoneLabel.text = _teamModel.nickname;
     _timeLabel.text = _teamModel.createtime;
     if (teamModel.type == 1) {
         _titleLabel.text = @"直推";
     }else{
         _titleLabel.text = @"团队";
     }
+    self.phoneNumLbl.hidden = !teamModel.isChoice;
+    
+    self.phoneNumLbl.text = [NSString stringWithFormat:@"电话：%@",teamModel.mobile];
+    
 }
 
 
@@ -162,4 +173,13 @@
     return _titleLabel;
 }
 
+- (UILabel *)phoneNumLbl {
+    if (!_phoneNumLbl) {
+        _phoneNumLbl = [UILabel new];
+        _phoneNumLbl.textColor = RGBColorHex(0x696969);
+        _phoneNumLbl.font = [UIFont systemFontOfSize:12];
+        _phoneNumLbl.hidden = YES;
+    }
+    return _phoneNumLbl;
+}
 @end

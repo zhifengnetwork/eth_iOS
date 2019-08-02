@@ -129,11 +129,15 @@ static NSString *const ETHPromotionAwardCellID = @"ETHPromotionAwardCellID";
         _titleLabel = [[UILabel alloc]init];
         _titleLabel.font = [UIFont systemFontOfSize:17];
         _titleLabel.textColor = [UIColor whiteColor];
-        _titleLabel.text = @"直推奖总额：2";
+        _titleLabel.text = @"直推奖总额：";
     }return _titleLabel;
 }
 #pragma mark -- 协议
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return self.listModel.list.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -17,16 +17,19 @@
 #import "ETHTZModel.h"
 #import "UserInfoModel.h"
 #import "http_wallet.h"
+#import "ETHMoneyTransferVC.h"
 
 @interface ETHTransferAccountVC ()<ETHCashWithdrAmountTableCellDelegate>
 
 @property (nonatomic, strong) ETHTZDataModel *tz;
+
 
 @property (nonatomic, strong) NSString *tx;
 @property (nonatomic, strong) NSString *sxf;
 @property (nonatomic, strong) NSString *zh;
 
 @property (nonatomic , strong)UserInfoModel *userInfo;
+
 
 @end
 
@@ -109,6 +112,7 @@ static NSString *const ETHTransferTipsTableCellID = @"ETHTransferTipsTableCellID
         ETHCashWithdrAmountTableCell* ocell = [tableView dequeueReusableCellWithIdentifier:ETHCashWithdrAmountTableCellID];
         ocell = [[ ETHCashWithdrAmountTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier: ETHCashWithdrAmountTableCellID];
         ocell.credit = self.userInfo.member.credit2;
+        
         ocell.delegate = self;
         cell = ocell;
     }
@@ -178,15 +182,22 @@ static NSString *const ETHTransferTipsTableCellID = @"ETHTransferTipsTableCellID
     else if (indexPath.section==2)
     {
         [self loadData];
+       
     }
 }
-
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
 
 -(void)loadData
 {
     ZWeakSelf
      [http_index zhuangzhangis:self.tx moneysxf:nil ID:self.zh success:^(id responseObject) {
          [weakSelf showData:responseObject];
+//         ETHMoneyTransferVC *MoneyTransfer = [[ETHMoneyTransferVC alloc]init];
+//         [self.navigationController pushViewController:MoneyTransfer animated:YES];
+         [self.navigationController popViewControllerAnimated:NO];
      } failure:^(NSError *error)
      {
          [SVProgressHUD showErrorWithStatus:error.domain];
@@ -195,7 +206,11 @@ static NSString *const ETHTransferTipsTableCellID = @"ETHTransferTipsTableCellID
 
 -(void)showData:(id)responseObject
 {
+
     [SVProgressHUD showSuccessWithStatus:@"转账成功"];
+
+    
+    
 }
 
 
@@ -203,13 +218,13 @@ static NSString *const ETHTransferTipsTableCellID = @"ETHTransferTipsTableCellID
 -(void)ETHCashWithdrAmountTableCellInputing:(NSString*)text indexPath:(NSIndexPath*)indexPath
 {
     self.tx = text;
-    NSLog(@"%@",text);
+    NSLog(@"tx%@",text);
 }
 
 -(void)ETHCashWithdrAmountTableCellInputing2:(NSString*)text indexPath:(NSIndexPath*)indexPath
 {
     self.zh = text;
-    NSLog(@"%@",text);
+    NSLog(@"zh%@",text);
 }
 
 

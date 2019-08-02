@@ -30,6 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setup];
+    self.view.backgroundColor = RGBColorHex(0x3c3f51);
 }
 
 - (void)setup{

@@ -118,13 +118,13 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     if (indexPath.section==0)
     {
         scell.title = @"当前投资额：";
-        scell.name = self.tz.list.credit1;
+        scell.name = [NSString stringWithFormat:@"%.3f",self.tz.list.credit1.floatValue];
         scell.isInput = NO;
         cell = scell;
     }
     else if (indexPath.section==1)
     {
-        scell.title = @"激活投资：";
+        scell.title = @"追加投资：";
         scell.isInput = YES;
         cell = scell;
     }
@@ -138,7 +138,7 @@ static NSString *const ETHPaymentTableCellID = @"ETHPaymentTableCellID";
     else if (indexPath.section==3)
     {
         scell.title = @"当前最多可投资：";
-        scell.name = [NSString stringWithFormat:@"%f",self.tz.list.bibi.floatValue - self.tz.list.credit1.floatValue];
+        scell.name = [NSString stringWithFormat:@"%.3f",self.tz.list.bibi.floatValue - self.tz.list.credit1.floatValue];
         scell.isInput = NO;
         cell = scell;
     }

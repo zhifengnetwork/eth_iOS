@@ -32,6 +32,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy)NSString * shouxufei;
 @property (nonatomic, copy)NSString* after_money;
 @property (nonatomic, assign)NSInteger type;
+@property (nonatomic,copy) NSString *status;
+@property (nonatomic,copy) NSString *typec2c;
+
+@property (nonatomic, assign) BOOL isChoice;
+
 @end
 
 @interface ETHTeamListModel : BaseListModel

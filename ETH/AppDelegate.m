@@ -139,6 +139,7 @@
     if (self.userInfo.member.type == 2||self.userInfo.member.suoding ==1) {
         TabBarControllerConfig1 *tabBarControllerConfig1 = [[TabBarControllerConfig1 alloc] init];
         BaseTabBarController *tabBarController = tabBarControllerConfig1.tabBarController;
+        
         [self.window setRootViewController:tabBarController];
     }else{
         TabBarControllerConfig *tabBarControllerConfig = [[TabBarControllerConfig alloc] init];

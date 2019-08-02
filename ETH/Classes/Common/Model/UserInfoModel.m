@@ -103,6 +103,7 @@ MJCodingImplementation
 {
     // 归档
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:kUserInfo];
+    NSLog(@"userinfo%@",kUserInfo);
 }
 
 

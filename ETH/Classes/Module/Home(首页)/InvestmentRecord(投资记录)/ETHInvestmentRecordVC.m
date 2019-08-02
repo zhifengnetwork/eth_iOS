@@ -13,10 +13,11 @@
 #import "MJExtension.h"
 #import "RefreshGifHeader.h"
 #import "ETHTeamModel.h"
-
+#import <MJRefresh.h>
 @interface ETHInvestmentRecordVC ()
 
 @property (nonatomic , strong)ETHTeamListModel *listModel;
+@property (nonatomic,assign)NSInteger pageNum;
 
 @end
 
@@ -27,7 +28,7 @@ static NSString *const ETHInvestmentRecordTableCellID = @"ETHInvestmentRecordTab
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.pageNum = 1;
     self.title = @"投资记录";
     [self setupTableView];
 }
@@ -63,17 +64,24 @@ static NSString *const ETHInvestmentRecordTableCellID = @"ETHInvestmentRecordTab
     //自定义刷新动画
     ZWeakSelf
     self.tableView.mj_header = [RefreshGifHeader headerWithRefreshingBlock:^{
-        
-        [weakSelf loadData];
+        self.pageNum = 1;
+        [weakSelf loadData:self.pageNum];
     }];
     [self.tableView.mj_header beginRefreshing];
-    
+    // 上拉刷新
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    // 设置footer
+    self.tableView.mj_footer = footer;
+    self.tableView.mj_footer.hidden = YES;
 }
-
--(void)loadData
+-(void)loadMoreData
+{
+    [self loadData:self.pageNum];
+}
+-(void)loadData:(NSInteger)pageNum
 {
     ZWeakSelf
-    [http_index investment_record:1 type:self.type success:^(id responseObject)
+    [http_index investment_record:pageNum type:self.type success:^(id responseObject)
     {
         [self.tableView.mj_header endRefreshing];
         [weakSelf showData:responseObject];
@@ -92,10 +100,33 @@ static NSString *const ETHInvestmentRecordTableCellID = @"ETHInvestmentRecordTab
         return;
     }
     
-    self.listModel = [ETHTeamListModel mj_objectWithKeyValues:responseObject];
     
-    [self.tableView reloadData];
-}
+//    self.listModel = [ETHTeamListModel mj_objectWithKeyValues:responseObject];
+    if (self.pageNum == 1) {
+        self.listModel = [ETHTeamListModel mj_objectWithKeyValues:responseObject];
+        self.tableView.mj_footer.hidden = self.listModel.list.count == 0;
+    } else {
+        ETHTeamListModel *moreListModel = [ETHTeamListModel mj_objectWithKeyValues:responseObject];
+        [self.listModel addModel:moreListModel];
+    }
+    if ([responseObject isKindOfClass:[NSDictionary class]]) {
+        NSArray *dataArray = responseObject[@"list"];
+        if (dataArray.count == 10) {
+            self.tableView.mj_footer.state = MJRefreshStateIdle;
+            self.pageNum += 1;
+        }else {
+            [self.tableView.mj_footer endRefreshingWithNoMoreData] ;
+            
+        }
+    }
+   
+    
+    
+    if (self.isViewLoaded && self.view.window)
+    {
+        // viewController is visible
+        [self.tableView reloadData];
+    }}
 
 //子类重写这个方法显示不同的空白图片
 - (UIImage *)imageForEmptyDataSet
@@ -106,6 +137,7 @@ static NSString *const ETHInvestmentRecordTableCellID = @"ETHInvestmentRecordTab
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    NSLog(@"count%lu",self.listModel.list.count);
     return self.listModel.list.count;
 }
 
@@ -119,7 +151,10 @@ static NSString *const ETHInvestmentRecordTableCellID = @"ETHInvestmentRecordTab
     UITableViewCell *cell = nil;
     
     ETHInvestmentRecordTableCell* scell = [tableView dequeueReusableCellWithIdentifier:ETHInvestmentRecordTableCellID];
+    if (scell ==nil) {
+    
     scell = [[ETHInvestmentRecordTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHInvestmentRecordTableCellID];
+    }
     ETHTeamModel *teamModel = [self.listModel.list objectAtIndex:indexPath.section];
     scell.teamModel = teamModel;
     

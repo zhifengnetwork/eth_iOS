@@ -17,6 +17,8 @@
 @interface ETHAllRecordVC ()
 
 @property (nonatomic , strong)ETHTeamListModel *listModel;
+@property (nonatomic,strong)BaseListModel *baseListModel;
+@property (nonatomic,assign)NSInteger pageNum;
 @end
 
 @implementation ETHAllRecordVC
@@ -25,7 +27,7 @@ static NSString * const ETHAllRecordCellID = @"ETHAllRecordCellID";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.pageNum = 1;
     self.title = @"总记录";
     [self setupTableView];
 }
@@ -37,6 +39,7 @@ static NSString * const ETHAllRecordCellID = @"ETHAllRecordCellID";
     self.tableView.estimatedRowHeight = 0;
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.backgroundColor = RGBTableViewBGColor;
     self.tableView.tableFooterView = [UIView new];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -47,19 +50,26 @@ static NSString * const ETHAllRecordCellID = @"ETHAllRecordCellID";
     //自定义刷新动画
     ZWeakSelf
     self.tableView.mj_header = [RefreshGifHeader headerWithRefreshingBlock:^{
-        
-        [weakSelf loadData];
+        self.pageNum = 1;
+        [weakSelf loadData:self.pageNum];
     }];
     [self.tableView.mj_header beginRefreshing];
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    self.tableView.mj_footer = footer;
+    self.tableView.mj_footer.hidden = YES;
     
 }
-
--(void)loadData
+-(void)loadMoreData
+{
+    [self loadData:self.pageNum];
+}
+-(void)loadData:(NSInteger)pageNum
 {
     ZWeakSelf
-    [http_wallet money_log:6 page:1 success:^(id responseObject)
+    [http_wallet money_log:6 page:pageNum success:^(id responseObject)
      {
          [self.tableView.mj_header endRefreshing];
+         
          [weakSelf showData:responseObject];
      } failure:^(NSError *error) {
          [self.tableView.mj_header endRefreshing];
@@ -75,8 +85,18 @@ static NSString * const ETHAllRecordCellID = @"ETHAllRecordCellID";
     {
         return;
     }
-    
+    if (self.pageNum == 1) {
     self.listModel = [ETHTeamListModel mj_objectWithKeyValues:responseObject];
+        self.tableView.mj_footer.hidden = self.listModel.list.count ==0;
+    }else
+    {
+        ETHTeamListModel *moreListModel = [ETHTeamListModel mj_objectWithKeyValues:responseObject];
+        [self.listModel addModel:moreListModel];
+    }
+    if (self.listModel.list.count != self.listModel.total) {
+        self.tableView.mj_footer.state = MJRefreshStateIdle;
+        self.pageNum+=1;
+    }
     
     if (self.isViewLoaded && self.view.window)
     {
@@ -104,33 +124,49 @@ static NSString * const ETHAllRecordCellID = @"ETHAllRecordCellID";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ETHAllRecordCell *cell = [tableView dequeueReusableCellWithIdentifier:ETHAllRecordCellID forIndexPath:indexPath];
-    cell.teamModel = [self.listModel.list objectAtIndex:indexPath.section];
+//    ETHAllRecordCell *cell = [tableView dequeueReusableCellWithIdentifier:ETHAllRecordCellID forIndexPath:indexPath];
+//    cell.teamModel = [self.listModel.list objectAtIndex:indexPath.section];
     
     
-//    ETHRecordWithableCell* scell = [tableView dequeueReusableCellWithIdentifier:ETHRecordWithableCellID];
-//    if (scell == nil)
-//    {
-//        scell = [[ETHRecordWithableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHRecordWithableCellID];
-//    }
-//    ETHTeamModel *teamModel = [self.listModel.list objectAtIndex:indexPath.section];
-//    scell.teamModel = teamModel;
-//    
+    ETHAllRecordCell* scell = [tableView dequeueReusableCellWithIdentifier:ETHAllRecordCellID];
+    if (scell == nil)
+    {
+        scell = [[ETHAllRecordCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ETHAllRecordCellID];
+    }
+    ETHTeamModel *teamModel = [self.listModel.list objectAtIndex:indexPath.section];
+    scell.teamModel = teamModel;
+    
 //    cell = scell;
     
-    return cell;
+    return scell;
 }
 
 
-//每行的高度是多少
+//每行的高度是多少做两个判断如果是
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 110;
+//   ETHAllRecordCell *cell=[tableView cellForRowAtIndexPath:indexPath];
+    ETHTeamModel *teamModel = [self.listModel.list objectAtIndex:indexPath.section];
+
+    if ([teamModel.title isEqualToString:@"转币"]||[teamModel.title isEqualToString:@"ETH提现余额"]||[teamModel.title isEqualToString:@"ETH提币余额"]) {
+        return 140;
+    }else{
+        return 110;
+    }
+    
+//    if (_teamModel.type ==3) {
+//        return 120;
+//    }else{
+//        return 120;
+//
+//    return cell.frame.size.height;
+
+//    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 10;
+    return 5;
 }
 
 

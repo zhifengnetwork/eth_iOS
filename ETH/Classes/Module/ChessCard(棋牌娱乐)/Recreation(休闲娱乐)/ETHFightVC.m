@@ -215,8 +215,11 @@ static NSString *const ETHRecreationCollectionCellID = @"ETHRecreationCollection
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    [SVProgressHUD showErrorWithStatus:@"敬请期待"];
-            //            ETHInvestmentRecordVC* vc = [[ETHInvestmentRecordVC alloc]init];
+   
+        [SVProgressHUD showErrorWithStatus:@"敬请期待"];
+    
+
+    //            ETHInvestmentRecordVC* vc = [[ETHInvestmentRecordVC alloc]init];
             //            [self.navigationController pushViewController:vc animated:YES];
     
         //        else if (indexPath.row==3)
@@ -234,7 +237,8 @@ static NSString *const ETHRecreationCollectionCellID = @"ETHRecreationCollection
         //            ETHSubordinateVC* vc = [[ETHSubordinateVC alloc]init];
         //            [self.navigationController pushViewController:vc animated:YES];
         //        }
-    
+
+  
 }
 
 -(void)updateTimeInVisibleCells

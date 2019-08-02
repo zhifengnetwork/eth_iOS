@@ -236,7 +236,7 @@
     }
     return _leftButton;
 }
-
+//懒加载
 - (UIView *)view1{
     if (_view1 == nil) {
         _view1 = [[UIView alloc]init];
@@ -421,14 +421,18 @@
 
 - (void)setDetailModel:(ETHC2CModel *)detailModel{
     _detailModel = detailModel;
-    _problemLabel.text = [NSString stringWithFormat:@"%@",detailModel.ID];
-    _reasonLabel.text = [NSString stringWithFormat:@"%@",detailModel.text];
-    _orderLabel.text = [NSString stringWithFormat:@"%@",detailModel.textarea];
+    _problemLabel.text = [NSString stringWithFormat:@"%@",detailModel.text];
+    _reasonLabel.text = [NSString stringWithFormat:@"%@",detailModel.textarea];
+    _orderLabel.text = [NSString stringWithFormat:@"%@",detailModel.order_id];
 
-    _complainantLabel.text = [NSString stringWithFormat:@"%@",detailModel.openid];
+    //申请人
+    _complainantLabel.text = [NSString stringWithFormat:@"%@",detailModel.mobile];
+    //被申请人
     _respondentLabel.text = [NSString stringWithFormat:@"%@",detailModel.openid2];
+    
     _ethAcountLabel.text = [NSString stringWithFormat:@"%@",detailModel.trx];
     _cnyAcountLabel.text = [NSString stringWithFormat:@"%@",detailModel.money];
+    
     if (detailModel.stuas.intValue == 0) {//申诉状态 0申诉中1申诉成功2申诉失败3申诉无效
         _statusLabel.text = @"申诉中";
     }else if (detailModel.stuas.intValue == 1){
@@ -441,7 +445,9 @@
     if ([detailModel.file isEqualToString:@""]) {
         _emptyLabel.hidden = NO;
     }else{
+        
         _emptyLabel.hidden = YES;
+        
         [_imageView sd_setImageWithURL:[NSURL URLWithString:detailModel.file]];
     }
     

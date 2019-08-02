@@ -47,6 +47,7 @@
         make.height.mas_equalTo(30);
     }];
     
+    
     [_iconView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self->_bgView.mas_left).offset(10);
         make.centerY.equalTo(self->_bgView);
@@ -61,6 +62,7 @@
         make.left.equalTo(self->_noticeLabel.mas_right).offset(10);
         make.top.mas_equalTo(10);
         make.bottom.right.equalTo(self);
+        
     }];
     
 }
@@ -90,35 +92,59 @@
     content.textColor = [UIColor whiteColor];
     content.tag = 1001;
     [itemView addSubview:content];
+    
 }
 
 - (void)updateItemView:(UIView*)itemView atIndex:(NSUInteger)index forMarqueeView:(UUMarqueeView*)marqueeView {
     // 设定即将显示的条目内容，在每次marquee view滑动时被调用。
     // 'index'即为数据源数组的索引值。
+    //崩溃
     UILabel *content = [itemView viewWithTag:1001];
     ETHNoticeModel* model = [self.notices objectAtIndex:index];
+//    //放到子线程执行，转换完后返回到主线程刷新UI
+//    dispatch_async(dispatch_queue_create(0, 0), ^{
+//        NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc]initWithData:[model.detail dataUsingEncoding:NSUnicodeStringEncoding] options:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType} documentAttributes:nil error:nil];
+//        [attStr addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, attStr.length)];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            content.attributedText = attStr;
+//        });
+//    });
+    
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithData:[model.detail dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
     [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, attrStr.length)];
     content.attributedText = attrStr;
-    //    content.text = model.detail;
+        content.text = model.detail;
 }
 
 - (CGFloat)itemViewWidthAtIndex:(NSUInteger)index forMarqueeView:(UUMarqueeView*)marqueeView {
     // 指定条目在显示数据源内容时的视图宽度，仅[UUMarqueeViewDirectionLeftward]时被调用。
     // ### 在数据源不变的情况下，宽度可以仅计算一次并缓存复用。
+    //崩溃
     ETHNoticeModel* model = [self.notices objectAtIndex:index];
     UILabel *content = [[UILabel alloc] init];
     content.font = [UIFont systemFontOfSize:12.0f];
+//    //该操作放在子线程里执行，转换完成后在返回到主线程刷新UI
+//    dispatch_async(dispatch_queue_create(0, 0), ^{
+//        NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithData:[model.detail dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
+//        [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, attrStr.length)];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            content.attributedText = attrStr;
+//        });
+//
+//    });
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithData:[model.detail dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
     [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, attrStr.length)];
+
     content.attributedText = attrStr;
-//    content.text = model.detail;
+    content.text = model.detail;
     return content.intrinsicContentSize.width;
 }
 
 - (void)didTouchItemViewAtIndex:(NSUInteger)index forMarqueeView:(UUMarqueeView*)marqueeView {
     // 点击事件回调。在'touchEnabled'设置为YES后，触发点击事件时被调用。
+    
     NSLog(@"Touch at index %lu", (unsigned long)index);
+    
 }
 
 

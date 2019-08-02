@@ -100,6 +100,7 @@
     NSString* strUrl = [http getMainUrl];
     strUrl = [strUrl stringByAppendingPathComponent:@"app/index.php"];
     [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
+    
 }
 //激活账户-投资购买
 //追加投资接口
@@ -134,6 +135,7 @@
     NSString* strUrl = [http getMainUrl];
     strUrl = [strUrl stringByAppendingPathComponent:@"app/index.php"];
     [http PostRequest:strUrl Parameters:dic success:ReqSuccess failure:ReqFailure];
+
 }
 
 /**

@@ -252,6 +252,7 @@
 		18C6853F227050690043715A /* DZNEmptyDataSetCVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DZNEmptyDataSetCVC.h; sourceTree = "<group>"; };
 		18C68540227050690043715A /* DZNEmptyDataSetTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DZNEmptyDataSetTVC.h; sourceTree = "<group>"; };
 		2EDE2D58FDAFBCF381BE5349 /* Pods-ETH.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ETH.release.xcconfig"; path = "Target Support Files/Pods-ETH/Pods-ETH.release.xcconfig"; sourceTree = "<group>"; };
+		2F4C9E4D22C0AEBE00C7BFA4 /* ETH.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ETH.entitlements; sourceTree = "<group>"; };
 		41123C8E38CE8E3D52F82771 /* Pods-ETHUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ETHUITests.release.xcconfig"; path = "Target Support Files/Pods-ETHUITests/Pods-ETHUITests.release.xcconfig"; sourceTree = "<group>"; };
 		42CF981EC7976CAFA4C5A0E8 /* libPods-ETHUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ETHUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		44F2DF4E3D8F7BC3C2DC6DA4 /* libPods-ETH.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ETH.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -442,7 +443,7 @@
 		842E81F92254562E00CC5188 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		842E81FF2254562E00CC5188 /* ETHTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ETHTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		842E82032254562E00CC5188 /* ETHTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHTests.m; sourceTree = "<group>"; };
-		842E82052254562E00CC5188 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		842E82052254562E00CC5188 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../ETHTests/Info.plist; sourceTree = "<group>"; };
 		842E820A2254562E00CC5188 /* ETHUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ETHUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		842E820E2254562E00CC5188 /* ETHUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ETHUITests.m; sourceTree = "<group>"; };
 		842E82102254562E00CC5188 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1103,11 +1104,12 @@
 		842E81E92254562C00CC5188 /* ETH */ = {
 			isa = PBXGroup;
 			children = (
+				2F4C9E4D22C0AEBE00C7BFA4 /* ETH.entitlements */,
 				842E821E225458D500CC5188 /* Classes */,
 				842E81EA2254562C00CC5188 /* AppDelegate.h */,
 				842E81EB2254562C00CC5188 /* AppDelegate.m */,
-				842E81ED2254562C00CC5188 /* ViewController.h */,
 				842E81EE2254562C00CC5188 /* ViewController.m */,
+				842E81ED2254562C00CC5188 /* ViewController.h */,
 				842E81F02254562C00CC5188 /* Main.storyboard */,
 				842E81F32254562E00CC5188 /* Assets.xcassets */,
 				842E81F52254562E00CC5188 /* LaunchScreen.storyboard */,
@@ -1122,7 +1124,6 @@
 			isa = PBXGroup;
 			children = (
 				842E82032254562E00CC5188 /* ETHTests.m */,
-				842E82052254562E00CC5188 /* Info.plist */,
 			);
 			path = ETHTests;
 			sourceTree = "<group>";
@@ -1130,6 +1131,7 @@
 		842E820D2254562E00CC5188 /* ETHUITests */ = {
 			isa = PBXGroup;
 			children = (
+				842E82052254562E00CC5188 /* Info.plist */,
 				842E820E2254562E00CC5188 /* ETHUITests.m */,
 				842E82102254562E00CC5188 /* Info.plist */,
 			);
@@ -1779,6 +1781,11 @@
 				TargetAttributes = {
 					842E81E62254562C00CC5188 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 					842E81FE2254562E00CC5188 = {
 						CreatedOnToolsVersion = 10.1;
@@ -2278,7 +2285,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QYVGXM58W4;
+				DEVELOPMENT_TEAM = W6F742WGQV;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ETH/PrefixHeader.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -2362,7 +2369,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QYVGXM58W4;
+				DEVELOPMENT_TEAM = W6F742WGQV;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ETH/PrefixHeader.pch";
 				INFOPLIST_FILE = ETH/Info.plist;
@@ -2441,7 +2448,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5NV395828N;
+				DEVELOPMENT_TEAM = W6F742WGQV;
 				INFOPLIST_FILE = ETHTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2461,7 +2468,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5NV395828N;
+				DEVELOPMENT_TEAM = W6F742WGQV;
 				INFOPLIST_FILE = ETHTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2480,7 +2487,7 @@
 			baseConfigurationReference = DAC1BDA2ACB94A9572322151 /* Pods-ETHUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5NV395828N;
+				DEVELOPMENT_TEAM = W6F742WGQV;
 				INFOPLIST_FILE = ETHUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2499,7 +2506,7 @@
 			baseConfigurationReference = 41123C8E38CE8E3D52F82771 /* Pods-ETHUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5NV395828N;
+				DEVELOPMENT_TEAM = W6F742WGQV;
 				INFOPLIST_FILE = ETHUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

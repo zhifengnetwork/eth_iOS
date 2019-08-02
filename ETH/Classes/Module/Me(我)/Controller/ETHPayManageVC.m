@@ -309,7 +309,7 @@
 - (void)handleSingleTap:(UITouch *)touch
 {
     TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:1 delegate:self];
-    
+    imagePickerVc.allowPickingVideo = NO;
     // You can get the photos by block, the same as by delegate.
     // 你可以通过block或者代理，来得到用户选择的照片.
     ZWeakSelf
@@ -353,6 +353,7 @@
 - (void)handleSingleTap1:(UITouch *)touch
 {
     TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:1 delegate:self];
+    imagePickerVc.allowPickingVideo = NO;
     
     // You can get the photos by block, the same as by delegate.
     // 你可以通过block或者代理，来得到用户选择的照片.
@@ -451,7 +452,10 @@
          [SVProgressHUD showErrorWithStatus:error.domain];
      }];
 }
-
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
 -(void)showData:(id)responseObject
 {
     if (responseObject==nil)

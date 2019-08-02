@@ -116,6 +116,7 @@
 #define ZWeakSelf __weak typeof(self) weakSelf = self;
 #define ZStrongSelf __strong __typeof(self) strongSelf = weakSelf;
 
+
 //弱引用/强引用
 #define kWeakSelf(type)   __weak typeof(type) weak##type = type;
 #define kStrongSelf(type) __strong typeof(type) strongSelf = type;

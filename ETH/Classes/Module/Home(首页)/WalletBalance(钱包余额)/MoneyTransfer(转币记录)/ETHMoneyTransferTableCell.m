@@ -73,10 +73,11 @@
 -(void)setTeamModel:(ETHTeamModel *)teamModel
 {
     _teamModel = teamModel;
-    _timeLabel.text = [NSString stringWithFormat:@"转账时间：%@",_teamModel.createtime];
-    _peopleLabel.text = [NSString stringWithFormat:@"收款人：%@",_teamModel.nickname];
-    _moneyLabel.text = [NSString stringWithFormat:@"收款金额：%@个",_teamModel.money2];
-    _serviceLabel.text = [NSString stringWithFormat:@"收款手续费：%@个",_teamModel.money];
+    _timeLabel.text = [NSString stringWithFormat:@"转币时间：%@",_teamModel.createtime];
+    _peopleLabel.text = [NSString stringWithFormat:@"得币人：%@",_teamModel.nickname];
+    _moneyLabel.text = [NSString stringWithFormat:@"得币数：%@个",_teamModel.money];
+    _serviceLabel.text = [NSString stringWithFormat:@"手续费：%@个",_teamModel.money2];
+    
 }
 
 -(UIView *)bgView

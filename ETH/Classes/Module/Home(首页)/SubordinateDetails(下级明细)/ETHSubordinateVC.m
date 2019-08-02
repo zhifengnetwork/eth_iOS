@@ -16,12 +16,10 @@
 #import "ETHTeamModel.h"
 #import "ETHTool.h"
 
-
-
 @interface ETHSubordinateVC ()
 
 @property (nonatomic , strong)ETHTeamListModel *listModel;
-
+@property (nonatomic,assign)NSInteger pageNum;
 @end
 
 @implementation ETHSubordinateVC
@@ -32,7 +30,7 @@ static NSString *const ETHSubordinateTableCellID = @"ETHSubordinateTableCellID";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.pageNum = 1;
     self.title = @"下级明细";
     [self setupTableView];
     
@@ -76,17 +74,25 @@ static NSString *const ETHSubordinateTableCellID = @"ETHSubordinateTableCellID";
     //自定义刷新动画
     ZWeakSelf
     self.tableView.mj_header = [RefreshGifHeader headerWithRefreshingBlock:^{
-        
-        [weakSelf loadData];
+        self.pageNum = 1;
+        [weakSelf loadData:self.pageNum];
     }];
     [self.tableView.mj_header beginRefreshing];
+    // 上拉刷新
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+    // 设置footer
+    self.tableView.mj_footer = footer;
+    self.tableView.mj_footer.hidden = YES;
+}
+-(void)loadMoreData
+{
+    [self loadData:self.pageNum];
 }
 
-
--(void)loadData
+-(void)loadData:(NSInteger)pageNum
 {
     ZWeakSelf
-    [http_index xiaji_get_list:1 success:^(id responseObject)
+    [http_index xiaji_get_list:self.pageNum success:^(id responseObject)
      {
          [self.tableView.mj_header endRefreshing];
          [weakSelf showData:responseObject];
@@ -112,8 +118,15 @@ static NSString *const ETHSubordinateTableCellID = @"ETHSubordinateTableCellID";
     {
         return;
     }
-    
-    self.listModel = [ETHTeamListModel mj_objectWithKeyValues:responseObject];
+    NSLog(@"%ld",self.listModel.list.count);
+//    self.listModel = [ETHTeamListModel mj_objectWithKeyValues:responseObject];
+    if (self.pageNum == 1) {
+        self.listModel = [ETHTeamListModel mj_objectWithKeyValues:responseObject];
+        self.tableView.mj_footer.hidden = self.listModel.list.count == 0;
+    }else {
+        ETHTeamListModel *moreListModel = [ETHTeamListModel mj_objectWithKeyValues:responseObject];
+        [self.listModel addModel:moreListModel];
+    }
     
     NSMutableArray *zhiArray = [NSMutableArray new];
     NSMutableArray *tuanArray = [NSMutableArray new];
@@ -157,6 +170,17 @@ static NSString *const ETHSubordinateTableCellID = @"ETHSubordinateTableCellID";
         }
     }
     
+    if ([responseObject isKindOfClass:[NSDictionary class]]) {
+        NSArray *dataArray = responseObject[@"list"];
+        if (dataArray.count == 10) {
+            self.tableView.mj_footer.state = MJRefreshStateIdle;
+            self.pageNum += 1;
+        }else {
+            [self.tableView.mj_footer endRefreshingWithNoMoreData] ;
+            
+        }
+    }
+    
     [self.listModel.list removeAllObjects];
     
     for (ETHTeamModel *teamModel in zhiArray) {
@@ -166,9 +190,10 @@ static NSString *const ETHSubordinateTableCellID = @"ETHSubordinateTableCellID";
         [self.listModel.list addObject:teamModel];
     }
     
-    
-    
-    [self.tableView reloadData];
+    if (self.isViewLoaded && self.view.window) {
+        [self.tableView reloadData];
+    }
+//    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -212,8 +237,15 @@ static NSString *const ETHSubordinateTableCellID = @"ETHSubordinateTableCellID";
     if (indexPath.section==0)
     {
         return 40;
+    }else {
+        ETHTeamModel *teamModel = self.listModel.list[indexPath.section -1];
+        if (teamModel.isChoice) {
+            return 75;
+        }else {
+            return 50;
+        }
+
     }
-    return 50;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -237,7 +269,14 @@ static NSString *const ETHSubordinateTableCellID = @"ETHSubordinateTableCellID";
     {
         //        ZFPersonalDataVC* vc = [[ZFPersonalDataVC alloc]init];
         //        [self.navigationController pushViewController:vc animated:YES];
+        
     }
+   ETHTeamModel *teamModel = self.listModel.list[indexPath.section -1];
+    teamModel.isChoice = !teamModel.isChoice;
+    
+    NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:indexPath.section];
+    [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+
 }
 
 

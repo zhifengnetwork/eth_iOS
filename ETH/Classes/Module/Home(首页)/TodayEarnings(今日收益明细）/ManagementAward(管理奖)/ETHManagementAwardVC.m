@@ -93,6 +93,7 @@ static NSString *const ETHManagementAwardCellID = @"ETHManagementAwardCellID";
     self.listModel = [ETHIncomeListModel mj_objectWithKeyValues:responseObject];
     
     self.titleLabel.text = [NSString stringWithFormat:@"管理奖总额：%@",self.listModel.money];
+    
     [self.tableView reloadData];
 }
 - (UITableView *)tableView{
@@ -118,12 +119,17 @@ static NSString *const ETHManagementAwardCellID = @"ETHManagementAwardCellID";
         _titleLabel = [[UILabel alloc]init];
         _titleLabel.font = [UIFont systemFontOfSize:17];
         _titleLabel.textColor = [UIColor whiteColor];
-        _titleLabel.text = @"管理奖总额：2";
+        _titleLabel.text = @"管理奖总额：";
     }return _titleLabel;
 }
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return self.listModel.list.count;
+}
+
 #pragma mark -- 协议
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.listModel.list.count;
+    return 1;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ETHManagementAwardCell *cell = [tableView dequeueReusableCellWithIdentifier:ETHManagementAwardCellID forIndexPath:indexPath];

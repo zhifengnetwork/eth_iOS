@@ -36,12 +36,14 @@
 }
 - (CGFloat)menuView:(WMMenuView *)menu titleSizeForState:(WMMenuItemState)state atIndex:(NSInteger)index{
     return 20;
+    
 }
 - (UIColor *)menuView:(WMMenuView *)menu titleColorForState:(WMMenuItemState)state atIndex:(NSInteger)index{
     if (state == WMMenuItemStateSelected) {
         return [UIColor redColor];
     }else{
         return [UIColor whiteColor];
+
     }
 }
 - (WMMenuViewStyle)menuViewStyle{

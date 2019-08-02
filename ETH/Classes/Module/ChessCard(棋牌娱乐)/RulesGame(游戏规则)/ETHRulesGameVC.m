@@ -35,12 +35,14 @@
     ZWeakSelf
     //中奖记录
     [SVProgressHUD showWithStatus:@"正在加载"];
+    
     [http_indexedit fucairule:^(id responseObject)
      {
          [SVProgressHUD dismiss];
          [weakSelf showData:responseObject];
      } failure:^(NSError *error) {
          [SVProgressHUD showErrorWithStatus:error.domain];
+         
      }];
 }
 

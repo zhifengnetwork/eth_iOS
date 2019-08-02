@@ -590,6 +590,7 @@ static float const DEFAULT_ITEM_SPACING = 20.0f;
 #pragma mark - UUMarqueeViewTouchResponder(private)
 - (void)touchesBegan {
     self.isPausingBeforeTouchesBegan = _isScrollNeedsToStop;
+    
     [self pause];
 }
 
@@ -617,7 +618,7 @@ static float const DEFAULT_ITEM_SPACING = 20.0f;
 - (void)touchesCancelled {
     if (!_isPausingBeforeTouchesBegan) {
         [self start];
-    }
+    }   
 }
 
 @end
@@ -653,6 +654,7 @@ static float const DEFAULT_ITEM_SPACING = 20.0f;
 - (void)clear {
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     _didFinishCreate = NO;
+    
 }
 
 @end

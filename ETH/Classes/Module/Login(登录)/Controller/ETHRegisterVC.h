@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  注册
  */
+
 @interface ETHRegisterVC : UIViewController
 
 //0:注册 1:找回密码

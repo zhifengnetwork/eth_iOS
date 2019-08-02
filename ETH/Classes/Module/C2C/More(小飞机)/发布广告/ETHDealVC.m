@@ -16,7 +16,7 @@
 #import "SVProgressHUD.h"
 #import "MJExtension.h"
 
-@interface ETHDealVC ()
+@interface ETHDealVC ()<UITextFieldDelegate>
 @property (nonatomic, strong)UIView *bgView;
 @property (nonatomic, strong)UILabel *priceLabel;
 @property (nonatomic, strong)ETHDealTF *priceTF;
@@ -58,6 +58,8 @@
     [self.bgView addSubview:self.totalLabel];
     [self.bgView addSubview:self.totalTF];
     [self.view addSubview:self.agreeButton];
+    _priceTF.delegate = self;
+    _numberTF.delegate = self;
     [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
 //        make.height.mas_equalTo(355);
@@ -136,13 +138,46 @@
         [SVProgressHUD showErrorWithStatus:error.domain];
     }];
 }
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+//    if (textField == _priceTF) {
+//
+//        if (textField.text.length >= 10)
+//            return NO;
+//
+//    }
+    if (textField == self.priceTF) {
+        //这里的if时候为了获取删除操作,如果没有次if会造成当达到字数限制后删除键也不能使用的后果.
+        if (range.length == 1 && string.length == 0) {
+            return YES;
+        }
+        //so easy
+        else if (self.priceTF.text.length >= 10) {
+            self.priceTF.text = [textField.text substringToIndex:10];
+            return NO;
+        }
+    }
+    if (textField == self.numberTF) {
+        //这里的if时候为了获取删除操作,如果没有次if会造成当达到字数限制后删除键也不能使用的后果.
+        if (range.length == 1 && string.length == 0) {
+            return YES;
+        }
+        //so easy
+        else if (self.numberTF.text.length >= 10) {
+            self.numberTF.text = [textField.text substringToIndex:10];
+            return NO;
+        }
+    }
+
+    return YES;
+   
+}
 
 - (void)showData:(id)responseObject{
     if (kObjectIsEmpty(responseObject)) {
         return;
     }
     self.detailModel = [ETHDetailModel mj_objectWithKeyValues:responseObject];
-    _referenceLabel.text = [NSString stringWithFormat:@"参考价格：￥%f~%f",_detailModel.list.trxprice.floatValue*0.9,_detailModel.list.trxprice.floatValue*1.1];
+    _referenceLabel.text = [NSString stringWithFormat:@"参考价格：￥%.6f~¥%.6f",_detailModel.list.trxprice.floatValue*0.900000,_detailModel.list.trxprice.floatValue*1.100000];
     _serviceCharge.text = [NSString stringWithFormat:@"手续费：%@%%",_detailModel.list.trxsxf];
 }
 
@@ -335,7 +370,10 @@
         _billCountTF.text = [NSString stringWithFormat:@"%.8f",count];
     }
 }
-
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
 
 - (void)agreeClick: (UIButton *)Btn{
     NSString * shouxufei = [NSString stringWithFormat:@"%ld",self.detailModel.list.trxsxf.integerValue/100];

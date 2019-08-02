@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "DZNEmptyDataSetTVC.h"
-
+#import "ETHTeamModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ETHAllRecordVC : DZNEmptyDataSetTVC
 
 //1投资总额,3查询转币记录,4投资记录,5:C2C交易记录
 @property (nonatomic , strong)NSString *type;
+@property (nonatomic,strong)ETHTeamModel *teamModel;
 
 @end
 

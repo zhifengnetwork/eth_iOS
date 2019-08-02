@@ -774,6 +774,7 @@ static dispatch_once_t onceToken;
             mixedTransform = CGAffineTransformRotate(translateToCenter,M_PI_2*3.0);
             videoComposition.renderSize = CGSizeMake(videoTrack.naturalSize.height,videoTrack.naturalSize.width);
             [roateLayerInstruction setTransform:mixedTransform atTime:kCMTimeZero];
+         
         }
         
         roateInstruction.layerInstructions = @[roateLayerInstruction];

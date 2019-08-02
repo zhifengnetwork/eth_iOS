@@ -76,6 +76,14 @@
     _timeLabel.text = [NSString stringWithFormat:@"充币时间：%@",_teamModel.createtime];
     _typeLabel.text = [NSString stringWithFormat:@"充币类型：%@",_teamModel.title];
     _moneyLabel.text = [NSString stringWithFormat:@"充币金额：%@",_teamModel.money];
+    if ([_teamModel.status isEqualToString:@"0"]) {
+        _stateLabel.text = [NSString stringWithFormat:@"投资状态：审核中"];
+
+    }else if ([_teamModel.status isEqualToString:@"1"])
+    {
+        _stateLabel.text = [NSString stringWithFormat:@"投资状态：成功"];
+
+    }
 }
 
 -(UIView *)bgView

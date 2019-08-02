@@ -58,6 +58,7 @@
         make.centerX.equalTo(self->_BJiconView);
     }];
     
+    
 }
 
 - (void)setBackgroundName:(NSString *)backgroundName
@@ -119,6 +120,11 @@
     }
     return _numberLabel;
 }
-
-
+//隐藏collectionview中某些属性（防止某些控件复用）
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    _numberLabel.text = nil;
+    _nameLabel.text = nil;
+    
+}
 @end

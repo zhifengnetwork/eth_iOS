@@ -109,7 +109,7 @@
 - (UIImageView *)iconImageView{
     if (_iconImageView == nil) {
         _iconImageView = [[UIImageView alloc]init];
-        _iconImageView.image = [UIImage imageNamed:@"tishi"];
+        _iconImageView.image = [UIImage imageNamed:@"tishi-1"];
     }return _iconImageView;
 }
 
@@ -226,6 +226,7 @@
 - (void)setMoney:(NSString *)money{
     _money = money;
     _InvestmentLabal.text = [NSString stringWithFormat:@"投资金额：%@",money];
+    NSLog(@"monney%@",money);
 
     _refundableLabel.text = [NSString stringWithFormat:@"可退金额：%f",money.floatValue *0.5];
 }

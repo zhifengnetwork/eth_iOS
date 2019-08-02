@@ -60,6 +60,7 @@
 @interface Arr2Model : NSObject<NSCoding>
 
 @property (nonatomic, copy) NSString *money;
+@property (nonatomic,copy) NSString *credit1;
 
 @end
 
@@ -91,6 +92,7 @@
 @property (nonatomic, copy) NSString *bankid;
 @property (nonatomic, copy) NSString *bankname;
 @property (nonatomic, copy) NSString *bank;
+@property (nonatomic, copy) NSString *walletaddress;
 
 //省
 @property (nonatomic, copy) NSString *province;
@@ -113,5 +115,6 @@
 
 //删除用户信息
 +(void)removeUserInfo;
+
 
 @end

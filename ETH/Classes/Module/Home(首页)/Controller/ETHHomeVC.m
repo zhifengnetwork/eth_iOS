@@ -63,6 +63,7 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    //保证跳转后NavigationBar不会被隐藏
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 //    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
@@ -77,7 +78,7 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
     
     self.collectionView.mj_header = [RefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadData)];
     [self.collectionView.mj_header beginRefreshing];
-    
+   
 }
 
 -(void)loadData
@@ -181,13 +182,14 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
             oell.backgroundName = @"Rectangle8";
             oell.iconName = @"Wallet";
             oell.title = @"钱包余额";
-            oell.number = self.indexDataModel.data.money;
+           oell.number = self.indexDataModel.data.money;
         }
         else if (indexPath.row==4)
         {
             oell.backgroundName = @"Rectangle9";
             oell.iconName = @"activation";
             oell.title = @"激活账户";
+            oell.tintColor = [UIColor clearColor];
         }
         else if (indexPath.row==5)
         {
@@ -320,6 +322,7 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
         }
         else{
             [SVProgressHUD showErrorWithStatus:@"该账号已锁户"];
+           
         }
     }else{//未锁户
         if (indexPath.section==1)
@@ -361,7 +364,6 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
     }
     
 }
-
 #pragma mark - <UIScrollViewDelegate>
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -383,6 +385,7 @@ static NSString *const ETHHomePageTitleHeadViewID = @"ETHHomePageTitleHeadViewID
     [UIView performWithoutAnimation:^{
         [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
     }];
+    
     
     //    [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
     //    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:0 inSection:1];

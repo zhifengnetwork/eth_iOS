@@ -73,6 +73,7 @@ static NSString *const ETHInvestmentIncomeCellID = @"ETHInvestmentIncomeCellID";
              [self.tableView.mj_header endRefreshing];
              [SVProgressHUD showErrorWithStatus:error.domain];
          }];
+        
     }
     else if (self.incomeType.intValue==2)
     {
@@ -99,7 +100,7 @@ static NSString *const ETHInvestmentIncomeCellID = @"ETHInvestmentIncomeCellID";
     
     self.listModel = [ETHIncomeListModel mj_objectWithKeyValues:responseObject];
     
-    self.titleLabel.text = [NSString stringWithFormat:@"收益总额：%@",self.listModel.money];
+    self.titleLabel.text = [NSString stringWithFormat:@"收益总额：%.6f",self.listModel.money.floatValue];
     
     [self.tableView reloadData];
 }
@@ -128,12 +129,16 @@ static NSString *const ETHInvestmentIncomeCellID = @"ETHInvestmentIncomeCellID";
         _titleLabel = [[UILabel alloc]init];
         _titleLabel.font = [UIFont systemFontOfSize:17];
         _titleLabel.textColor = [UIColor whiteColor];
-        _titleLabel.text = @"收益总额：68.987635";
+        _titleLabel.text = @"收益总额：";
     }return _titleLabel;
 }
 
 #pragma mark -- 协议
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return self.listModel.list.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

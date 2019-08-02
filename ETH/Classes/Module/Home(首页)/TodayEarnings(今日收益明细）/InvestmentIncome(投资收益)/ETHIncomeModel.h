@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy)NSString *title;
 @property (nonatomic , copy)NSString *money2;
 @property (nonatomic , copy)NSString *uniacid;
+@property (nonatomic , copy)NSString *money3;
 
 @end
 
